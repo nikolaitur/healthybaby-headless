@@ -66,15 +66,17 @@ function Product({ product }) {
   return (
     product && (
       <div className={styles.product}>
-        <div className={styles.media}>
-          <Image
-            src={product.content.featuredMedia.src}
-            alt={product.content.featuredMedia.altText}
-            width={530}
-            height={350}
-            className={styles.image}
-          />
-        </div>
+        {product.content.featuredMedia && (
+          <div className={styles.media}>
+            <Image
+              src={product.content.featuredMedia.src}
+              alt={product.content.featuredMedia.altText}
+              width={530}
+              height={350}
+              className={styles.image}
+            />
+          </div>
+        )}
         <div className={styles.main}>
           {product.content.title && <h1>{product.content.title}</h1>}
           <div className={styles.prices}>
