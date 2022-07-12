@@ -12,6 +12,7 @@
     "@nacelle/react-hooks": "^8.0.0",
     "@nacelle/shopify-checkout": "^0.0.12",
     "@nacelle/storefront-sdk": "^1.7.4",
+    "graphql": "^16.5.0",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
