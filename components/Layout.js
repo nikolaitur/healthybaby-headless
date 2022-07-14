@@ -2,7 +2,7 @@ import { nacelleClient } from 'services'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useEffect } from 'react'
 
-import Header from './Layout/Header'
+import { HeaderProvider } from '../context/HeaderContext';
 
 // This component utilizes `useCart` and `useCheckout` hooks from
 // `@nacelle/react-hooks` to clear cart and checkout data if the
@@ -24,24 +24,12 @@ function Layout({ children, headerSettings }) {
 
   return (
     <>
-      <Header content={headerSettings}/>
-      <main>{children}</main>
+      <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+          <main>{children}</main>
+      </HeaderProvider>     
     </>
   )
         
 }
 
 export default Layout
-
-// export async function getStaticProps({ previewData }) {
-//   console.log('loggged')
-//   const headerData = await nacelleClient.content({
-//     handles: ['announcement-bar']
-//   })
-
-//   console.log(headerData, 'pages')
-
-//   return {
-//     props: { headerData }
-//   }
-// }

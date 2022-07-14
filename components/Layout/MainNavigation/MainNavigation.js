@@ -1,7 +1,10 @@
 // import classes from './MainNavigation.scss'
 
+import MegaMenu from './MegaMenu'
+import MegaMenuItem from './MegaMenuItem'
 import DropDownMenuItem from './DropdownMenuItem'
-import Dropdown from './Dropdown'
+
+import { useHeaderContext } from '../../../context/HeaderContext'
 
 const classes = {
     mainNav: 'main-nav',
@@ -13,18 +16,33 @@ const classes = {
 }
 
 const MainNavigation = ({props}) => {
+    console.log(useHeaderContext(), 'headercontext')
     const logo = props.logo.fields.file.url
+    const primaryNavigation = props.mainNavigation
     const secondaryNavigation = props.secondaryNavigation
     const searchIcon = props.searchIcon.fields.file.url
     const accountIcon = props.babyIcon.fields.file.url
     const cartIcon = props.cartIcon.fields.file.url
-   
+
+    const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
+
+    let MegaMenuData = primaryNavigation[0].fields
+
+    console.log(MegaMenuData, 'test data')
+
+    const onMenuMouseEnter = () => {
+        setmegaMenuIsOpen(false);
+        setMegaMenu()
+    };
+    
     return (
       <nav className={classes.mainNav} id="SiteNav">
             <div className={classes.mainNavLeft}>
-                <div className={classes.mainNavItem}>Build a Box</div>
-                <div className={classes.mainNavItem}>Shop</div>
-                <div className={classes.mainNavItem}>Guides</div>
+                <div className={classes.mainNavItem} onMouseEnter={onMenuMouseEnter}>Build a Box</div>
+                {primaryNavigation.map((item, index) => (
+                    <MegaMenuItem key={index} menu={item} classes={classes} />
+                    // <div onClick={() => setmegaMenuIsOpen("true")} className={classes.mainNavItem}>{item.fields.title}</div>
+                ))}
             </div>
             <div className={classes.mainNavLogo}>
                 <img src={logo}/>
@@ -37,6 +55,8 @@ const MainNavigation = ({props}) => {
                 <div className={classes.mainNavItem}><img src={accountIcon}/></div>
                 <div className={classes.mainNavItem}><img src={cartIcon}/></div>
             </div>
+            
+            <MegaMenu menu={megaMenu} />
       </nav>
     )
   }
