@@ -7,7 +7,7 @@
     display: none;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 70px;
+    padding: 0px 50px;
     position: relative;
 
     @include breakpoint-up('md') {
@@ -68,6 +68,7 @@
         cursor: pointer;
         transition: 0.3s;
         color: #3D3331;
+        font-family: $NeutraText;
 
         @include breakpoint-up('md') {
             font-size: 18px;
@@ -166,7 +167,7 @@
 
     .mega-menu {
         // margin: 150px 0 0;
-        padding: 150px 20px 60px;
+        padding: 150px 0px 60px;
 
         &__primary-nav,
         &__secondary-nav,
@@ -204,6 +205,13 @@
             align-items: center;
             padding: 20px 25px;  
             cursor: pointer;
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            letter-spacing: 0.02em;
+            color: #3D3331;
 
             &:not(:first-child) {
                 margin-top: 20px;
@@ -261,7 +269,7 @@
         }
 
         &__sub-header {
-            font-family: 'Neutra Text';
+            font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
             font-size: 18px;
@@ -282,7 +290,7 @@
         }
 
         &__subtitle {
-            font-family: 'Neutra Text';
+            font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
             font-size: 18px;
@@ -291,7 +299,7 @@
         }
 
         &__eyebrow {
-            font-family: 'Domaine Display';
+            font-family: $DomaineText;
             font-style: normal;
             font-weight: 500;
             font-size: 24px;
@@ -301,7 +309,7 @@
         }
 
         &__price {
-            font-family: 'Neutra Text';
+            font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
             font-size: 18px;

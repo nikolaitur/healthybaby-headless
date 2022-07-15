@@ -1,7 +1,12 @@
 // ===========================================================================
 // *** Shared (Variables - Functions - Mixins)
 // ===========================================================================
-@import './shared.scss';
+@import '_shared.scss';
+
+// ===========================================================================
+// *** Fonts
+// ===========================================================================
+@import './fonts/_fonts.scss';
 
 // ===========================================================================
 // *** Utilities
@@ -16,26 +21,9 @@
 // @import './utility/_utility.scss';
 // @import './utility/_container.scss';
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-body.no-scroll {
-  overflow: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-};
-
-@import './MainNavigation.scss';
-@import './Layout/MobileNavigation.scss'
+// ===========================================================================
+// *** Layout
+// ===========================================================================
+@import './Layout/MainNavigation.scss';
+@import './Layout/MobileNavigation.scss';
+@import './Layout/Footer.scss'

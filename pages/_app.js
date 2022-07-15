@@ -16,7 +16,7 @@ import '../styles/globals.scss'
 // and passed to the `CheckoutProvider`.
 // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
 
-function AppContainer({ Component, pageProps, headerSettings }) {
+function AppContainer({ Component, pageProps, headerSettings, footerSettings }) {
   const checkoutClient = createShopifyCheckoutClient({
     myshopifyDomain: process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN,
     storefrontCheckoutToken:
@@ -27,7 +27,7 @@ function AppContainer({ Component, pageProps, headerSettings }) {
   return (
     <CartProvider>
       <CheckoutProvider checkoutClient={checkoutClient}>
-        <Layout headerSettings={headerSettings}>
+        <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
           <Component {...pageProps} />
         </Layout>
       </CheckoutProvider>
@@ -37,15 +37,15 @@ function AppContainer({ Component, pageProps, headerSettings }) {
 
 AppContainer.getInitialProps = async (appContext) => {
   const contentEntry = await nacelleClient.content({
-      handles: ['header-settings']
+      handles: ['header-settings', 'footer-settings']
   })
 
   const headerSettings = contentEntry[0]
-  // const footerSettings = contentEntry[1]
+  const footerSettings = contentEntry[1]
 
   const appProps = await App.getInitialProps(appContext);
 
-  return { ...appProps, headerSettings };
+  return { ...appProps, headerSettings, footerSettings };
 }
 
 export default AppContainer

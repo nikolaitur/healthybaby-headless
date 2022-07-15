@@ -23,3 +23,31 @@
         width: calc(50% - 100px);
     }
 }
+
+.mobile-menu {
+    position: fixed;
+    height: 100vh;
+    width: calc(100% - 70px);
+    background: #E7EBF4;
+    top: 44px;
+    z-index: 12;
+    transition: 0.3s;
+    transform: translateX(calc(-100% - 42px));
+
+    @include breakpoint-up('md') {
+        display: none;
+    }
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    &__close {
+        position: absolute;
+        right: -42px;
+        top: 24px;
+        background: #E7EBF4;
+        padding: 11px 12px;
+        border-radius: 0 4px 3px 0px;
+    }
+}

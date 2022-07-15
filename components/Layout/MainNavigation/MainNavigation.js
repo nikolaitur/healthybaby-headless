@@ -6,7 +6,9 @@ import DropDownMenuItem from './DropdownMenuItem'
 
 import { useHeaderContext } from '../../../context/HeaderContext'
 
+import Logo from '../../../svgs/healthybaby-logo.svg'
 import HamburgerMenu from '../../../svgs/hamburger-menu.svg'
+import CloseIcon from '../../../svgs/close-icon.svg'
 
 const MainNavigation = ({props}) => {
     const logo = props.logo.fields.file.url
@@ -27,6 +29,26 @@ const MainNavigation = ({props}) => {
 
     }
 
+    const closeMobileMenu = () => {
+
+    }
+
+    const openMobileMegaMenuSlide = () => {
+
+    }
+
+    const closeMobileMegaMenuSlide = () => {
+
+    }
+
+    const openMobileMenuSlide = () => {
+
+    }
+
+    const closeMobileMenuSlide = () => {
+
+    }
+
     // const megaMenuTest = megaMenu[0]
     
     return (
@@ -39,7 +61,7 @@ const MainNavigation = ({props}) => {
                 ))}
             </div>
             <div className="main-nav__logo">
-                <img src={logo}/>
+                <Logo/>
             </div>
             <div className="main-nav__right">
                 {secondaryNavigation.map((item, index) => (
@@ -65,14 +87,23 @@ const MainNavigation = ({props}) => {
             </div>
         </div>
         <div class="mobile-menu">
+            <div className="mobile-menu__close" onClick={closeMobileMenu}>
+                <CloseIcon />
+            </div>
             <div className="mobile-menu__primary">
                 <div className="main-nav__item">Build a Box</div>
                 {primaryNavigation.map((item, index) => (
-                    <div className="main-nav__item">{item.fields.title}</div>
+                    <div className="main-nav__item" key={index} >{item.fields.title}</div>
                 ))}
             </div>
             <div className="mobile-menu__secondary">
-
+                {secondaryNavigation.map((item, index) => (
+                    <div className="main-nav__item" key={index}>{item.fields.title}</div>
+                ))}
+            </div>
+            <div className="mobile-menu__sign-in"></div>
+            <div className="mobile-menu__slide">
+                <MegaMenu menu={megaMenu} />
             </div>
         </div>
       </>
