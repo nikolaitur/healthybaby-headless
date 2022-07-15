@@ -1,9 +1,31 @@
+// ===========================================================================
+// *** Shared (Variables - Functions - Mixins)
+// ===========================================================================
+@import './shared.scss';
+
+// ===========================================================================
+// *** Utilities
+// ===========================================================================
+@import './utility/reset.scss';
+@import './utility/_breakpoints.scss';
+// @import './utility/_container.scss';
+// @import './utility/_inputs.scss';
+// @import './utility/normalize.scss';
+// @import './utility/_typography.scss';
+// @import './utility/_ui-elements.scss';
+// @import './utility/_utility.scss';
+// @import './utility/_container.scss';
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body.no-scroll {
+  overflow: hidden;
 }
 
 a {
@@ -16,3 +38,4 @@ a {
 };
 
 @import './MainNavigation.scss';
+@import './Layout/MobileNavigation.scss'

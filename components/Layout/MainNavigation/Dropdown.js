@@ -1,8 +1,10 @@
 const Dropdown = ({ links, dropdown, classes }) => {
     return (
-      <ul className={`${classes.mainNavDropdown} ${dropdown ? "show" : ""}`}>
+      <ul className={`main-nav__dropdown ${dropdown ? "show" : ""}`}>
         {links.map((link, index) => (
-            <li key={index}>{link.fields.title}</li>
+            <li key={index}>
+                {link.fields.title}
+            </li>
         ))}
       </ul>
     );

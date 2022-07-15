@@ -31,7 +31,7 @@ const DropDownMenuItem = ({ item, classes }) => {
 
   return (
     <div
-      className={classes.mainNavItem}
+      className="main-nav__item"
       ref={ref}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

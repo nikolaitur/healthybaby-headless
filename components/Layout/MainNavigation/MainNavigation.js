@@ -6,17 +6,9 @@ import DropDownMenuItem from './DropdownMenuItem'
 
 import { useHeaderContext } from '../../../context/HeaderContext'
 
-const classes = {
-    mainNav: 'main-nav',
-    mainNavLogo: 'main-nav__logo',
-    mainNavLeft: 'main-nav__left',
-    mainNavRight: 'main-nav__right',
-    mainNavItem: 'main-nav__item',
-    mainNavDropdown: 'main-nav__dropdown',
-}
+import HamburgerMenu from '../../../svgs/hamburger-menu.svg'
 
 const MainNavigation = ({props}) => {
-    console.log(useHeaderContext(), 'headercontext')
     const logo = props.logo.fields.file.url
     const primaryNavigation = props.mainNavigation
     const secondaryNavigation = props.secondaryNavigation
@@ -26,38 +18,64 @@ const MainNavigation = ({props}) => {
 
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
 
-    let MegaMenuData = primaryNavigation[0].fields
-
-    console.log(MegaMenuData, 'test data')
-
     const onMenuMouseEnter = () => {
         setmegaMenuIsOpen(false);
         setMegaMenu()
     };
+
+    const openMobileMenu = () => {
+
+    }
+
+    // const megaMenuTest = megaMenu[0]
     
     return (
-      <nav className={classes.mainNav} id="SiteNav">
-            <div className={classes.mainNavLeft}>
-                <div className={classes.mainNavItem} onMouseEnter={onMenuMouseEnter}>Build a Box</div>
+    <>
+        <div className="main-nav">
+            <div className="main-nav__left">
+                <div className="main-nav__item" onMouseEnter={onMenuMouseEnter}>Build a Box</div>
                 {primaryNavigation.map((item, index) => (
-                    <MegaMenuItem key={index} menu={item} classes={classes} />
-                    // <div onClick={() => setmegaMenuIsOpen("true")} className={classes.mainNavItem}>{item.fields.title}</div>
+                    <MegaMenuItem key={index} menu={item}/>
                 ))}
             </div>
-            <div className={classes.mainNavLogo}>
+            <div className="main-nav__logo">
                 <img src={logo}/>
             </div>
-            <div className={classes.mainNavRight}>
+            <div className="main-nav__right">
                 {secondaryNavigation.map((item, index) => (
-                    <DropDownMenuItem key={index} item={item} classes={classes} />
+                    <DropDownMenuItem key={index} item={item} />
                 ))}
-                <div className={classes.mainNavItem}><img src={searchIcon}/></div>
-                <div className={classes.mainNavItem}><img src={accountIcon}/></div>
-                <div className={classes.mainNavItem}><img src={cartIcon}/></div>
-            </div>
-            
+                <div className="main-nav__item"><img src={searchIcon}/></div>
+                <div className="main-nav__item"><img src={accountIcon}/></div>
+                <div className="main-nav__item"><img src={cartIcon}/></div>
+            </div> 
             <MegaMenu menu={megaMenu} />
-      </nav>
+        </div>
+        <div className="mobile-nav">
+            <div className="mobile-nav__left">
+                <div className="main-nav__item" onClick={openMobileMenu}><HamburgerMenu /></div>
+                <div className="main-nav__item"><HamburgerMenu /></div>
+            </div>
+            <div className="mobile-nav__logo">
+                <img src={logo}/>
+            </div>
+            <div className="mobile-nav__right">
+                <div className="main-nav__item"><HamburgerMenu /></div>
+                <div className="main-nav__item"><HamburgerMenu /></div>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <div className="mobile-menu__primary">
+                <div className="main-nav__item">Build a Box</div>
+                {primaryNavigation.map((item, index) => (
+                    <div className="main-nav__item">{item.fields.title}</div>
+                ))}
+            </div>
+            <div className="mobile-menu__secondary">
+
+            </div>
+        </div>
+      </>
     )
   }
   
