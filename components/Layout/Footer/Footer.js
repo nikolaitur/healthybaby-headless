@@ -1,3 +1,5 @@
+import FooterNewsletter from './FooterNewsletter'
+import FooterAccordion from './FooterAccordion'
 import BrandIcon from '../../../svgs/brand-icon.svg'
 import Twitter from '../../../svgs/twitter-logo.svg'
 import Youtube from '../../../svgs/youtube-logo.svg'
@@ -8,18 +10,16 @@ import FooterDetail2 from '../../../svgs/footer-detail-2.svg'
 
 const Footer = ({ content }) => {
     const { mainNavigation } = content.fields
+
     console.log(mainNavigation)
     return (
       <footer>
         <div className="footer">
             <div className="footer__container">
-                <div className="footer__newsletter">
-                    <div className="footer__eyebrow">OUR WEEKLY NEWSLETTER</div>
-                    <div className="footer__header">Get expert insights, developmental activities, community events & personalized support</div>
-                </div>
+                <FooterNewsletter />
                 <div className="footer__nav">
                     {mainNavigation.map((item, index) => (
-                        <div className="footer__wrapper" key={index}>
+                        <div className="footer__wrapper footer__wrapper--main" key={index}>
                             <div className="footer__title">
                                 {item.fields.title}
                             </div>
@@ -32,6 +32,11 @@ const Footer = ({ content }) => {
                             </div>
                         </div>
                     ))}
+                    <div class="footer__wrapper footer__wrapper--accordion">
+                        {mainNavigation.map((item, index) => (
+                            <FooterAccordion key={index} title={item.fields.title} links={item.fields.links} />
+                        ))}
+                    </div>
                     <div className="footer__wrapper footer__wrapper--brand">
                         <BrandIcon />
                     </div>
@@ -42,7 +47,7 @@ const Footer = ({ content }) => {
                         <div className="footer__policies">
                             <div className="footer__policy">Terms Of Use</div>
                             <div className="footer__policy">Privacy Policy</div>
-                            <div className="footer__policy">Accessibility Statement  </div>
+                            <div className="footer__policy">Accessibility Statement</div>
                         </div>
                     </div>
                     <div className='footer__social'>
@@ -58,6 +63,9 @@ const Footer = ({ content }) => {
                         <div className="footer__icon">
                             <Instagram/>
                         </div>
+                    </div>
+                    <div className="footer__policy footer__policy--mobile">
+                        Terms Of Use <span>|</span> Privacy Policy <span>|</span> Accessibility Statement 
                     </div>
                 </div>
             </div>

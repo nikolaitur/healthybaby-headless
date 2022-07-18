@@ -17,9 +17,9 @@ export function HeaderProvider({ children, content, pageHandle }) {
   const headerRef = useRef()
 
   // if(megaMenuIsOpen) {
-  //   document.querySelector("body").classList.add("no-scroll")
+  //   document.body.classList.add("no-scroll")
   // } else {
-  //   document.querySelector("body").classList.remove("no-scroll")
+  //   document.body.classList.remove("no-scroll")
   // }
 
   return (
