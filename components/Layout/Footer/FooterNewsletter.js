@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import PaperPlane from '../../../svgs/paper-plane-tilt.svg'
 
-const FooterNewsletter = ({ title, links }) => {
+const FooterNewsletter = ({ content}) => {
   const handleSubmit = () => {
 
   }
@@ -10,11 +10,11 @@ const FooterNewsletter = ({ title, links }) => {
   return (
     <div className="footer__newsletter">
         <div className="footer__content">
-            <div className="footer__eyebrow">OUR WEEKLY NEWSLETTER</div>
-            <div className="footer__header">Get expert insights, developmental activities, community events & personalized support</div>
+            <div className="footer__eyebrow">{content.fields.subtitle}</div>
+            <div className="footer__header">{content.fields.header}</div>
         </div>
         <form className="footer__form">
-            <input type="text" placeholder="your email..." />
+            <input type="text" placeholder={content.fields.inputPlaceholder} />
             <div className="footer__submit" onClick={() => handleSubmit()}>
                 <PaperPlane />
             </div>

@@ -37,7 +37,7 @@ const DropDownMenuItem = ({ item, classes }) => {
       onMouseLeave={onMouseLeave}
     >
         <span>{item.fields.title}</span>
-        <Dropdown links={item.fields.navLinks} dropdown={dropdown} classes={classes}/>
+        <Dropdown links={item.fields.primaryNavLinks} dropdown={dropdown} classes={classes}/>
     </div>
   );
 };

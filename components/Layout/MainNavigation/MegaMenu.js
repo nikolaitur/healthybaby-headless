@@ -5,7 +5,7 @@ import { useHeaderContext } from '../../../context/HeaderContext'
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
-const MegaMenu = ({ menu, dropdown }) => {
+const MegaMenu = ({ menu, menuColors }) => {
     if (!menu) {
         return ''
     }
@@ -102,7 +102,7 @@ const MegaMenu = ({ menu, dropdown }) => {
                 </div>
             : ""}
         </div>
-        <div className={`main-nav__mega-menu--overlay ${megaMenuIsOpen ? 'show' : ''}`} onMouseEnter={onOverLayMouseEnter}></div>
+        <div className={`mega-menu__overlay ${megaMenuIsOpen ? 'show' : ''}`} onMouseEnter={onOverLayMouseEnter}></div>
       </>
     );
   };

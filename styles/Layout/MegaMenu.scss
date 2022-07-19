@@ -1,0 +1,239 @@
+.mega-menu {
+    padding: 90px 0px 60px;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background: #fff;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    overflow: scroll;
+
+    @include breakpoint-up('md') {
+        width: 568px;
+        padding: 150px 0px 60px;
+    }
+
+    &.show {
+        opacity: 1;
+        pointer-events: initial;
+    }
+
+    &__overlay {
+        width: 100vw;
+        position: absolute;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        opacity: 0.5;
+        background: #000;
+        filter: blur(0px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        display: none;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
+
+        &.show {
+            opacity: 0.3;
+            pointer-events: initial;
+        }
+    }
+
+    &__primary-nav,
+    &__secondary-nav,
+    &__featured-articles,
+    &__featured-products {
+        position: relative;
+
+        &:before {
+            content: "";
+            width: calc(100% - 56px);
+            left: 28px;
+            bottom: -15px;
+            height: 1px;
+            background: #D0D8E9;
+            position: absolute;
+
+            @include breakpoint-up('md') {
+                left: 50px;
+                width: calc(100% - 100px);
+            }
+        }
+    }
+
+    // Remove Bottom Border from last child
+    > :last-child {
+        &:before {
+            display: none;
+        }
+    }
+
+    &__featured-articles,
+    &__featured-products {
+        padding: 60px 28px 40px;
+
+        @include breakpoint-up('md') {
+            padding: 60px 50px 40px;
+        }
+    }
+
+    &__featured-article {
+        background: #FFE7AB;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;  
+        cursor: pointer;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
+
+        &:nth-child(2) {
+            background: #F0E3E5;
+        }
+
+        &:nth-child(3) {
+            background: #C7E0E5;
+        }
+
+        &:nth-child(4) {
+            background: #B7DCF2;
+        }
+    }
+
+    &__featured-products {
+
+    }
+
+    &__featured-product {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        &:not(:first-child) {
+            margin-top: 40px;
+        }
+    }
+
+    &__content {
+        padding-left: 30px;
+    }
+
+    &__link {
+        cursor: pointer;
+        padding: 20px 28px;
+        transition: 0.3s;
+
+        @include breakpoint-up('md') {
+            padding: 30px 50px;
+        }
+
+        &:hover {
+            background-color: var(--megaMenuLinkBackground);
+        }
+    }
+
+    &__sub-link {
+        cursor: pointer;
+        padding: 10px 28px 10px;
+        transition: 0.3s;
+
+        @include breakpoint-up('md') {
+            padding: 10px 50px 10px;
+        }
+
+        &:first-of-type {
+            padding: 60px 28px 10px;
+
+            @include breakpoint-up('md') {
+                padding: 60px 50px 10px;
+            }
+        }
+    }
+
+    &__sub-header {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+
+    &__title {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 26px;
+        letter-spacing: 0.02em;
+        margin-bottom: 10px;
+
+        @include breakpoint-up('md') {
+            font-size: 32px;
+            line-height:38px;
+        }
+    }
+
+    &__subtitle {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: -0.01em;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 25px;
+        }
+    }
+
+    &__eyebrow {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 24px;
+        color: #3D3331;
+        margin-bottom: 10px;
+    }
+
+    &__price {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: -0.01em;
+        color: #3D3331;
+    }
+
+    &__image {
+        max-width: 150px;
+        width: 100%;
+
+        img {
+            max-height: 120px;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+}

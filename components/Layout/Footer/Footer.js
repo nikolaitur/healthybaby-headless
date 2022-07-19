@@ -9,14 +9,13 @@ import FooterDetail1 from '../../../svgs/footer-detail-1.svg'
 import FooterDetail2 from '../../../svgs/footer-detail-2.svg'
 
 const Footer = ({ content }) => {
-    const { mainNavigation } = content.fields
+    const { mainNavigation, newsletter } = content.fields
 
-    console.log(mainNavigation)
     return (
       <footer>
         <div className="footer">
             <div className="footer__container">
-                <FooterNewsletter />
+                <FooterNewsletter content={newsletter} />
                 <div className="footer__nav">
                     {mainNavigation.map((item, index) => (
                         <div className="footer__wrapper footer__wrapper--main" key={index}>
@@ -25,14 +24,14 @@ const Footer = ({ content }) => {
                             </div>
                             <div className="footer__links">
                                 {item.fields.links.map((link, index) => (
-                                    <div class="footer__link" key={index}>
+                                    <div className="footer__link" key={index}>
                                         {link.fields.title}
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
-                    <div class="footer__wrapper footer__wrapper--accordion">
+                    <div className="footer__wrapper footer__wrapper--accordion">
                         {mainNavigation.map((item, index) => (
                             <FooterAccordion key={index} title={item.fields.title} links={item.fields.links} />
                         ))}
