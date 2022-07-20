@@ -15,7 +15,7 @@ const FooterAccordion = ({ title, links }) => {
       {isActive && 
         <ul className={`accordion-content ${isActive ? "is-open" : ""}`}>
             {links.map((link, index) => (
-                <li class="accordion-link" key={index}>
+                <li className="accordion-link" key={index}>
                      <Link href={link.fields.url}>
                         {link.fields.title}
                      </Link>

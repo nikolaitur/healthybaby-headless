@@ -1,41 +1,43 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { useHeaderContext } from '../../../context/HeaderContext'
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const MegaMenu = ({ menu, menuColors }) => {
-    if (!menu) {
-        return ''
-    }
-    
     const { megaMenuIsOpen, setmegaMenuIsOpen, setMegaMenu, megaMenuFeaturedProducts, setMegaMenuFeaturedProducts } = useHeaderContext()
     const [featuredProducts, setFeaturedProducts] = useState([])
-    let backgroundColor = '';
-
-    // setmegaMenuIsOpen(true)
 
     useEffect(() => {
         getFeaturedProducts()
     }, [megaMenuFeaturedProducts]);
 
+    const getFeaturedProducts = async () => {
+        if(menu) {
+            if(menu.fields.featuredProductsList) {
+                const productList = menu.fields.featuredProductsList.split(',')
+                await nacelleClient.products({
+                    handles: productList
+                }).then(response => {
+                    setMegaMenuFeaturedProducts(response)
+                })
+            }
+        }   
+    }
+
+    if (!menu) {
+        return ''
+    }
+    
+    let backgroundColor = '';
+
     if (menu) {
         backgroundColor = menu.fields.backgroundColor
         document.documentElement.style.setProperty('--menuItemHover',  menu.fields.hoverColor);
         document.documentElement.style.setProperty('--megaMenuLinkBackground',  menu.fields.backgroundHoverColor);
-    }
-
-    const getFeaturedProducts = async () => {
-        if(menu.fields.featuredProductsList) {
-            const productList = menu.fields.featuredProductsList.split(',')
-            await nacelleClient.products({
-                handles: productList
-            }).then(response => {
-                setMegaMenuFeaturedProducts(response)
-            })
-        }
     }
 
     const onLinkMouseEnter = (hoverColor, backgroundHoverColor) => {
@@ -55,8 +57,8 @@ const MegaMenu = ({ menu, menuColors }) => {
             {menu.fields.primaryNavLinks ? 
                 <div className="mega-menu__primary-nav">
                     {menu.fields.primaryNavLinks.map((link, index) => (
-                        <Link href={link.fields.url}>
-                            <div className="mega-menu__link" key={index} onMouseEnter={() => onLinkMouseEnter(menu.fields.hoverColor, menu.fields.backgroundHoverColor)}>
+                        <Link href={link.fields.url} key={index}>
+                            <div className="mega-menu__link" onMouseEnter={() => onLinkMouseEnter(menu.fields.hoverColor, menu.fields.backgroundHoverColor)}>
                                 <div className="mega-menu__title">{link.fields.title}</div>
                                 <div className="mega-menu__subtitle">{link.fields.subtitle}</div>
                             </div>
@@ -67,8 +69,8 @@ const MegaMenu = ({ menu, menuColors }) => {
             {menu.fields.secondaryNavLinks ?
                 <div className="mega-menu__secondary-nav">
                     {menu.fields.secondaryNavLinks.map((link, index) => (
-                        <Link href={link.fields.url}>
-                            <div className="mega-menu__sub-link" key={index}>
+                        <Link href={link.fields.url} key={index}>
+                            <div className="mega-menu__sub-link" >
                                 <div className="mega-menu__title">{link.fields.title}</div>
                             </div>
                         </Link>
@@ -79,8 +81,8 @@ const MegaMenu = ({ menu, menuColors }) => {
                 <div className="mega-menu__featured-articles">
                     <div className="mega-menu__sub-header">Featrued Articles</div>
                     {menu.fields.featuredArticles.map((article, index) => (
-                        <Link href={article.fields.handle}>
-                            <div className="mega-menu__featured-article" key={index}>
+                        <Link href={article.fields.handle} key={index}>
+                            <div className="mega-menu__featured-article" >
                                 <span>{article.fields.title}</span>
                                 <span><LongArrowRight /></span>
                             </div>
@@ -95,9 +97,17 @@ const MegaMenu = ({ menu, menuColors }) => {
                         <div key={index} className="mega-menu__featured-product">
                             <div className="mega-menu__image">
                                 {product.content.featuredMedia ? 
-                                    <img src={product.content.featuredMedia.src}/>
+                                    <Image
+                                        src={product.content.featuredMedia.src}
+                                        alt={product.content.title}
+                                        layout="fill"
+                                    />
                                 : 
-                                    <img src="http://placeimg.com/150/120/people"/>
+                                    <Image
+                                        src="https://placeimg.com/150/120/people"
+                                        alt={product.content.title}
+                                        layout="fill"
+                                    />
                                 }
                             </div>
                             <div className="mega-menu__content">

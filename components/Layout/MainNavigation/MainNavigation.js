@@ -1,6 +1,7 @@
 // import classes from './MainNavigation.scss'
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import MegaMenu from './MegaMenu'
 import MegaMenuItem from './MegaMenuItem'
@@ -9,6 +10,7 @@ import DropDownMenuItem from './DropdownMenuItem'
 import { useHeaderContext } from '../../../context/HeaderContext'
 
 import Logo from '../../../svgs/healthybaby-logo.svg'
+import LogoMobile from '../../../svgs/healthybaby-logo-mobile.svg'
 import HamburgerMenu from '../../../svgs/hamburger-menu.svg'
 import Search from '../../../svgs/search.svg'
 import Baby from '../../../svgs/baby.svg'
@@ -98,9 +100,15 @@ const MainNavigation = ({props}) => {
                 {secondaryNavigation.map((item, index) => (
                     <DropDownMenuItem key={index} item={item} />
                 ))}
-                <div className="main-nav__item"><img src={searchIcon}/></div>
-                <div className="main-nav__item"><img src={accountIcon}/></div>
-                <div className="main-nav__item"><img src={cartIcon}/></div>
+                <div className="main-nav__item">
+                    <Search/>
+                </div>
+                <div className="main-nav__item">
+                    <Baby/>
+                </div>
+                <div className="main-nav__item">
+                    <Cart />
+                </div>
             </div> 
             <MegaMenu menu={megaMenu} />
         </div>
@@ -114,7 +122,7 @@ const MainNavigation = ({props}) => {
                 </div>
             </div>
             <div className="mobile-nav__logo">
-                <img src={logo} />
+                <LogoMobile />
             </div>
             <div className="mobile-nav__right">
                 <div className="main-nav__item">

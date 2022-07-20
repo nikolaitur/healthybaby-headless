@@ -16,11 +16,11 @@ export function HeaderProvider({ children, content, pageHandle }) {
 
   const headerRef = useRef()
 
-  if(megaMenuIsOpen) {
-    document.body.classList.add("no-scroll")
-  } else {
-    document.body.classList.remove("no-scroll")
-  }
+  // if(megaMenuIsOpen) {
+  //   document.body.classList.add("no-scroll")
+  // } else {
+  //   document.body.classList.remove("no-scroll")
+  // }
 
   return (
     <HeaderContext.Provider value={{ megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu, megaMenuFeaturedProducts, setMegaMenuFeaturedProducts}}>
