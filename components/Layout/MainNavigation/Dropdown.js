@@ -1,9 +1,13 @@
-const Dropdown = ({ links, dropdown, classes }) => {
+import Link from 'next/link';
+
+const Dropdown = ({ links, dropdown }) => {
     return (
       <ul className={`main-nav__dropdown ${dropdown ? "show" : ""}`}>
         {links.map((link, index) => (
             <li key={index}>
-                {link.fields.title}
+                <Link href={link.fields.url}>
+                    {link.fields.title}
+                </Link>
             </li>
         ))}
       </ul>

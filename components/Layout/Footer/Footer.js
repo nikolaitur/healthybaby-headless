@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import FooterNewsletter from './FooterNewsletter'
 import FooterAccordion from './FooterAccordion'
 import BrandIcon from '../../../svgs/brand-icon.svg'
@@ -9,7 +11,24 @@ import FooterDetail1 from '../../../svgs/footer-detail-1.svg'
 import FooterDetail2 from '../../../svgs/footer-detail-2.svg'
 
 const Footer = ({ content }) => {
-    const { mainNavigation, newsletter } = content.fields
+    const { mainNavigation, newsletter, copyright, policy, social } = content.fields
+
+    console.log(content.fields, "fields")
+
+    const getSocialIcon = (title) => {
+        switch(title){
+            case 'Twitter': 
+                return <Twitter/>;
+            case 'Youtube': 
+                return <Youtube/>; 
+            case 'Facebook': 
+                return <Facebook/>; 
+            case 'Instagram': 
+                return <Instagram/>; 
+        }
+    }
+
+    console.log(getSocialIcon('Twitter'))
 
     return (
       <footer>
@@ -25,7 +44,9 @@ const Footer = ({ content }) => {
                             <div className="footer__links">
                                 {item.fields.links.map((link, index) => (
                                     <div className="footer__link" key={index}>
-                                        {link.fields.title}
+                                        <Link href={link.fields.url}>
+                                            {link.fields.title}
+                                        </Link>
                                     </div>
                                 ))}
                             </div>
@@ -42,29 +63,36 @@ const Footer = ({ content }) => {
                 </div>
                 <div className="footer__copyright">
                     <div className='footer__legal'>
-                        <div className="footer__copy">&copy; {new Date().getFullYear()} Fewer Better Things Inc.,  All Rights Reserved.</div>            
+                        <div className="footer__copy">&copy; {new Date().getFullYear()} {copyright}</div>            
                         <div className="footer__policies">
-                            <div className="footer__policy">Terms Of Use</div>
-                            <div className="footer__policy">Privacy Policy</div>
-                            <div className="footer__policy">Accessibility Statement</div>
+                            {policy.map((item, index) => (
+                                <Link href={item.fields.url} key={index}>
+                                    <div className="footer__policy">{item.fields.title}</div>
+                                </Link>
+                            ))}
                         </div>
                     </div>
                     <div className='footer__social'>
-                        <div className="footer__icon">
-                            <Twitter/>
-                        </div>
-                        <div className="footer__icon">
-                            <Youtube/>
-                        </div>
-                        <div className="footer__icon">
-                            <Facebook/>
-                        </div>
-                        <div className="footer__icon">
-                            <Instagram/>
-                        </div>
+                        {social.map((item, index) => (
+                            <Link href={item.fields.url} key={index}>
+                                <div className="footer__icon">
+                                    {getSocialIcon(item.fields.title)}
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                     <div className="footer__policy footer__policy--mobile">
-                        Terms Of Use <span>|</span> Privacy Policy <span>|</span> Accessibility Statement 
+                        <Link href={policy[0].fields.url}>
+                            {policy[0].fields.title}  
+                        </Link>
+                        <span>|</span>
+                        <Link href={policy[1].fields.url}>
+                            {policy[1].fields.title}  
+                        </Link>
+                        <span>|</span>
+                        <Link href={policy[2].fields.url}>
+                            {policy[2].fields.title}  
+                        </Link>
                     </div>
                 </div>
             </div>

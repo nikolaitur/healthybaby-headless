@@ -83,6 +83,18 @@
         &:last-of-type {
             padding-right: 0;
         }
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            color: #3D3331;
+            font-family: $NeutraText;
+
+            &:hover {
+                color: var(--menuItemHover);
+            }
+        }
     }
 
     &__dropdown {

@@ -80,13 +80,19 @@ const MainNavigation = ({props}) => {
     <>
         <div className="main-nav">
             <div className="main-nav__left">
-                <div className="main-nav__item" onMouseEnter={onMenuMouseEnter}>Build a Box</div>
+                <div className="main-nav__item" onMouseEnter={onMenuMouseEnter}>
+                    <Link href="/">
+                        Build a Box
+                    </Link>
+                </div>
                 {primaryNavigation.map((item, index) => (
                     <MegaMenuItem key={index} menu={item}/>
                 ))}
             </div>
             <div className="main-nav__logo">
-               <Logo />
+                <Link href="/">
+                    <Logo />
+                </Link>
             </div>
             <div className="main-nav__right">
                 {secondaryNavigation.map((item, index) => (

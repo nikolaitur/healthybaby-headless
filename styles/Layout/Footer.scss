@@ -92,7 +92,7 @@ $NeutraText: 'NeutraText';
                 padding-left: 30px;
                 justify-content: flex-end;
                 align-items: flex-start;
-                min-width: 300px;
+                min-width: 130px;
             }
         }
 
@@ -201,16 +201,24 @@ $NeutraText: 'NeutraText';
     }
 
     &__link {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 29px;
-        color: #3D3331;
-        cursor: pointer;
-
         &:not(:first-child) {
             margin-top: 30px;
+        }
+
+        a {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29px;
+            color: #3D3331;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+
+            &:hover {
+                color: #123A8F;
+            }
         }
     }
 

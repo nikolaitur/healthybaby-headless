@@ -23,6 +23,7 @@
         background: var(--menuBackground);
         padding: 11px 12px;
         border-radius: 0 4px 3px 0px;
+        cursor: pointer;
     }
 
     &__back {
@@ -85,6 +86,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
 
         svg {
             transform: rotate(90deg);

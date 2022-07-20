@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import Link from 'next/link';
 
 import { useHeaderContext } from '../../../context/HeaderContext'
 
@@ -54,19 +55,23 @@ const MegaMenu = ({ menu, menuColors }) => {
             {menu.fields.primaryNavLinks ? 
                 <div className="mega-menu__primary-nav">
                     {menu.fields.primaryNavLinks.map((link, index) => (
-                        <div className="mega-menu__link" key={index} onMouseEnter={() => onLinkMouseEnter(menu.fields.hoverColor, menu.fields.backgroundHoverColor)}>
-                            <div className="mega-menu__title">{link.fields.title}</div>
-                            <div className="mega-menu__subtitle">{link.fields.subtitle}</div>
-                        </div>
+                        <Link href={link.fields.url}>
+                            <div className="mega-menu__link" key={index} onMouseEnter={() => onLinkMouseEnter(menu.fields.hoverColor, menu.fields.backgroundHoverColor)}>
+                                <div className="mega-menu__title">{link.fields.title}</div>
+                                <div className="mega-menu__subtitle">{link.fields.subtitle}</div>
+                            </div>
+                        </Link>    
                     ))}
                 </div>
             : ""}
             {menu.fields.secondaryNavLinks ?
                 <div className="mega-menu__secondary-nav">
                     {menu.fields.secondaryNavLinks.map((link, index) => (
-                        <div className="mega-menu__sub-link" key={index}>
-                            <div className="mega-menu__title">{link.fields.title}</div>
-                        </div>
+                        <Link href={link.fields.url}>
+                            <div className="mega-menu__sub-link" key={index}>
+                                <div className="mega-menu__title">{link.fields.title}</div>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             : ""}
@@ -74,9 +79,12 @@ const MegaMenu = ({ menu, menuColors }) => {
                 <div className="mega-menu__featured-articles">
                     <div className="mega-menu__sub-header">Featrued Articles</div>
                     {menu.fields.featuredArticles.map((article, index) => (
-                        <div className="mega-menu__featured-article" key={index}>
-                            <span>{article.fields.title}</span><span><LongArrowRight /></span>
-                        </div>
+                        <Link href={article.fields.handle}>
+                            <div className="mega-menu__featured-article" key={index}>
+                                <span>{article.fields.title}</span>
+                                <span><LongArrowRight /></span>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             : ""}
