@@ -5,10 +5,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home({ pages }) {
-  console.log(pages)
   // const homePage = pages.find((page) => page.handle === 'homepage')
-
-  // console.log(homePage) 
   return (
     <div className={styles.container} style={{backgroundColor: "lightblue"}}>
       <Head>

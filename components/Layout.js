@@ -14,9 +14,6 @@ function Layout({ children, headerSettings, footerSettings }) {
   const [, { clearCart }] = useCart()
   const [{ completed }, { clearCheckoutData }] = useCheckout()
 
-  // console.log(headerSettings)
-  console.log('footer-settings', footerSettings)
-
   useEffect(() => {
     if (completed) {
       clearCheckoutData()
