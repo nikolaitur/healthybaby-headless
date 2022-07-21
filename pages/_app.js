@@ -1,7 +1,9 @@
+import App from 'next/app'
+import { nacelleClient } from 'services'
 import { CartProvider, CheckoutProvider } from '@nacelle/react-hooks'
 import createShopifyCheckoutClient from '@nacelle/shopify-checkout'
 import Layout from 'components/Layout'
-import '../styles/globals.css'
+import '../styles/globals.scss'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)
@@ -14,7 +16,7 @@ import '../styles/globals.css'
 // and passed to the `CheckoutProvider`.
 // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
 
-function AppContainer({ Component, pageProps }) {
+function AppContainer({ Component, pageProps, headerSettings, footerSettings }) {
   const checkoutClient = createShopifyCheckoutClient({
     myshopifyDomain: process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN,
     storefrontCheckoutToken:
@@ -25,12 +27,25 @@ function AppContainer({ Component, pageProps }) {
   return (
     <CartProvider>
       <CheckoutProvider checkoutClient={checkoutClient}>
-        <Layout>
+        <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
           <Component {...pageProps} />
         </Layout>
       </CheckoutProvider>
     </CartProvider>
   )
+}
+
+AppContainer.getInitialProps = async (appContext) => {
+  const contentEntry = await nacelleClient.content({
+      handles: ['header-settings', 'footer-settings']
+  })
+
+  const headerSettings = contentEntry[0]
+  const footerSettings = contentEntry[1]
+
+  const appProps = await App.getInitialProps(appContext);
+
+  return { ...appProps, headerSettings, footerSettings };
 }
 
 export default AppContainer

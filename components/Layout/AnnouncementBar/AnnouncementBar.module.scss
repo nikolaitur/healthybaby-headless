@@ -1,0 +1,22 @@
+.announcementBar {
+    padding: 14px;
+    text-align: center;
+    position: relative;
+    z-index: 13;
+
+    .announcementBarText {
+        color: #3D3331;
+        margin: 0;
+        font-family: 'NeutraText';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        letter-spacing: -0.01em;
+
+        @media screen and (min-width: 1074px) {
+            font-size: 22px;
+            line-height: 31px;
+        }
+    }
+}

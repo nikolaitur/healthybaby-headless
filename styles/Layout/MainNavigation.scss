@@ -1,0 +1,136 @@
+:root {
+    --menuBackground: #E7EBF4;
+    --menuItemHover: #123A8F;
+    --megaMenuLinkBackground: #ffffff;
+}
+
+.main-nav {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 50px;
+    position: relative;
+
+    @include breakpoint-up('md') {
+        display: flex;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        width: 550px;
+        height: 450px;
+        background: #fff;
+        border-radius: 100%;
+        left: 50%;
+        top: -280px;
+        z-index: 0;
+        transform: translateX(-50%);
+    }
+
+    &__logo {
+        width: 225px;
+        position: relative;
+        max-height: 96px;
+        transform: translateY(40px);
+        cursor: pointer;
+
+        img {
+            max-height: 96px;
+            width: 100%;
+            object-fit: cover;
+
+            @include breakpoint-up('sm') {
+                max-height: 96px;
+            }
+        }
+    };
+
+    &__left {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: calc(50% - 100px);
+        z-index: 11;
+    }
+
+    &__right {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: calc(50% - 100px);
+    }
+
+    &__item {
+        position: relative;
+        padding-right: 28px;
+        cursor: pointer;
+        transition: 0.3s;
+        color: #3D3331;
+        font-family: $NeutraText;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 21px;
+        }
+
+        &:hover {
+            color: var(--menuItemHover);
+        }
+
+        &:last-of-type {
+            padding-right: 0;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            color: #3D3331;
+            font-family: $NeutraText;
+
+            &:hover {
+                color: var(--menuItemHover);
+            }
+        }
+    }
+
+    &__dropdown {
+        position: absolute;
+        width: 300px;
+        background: #fff;
+        margin: 0;
+        padding: 60px 20px 20px;
+        left: -20px;
+        top: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        list-style: none;
+
+        &.show {
+            opacity: 1;
+            pointer-events: initial;
+        }
+
+        li {
+            padding: 3px 0;
+            color: #3D3331;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 21px;
+            }
+
+            &:not(:first-child) {
+                margin-top: 20px;
+            }
+
+            &:hover {
+                color: #123A8F;
+            }
+        }
+    }
+}
