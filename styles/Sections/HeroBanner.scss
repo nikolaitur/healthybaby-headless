@@ -1,0 +1,60 @@
+.hero {
+    width: 100%;
+    background: lightblue;
+    height: calc(100vh - 155px);
+
+    &__container {
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+    }
+
+    &__content {
+        max-width: 1040px;
+        width: 100%;
+        padding: 0 0 220px;
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 96px;
+        line-height: 96px;
+        color: #FFFFFF;
+        margin-bottom: 60px;
+    }
+
+    &__button {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+        background: #fff;
+        padding: 19px 100px;
+        max-width: max-content;
+        border-radius: 60px;
+
+        span:last-child {
+            margin-left: 20px;
+        }
+    }
+}

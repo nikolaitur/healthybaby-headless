@@ -7,7 +7,7 @@ $NeutraText: 'NeutraText';
     overflow: hidden;
 
     @include breakpoint-up('md') {
-        padding: 70px;
+        padding: 70px 0;
     }
 
     &__container {
@@ -402,7 +402,7 @@ $NeutraText: 'NeutraText';
         &--1 {
             width: 540px;
             height: 405px;
-            left: 0;
+            left: 40px;
             top: 90px;
         }
 

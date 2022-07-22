@@ -13,8 +13,6 @@ import FooterDetail2 from '../../../svgs/footer-detail-2.svg'
 const Footer = ({ content }) => {
     const { mainNavigation, newsletter, copyright, policy, social } = content.fields
 
-    console.log(content.fields, "fields")
-
     const getSocialIcon = (title) => {
         switch(title){
             case 'Twitter': 
@@ -28,12 +26,10 @@ const Footer = ({ content }) => {
         }
     }
 
-    console.log(getSocialIcon('Twitter'))
-
     return (
       <footer>
         <div className="footer">
-            <div className="footer__container">
+            <div className="footer__container container">
                 <FooterNewsletter content={newsletter} />
                 <div className="footer__nav">
                     {mainNavigation.map((item, index) => (

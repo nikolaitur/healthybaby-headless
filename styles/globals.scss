@@ -13,7 +13,7 @@
 // ===========================================================================
 @import './utility/reset.scss';
 @import './utility/_breakpoints.scss';
-// @import './utility/_container.scss';
+@import './utility/_container.scss';
 // @import './utility/_inputs.scss';
 // @import './utility/normalize.scss';
 // @import './utility/_typography.scss';
@@ -28,4 +28,10 @@
 @import './Layout/MobileNavigation.scss';
 @import './Layout/MobileMenu.scss';
 @import './Layout/MegaMenu.scss';
-@import './Layout/Footer.scss'
+@import './Layout/Footer.scss';
+
+// ===========================================================================
+// *** Sections
+// ===========================================================================
+@import './Sections/HeroBanner.scss';
+@import './Sections/ContentBanner.scss';
