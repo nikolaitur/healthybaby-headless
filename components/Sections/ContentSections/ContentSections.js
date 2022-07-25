@@ -2,23 +2,11 @@ import React from 'react'
 
 import HeroBanner from '../HeroBanner'
 import ContentBanner from '../ContentBanner'
+import CollectionCards from '../CollectionCards'
+import DiaperFinder from '../DiaperFinder'
+import ShopByCategory from '../ShopByCategory'
 
 const ContentSections = ({ sections }) => {
-//   if (!Array.isArray(sections)) {
-//     return null
-//   }
-
-//   return sections.map((section) => {
-//     const type = section?._type
-
-//     switch (type) {
-//       default:
-//         return null
-//     }
-// //   })
-// return (
-//         <section>Test</section>
-//     )
     return sections.map((section, index) => {
         const type = section.type
 
@@ -27,6 +15,12 @@ const ContentSections = ({ sections }) => {
             return <HeroBanner content={section} key={index} />
             case 'contentBanner':
             return <ContentBanner content={section} key={index} />
+            case 'categoryCards':
+            return <CollectionCards content={section} key={index} />
+            case 'diaperFinder':
+            return <DiaperFinder content={section} key={index} />
+            case 'shopByCategory':
+            return <ShopByCategory content={section} key={index} />
             default:
             return null
         }

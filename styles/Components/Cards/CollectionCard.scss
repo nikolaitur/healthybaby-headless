@@ -1,0 +1,31 @@
+.collection-card {
+    position: relative;
+    height: 700px;
+    flex-grow: 1;
+    margin: 0 20px;
+
+    &__cta {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+
+        a {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.02em;
+            color: #3D3331;
+            background: #fff;
+            padding: 19px 70px;
+            max-width: max-content;
+            border-radius: 60px;
+            margin: 0 auto;
+        }
+    }
+}
