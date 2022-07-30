@@ -1,14 +1,25 @@
 .shop-by-category {
     padding: 100px 0;
+    overflow: hidden;
+
+    &__content {
+        position: relative;
+    }
 
     &__header {
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 76px;
-        line-height: 76px;
+        font-size: 34px;
+        line-height: 34px;
         color: $primaryBrown;
-        margin-bottom: 90px;
+        margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 76px;
+            line-height: 76px;
+            margin-bottom: 90px;
+        }
     }
 
     &__subheader {
@@ -22,5 +33,105 @@
         color: $primaryBrown;
         text-transform: uppercase;
         margin-bottom: 30px;
+    }
+
+    &__link {
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+    }
+
+    &__button {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            justify-content: flex-start;
+            max-width: max-content;
+        }
+
+        span:last-child {
+            margin-left: 20px;
+        }
+    }
+
+    .swiper-wrapper {
+        overflow: visible;
+    }
+
+    &__slider {
+        overflow: visible;
+
+        > div {
+            overflow:  visible;
+        }
+        
+        .desktop,
+        &--desktop {
+            display: none;
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
+
+        .mobile,
+        &--mobile {
+            @include breakpoint-up('md') {
+                display: none;
+            }
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            left: auto;
+            background: #ffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+
+        .swiper-button-next {
+            right: -110px;
+        }
+
+        .swiper-button-prev {
+            left: -110px;
+        }
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-size: 26px;
+        line-height: 29px;
+        letter-spacing: -0.01em;
+        color: #3D3331;
+        margin: 30px 0 0;
+
+        .divider {
+            width: 195px;
+            border: 1.5px solid #3D3331;
+            margin-left: 20px;
+            margin-right: 40px;
+        }
+    }
+}
+
+.shop-by-category__slider--desktop {
+    display: none;
+    @include breakpoint-up('md') {
+        display: block;
     }
 }

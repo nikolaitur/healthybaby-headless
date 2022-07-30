@@ -23,7 +23,7 @@ const DiaperFinder = ({ content }) => {
         weight: "1.1"
     }
 
-    const [isActive, setIsActive] = useState(true);
+    const [isActive, setIsActive] = useState(false);
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
 
     const showDiaperResults = () => {
@@ -120,21 +120,29 @@ const DiaperFinder = ({ content }) => {
                 </div>
                 <div className={`diaper-finder__image ${!isActive ? "is-open" : "hidden"}`}>
                     <Image
+                        className="diaper-finder__image--desktop"
                         src={`https:${image}`}
                         alt="diaper"
                         width={1488}
                         height={963}
                     />
+                    {/* <Image
+                        className="diaper-finder__image--mobile"
+                        src={`https:${mobileImage}`}
+                        alt="diaper"
+                        width={375}
+                        height={344}
+                    /> */}
                 </div>
                 <div className={`diaper-finder__results ${isActive ? "is-open" : "hidden"}`}>
                     <div className="diaper-finder__product">
                         <div className="diaper-finder__product--banner">
                             SAVE UP TO<br/> 30%
                         </div>
-                        <div class="diaper-finder__product--container">
-                            <div class="diaper-finder__product--image">
+                        <div className="diaper-finder__product--container">
+                            <div className="diaper-finder__product--image">
                             </div>
-                            <div class="diaper-finder__product--content">
+                            <div className="diaper-finder__product--content">
                                 <div className="diaper-finder__title">
                                     Build Asha’s Essentials Box
                                 </div>
@@ -145,7 +153,7 @@ const DiaperFinder = ({ content }) => {
                                 </ul>
                             </div>
                         </div>
-                        <div class="diaper-finder__product--cta">
+                        <div className="diaper-finder__product--cta">
                             <Link href="/">
                                 <>
                                     <span>Customize Asha’s Bundle</span>
@@ -153,7 +161,7 @@ const DiaperFinder = ({ content }) => {
                                 </>
                             </Link>
                         </div>
-                        <div class="diaper-finder__product--delivery">
+                        <div className="diaper-finder__product--delivery">
                             <span>COMPLIMENTARY DELIVERY</span><span className="bullet">•</span><span>CANCEL ANY TIME</span>  
                         </div>
                     </div>

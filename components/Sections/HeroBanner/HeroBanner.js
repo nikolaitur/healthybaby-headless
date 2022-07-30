@@ -5,26 +5,33 @@ import Image from 'next/image';
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const HeroBanner = ({ content }) => {
-    // const { header, subheader, desktopImage, ctaText, ctaUrl } = content.fields
+    const { title, subtitle, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl } = content.fields
 
-    // console.log('ContentBanner', content)
+    console.log('HeroBanner', content)
     return (
         <section className="hero">
             <div className="hero__image">
-                {/* <Image
-                    src={`https:${desktopImage.fields.file.url}`}
-                    alt={header}
+                <Image
+                    className="hero__image--desktop"
+                    src={`https:${featuredMedia.fields.file.url}`}
+                    alt={title}
                     layout="fill"
-                /> */}
+                />
+                <Image
+                    className="hero__image--mobile"
+                    src={`https:${mobileBackgroundImage.fields.file.url}`}
+                    alt={title}
+                    layout="fill"
+                />
             </div>
-            <div className="hero__container container">
+            <div className="hero__container hero__container--top hero__container--left container">
                 <div className="hero__content">
-                    <div className="hero__subheader">BUILD An ESSENTIALS BOX</div>
-                    <div className="hero__header">A New Standard Of Safety & Transparency</div>
+                    <div className="hero__subheader">{ subtitle }</div>
+                    <div className="hero__header">{ title }</div>
                     <div className="hero__cta">
-                        <Link href="/">
+                        <Link href={ctaUrl}>
                             <div className="hero__button">
-                                <span>Build a Box</span>
+                                <span>{ctaText}</span>
                                 <span><LongArrowRight /></span>
                             </div>
                         </Link>

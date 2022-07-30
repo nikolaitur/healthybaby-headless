@@ -1,31 +1,62 @@
 .collection-card {
     position: relative;
-    height: 700px;
+    height: 255px;
     flex-grow: 1;
-    margin: 0 20px;
+    margin: 0 0 30px;
+
+    &:last-child {
+        margin: 0 0 0;
+    }
+
+    @include breakpoint-up('md') {
+        height: 700px;
+        margin: 0 20px;
+    }
 
     &__cta {
         position: absolute;
-        bottom: 40px;
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
+
+        @include breakpoint-up('md') {
+            bottom: 40px;
+        }
 
         a {
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
+            font-size: 16px;
+            line-height: 19px;
             display: flex;
             align-items: center;
+            justify-content: center;
             letter-spacing: 0.02em;
             color: #3D3331;
             background: #fff;
             padding: 19px 70px;
-            max-width: max-content;
             border-radius: 60px;
-            margin: 0 auto;
+            margin: 0 10px 0;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 22px;
+                max-width: max-content;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    &__image {
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: 700px;
+            }
         }
     }
 }

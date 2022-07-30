@@ -3,6 +3,7 @@
     justify-content: space-evenly;
     padding: 0 20px;
     position: relative;
+    z-index: 10;
 
     @include breakpoint-up('md') {
         display: none;
@@ -16,7 +17,7 @@
         background: #fff;
         border-radius: 60%;
         left: 50%;
-        top: -60px;
+        top: 6px;
         z-index: 0;
         transform: translateX(-50%);
         z-index: 1;

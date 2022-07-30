@@ -1,57 +1,135 @@
 .hero {
     width: 100%;
     background: lightblue;
-    height: calc(100vh - 155px);
+    height: calc(100vh - 115px);
+    overflow: hidden;
+    position: relative;
+
+    @include breakpoint-up('md') {
+        height: calc(100vh - 155px);
+    }
+
+    &__image {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+
+        &--desktop {
+            display: none!important;
+
+            @include breakpoint-up('md') {
+                display: block!important;
+            }
+        }
+
+        &--mobile {
+            @include breakpoint-up('md') {
+                display: none!important;
+            }
+        }
+
+        img {
+            object-fit: cover;
+        }
+    }
 
     &__container {
         display: flex;
         align-items: flex-end;
+        justify-content: flex-start;
         height: 100%;
+        position: relative;
+        z-index: 2;
+
+        &--top {
+            align-items: flex-start;
+            padding: 220px 0 0;
+        }
+
+        &--vertical-center {
+            align-items: center;
+        }
+
+        &--bottom {
+            align-items: flex-end;
+            padding: 0 0 220px;
+        }
+
+        &--left {
+            justify-content: flex-start;
+        }
+
+        &--horizontail-center {
+            justify-content: center;
+        }
+
+        &--right {
+            justify-content: flex-end;
+        }
     }
 
     &__content {
         max-width: 1040px;
         width: 100%;
-        padding: 0 0 220px;
     }
 
     &__subheader {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
+        font-size: 16px;
+        line-height: 16px;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: #FFFFFF;
         text-transform: uppercase;
         margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 18px;
+        }
     }
 
     &__header {
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 96px;
-        line-height: 96px;
+        font-size: 42px;
+        line-height: 42px;
         color: #FFFFFF;
         margin-bottom: 60px;
+
+        @include breakpoint-up('md') {
+            font-size: 96px;
+            line-height: 96px;
+        }
     }
 
     &__button {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 16px;
+        line-height: 19px;
         display: flex;
         align-items: center;
+        justify-content: center;
         letter-spacing: 0.02em;
         color: #3D3331;
         background: #fff;
-        padding: 19px 100px;
-        max-width: max-content;
+        padding: 14px 60px;
+        width: 100%;
         border-radius: 60px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            justify-content: flex-start;
+            padding: 19px 100px;
+            max-width: max-content;
+        }
 
         span:last-child {
             margin-left: 20px;

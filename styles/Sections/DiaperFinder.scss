@@ -7,6 +7,10 @@
     position: relative;
     overflow: hidden;
 
+    @include breakpoint-up('md') {
+        min-height: 100vh;
+    }
+
     &__subheader {
         font-family: $NeutraText;
         font-style: normal;
@@ -24,22 +28,33 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 62px;
-        line-height: 62px;
+        font-size: 32px;
+        line-height: 32px;
         color: $primaryBrown;
-        margin-bottom: 90px;
+        margin-bottom: 60px;
+
+        @include breakpoint-up('md') {
+            font-size: 62px;
+            line-height: 62px;
+            margin-bottom: 90px;
+        }
 
         input {
             background: transparent;
             font-family: $DomaineText;
             font-style: italic;
             font-weight: 500;
-            font-size: 62px;
-            line-height: 62px;
+            font-size: 32px;
+            line-height: 32px;
             color: #4161A5;
             border: none;
             border-bottom: 1px dotted #4161A5;
             margin-left: 8px;
+
+            @include breakpoint-up('md') {
+                font-size: 62px;
+                line-height: 62px;
+            }
 
             &[name="name"] {
                 width: 250px;
@@ -62,23 +77,33 @@
             font-family: $DomaineText;
             font-style: italic;
             font-weight: 500;
-            font-size: 62px;
-            line-height: 62px;
+            font-size: 32px;
+            line-height: 32px;
             color: #4161A5;
             transform: translate(-80px, 11px);
             position: absolute;
+
+            @include breakpoint-up('md') {
+                font-size: 62px;
+                line-height: 62px;
+            }
         }
     }
 
     &__container {
-        display: flex;
-        align-items: center;
-        z-index: 1;
+        z-index: 1; 
+
+        @include breakpoint-up('md') {
+            display: flex;
+            align-items: center;
+        }
     }
 
     &__content {
-        width: 60%;
-        padding-bottom: 100px;
+        @include breakpoint-up('md') {
+            width: 60%;
+            padding-bottom: 100px;
+        }
 
     }
 
@@ -148,19 +173,51 @@
     }
 
     &__image {
-        position: absolute;
-        right: -110px;
-        overflow: hidden;
-        top: 50%;
-        transform: translateY(-50%);
+        height: 350px;
 
+        @include breakpoint-up('md') {
+            position: absolute;
+            right: -110px;
+            overflow: hidden;
+            top: 50%;
+            transform: translateY(-50%);
+            height: auto;
+        }
+
+        &--desktop {
+            display: none!important;
+
+            @include breakpoint-up('md') {
+                display: block!important;
+            }
+        }
+
+        &--mobile {
+            @include breakpoint-up('md') {
+                display: none!important;
+            }
+        }
+        
         &.hidden {
             display: none;
+        }
+
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: auto;
+            }
         }
     }
 
     &__results {
-        width: 40%;
+        margin-top: 100px;
+        @include breakpoint-up('md') {
+            margin-top: 0;
+            width: 40%;
+        }
 
         &.hidden {
             display: none;
@@ -179,7 +236,11 @@
     &__article {
         position: relative;
         background: #E7EBF4;
-        padding: 35px 35px 30px;
+        padding: 25px;
+
+        @include breakpoint-up('md') {
+            padding: 35px 35px 30px;
+        }
     }
 
     &__product {
@@ -201,6 +262,11 @@
             border-radius: 100%;
             top: -25px;
             right: -50px;
+            display: none;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
         }
 
         &--container {
@@ -211,10 +277,17 @@
             width: 145px;
             height: 180px;
             background: #fff;
+            display: none;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
         }
 
         &--content {
-            margin-left: 35px;
+            @include breakpoint-up('md') {
+                margin-left: 35px;
+            }
         }
 
         &--bullets {
@@ -295,33 +368,49 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 28px;
-        line-height: 28px;
+        font-size: 18px;
+        line-height: 18px;
         color: #3D3331;
         margin-bottom: 10px;
+
+        @include breakpoint-up('md') {
+            font-size: 28px;
+            line-height: 28px;
+        }
     }
 
     &__copy {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 22px;
-        line-height: 31px;
+        font-size: 18px;
+        line-height: 22px;
         letter-spacing: 0.02em;
         color: #3D3331;
-        margin-bottom: 60px;
+        margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 31px;
+            margin-bottom: 60px;
+        }
     }
 
     &__link {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 16px;
+        line-height: 19px;
         display: flex;
         align-items: center;
         letter-spacing: 0.02em;
         color: #3D3331;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+        }
 
         span:last-child {
             margin-left: 20px;

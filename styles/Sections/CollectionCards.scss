@@ -5,10 +5,16 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 76px;
-        line-height: 76px;
+        font-size: 34px;
+        line-height: 34px;
         color: $primaryBrown;
-        margin-bottom: 90px;
+        margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 76px;
+            line-height: 76px;
+            margin-bottom: 90px;
+        }
     }
 
     &__subheader {
@@ -25,10 +31,13 @@
     }
 
     &__wrapper {
-        display: flex;
-        justify-content: space-between;
-        width: calc(100% + 40px);
-        position: relative;
-        left: -20px;
+        
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% + 40px);
+            position: relative;
+            left: -20px;
+        }
     }
 }

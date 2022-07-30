@@ -10,6 +10,7 @@
     align-items: center;
     padding: 0px 50px;
     position: relative;
+    z-index: 10;
 
     @include breakpoint-up('md') {
         display: flex;
