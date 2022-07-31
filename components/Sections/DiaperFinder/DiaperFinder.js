@@ -38,19 +38,48 @@ const DiaperFinder = ({ content }) => {
     const customSelectStyles = {
         control: () => ({
           background: "transparent",
-          width: "150px"
+          width: "auto",
         }),
-        // input: () => ({
-        //     height: 0
-        // }),
-        // singleValue: () => ({
-        //     margin: "0"
-        // }),
         indicatorsContainer: () => ({
             display: "none"
         }),
+        input: () => ({
+            margin: "2px",
+            paddingBottom: "2px",
+            paddingTop: "2px",
+            visibility: "visible",
+            color: "#4161A5",
+            flex: "1 1 auto",
+            display: "inline-grid",
+            gridArea: "1/1/2/3",
+            gridTemplateColumns: "0 min-content",
+            borderBottom: "1px dashed #4161A5",
+            cursor: "pointer"
+        }),
+        singleValue: () => ({
+            color: "#4161A5",
+            gridArea: "1/1/2/3",
+            margin: "0 2px",
+            maxWidth: "100%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            cursor: "pointer"
+        }),
         menu: () => ({
-            // width: "200px"
+            display: "block",
+            position: "absolute",
+            background: "#A0B0D2",
+            width: "290px",
+            padding: "24px 20px"
+        }),
+        option: () => ({
+            fontFamily: "DomaineText",
+            fontStyle: "italic",
+            fontWeight: "500",
+            color: "#fff",
+            padding: "7px 0",
+            cursor: "pointer"
         })
     }
 
@@ -84,26 +113,21 @@ const DiaperFinder = ({ content }) => {
                             <span>My baby’s name is</span>
                             <input name="name" label="Name" onChange={handleInputChange} value={diaperFinderData.name}></input>
                         </span>
-                        <span>
-                            {/* <select value="She">
-                                <option value="he">He</option>
-                                <option value="she">She</option>
-                                <option value="they">They</option>
-                            </select> 
-                            */}
+                        <span>                           
                             <Select 
+                                defaultMenuIsOpen="true"
                                 styles={customSelectStyles} 
                                 className="diaper-finder__select" 
                                 defaultValue={genderOptions[0]} 
                                 options={genderOptions}
                                 onChange={(e) => onSelectChange(e)}/>
                             <span className="select-line">
-                                <span>was born on </span>
+                                <span>{diaperFinderData.gender == "They" ? "were" : "was"} born on </span>
                                 <input name="birthday" label="Birthday" onChange={handleInputChange}  value={diaperFinderData.birthday}></input>
                             </span>
                         </span>
-                        <span>
-                            <span>& weight</span>
+                        <span className="weight">
+                            <span>& weigh</span>
                             <div className="input-wrapper">
                                 <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperFinderData.weight}></input>
                                 <span className="suffix">lbs</span>

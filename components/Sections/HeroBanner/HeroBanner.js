@@ -7,7 +7,7 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 const HeroBanner = ({ content }) => {
     const { title, subtitle, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl } = content.fields
 
-    console.log('HeroBanner', content)
+    // console.log('HeroBanner', content)
     return (
         <section className="hero">
             <div className="hero__image">
@@ -24,7 +24,7 @@ const HeroBanner = ({ content }) => {
                     layout="fill"
                 />
             </div>
-            <div className="hero__container hero__container--top hero__container--left container">
+            <div className="hero__container hero__container--bottom hero__container--left container">
                 <div className="hero__content">
                     <div className="hero__subheader">{ subtitle }</div>
                     <div className="hero__header">{ title }</div>

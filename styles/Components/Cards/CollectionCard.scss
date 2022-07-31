@@ -36,13 +36,14 @@
             letter-spacing: 0.02em;
             color: #3D3331;
             background: #fff;
-            padding: 19px 70px;
+            padding: 19px 50px;
             border-radius: 60px;
             margin: 0 10px 0;
 
             @include breakpoint-up('md') {
                 font-size: 18px;
                 line-height: 22px;
+                padding: 19px 70px;
                 max-width: max-content;
                 margin: 0 auto;
             }

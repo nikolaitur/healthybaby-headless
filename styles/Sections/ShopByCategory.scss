@@ -36,28 +36,29 @@
     }
 
     &__link {
-        position: absolute;
-        right: 0;
-        bottom: 5px;
+        @include breakpoint-up('md') {
+            position: absolute;
+            right: 0;
+            bottom: 5px;
+        }
     }
 
     &__button {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
+        font-size: 18px;
+        line-height: 22px;
         display: flex;
         align-items: center;
-        justify-content: center;
         letter-spacing: 0.02em;
         color: #3D3331;
+        margin-bottom: 30px;
 
         @include breakpoint-up('md') {
-            font-size: 18px;
-            line-height: 22px;
             justify-content: flex-start;
             max-width: max-content;
+            margin-bottom: 0px;
         }
 
         span:last-child {
@@ -71,12 +72,16 @@
 
     &__slider {
         overflow: visible;
+        width: 255px;
+
+        @include breakpoint-up('md') {
+            width: 100%;
+        }
 
         > div {
             overflow:  visible;
         }
-        
-        .desktop,
+
         &--desktop {
             display: none;
             @include breakpoint-up('md') {
@@ -84,20 +89,34 @@
             }
         }
 
-        .mobile,
         &--mobile {
             @include breakpoint-up('md') {
                 display: none;
             }
         }
 
+        .collection-card {
+            height: 320px;
+            width: 255px;
+
+            @include breakpoint-up('md') {
+                height: 700px;
+                width: 100%;
+            }
+        }
+
         .swiper-button-next,
         .swiper-button-prev {
+            display: none;
             left: auto;
             background: #ffff;
             width: 60px;
             height: 60px;
             border-radius: 100%;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
         }
 
         .swiper-button-next {
@@ -110,7 +129,7 @@
     }
 
     &__info {
-        display: flex;
+        display: none;
         align-items: center;
         font-family: $NeutraText;
         font-style: normal;
@@ -119,6 +138,10 @@
         letter-spacing: -0.01em;
         color: #3D3331;
         margin: 30px 0 0;
+
+        @include breakpoint-up('md') {
+            display: flex;
+        }
 
         .divider {
             width: 195px;
