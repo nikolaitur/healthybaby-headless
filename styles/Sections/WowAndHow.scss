@@ -1,0 +1,134 @@
+.wow-and-how {
+    padding: 100px 0 100px;
+    background:  #C7E0E5;
+
+    &__container {
+        position: relative;
+        display: flex;
+    }
+
+    &__content {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @include breakpoint-up('md') {
+            padding-right: 0px;
+        }
+    }
+
+    &__image {
+        width: 50%;
+
+        @include breakpoint-up('md') {
+            padding-right: 100px;
+        }
+
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: 750px!important;
+            }
+        }
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 32px;
+        color: $primaryBrown;
+        margin-bottom: 60px;
+
+        @include breakpoint-up('md') {
+            font-size: 62px;
+            line-height: 62px;
+        }
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: $primaryBrown;
+        margin-bottom: 30px;
+    }
+
+    &__copy {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 35px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-bottom: 70px;
+    }
+
+    &__cta {
+        margin-bottom: 75px;
+    }
+
+    &__button {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+        background: #fff;
+        padding: 14px 60px;
+        width: 100%;
+        border-radius: 60px;
+        cursor: pointer;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            justify-content: flex-start;
+            padding: 19px 100px;
+            max-width: max-content;
+        }
+
+        span:last-child {
+            margin-left: 20px;
+        }
+    }
+
+    &__stages {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 740px;
+    }
+
+    &__stage {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+        background: #A1CBD3;
+        border-radius: 60px;
+        padding: 19px 0;
+        margin: 0 20px 20px 0px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}

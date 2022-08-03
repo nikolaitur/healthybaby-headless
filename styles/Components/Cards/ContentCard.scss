@@ -1,0 +1,60 @@
+.content-card {
+    position: relative;
+    height: 255px;
+    flex-grow: 1;
+    margin: 0 0 30px;
+
+    &:last-child {
+        margin: 0 0 0;
+    }
+
+    @include breakpoint-up('md') {
+        height: 570px;
+        margin: 0 30px 0px 0;
+
+        &:last-child {
+            margin: 0 0 0;
+        }
+    }
+
+    &__image {
+        margin: 0 0 30px;
+        
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: 570px;
+            }
+        }
+    }
+
+    &__header {
+        position: relative;
+        margin: 0 0 10px;
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: $primaryBrown;
+
+        @include breakpoint-up('md') {
+            font-size: 36px;
+            line-height: 43px;
+        }
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: $primaryBrown;
+        margin: 0 0 30px;
+    }
+}

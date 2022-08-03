@@ -1,0 +1,79 @@
+.content-preview {
+    padding: 100px 0;
+    overflow: hidden;
+    background: #C2CDC6;
+
+    &__content {
+        position: relative;
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 34px;
+        line-height: 34px;
+        color: $primaryBrown;
+        margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 62px;
+            line-height: 62px;
+            margin-bottom: 90px;
+        }
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: $primaryBrown;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+
+    &__link {
+        @include breakpoint-up('md') {
+            position: absolute;
+            right: 0;
+            bottom: 5px;
+        }
+    }
+
+    &__button {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+        margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            justify-content: flex-start;
+            max-width: max-content;
+            margin-bottom: 0px;
+        }
+
+        span:last-child {
+            margin-left: 20px;
+        }
+    }
+
+    &__wrapper {
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% + 40px);
+            position: relative;
+            left: -20px;
+        }
+    }
+}

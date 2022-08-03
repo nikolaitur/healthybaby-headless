@@ -1,0 +1,79 @@
+.product-card {
+    position: relative;
+    height: 255px;
+    flex-grow: 1;
+    margin: 0 0 30px;
+
+    &:last-child {
+        margin: 0 0 0;
+    }
+
+    @include breakpoint-up('md') {
+        height: 570px;
+        margin: 0 20px;
+    }
+
+    &__image {
+        margin: 0 0 25px;
+        
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: 570px;
+            }
+        }
+    }
+
+    &__title {
+        position: relative;
+        margin: 0 0 10px;
+
+        a {
+            font-family: $DomaineText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            color: #3D3331;
+
+            @include breakpoint-up('md') {
+                font-size: 32px;
+                line-height: 33px;
+            }
+        }
+    }
+
+    &__subtitle {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: -0.01em;
+        color: #3D3331;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 25px;
+        }
+    }
+
+    &__price {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: -0.01em;
+        color: #3D3331;
+        margin: 10px 0 0;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 26px;
+            margin: 15px 0 0;
+        }
+    }
+}

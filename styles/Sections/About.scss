@@ -1,0 +1,75 @@
+.about {
+    padding: 100px 0;
+    background: #F0E3E5;
+
+    &__container {
+        position: relative;
+        display: flex;
+    }
+
+    &__content {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @include breakpoint-up('md') {
+            padding-right: 0px;
+        }
+    }
+
+    &__image {
+        width: 50%;
+
+        @include breakpoint-up('md') {
+            padding-left: 100px;
+        }
+
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: 750px!important;
+            }
+        }
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 32px;
+        color: $primaryBrown;
+        margin-bottom: 60px;
+
+        @include breakpoint-up('md') {
+            font-size: 62px;
+            line-height: 62px;
+        }
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: $primaryBrown;
+        margin-bottom: 30px;
+    }
+
+    &__copy {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 35px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-bottom: 70px;
+    }
+}

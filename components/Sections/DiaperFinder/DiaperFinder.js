@@ -67,7 +67,6 @@ const DiaperFinder = ({ content }) => {
             cursor: "pointer"
         }),
         menu: () => ({
-            display: "block",
             position: "absolute",
             background: "#A0B0D2",
             width: "290px",
@@ -115,7 +114,6 @@ const DiaperFinder = ({ content }) => {
                         </span>
                         <span>                           
                             <Select 
-                                defaultMenuIsOpen="true"
                                 styles={customSelectStyles} 
                                 className="diaper-finder__select" 
                                 defaultValue={genderOptions[0]} 

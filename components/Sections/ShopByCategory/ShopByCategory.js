@@ -62,8 +62,6 @@ const ShopByCategory = ({ content }) => {
                             "--swiper-navigation-color": "#fff",
                             "--swiper-pagination-color": "#fff",
                         }}
-                        onSlideChange={() => console.log('slide change')}
-                        onSwiper={(swiper) => console.log(swiper)}
                     >
                         {collectionCards.map((card, index) => (
                             <SwiperSlide key={index}>

@@ -35,11 +35,18 @@
 // ===========================================================================
 @import './Sections/HeroBanner.scss';
 @import './Sections/ContentBanner.scss';
+@import './Sections/ContentPreview.scss';
 @import './Sections/CollectionCards.scss';
 @import './Sections/DiaperFinder.scss';
 @import './Sections/ShopbyCategory.scss';
+@import './Sections/BestSellers.scss';
+@import './Sections/StoriesSlider.scss';
+@import './Sections/WowAndHow.scss';
+@import './Sections/About.scss';
 
 // ===========================================================================
 // *** Components
 // ===========================================================================
+@import './Components/Cards/ContentCard.scss';
 @import './Components/Cards/CollectionCard.scss';
+@import './Components/Cards/ProductCard.scss';
