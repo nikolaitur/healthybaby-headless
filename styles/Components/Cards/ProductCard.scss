@@ -1,6 +1,6 @@
 .product-card {
     position: relative;
-    height: 255px;
+    width: 290px;
     flex-grow: 1;
     margin: 0 0 30px;
 
@@ -34,9 +34,9 @@
             font-family: $DomaineText;
             font-style: normal;
             font-weight: 500;
-            font-size: 16px;
-            line-height: 19px;
-            color: #3D3331;
+            font-size: 22px;
+            line-height: 22px;
+            color: $primaryBrown;
 
             @include breakpoint-up('md') {
                 font-size: 32px;
@@ -50,9 +50,9 @@
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
-        line-height: 17px;
+        line-height: 20px;
         letter-spacing: -0.01em;
-        color: #3D3331;
+        color: $primaryBrown;
 
         @include breakpoint-up('md') {
             font-size: 18px;
@@ -64,10 +64,10 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 18px;
+        line-height: 25px;
         letter-spacing: -0.01em;
-        color: #3D3331;
+        color: $primaryBrown;
         margin: 10px 0 0;
 
         @include breakpoint-up('md') {

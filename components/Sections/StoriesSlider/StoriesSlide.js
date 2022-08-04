@@ -4,27 +4,30 @@ import Image from 'next/image';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
-const StoriesSlide = ({ index, slides, activeSlide }) => {
+const StoriesSlide = ({ content, slides, activeSlide }) => {
     const swiper = useSwiper();
+
+    const { title, subtitle, copy, author, age, activity } = content.fields
+    const image = content.fields.image.fields.file.url  
 
     return (
         <div className="stories-slide">
             <div className="stories-slide__container">
                 <div className="stories-slide__content">
                     <div className="stories-slide__subtitle">
-                        HEALTHYBABY COMMUNITY STORIES
+                        { subtitle }
                     </div>
                     <div className="stories-slide__title">
-                        “Lorem ipsum dolor sit amet consectetur adipiscong”
+                        { title }
                     </div>
                     <div className="stories-slide__copy">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        { copy }
                     </div>
                     <div className="stories-slide__author">
-                        — Palmer S.  (Owen’s dad)
+                       { author }
                     </div>
-                    <div className="stories-slide__age">Owen is 4 months old</div>
-                    <div className="stories-slide__activity">Favorite activity:  <span>Core Confidence</span></div>
+                    <div className="stories-slide__age">{ age }</div>
+                    <div className="stories-slide__activity">Favorite activity:  <span>{ activity}</span></div>
                     <div className="stories-slide__pagination">
                     {slides.map((slide, index) => (
                         <div className={`stories-slide__indicator ${index == activeSlide ? "active" : ""}`} key={index} onClick={() => swiper.slideTo(index)}></div>
@@ -33,7 +36,7 @@ const StoriesSlide = ({ index, slides, activeSlide }) => {
                 </div>
                 <div className="stories-slide__image">
                     <Image
-                        src={`https://images.ctfassets.net/urdrzzac4igp/7vwk1qlvTIAgdbpqcyBQy5/ca7c318804045d99da3f640195d32140/Mask_group__1_.png`}
+                        src={`https:${image}`}
                         alt={``}
                         width="785"
                         height="970"

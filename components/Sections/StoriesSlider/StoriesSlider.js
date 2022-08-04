@@ -18,7 +18,10 @@ const StoriesSlider = ({ content }) => {
     // const backgroundImage = content.fields.image.fields.file.url
     const [activeSlide, setActiveSlide] = useState(0);
     // const swiper = useSwiper();
-    const slides = [1, 2, 3]
+    // const slides = [1, 2, 3]
+    const slides = content.fields.storiesSlides
+
+    console.log(content, 'Stories slider')
     
     return (
         <section className="stories-slider">
@@ -39,7 +42,7 @@ const StoriesSlider = ({ content }) => {
                     >
                         {slides.map((slide, index) => (
                             <SwiperSlide key={index}>
-                               <StoriesSlide index={index} slides={slides} activeSlide={activeSlide} />
+                               <StoriesSlide index={index} content={slide} slides={slides} activeSlide={activeSlide} />
                             </SwiperSlide>
                         ))}
                     </Swiper>

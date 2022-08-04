@@ -1,6 +1,6 @@
 .content-card {
     position: relative;
-    height: 255px;
+    // height: 255px;
     flex-grow: 1;
     margin: 0 0 30px;
 
@@ -36,8 +36,8 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
+        font-size: 24px;
+        line-height: 29px;
         color: $primaryBrown;
 
         @include breakpoint-up('md') {
@@ -50,11 +50,16 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
+        font-size: 16px;
+        line-height: 16px;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: $primaryBrown;
-        margin: 0 0 30px;
+        margin-bottom: 20px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 18px;
+        }
     }
 }

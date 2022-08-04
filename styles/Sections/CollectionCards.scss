@@ -21,13 +21,17 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
+        font-size: 16px;
+        line-height: 16px;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: $primaryBrown;
-        text-transform: uppercase;
         margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 18px;
+        }
     }
 
     &__wrapper {

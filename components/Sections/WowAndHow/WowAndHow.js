@@ -8,7 +8,7 @@ const WowAndHow = ({ content }) => {
     return (
         <section className="wow-and-how">
             <div className="wow-and-how__container container">
-                <div className="wow-and-how__image">
+                <div className="wow-and-how__image wow-and-how__image--desktop">
                     <Image
                         src={`https://images.ctfassets.net/urdrzzac4igp/1PQUBAWs7qIxzxDQBgU0YE/b7e3f797e9a8a3212e879cc70abecb9d/Group_266.png`}
                         alt={``}
@@ -30,6 +30,14 @@ const WowAndHow = ({ content }) => {
                                 <span>Discover The Full Series</span>
                             </div>
                         </Link>
+                    </div>
+                    <div className="wow-and-how__image wow-and-how__image--mobile">
+                        <Image
+                            src={`https://images.ctfassets.net/urdrzzac4igp/1PQUBAWs7qIxzxDQBgU0YE/b7e3f797e9a8a3212e879cc70abecb9d/Group_266.png`}
+                            alt={``}
+                            width="785"
+                            height="770"
+                        />
                     </div>
                     <div className="wow-and-how__subheader">BROWSE BY STAGE</div>
                     <div className="wow-and-how__stages">

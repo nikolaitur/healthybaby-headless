@@ -2,25 +2,52 @@ import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 
+import LongArrowRight from '../../../svgs/long-arrow-right.svg'
+
 const About = ({ content }) => {
-    // const { ctaText, ctaUrl } = content.fields
-    // const backgroundImage = content.fields.image.fields.file.url    
+    console.log(content, 'about')
+    const { header, subheader, copy, links } = content.fields
+    const image = content.fields.image.fields.file.url  
+    
+    console.log(links)
     return (
         <section className="about">
             <div className="about__container container">
                 <div className="about__content">
-                    <div className="about__subheader">OUR STORY</div>
+                    <div className="about__subheader">{ subheader }</div>
                     <div className="about__header">
-                        Our life’s work is centered around protecting & promoting babies’ health
+                        { header }
+                    </div>
+                    <div className="about__image about__image--mobile">
+                        <Image
+                            src={`https:${image}`}
+                            alt={subheader}
+                            width="785"
+                            height="750"
+                        />
                     </div>
                     <div className="about__copy">
-                        Healthybaby is the culmination of all we’ve learned in navigating the challenges of raising a child with special needs & then seeing how both of our children benefitted from all our research, protection, & enrichment...
+                        { copy }
+                    </div>
+                    <div className="about__links">
+                        {links.map((link, index) => {
+                            return (
+                                <div className="about__link" key={index}>
+                                    <Link href={link.fields.url}>
+                                        <div className="about__button">
+                                            <span>{ link.fields.title }</span>
+                                            <span><LongArrowRight /></span>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
-                <div className="about__image">
+                <div className="about__image about__image--desktop">
                     <Image
-                        src={`https://images.ctfassets.net/urdrzzac4igp/7vwk1qlvTIAgdbpqcyBQy5/ca7c318804045d99da3f640195d32140/Mask_group__1_.png`}
-                        alt={``}
+                        src={`https:${image}`}
+                        alt={subheader}
                         width="785"
                         height="750"
                     />
