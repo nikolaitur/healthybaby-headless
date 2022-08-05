@@ -3,24 +3,38 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ProductCard = ({ content }) => {
-    // const { ctaText, ctaUrl } = content.fields
-    // const backgroundImage = content.fields.image.fields.file.url
+    const { title, media } = content.content
+
+    let image = ""
+
+    if(media.length > 0) {
+        image = media[0].src
+    }
+
     return (
         <div className="product-card">
             <div className="product-card__image">
                 <Link href="/">
-                    <Image
-                        src={`https://images.ctfassets.net/urdrzzac4igp/2rkdyg89YOKZU9QGZkh0sU/ef2bcf60039b4a74dba9960ca356007f/Product_img.png?h=250`}
-                        alt={`Diaper`}
-                        
-                        width="570"
-                        height="455"
-                    />
+                    {image ? 
+                        <Image
+                            src={image}
+                            alt={title}
+                            width="570"
+                            height="455"
+                        />
+                    : 
+                        <Image
+                            src="https://placeimg.com/570/455/people"
+                            alt={title}
+                            width="570"
+                            height="455"
+                        />
+                    }
                 </Link>
             </div>
             <div className="product-card__content">
                 <div className="product-card__title">
-                    <Link href="/">Diapers</Link>
+                    <Link href="/">{ title }</Link>
                 </div>
                 <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div>
                 <div className="product-card__reviews"></div>

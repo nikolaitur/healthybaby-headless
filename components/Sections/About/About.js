@@ -5,11 +5,9 @@ import Image from 'next/image';
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const About = ({ content }) => {
-    console.log(content, 'about')
     const { header, subheader, copy, links } = content.fields
     const image = content.fields.image.fields.file.url  
-    
-    console.log(links)
+
     return (
         <section className="about">
             <div className="about__container container">

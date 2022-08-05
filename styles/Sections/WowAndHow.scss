@@ -36,6 +36,22 @@
             @include breakpoint-up('md') {
                 display: block;
             }
+
+            span:nth-child(1) {
+                transform: translateX(-65px);
+            }
+
+            span:nth-child(2) {
+                transform: translateX(-40px);
+            }
+
+            span:nth-child(3) {
+                transform: translate(15px, -135px)
+            }
+
+            span:nth-child(4) {
+                transform: translate(40px, 20px);
+            }
         }
 
         &--mobile {
@@ -47,11 +63,11 @@
         }
 
         img {
-            height: 350px;
+            // height: 350px;
             object-fit: cover;
 
             @include breakpoint-up('md') {
-                height: 750px!important;
+                // height: 750px!important;
             }
         }
     }
@@ -167,6 +183,11 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+
+        a {
+            cursor: pointer;
+            color: $primaryBrown;
+        }
 
         &:nth-child(even) {
             margin: 0 0 20px 0;

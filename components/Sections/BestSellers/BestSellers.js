@@ -1,6 +1,9 @@
 import React from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
+import { useState, useEffect } from 'react'
+import { nacelleClient } from 'services'
+import Link from 'next/link'
+import Image from 'next/image'
+
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Lazy, Navigation } from "swiper";
@@ -12,13 +15,32 @@ import ProductCard from '../../Cards/ProductCard'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const BestSellers = ({ content }) => {
-    // const {header, headerFontStyle, subheader, collectionCards } = content.fields
+    const { header } = content.fields
+    // console.log('bestsellers', content.fields)
+    const { products } = content.fields
 
+    const [bestSellers, setBestSellers] = useState([])
+
+    // useEffect(() => {
+
+    // }, [bestSellers]);
+
+    const getBestSellers = async () => {
+        const productList = products.split(',')
+        await nacelleClient.products({
+            handles: productList
+        }).then(response => {
+            setBestSellers(response)
+        })
+    }
+
+    getBestSellers()
+    
     return (
         <section className="best-sellers">
             <div className="best-sellers__container container">
                 <div className="best-sellers__content">
-                    <div className="best-sellers__header">Our <i>Best</i> Sellers</div>
+                    <div className="best-sellers__header">{ header }</div>
                     <div className="best-sellers__link">
                         <Link href="/">
                             <div className="best-sellers__button">
@@ -28,52 +50,46 @@ const BestSellers = ({ content }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="best-sellers__slider">
-                    <Swiper
-                        className="best-sellers__slider--desktop"
-                        modules={[Lazy, Navigation]}
-                        spaceBetween={20}
-                        slidesPerView={3}
-                        lazy={true}
-                        navigation={false}
-                        style={{
-                            "--swiper-navigation-color": "#fff",
-                            "--swiper-pagination-color": "#fff",
-                        }}
-                    >
-                        <SwiperSlide>
-                            <ProductCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ProductCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ProductCard />
-                        </SwiperSlide>
-                    </Swiper>
-                    <Swiper
-                        className="best-sellers__slider--mobile"
-                        modules={[Lazy, Navigation]}
-                        spaceBetween={20}
-                        slidesPerView={1}
-                        lazy={true}
-                        navigation={true}
-                        style={{
-                            "--swiper-navigation-color": "#fff",
-                            "--swiper-pagination-color": "#fff",
-                        }}
-                    >
-                        <SwiperSlide>
-                            <ProductCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ProductCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <ProductCard />
-                        </SwiperSlide>
-                    </Swiper>
-                </div>
+                {bestSellers.length > 1 ? (
+                    <div className="best-sellers__slider">
+                        <Swiper
+                            className="best-sellers__slider--desktop"
+                            modules={[Lazy, Navigation]}
+                            spaceBetween={20}
+                            slidesPerView={3}
+                            lazy={true}
+                            navigation={false}
+                            style={{
+                                "--swiper-navigation-color": "#fff",
+                                "--swiper-pagination-color": "#fff",
+                            }}
+                        >
+                            {bestSellers.map((product, index) => (
+                                <SwiperSlide key={index}>
+                                    <ProductCard content={product} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                        <Swiper
+                            className="best-sellers__slider--mobile"
+                            modules={[Lazy, Navigation]}
+                            spaceBetween={20}
+                            slidesPerView={1}
+                            lazy={true}
+                            navigation={true}
+                            style={{
+                                "--swiper-navigation-color": "#fff",
+                                "--swiper-pagination-color": "#fff",
+                            }}
+                        >
+                            {bestSellers.map((product, index) => (
+                                <SwiperSlide key={index}>
+                                    <ProductCard content={product} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+                ): ""}
             </div>
         </section>
     )

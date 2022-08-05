@@ -28,17 +28,20 @@ const ContentSections = ({ sections }) => {
                         return <DiaperFinder content={section} key={index} />
                     case 'shopByCategory':
                         return <ShopByCategory content={section} key={index} />
+                    case 'bestSellers':
+                            return <BestSellers content={section} key={index} />
                     case 'storiesSlider':
                         return <StoriesSlider content={section} key={index} />
+                    case 'contentPreview':
+                        return <ContentPreview content={section} key={index} />
+                    case 'wowAndHow':
+                        return <WowAndHow content={section} key={index} />
                     case 'about':
                         return <About content={section} key={index} />
                     default:
                     return null
                 }
             })}
-            <ContentPreview />
-            <BestSellers />
-            <WowAndHow />
         </>
     )
 }

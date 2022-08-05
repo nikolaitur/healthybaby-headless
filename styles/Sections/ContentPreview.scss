@@ -22,7 +22,23 @@
         @include breakpoint-up('md') {
             font-size: 62px;
             line-height: 62px;
-            margin-bottom: 90px;
+            margin-bottom: 80px;
+        }
+
+        span {
+            margin-right: 20px;
+            color: rgba(50, 89, 66, 0.3);
+
+            &.active {
+                color: rgba(50, 89, 66, 1);
+                border-bottom: 1px solid rgba(50, 89, 66, 1);
+                font-style: italic;
+                padding-bottom: 10px;
+            }
+
+            &:last-child {
+                margin-right: 20px
+            }
         }
     }
 

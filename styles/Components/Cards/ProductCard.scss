@@ -11,6 +11,7 @@
     @include breakpoint-up('md') {
         height: 570px;
         margin: 0 20px;
+        width: 100%;
     }
 
     &__image {
