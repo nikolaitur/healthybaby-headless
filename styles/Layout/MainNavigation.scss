@@ -12,9 +12,13 @@
     position: relative;
     z-index: 10;
 
-    display: none!important;
+    // display: none!important;
 
     @include breakpoint-up('md') {
+        display: flex;
+    }
+
+    @include breakpoint-up('xl') {
         display: flex;
     }
 

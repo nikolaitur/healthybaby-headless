@@ -25,6 +25,10 @@
             margin-bottom: 80px;
         }
 
+        @media screen and (min-width: 1074px) and (max-width:1439px) {
+            margin-bottom: 0px;
+        }
+
         span {
             margin-right: 20px;
             color: rgba(50, 89, 66, 0.3);
@@ -64,6 +68,12 @@
             position: absolute;
             right: 0;
             bottom: 12px;
+        }
+
+        @media screen and (min-width: 1074px) and (max-width:1439px) {
+            margin-top: 40px;
+            position: relative;
+            margin-bottom: 80px;
         }
     }
 
