@@ -3,7 +3,7 @@ $NeutraText: 'NeutraText';
 
 .footer {
     position: relative;
-    padding: 16px;
+    padding: 16px 0;
     overflow: hidden;
 
     @include breakpoint-up('md') {

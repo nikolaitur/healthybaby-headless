@@ -26,14 +26,15 @@
         width: 100%;
         position: absolute;
         right: -45%;
-        top: -150px;
+        top: 0;
 
         @include breakpoint-up('md') {
             max-width: 185px;
             max-height: 144px;
             position: relative;
             right: 0;
-            top: 0;
+            bottom: 0;
+            top: unset;
         }
 
         &--desktop {
@@ -71,6 +72,11 @@
         color: #3D3331;
 
         @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 25px;
+        }
+
+        @include breakpoint-up('lg') {
             font-size: 26px;
             line-height: 29px;
         }
@@ -86,15 +92,21 @@
         margin-bottom: 10px;
 
         @include breakpoint-up('md') {
-            font-size: 48px;
-            line-height: 67px;
+            font-size: 40px;
+            line-height: 40px;
             margin-bottom: 5px;
+        }
+
+        @include breakpoint-up('lg') {
+            font-size: 48px;
+            line-height: 48px;
         }
     }   
 
     &__cta {
         position: relative;
         z-index: 1;
+
         a {
             font-family: $NeutraText;
             font-style: normal;
@@ -109,6 +121,15 @@
             padding: 19px 100px;
             max-width: max-content;
             border-radius: 60px;
+
+            @include breakpoint-up('md') {
+                min-width: max-content;
+                padding: 19px 60px;
+            }
+
+            @include breakpoint-up('lg') {
+                padding: 19px 100px;
+            }
         }
     }
 }

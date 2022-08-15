@@ -9,9 +9,9 @@
       width: calc(100% - 120px);
     }
     @include breakpoint-up('lg') {
-      width: calc(100% - 170px);
+      width: calc(100% - 140px);
     }
     @include breakpoint-up('xl') {
-      width: calc(100% - 240px);
+      width: calc(100% - 200px);
     }
 }

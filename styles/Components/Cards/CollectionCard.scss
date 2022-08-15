@@ -22,6 +22,7 @@
 
         @include breakpoint-up('md') {
             bottom: 40px;
+            padding: 0 30px;
         }
 
         a {
@@ -43,9 +44,9 @@
             @include breakpoint-up('md') {
                 font-size: 18px;
                 line-height: 22px;
-                padding: 19px 70px;
-                max-width: max-content;
+                padding: 19px 0px;
                 margin: 0 auto;
+                width: 100%;
             }
         }
     }

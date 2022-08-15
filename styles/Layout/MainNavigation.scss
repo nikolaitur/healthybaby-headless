@@ -12,6 +12,8 @@
     position: relative;
     z-index: 10;
 
+    display: none!important;
+
     @include breakpoint-up('md') {
         display: flex;
     }
@@ -52,7 +54,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        width: calc(50% - 100px);
+        width: calc(50% - 205px);
         z-index: 11;
     }
 
@@ -61,7 +63,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        width: calc(50% - 100px);
+        width: calc(50% - 205px);
     }
 
     &__item {

@@ -163,7 +163,10 @@
     &__stages {
         display: flex;
         flex-wrap: wrap;
-        max-width: 740px;
+        
+        @include breakpoint-up('md') {
+            max-width: 740px;
+        }   
     }
 
     &__stage {
