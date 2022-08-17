@@ -71,7 +71,7 @@ const ContentPreview = ({ content }) => {
                 </div>
                 <div className="content-preview__wrapper">
                     {activeContent.fields.map((content, index) => (   
-                        <ContentCard content={content} key={index} />                     
+                        <ContentCard content={content} key={index} height={405} />                     
                     ))}
                 </div>
             </div>

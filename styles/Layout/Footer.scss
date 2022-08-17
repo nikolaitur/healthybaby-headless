@@ -22,7 +22,7 @@ $NeutraText: 'NeutraText';
     &__newsletter {
         padding: 0px 22px 60px;
         
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             padding: 0 0 80px;
             display: flex;
             align-items: center;
@@ -41,12 +41,17 @@ $NeutraText: 'NeutraText';
         align-content: normal;
 
         @include breakpoint-up('md') {
+            flex-wrap: wrap;
             padding: 80px 0 0px;
             margin: 0 0 90px;
             flex-direction: row;
             display: flex;
             border: 1px solid #D0D8E9;
             border-width: 1px 0 0 0;
+        }
+
+        @include breakpoint-up('lg') {
+            flex-wrap: nowrap;
         }
     }
 
@@ -55,6 +60,11 @@ $NeutraText: 'NeutraText';
             min-width: 180px;
             max-width: 240px;
             padding-right: 20px;
+            width: 33%;
+        }
+
+        @include breakpoint-up('md') {
+            width: auto;
         }
 
         &--main {
@@ -62,6 +72,11 @@ $NeutraText: 'NeutraText';
 
             @include breakpoint-up('md') {
                 display: block!important;
+                margin-bottom: 30px;
+            }
+
+            @include breakpoint-up('lg') {
+                margin-bottom: 0px;
             }
         }
 
@@ -271,7 +286,7 @@ $NeutraText: 'NeutraText';
         padding: 25px 60px 10px;
         text-align: center;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             flex-direction: row;
             padding: 25px 0 10px;
             border: 1px solid #D0D8E9;
@@ -288,21 +303,21 @@ $NeutraText: 'NeutraText';
         line-height: 22px;
         color: #3D3331;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             display: flex;
             align-items: center;
         }
     }
 
     &__copy {
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             margin-right: 40px;
             min-width: 420px;
         }
     }
 
     &__policies {
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             min-width: 500px;
             display: flex;
             align-items: center;
@@ -320,7 +335,7 @@ $NeutraText: 'NeutraText';
         color: #3D3331;
         cursor: pointer;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             display: block;
             &:not(:first-child) {
                 margin-right: 30px;
@@ -343,7 +358,7 @@ $NeutraText: 'NeutraText';
         &--mobile {
             display: block;
             
-            @include breakpoint-up('md') {
+            @include breakpoint-up('lg') {
                 display: none;
             }
 
@@ -368,7 +383,7 @@ $NeutraText: 'NeutraText';
         align-items: center;
         margin: 30px 0;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             margin: 0;
         }
     }
@@ -379,7 +394,7 @@ $NeutraText: 'NeutraText';
         &:not(:first-child) {
             margin-left: 40px;
 
-            @include breakpoint-up('md') {
+            @include breakpoint-up('lg') {
                 margin-left: 20px;
             }
         }
@@ -409,7 +424,19 @@ $NeutraText: 'NeutraText';
         &--2 {
             right: -30px;
             bottom: -3px;
-            z-index: 1;
+
+            @include breakpoint-up('md') {
+                z-index: -1;
+            }
+
+            @media (min-width: 1700px) {
+                z-index: 1;
+            }
+
+            svg {
+                width: 470px;
+                height: 387px;
+            }
         }
     }
 

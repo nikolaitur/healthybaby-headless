@@ -48,7 +48,15 @@
 
         &--top {
             align-items: flex-start;
-            padding: 220px 0 0;
+            padding: 70px 0 0;
+
+            @include breakpoint-up('md') {
+                padding: 220px 0 0;
+            }
+
+            @media screen and (min-width: 1074px) and  (max-height:900px) {
+                padding: 110px 0 0;
+            }
         }
 
         &--vertical-center {
@@ -57,7 +65,15 @@
 
         &--bottom {
             align-items: flex-end;
-            padding: 0 0 220px;
+            padding: 0 0 70px;
+
+            @include breakpoint-up('md') {
+                padding: 0 0 220px;
+            }
+
+            @media screen and (min-width: 1074px) and  (max-height:900px) {
+                padding: 0 0 110px;
+            }
         }
 
         &--left {
@@ -126,6 +142,7 @@
         padding: 14px 60px;
         width: 100%;
         border-radius: 60px;
+        cursor: pointer;
 
         @include breakpoint-up('md') {
             font-size: 18px;
