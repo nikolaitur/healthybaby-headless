@@ -7,6 +7,7 @@ import MegaMenu from './MegaMenu'
 import MegaMenuItem from './MegaMenuItem'
 import DropDownMenuItem from './DropdownMenuItem'
 
+import { useModalContext } from '../../../context/ModalContext'
 import { useHeaderContext } from '../../../context/HeaderContext'
 
 import Logo from '../../../svgs/healthybaby-logo.svg'
@@ -26,11 +27,18 @@ const MainNavigation = ({props}) => {
     const accountIcon = props.babyIcon.fields.file.url
     const cartIcon = props.cartIcon.fields.file.url
 
+    const modalContext = useModalContext()
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);
     const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false);
+
+    const openAccountModal = () => {
+        modalContext.setIsOpen(false)
+        modalContext.setModalType('login')
+        modalContext.setIsOpen(true)
+    }
 
     const onMenuMouseEnter = () => {
         setmegaMenuIsOpen(false);
@@ -103,7 +111,7 @@ const MainNavigation = ({props}) => {
                 <div className="main-nav__item">
                     <Search/>
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => openAccountModal()}>
                     <Baby/>
                 </div>
                 <div className="main-nav__item">
@@ -125,7 +133,7 @@ const MainNavigation = ({props}) => {
                 <LogoMobile />
             </div>
             <div className="mobile-nav__right">
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => console.log('openModal')}>
                     <Baby />
                 </div>
                 <div className="main-nav__item">
