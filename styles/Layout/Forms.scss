@@ -11,6 +11,7 @@
         font-size: 24px;
         line-height: 29px;
         color: $primaryBrown;
+        text-align: center;
 
         @include breakpoint-up('md') {
             font-size: 36px;

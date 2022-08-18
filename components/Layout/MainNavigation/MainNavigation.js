@@ -7,6 +7,7 @@ import MegaMenu from './MegaMenu'
 import MegaMenuItem from './MegaMenuItem'
 import DropDownMenuItem from './DropdownMenuItem'
 
+import { useCustomerContext } from '../../../context/CustomerContext'
 import { useModalContext } from '../../../context/ModalContext'
 import { useHeaderContext } from '../../../context/HeaderContext'
 
@@ -27,8 +28,11 @@ const MainNavigation = ({props}) => {
     const accountIcon = props.babyIcon.fields.file.url
     const cartIcon = props.cartIcon.fields.file.url
 
+    const customerContext =  useCustomerContext()
     const modalContext = useModalContext()
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
+
+    console.log('Cust', customerContext.customer)
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);
@@ -36,7 +40,7 @@ const MainNavigation = ({props}) => {
 
     const openAccountModal = () => {
         modalContext.setIsOpen(false)
-        modalContext.setModalType('login')
+        modalContext.setModalType('create')
         modalContext.setIsOpen(true)
     }
 

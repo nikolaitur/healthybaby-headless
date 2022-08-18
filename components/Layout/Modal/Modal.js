@@ -1,7 +1,7 @@
 
 import { useModalContext } from '../../../context/ModalContext'
 // import IconClose from '@/svgs/close.svg'
-// import CreateAccountForm from '@/components/Forms/CreateAccountForm'
+import CreateAccountForm from '../../Layout/Forms/CreateAccountForm'
 import LoginAccountForm from '../../Layout/Forms/LoginAccountForm'
 // import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 // import GatedProductModal from '@/components/Forms/GatedProductModal'
@@ -18,8 +18,8 @@ const Modal = ({props, children}) => {
 
   const getContent = (type, children) => {
     switch(type) {
-    //   case 'create':
-    //     return <CreateAccountForm />
+      case 'create':
+        return <CreateAccountForm />
       case 'login':
         return <LoginAccountForm redirect={'/account'} />
       default:
