@@ -1,6 +1,12 @@
-.login-form {
-    padding: 30px;
+.account-form {
     background: #EDF6FC;
+    width: 100%;
+    max-width: 575px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px;
+    max-height: 700px;
+    overflow-y: scroll;
 
     &__header {
         position: relative;
@@ -12,10 +18,163 @@
         line-height: 29px;
         color: $primaryBrown;
         text-align: center;
+        margin-bottom: 35px;
 
         @include breakpoint-up('md') {
             font-size: 36px;
             line-height: 43px;
+        }
+    }
+
+    &__icons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-evenly;
+        margin-bottom: 40px;
+    }
+
+    &__icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &--wrapper {
+            padding: 11px 8px 6px;
+            border-radius: 100%;
+            margin-bottom: 12px;
+        }
+
+        &:nth-child(1) {
+            .account-form__icon--wrapper {
+                background: #ADBDB3;
+            }
+        }
+
+        &:nth-child(2) {
+            .account-form__icon--wrapper {
+                background: #B4D6DC;
+            }
+        }
+
+        &:nth-child(3) {
+            .account-form__icon--wrapper {
+                background: #F0E3E5;
+            }
+        }
+
+        &:nth-child(4) {
+            .account-form__icon--wrapper {
+                background:#A0B0D2;
+            }
+        }
+
+        span {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 18px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+        }
+    }
+
+    &__group {
+        margin-bottom: 25px;
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            background: #FFFFFF;
+            border: 1px solid #DBEDF8;
+            border-radius: 60px;
+            height: 60px;
+            width: 100%;
+            max-width: 520px;
+            padding: 0 30px;
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+
+            &.error {
+                border-color: red;
+            }
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        label {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+        }
+    }
+
+    &__add {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 0.02em;
+        color: $primaryBrown;
+        margin-top: -10px;
+        margin-bottom: 20px;
+        text-align: right;
+    }
+
+    &__submit {
+        background: #3D3331;
+        border-radius: 60px;
+        height: 60px;
+        width: 100%;
+        max-width: 520px;
+        padding: 0 30px;
+        color: #fff;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        margin-bottom: 20px;
+    }
+
+    &__links {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    &__link {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: $primaryBrown;
+        background: none;
+        border: none;
+        border-bottom: 1px solid $primaryBrown;
+
+        &:not(:first-child) {
+            margin-top: 20px;
         }
     }
 }

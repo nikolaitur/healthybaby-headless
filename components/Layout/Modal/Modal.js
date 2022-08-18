@@ -1,6 +1,6 @@
 
 import { useModalContext } from '../../../context/ModalContext'
-// import IconClose from '@/svgs/close.svg'
+import IconClose from '../../../svgs/close-icon.svg'
 import CreateAccountForm from '../../Layout/Forms/CreateAccountForm'
 import LoginAccountForm from '../../Layout/Forms/LoginAccountForm'
 // import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
@@ -29,19 +29,18 @@ const Modal = ({props, children}) => {
 
   const closeModal = () => {
     modalContext.setIsOpen(false)
-
-    if(prevContent) {
-      modalContext.setContent(prevContent)
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
-    }
   }
 
   return (
     <div className={`modal`}>
-      <div className={`modal__overlay`}></div>
+      <div className={`modal__overlay`} onClick={() => closeModal()}></div>
       <div className={`modal__container`}>
+          <div className="modal__content">
+            <div className="modal__close" onClick={() => closeModal()}>
+                <IconClose />
+            </div>
             {getContent(modalContext.modalType, children)}
+          </div>   
       </div>
     </div>
   )
