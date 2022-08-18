@@ -133,6 +133,10 @@
         margin-top: -10px;
         margin-bottom: 20px;
         text-align: right;
+
+        &.hide {
+            display: none;
+        }
     }
 
     &__submit {
@@ -175,6 +179,14 @@
 
         &:not(:first-child) {
             margin-top: 20px;
+        }
+    }
+
+    .extra-baby {
+        display: none;
+
+        &.show {
+            display: block;
         }
     }
 }

@@ -31,6 +31,8 @@ const LoginAccountForm = ({ }) => {
           console.log(response)
           // setError(response.errors[0].field[1])
           setErrorMessage(response.errors[0].message)
+      } else {
+          modalContext.setIsOpen(false)
       }
   }
 

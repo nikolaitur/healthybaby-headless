@@ -26,11 +26,18 @@ const CreateAccountForm = () => {
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState(false)
 
+    const[extraBaby, setExtraBaby] = useState(0)
+
     const handleChange = () => {
         setChecked(!checked);
     };
 
-    console.log(customerContext)
+    const addBaby = () => {
+        if(extraBaby != 3) {
+            setExtraBaby(extraBaby + 1)
+            console.log(extraBaby)
+        }
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -54,10 +61,10 @@ const CreateAccountForm = () => {
             // setError(response.errors[0].field[1])
             setErrorMessage(response.errors[0].message)
         } else {
-            // const response = await customerContext.login({
-            //     email: emailRef.current.value,
-            //     password: passwordRef.current.value,
-            // })
+            const response = await customerContext.login({
+                email: emailRef.current.value,
+                password: passwordRef.current.value,
+            })
 
             if (response) {
                 firstNameRef.current.value = ""
@@ -116,7 +123,7 @@ const CreateAccountForm = () => {
                 <div className="account-form__group">
                     <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday1Ref} />
                 </div>
-                <div className="baby-2">
+                <div className={`extra-baby ${extraBaby == 1 ? "show" : ""}`}>
                     <div className="account-form__group">
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName2Ref} />
                     </div>
@@ -124,7 +131,7 @@ const CreateAccountForm = () => {
                         <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday2Ref} />
                     </div>
                 </div>
-                <div className="baby-3">
+                <div className={`extra-baby ${extraBaby == 2 ? "show" : ""}`}>
                     <div className="account-form__group">
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName3Ref} />
                     </div>
@@ -132,7 +139,7 @@ const CreateAccountForm = () => {
                         <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday3Ref} />
                     </div>
                 </div>
-                <div className="account-form__add">
+                <div className={`account-form__add ${extraBaby != 3 ? "hide" : ""}`} onClick={() => addBaby()}>
                     <span></span>
                     <span>Add Another Baby</span>
                 </div>

@@ -1,10 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
-// import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '@/gql/index.js'
-import { CUSTOMER_CREATE } from '../gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '../gql/index.js'
 
-// import { encode } from 'js-base64'
-// import * as Cookies from 'es-cookie'
+import * as Cookies from 'es-cookie'
 
 const CustomerContext = createContext()
 
@@ -17,7 +15,72 @@ export function CustomerProvider({ children }) {
   const [customer, setCustomer] = useState(null)
   const [customerLoading, setCustomerLoading] = useState(false)
 
-  console.log(accountClientPost)
+  useEffect(() => {
+    const customerAccessToken = Cookies.get('customerAccessToken')
+    if (customerAccessToken) {
+      getCustomer({ accessToken: customerAccessToken })
+    }
+  }, [])
+
+  async function createCustomerAccessToken({ email, password }) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ACCESS_TOKEN_CREATE,
+      variables: {
+        input: {
+          email,
+          password
+        }
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { customerAccessTokenCreateErrors: errors }
+    }
+    return { customerAccessTokenCreate: data.customerAccessTokenCreate }
+  }
+
+  async function getCustomer({accessToken, expiresAt}) {
+    setCustomerLoading(true)
+    const response = await accountClientPost({
+      query: GET_CUSTOMER,
+      variables: {
+        customerAccessToken: accessToken
+      }
+    })
+    const { data, errors } = response
+    setCustomerLoading(false)
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    if (data?.customer && expiresAt) {
+      Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
+    }
+
+    const { customer } = data
+
+    if (customer?.addresses?.edges.length > 0) {
+      customer.addresses = transformEdges(customer.addresses)
+    }
+
+    setCustomer(customer)
+    console.log("customer:", customer)
+    return { data }
+  }
+
+  async function login({ email, password }) {
+    const { customerAccessTokenCreateErrors, customerAccessTokenCreate } = await createCustomerAccessToken({email, password})
+    if (customerAccessTokenCreateErrors) {
+      return { errors: customerAccessTokenCreateErrors }
+    }
+    if (customerAccessTokenCreate.userErrors.length) {
+      return { errors: customerAccessTokenCreate.userErrors }
+    }
+    const customerAccessToken = customerAccessTokenCreate.customerAccessToken
+    return getCustomer({
+      accessToken: customerAccessToken.accessToken,
+      expiresAt: customerAccessToken.expiresAt
+    })
+  }
 
   async function register({ firstName, lastName, email, password }) {
     const response = await accountClientPost({
@@ -40,7 +103,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login }}>
       {children}
     </CustomerContext.Provider>
   )
