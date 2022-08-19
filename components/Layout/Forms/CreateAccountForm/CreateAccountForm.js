@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useModalContext } from '../../../../context/ModalContext'
 import { useCustomerContext } from '../../../../context/CustomerContext'
 
@@ -32,10 +32,12 @@ const CreateAccountForm = () => {
         setChecked(!checked);
     };
 
+    useEffect(() => {
+      }, [extraBaby])
+
     const addBaby = () => {
-        if(extraBaby != 3) {
+        if(extraBaby !== 2) {
             setExtraBaby(extraBaby + 1)
-            console.log(extraBaby)
         }
     }
 
@@ -123,7 +125,7 @@ const CreateAccountForm = () => {
                 <div className="account-form__group">
                     <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday1Ref} />
                 </div>
-                <div className={`extra-baby ${extraBaby == 1 ? "show" : ""}`}>
+                <div className={`extra-baby ${extraBaby >= 1 ? "show" : ""}`}>
                     <div className="account-form__group">
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName2Ref} />
                     </div>
@@ -131,7 +133,7 @@ const CreateAccountForm = () => {
                         <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday2Ref} />
                     </div>
                 </div>
-                <div className={`extra-baby ${extraBaby == 2 ? "show" : ""}`}>
+                <div className={`extra-baby ${extraBaby >= 2 ? "show" : ""}`}>
                     <div className="account-form__group">
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName3Ref} />
                     </div>
@@ -139,7 +141,7 @@ const CreateAccountForm = () => {
                         <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday3Ref} />
                     </div>
                 </div>
-                <div className={`account-form__add ${extraBaby != 3 ? "hide" : ""}`} onClick={() => addBaby()}>
+                <div className={`account-form__add ${extraBaby >= 2 ? "hide" : ""}`} onClick={() => addBaby()}>
                     <span></span>
                     <span>Add Another Baby</span>
                 </div>
