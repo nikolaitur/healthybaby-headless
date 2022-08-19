@@ -74,10 +74,15 @@
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
-            line-height: 18px;
+            font-size: 14px;
+            line-height: 14px;
             letter-spacing: -0.01em;
             color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 18px;
+            }
         }
     }
 
@@ -97,10 +102,15 @@
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
+            font-size: 16px;
+            line-height: 19px;
             letter-spacing: 0.02em;
             color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 22px;
+            }
 
             &.error {
                 border-color: red;
@@ -133,9 +143,17 @@
         margin-top: -10px;
         margin-bottom: 20px;
         text-align: right;
+        cursor: pointer;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
 
         &.hide {
             display: none;
+        }
+
+        span:first-child {
+            margin-right: 5px;
         }
     }
 
@@ -150,10 +168,16 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 15px;
-        line-height: 22px;
+        font-size: 16px;
+        line-height: 19px;
         letter-spacing: 0.02em;
         margin-bottom: 20px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+        }
+        
     }
 
     &__links {
@@ -169,13 +193,18 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 16px;
+        line-height: 19px;
         letter-spacing: 0.02em;
         color: $primaryBrown;
         background: none;
         border: none;
         border-bottom: 1px solid $primaryBrown;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+        }
 
         &:not(:first-child) {
             margin-top: 20px;

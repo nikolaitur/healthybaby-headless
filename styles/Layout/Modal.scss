@@ -31,11 +31,21 @@
         position: relative;
         width: 100%;
         max-width: 575px;
+        padding: 0 30px;
+
+        @include breakpoint-up('md') {
+            padding: 0;
+        }
     }
 
     &__close {
         position: absolute;
-        right: 10px;
+        right: 40px;
         top: 10px;
+        cursor: pointer;
+
+        @include breakpoint-up('md') {
+            right: 10px;
+        }
     }
 }

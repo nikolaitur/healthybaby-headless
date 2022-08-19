@@ -6,6 +6,7 @@ import Diaper from '../../../../svgs/diaper.svg'
 import ShoppingCart from '../../../../svgs/shopping-cart.svg'
 import Baby from '../../../../svgs/baby.svg'
 import Waves from '../../../../svgs/waves.svg'
+import Plus from '../../../../svgs/plus-icon.svg'
 
 const CreateAccountForm = () => {
 
@@ -32,8 +33,7 @@ const CreateAccountForm = () => {
         setChecked(!checked);
     };
 
-    useEffect(() => {
-      }, [extraBaby])
+    useEffect(() => {}, [extraBaby])
 
     const addBaby = () => {
         if(extraBaby !== 2) {
@@ -142,7 +142,9 @@ const CreateAccountForm = () => {
                     </div>
                 </div>
                 <div className={`account-form__add ${extraBaby >= 2 ? "hide" : ""}`} onClick={() => addBaby()}>
-                    <span></span>
+                    <span>
+                        <Plus/>
+                    </span>
                     <span>Add Another Baby</span>
                 </div>
                 <button className="account-form__submit" type="submit">Create Account</button>
