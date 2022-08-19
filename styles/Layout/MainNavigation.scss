@@ -82,6 +82,10 @@
             font-size: 18px;
             line-height: 21px;
         }
+        
+        &.active {
+            z-index: 1;
+        }
 
         &:hover {
             color: var(--menuItemHover);
@@ -101,6 +105,39 @@
             &:hover {
                 color: var(--menuItemHover);
             }
+        }
+    }
+
+    &__search {
+        position: absolute;
+        right: 100px;
+        width: 0;
+        transition: 0.3s;
+        opacity: 0;
+        pointer-events: none;
+
+        &.active {
+            width: calc(100% - 110px);
+            opacity: 1;
+            pointer-events: inherit;
+        }
+
+        input {
+            background: #FFFFFF;
+            border: 1px solid #DBEDF8;
+            border-radius: 60px;
+            height: 48px;
+            width: 100%;
+            max-width: 520px;
+            padding: 0 30px;
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+            padding: 0 55px 0 30px;
         }
     }
 
