@@ -105,7 +105,7 @@ const DiaperFinder = ({ content }) => {
     }
 
     return (
-        <section className="diaper-finder">
+        <section className="diaper-finder" data-background-color="blue">
             <div className="diaper-finder__container container">
                 <div className="diaper-finder__content">
                     <div className="diaper-finder__subheader">

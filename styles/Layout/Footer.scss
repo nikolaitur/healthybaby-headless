@@ -5,6 +5,7 @@ $NeutraText: 'NeutraText';
     position: relative;
     padding: 16px 0;
     overflow: hidden;
+    background: #fff;
 
     @include breakpoint-up('md') {
         padding: 70px 0;

@@ -44,8 +44,28 @@ body {
 body.no-scroll {
     overflow: hidden;
 }
-main {
+body {
 	background: #F5F2F2;
+	transition: 1s ease;
+	
+	&.color-blue {
+		background: #D0D8E9;
+	}
+
+	&.color-teal {
+		background: #C7E0E5;
+	}
+
+	&.color-green {
+		background: #C2CDC6;
+	}
+
+	&.color-pink {
+		background:  #F0E3E5;
+	}
+}
+main {
+	
 }
 a {
 	text-decoration: none;

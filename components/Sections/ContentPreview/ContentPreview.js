@@ -50,7 +50,7 @@ const ContentPreview = ({ content }) => {
     }
 
     return (
-        <section className="content-preview">
+        <section className="content-preview" data-background-color="green">
             <div className="content-preview__container container">
                 <div className="content-preview__content">
                     <div className="content-preview__subheader">{ subheader }</div>
