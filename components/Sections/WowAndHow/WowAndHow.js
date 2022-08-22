@@ -14,7 +14,7 @@ const WowAndHow = ({ content }) => {
     }
 
     return (
-        <section className="wow-and-how" style={{ backgroundColor: backgroundColor }} data-background-color="teal">
+        <section className="wow-and-how" data-background-color="teal">
             <div className="wow-and-how__container container">
                 <div className="wow-and-how__image wow-and-how__image--desktop">
                     <div className="wow-and-how__grid">
