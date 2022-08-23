@@ -131,40 +131,40 @@
             height: 60px;
             border-radius: 100%;
 
-            @include breakpoint-up('md') {
-                display: block;
-            }
+            // @include breakpoint-up('md') {
+            //     display: block;
+            // }
         }
 
-        .swiper-button-next {
-            right: -110px;
+        // .swiper-button-next {
+        //     right: -110px;
 
-            &:after {
-                content: "";
-                background: url(https://images.ctfassets.net/urdrzzac4igp/6uqLD7A4ZwyCQ50UtTwjzQ/7d253e24cd6f72f0a6838738551dd763/Arrow_6.png);
-                width: 26px;
-                height: 12px;
-                position: absolute;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                left: 50%;   
-            }
-        }
+        //     &:after {
+        //         content: "";
+        //         background: url(https://images.ctfassets.net/urdrzzac4igp/6uqLD7A4ZwyCQ50UtTwjzQ/7d253e24cd6f72f0a6838738551dd763/Arrow_6.png);
+        //         width: 26px;
+        //         height: 12px;
+        //         position: absolute;
+        //         top: 50%;
+        //         transform: translate(-50%, -50%);
+        //         left: 50%;   
+        //     }
+        // }
 
-        .swiper-button-prev {
-            left: -110px;
+        // .swiper-button-prev {
+        //     left: -110px;
 
-            &:after {
-                content: "";
-                background: url(https://images.ctfassets.net/urdrzzac4igp/6uqLD7A4ZwyCQ50UtTwjzQ/7d253e24cd6f72f0a6838738551dd763/Arrow_6.png);
-                width: 26px;
-                height: 12px;
-                position: absolute;
-                top: 50%;
-                transform: translate(-50%, -50%) rotate(180deg);
-                left: 50%;   
-            }
-        }
+        //     &:after {
+        //         content: "";
+        //         background: url(https://images.ctfassets.net/urdrzzac4igp/6uqLD7A4ZwyCQ50UtTwjzQ/7d253e24cd6f72f0a6838738551dd763/Arrow_6.png);
+        //         width: 26px;
+        //         height: 12px;
+        //         position: absolute;
+        //         top: 50%;
+        //         transform: translate(-50%, -50%) rotate(180deg);
+        //         left: 50%;   
+        //     }
+        // }
     }
 
     &__info {

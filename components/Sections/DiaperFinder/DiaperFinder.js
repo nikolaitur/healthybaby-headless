@@ -108,9 +108,9 @@ const DiaperFinder = ({ content }) => {
         <section className="diaper-finder" data-background-color="blue">
             <div className="diaper-finder__container container">
                 <div className="diaper-finder__content">
-                    <div className="diaper-finder__subheader">
+                    <h6 className="diaper-finder__subheader">
                         LET’S PERSONALIZE YOUR EXPERIENCE
-                    </div>
+                    </h6>
                     <div className="diaper-finder__form">
                         <span>
                             <span>My baby’s name is</span>
@@ -138,7 +138,7 @@ const DiaperFinder = ({ content }) => {
                         </span>
                     </div>
                     <div className="diaper-finder__cta" onClick={() => showDiaperResults()}>
-                        Explore Recommendations
+                        <button className="btn">Explore Recommendations</button>
                     </div>
                     <div className={`diaper-finder__clear ${isActive ? "is-open" : "hidden"}`} onClick={() => clearDiaperResults()}>
                         <span>x&nbsp;&nbsp;</span>

@@ -26,7 +26,7 @@
         width: 100%;
         position: absolute;
         right: -45%;
-        top: 0;
+        top: -150px;
 
         @include breakpoint-up('md') {
             max-width: 185px;
@@ -107,19 +107,8 @@
         position: relative;
         z-index: 1;
 
-        a {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.02em;
-            color: #3D3331;
-            background: #fff;
+        .btn {
             padding: 19px 100px;
-            max-width: max-content;
             border-radius: 60px;
 
             @include breakpoint-up('md') {

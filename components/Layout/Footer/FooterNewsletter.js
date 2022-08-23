@@ -10,7 +10,7 @@ const FooterNewsletter = ({ content}) => {
   return (
     <div className="footer__newsletter">
         <div className="footer__content">
-            <div className="footer__eyebrow">{content.fields.subtitle}</div>
+            <h6 className="footer__eyebrow">{content.fields.subtitle}</h6>
             <div className="footer__header">{content.fields.header}</div>
         </div>
         <form className="footer__form">

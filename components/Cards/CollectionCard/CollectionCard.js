@@ -16,7 +16,7 @@ const CollectionCard = ({ content }) => {
             </div>
             <div className="collection-card__cta">
                 <Link href={ctaUrl}>
-                    {ctaText}
+                    <button className="btn">{ctaText}</button>
                 </Link>
             </div>
         </div>

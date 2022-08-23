@@ -12,10 +12,10 @@ const About = ({ content }) => {
         <section className="about">
             <div className="about__container container">
                 <div className="about__content">
-                    <div className="about__subheader">{ subheader }</div>
-                    <div className="about__header">
+                    <h6 className="about__subheader">{ subheader }</h6>
+                    <h3 className="about__header">
                         { header }
-                    </div>
+                    </h3>
                     <div className="about__image about__image--mobile">
                         <Image
                             src={`https:${image}`}
@@ -24,9 +24,9 @@ const About = ({ content }) => {
                             height="750"
                         />
                     </div>
-                    <div className="about__copy">
+                    <h5 className="about__copy">
                         { copy }
-                    </div>
+                    </h5>
                     <div className="about__links">
                         {links.map((link, index) => {
                             return (

@@ -1,6 +1,14 @@
 .stories-slider {
     padding: 100px 0;
 
+    .swiper-slide {
+        opacity: 0!important;
+
+        &.swiper-slide-active {
+            opacity: 1!important;
+        }
+    }
+
     &__container {
         position: relative;
         display: flex;

@@ -10,7 +10,7 @@
     }
 
     @media screen and (min-width: 1074px) and  (max-height:900px) {
-       min-height: 1000px;
+       min-height: 720px;
     }
 
     &__image {
@@ -95,36 +95,12 @@
     }
 
     &__subheader {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 16px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
         color: #FFFFFF;
-        text-transform: uppercase;
-        margin-bottom: 30px;
-
-        @include breakpoint-up('md') {
-            font-size: 18px;
-            line-height: 18px;
-        }
     }
 
     &__header {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 42px;
-        line-height: 42px;
         color: #FFFFFF;
         margin-bottom: 60px;
-
-        @include breakpoint-up('md') {
-            font-size: 96px;
-            line-height: 96px;
-        }
     }
 
     &__button {
@@ -137,7 +113,7 @@
         align-items: center;
         justify-content: center;
         letter-spacing: 0.02em;
-        color: #3D3331;
+        color: $primaryBrown;
         background: #fff;
         padding: 14px 60px;
         width: 100%;

@@ -117,6 +117,16 @@
         }
     }
 
+    .content-card {
+        @include breakpoint-up('sm') {
+            text-align: center;
+        }
+
+        @include breakpoint-up('md') {
+            text-align: left;
+        }
+    }
+
     .content-card__image {
         img {
             @include breakpoint-up('md') {

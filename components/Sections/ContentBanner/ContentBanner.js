@@ -29,8 +29,8 @@ const ContentBanner = ({ content }) => {
                     <div className="content-banner__subheader">{ subheader }</div>
                 </div>
                 <div className="content-banner__cta">
-                    <Link href="/">
-                        {ctaText}
+                    <Link href={ctaUrl}>
+                        <button className="btn">{ctaText}</button>
                     </Link>
                 </div>
             </div>
