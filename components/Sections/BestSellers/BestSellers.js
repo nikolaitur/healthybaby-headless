@@ -16,25 +16,22 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const BestSellers = ({ content }) => {
     const { header } = content.fields
-    // console.log('bestsellers', content.fields)
     const { products } = content.fields
 
     const [bestSellers, setBestSellers] = useState([])
 
-    // useEffect(() => {
+    useEffect(() => {
+        const getBestSellers = async () => {
+            const productList = products.split(',')
+            await nacelleClient.products({
+                handles: productList
+            }).then(response => {
+                setBestSellers(response)
+            })
+        }
 
-    // }, [bestSellers]);
-
-    const getBestSellers = async () => {
-        const productList = products.split(',')
-        await nacelleClient.products({
-            handles: productList
-        }).then(response => {
-            setBestSellers(response)
-        })
-    }
-
-    getBestSellers()
+        getBestSellers()
+    }, [products]);
     
     return (
         <section className="best-sellers">

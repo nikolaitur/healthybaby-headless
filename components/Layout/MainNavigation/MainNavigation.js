@@ -84,11 +84,13 @@ const MainNavigation = ({props}) => {
 
     const toggleSearch = () => {
         setSearchOpen(!isSearchOpen);
+        setQuery('')
     }
+
+
 
     const handleSearchChange = event => {
       setQuery(event.target.value);
-  
       // console.log('value is:', event.target.value);
     };
     
@@ -128,7 +130,7 @@ const MainNavigation = ({props}) => {
                 </div>
             </div> 
             <MegaMenu menu={megaMenu} />
-            <SearchMenu query={query} />
+            <SearchMenu query={query} toggleSearch={toggleSearch} />
         </div>
         <div className="mobile-nav">
             <div className="mobile-nav__left">

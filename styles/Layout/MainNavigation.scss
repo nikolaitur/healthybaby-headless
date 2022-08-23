@@ -31,7 +31,7 @@
         border-radius: 100%;
         left: 50%;
         top: -280px;
-        z-index: 0;
+        z-index: 2;
         transform: translateX(-50%);
     }
 
@@ -41,6 +41,7 @@
         max-height: 96px;
         transform: translateY(40px);
         cursor: pointer;
+        z-index: 2;
 
         img {
             max-height: 96px;
@@ -115,6 +116,7 @@
         transition: 0.3s;
         opacity: 0;
         pointer-events: none;
+        max-width: 520px;
 
         &.active {
             width: calc(100% - 110px);
