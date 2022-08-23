@@ -5,7 +5,7 @@ import Image from 'next/image';
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const About = ({ content }) => {
-    const { header, subheader, copy, links } = content.fields
+    const { header, subheader, copy, links, imageTitle, imageSubtitle } = content.fields
     const image = content.fields.image.fields.file.url  
 
     return (
@@ -49,6 +49,12 @@ const About = ({ content }) => {
                         width="785"
                         height="750"
                     />
+                    <div className="about__title">
+                        {imageTitle}
+                    </div>
+                    <div className="about__subtitle">
+                        {imageSubtitle}
+                    </div>
                 </div>
             </div>
         </section>

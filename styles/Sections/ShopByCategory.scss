@@ -1,7 +1,8 @@
 .shop-by-category {
     padding: 100px 0;
     overflow: hidden;
-
+    background: #F5F2F2;
+    
     &__content {
         position: relative;
     }
@@ -19,6 +20,10 @@
             font-size: 76px;
             line-height: 76px;
             margin-bottom: 90px;
+        }
+
+        @media screen and (min-width: 1074px) and (max-width:1439px) {
+            margin-bottom: 0px;
         }
     }
 
@@ -46,6 +51,12 @@
             right: 0;
             bottom: 5px;
         }
+
+        @media screen and (min-width: 1074px) and (max-width:1439px) {
+            margin-top: 40px;
+            position: relative;
+            margin-bottom: 80px;
+        }
     }
 
     &__button {
@@ -59,6 +70,7 @@
         letter-spacing: 0.02em;
         color: #3D3331;
         margin-bottom: 30px;
+        cursor: pointer;
 
         @include breakpoint-up('md') {
             justify-content: flex-start;
@@ -126,10 +138,32 @@
 
         .swiper-button-next {
             right: -110px;
+
+            &:after {
+                content: "";
+                background: url(https://images.ctfassets.net/urdrzzac4igp/6uqLD7A4ZwyCQ50UtTwjzQ/7d253e24cd6f72f0a6838738551dd763/Arrow_6.png);
+                width: 26px;
+                height: 12px;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                left: 50%;   
+            }
         }
 
         .swiper-button-prev {
             left: -110px;
+
+            &:after {
+                content: "";
+                background: url(https://images.ctfassets.net/urdrzzac4igp/6uqLD7A4ZwyCQ50UtTwjzQ/7d253e24cd6f72f0a6838738551dd763/Arrow_6.png);
+                width: 26px;
+                height: 12px;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%) rotate(180deg);
+                left: 50%;   
+            }
         }
     }
 

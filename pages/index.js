@@ -11,6 +11,38 @@ export default function Home({ pages }) {
   const sections = pages[0].fields.sections
   // console.log(sections, "sections", pages)
   // const homePage = pages.find((page) => page.handle === 'homepage')
+
+  useEffect(function mount() {
+    window.addEventListener("scroll", backgroundColorChange);
+
+    return function unMount() {
+      window.removeEventListener("scroll", backgroundColorChange);
+    };
+  });
+
+  const backgroundColorChange = () => {
+      
+      const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+      const scroll = scrollPosition + (window.innerHeight / 3)
+      
+      const sections = document.querySelectorAll("section");
+      
+      sections.forEach(element => {
+          if(element.offsetTop <= scroll && element.offsetTop + element.offsetHeight > scroll) {
+              const bodyClasses = document.body.className
+
+              for (let i = document.body.classList.length - 1; i >= 0; i--) {
+                  const className = document.body.classList[i];
+                  if (className.startsWith('color-')) {
+                      document.body.classList.remove(className);
+                  }
+              }
+
+              document.body.classList.add(`color-${element.dataset.backgroundColor}`)
+          }
+      });
+  }
+
   return (
     <>
       <Head>

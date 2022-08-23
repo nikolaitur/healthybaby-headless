@@ -1,7 +1,7 @@
 .content-preview {
     padding: 100px 0;
     overflow: hidden;
-    background: #C2CDC6;
+    // background: #C2CDC6;
 
     &__content {
         position: relative;
@@ -13,11 +13,16 @@
         font-weight: 500;
         font-size: 32px;
         line-height: 32px;
-        color: $primaryBrown;
+        color: #00B188;
         margin-bottom: 30px;
-
+        -ms-overflow-style: none;
+        scrollbar-width: none;
         overflow: scroll;
         display: flex;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         @include breakpoint-up('md') {
             font-size: 62px;
@@ -32,10 +37,11 @@
         span {
             margin-right: 20px;
             color: rgba(50, 89, 66, 0.3);
+            cursor: pointer;
 
             &.active {
-                color: rgba(50, 89, 66, 1);
-                border-bottom: 1px solid rgba(50, 89, 66, 1);
+                color: #00B188;
+                border-bottom: 1px solid #00B188;
                 font-style: italic;
                 padding-bottom: 10px;
             }
@@ -88,6 +94,7 @@
         letter-spacing: 0.02em;
         color: #3D3331;
         margin-bottom: 30px;
+        cursor: pointer;
 
         @include breakpoint-up('md') {
             justify-content: flex-start;
@@ -107,6 +114,14 @@
             width: calc(100% + 40px);
             position: relative;
             left: -20px;
+        }
+    }
+
+    .content-card__image {
+        img {
+            @include breakpoint-up('md') {
+                height: 405px!important;
+            }
         }
     }
 }

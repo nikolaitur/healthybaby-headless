@@ -1,7 +1,7 @@
 .diaper-finder {
     padding: 80px 0 60px;
     min-height: 100vh;
-    background: #D0D8E9;
+    // background: #D0D8E9;
     display: flex;
     align-items: center;
     position: relative;
@@ -91,6 +91,33 @@
             }
         }
 
+        .react-datepicker {
+            font-family: $NeutraText;
+            background: #A0B0D2;
+
+            &__week {
+                height: 30px;
+                display: flex;
+                align-items: center;
+            }
+
+            &__day {
+                color: #fff;
+                margin: 0 0.166rem;
+
+                &--selected,
+                &--keyboard-selected {
+                    background: #C2CDC6;
+                }
+            }
+        }
+
+        .react-datepicker-wrapper {
+            input {
+                width: 350px;
+            }
+        }
+
         .suffix {
             font-family: $DomaineText;
             font-style: italic;
@@ -171,6 +198,10 @@
         @include breakpoint-up('md') {
             display: flex;
             align-items: center;
+
+            > span {
+                width: 100%;
+            }
         }
     }
 
@@ -239,6 +270,7 @@
             transform: translateY(-50%);
             height: auto;
             max-width: 65%;
+            z-index: -1;
         }
 
         &--desktop {
