@@ -63,7 +63,7 @@ const SearchMenu = ({ query, toggleSearch }) => {
                 setSearchArticles({ hits: results[1].hits, total: results[1].nbHits })
             }
 
-            if(searchQuery.length > 0) {
+            if(query.length > 0) {
                 document.body.classList.add("no-scroll")
             } else {
                 document.body.classList.remove("no-scroll")

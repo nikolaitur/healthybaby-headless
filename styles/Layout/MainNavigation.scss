@@ -31,7 +31,7 @@
         border-radius: 100%;
         left: 50%;
         top: -280px;
-        z-index: 2;
+        z-index: 6;
         transform: translateX(-50%);
     }
 
@@ -41,7 +41,7 @@
         max-height: 96px;
         transform: translateY(40px);
         cursor: pointer;
-        z-index: 2;
+        z-index: 7;
 
         img {
             max-height: 96px;

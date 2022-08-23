@@ -84,7 +84,7 @@ const MainNavigation = ({props}) => {
 
     const toggleSearch = () => {
         setSearchOpen(!isSearchOpen);
-        setQuery('')
+        setQuery("")
     }
 
 
@@ -188,7 +188,7 @@ const MainNavigation = ({props}) => {
             </div>
         </div>
 
-        <div className={`mobile-menu mobile-menu--serach ${isSearchOpen ? "is-open" : ""}`}>
+        <div className={`mobile-menu mobile-menu--search ${isSearchOpen ? "is-open" : ""}`}>
             <div className="mobile-menu__close" onClick={() => toggleSearch()}>
                 <CloseIcon />
             </div>

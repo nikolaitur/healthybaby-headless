@@ -5,13 +5,13 @@
     @include breakpoint-up('md') {
         position: absolute;
         width: 100%;
-        height: auto;
+        height: calc(100vh - 153px);
         top: 95px;
         left: 0;
-        background: #FBF8F8;
+        // background: #FBF8F8;
         // z-index: -1;
         display: none;
-        // overflow: hidden;
+        overflow: hidden;
     }
 
     &.show {
@@ -22,9 +22,11 @@
 .search-menu {
     position: relative;
     z-index: 4;
+    background: #FBF8F8;
     
     @include breakpoint-up('md') {
         height: 576px;
+        padding-top: 40px;
         overflow: hidden;
     }
 
@@ -79,6 +81,14 @@
 
             @include breakpoint-up('md') {
                 flex-direction: row;
+            }
+        }
+
+        .product-card {
+            height: auto;
+            
+            @include breakpoint-up('md') {
+                margin-bottom: 30px;
             }
         }
 

@@ -8,6 +8,14 @@
     transition: 0.5s;
     transform: translateX(calc(-100% - 42px));
 
+    &--search {
+        background: #FBF8F8;
+
+        .mobile-menu__close {
+            background: #FBF8F8;
+        }
+    }
+
     @include breakpoint-up('md') {
         display: none;
     }
