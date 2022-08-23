@@ -50,6 +50,40 @@
         }
     }
 
+    &__search {
+        position: absolute;
+        z-index: 13;
+        top: 22px;
+        left: 28px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: calc(100% - 60px);
+
+        input {
+            background: #FFFFFF;
+            border: 1px solid #DBEDF8;
+            border-radius: 60px;
+            height: 48px;
+            width: 100%;
+            max-width: 520px;
+            padding: 0 30px;
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: $primaryBrown;
+            padding: 0 55px 0 30px;
+        }
+
+        svg {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+    }
+
     &__primary {
         font-family: $DomaineText;
         font-style: normal;

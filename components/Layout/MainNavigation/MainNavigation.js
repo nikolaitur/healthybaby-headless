@@ -137,7 +137,7 @@ const MainNavigation = ({props}) => {
                 <div className="main-nav__item" onClick={() => openMobileMenu()}>
                     <HamburgerMenu />
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => toggleSearch()}>
                     <Search />
                 </div>
             </div>
@@ -186,6 +186,17 @@ const MainNavigation = ({props}) => {
                 </div>
                 <MegaMenu menu={megaMenu}/>
             </div>
+        </div>
+
+        <div className={`mobile-menu mobile-menu--serach ${isSearchOpen ? "is-open" : ""}`}>
+            <div className="mobile-menu__close" onClick={() => toggleSearch()}>
+                <CloseIcon />
+            </div>
+            <div className={`mobile-menu__search`}>
+                <input type="text" className="input" placeholder="search products, articles, events, etc..." onChange={handleSearchChange} />
+                <span><Search/></span>
+            </div>
+            <SearchMenu query={query} toggleSearch={toggleSearch} />
         </div>
       </>
     )

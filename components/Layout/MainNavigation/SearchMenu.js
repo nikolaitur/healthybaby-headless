@@ -110,6 +110,12 @@ const SearchMenu = ({ query, toggleSearch }) => {
                             ))
                         ) : ""}
                     </div>
+                    <Link href="/">
+                        <div className="search-menu__result">
+                            <span>All Results</span>
+                            <span><LongArrowRight /></span>
+                        </div>
+                    </Link>
                 </div>
 
                 <div className="search-menu__articles">

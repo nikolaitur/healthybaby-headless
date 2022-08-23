@@ -85,7 +85,7 @@
         }
         
         &.active {
-            z-index: 1;
+            z-index: 11;
         }
 
         &:hover {
@@ -117,6 +117,7 @@
         opacity: 0;
         pointer-events: none;
         max-width: 520px;
+        z-index: 10;
 
         &.active {
             width: calc(100% - 110px);
