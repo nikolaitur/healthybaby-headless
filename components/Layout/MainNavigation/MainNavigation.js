@@ -51,6 +51,7 @@ const MainNavigation = ({props}) => {
 
     const openMobileMenu = () => {
         setMobileMenuOpen(!isMobileMenuOpen)
+        setmegaMenuIsOpen(true)
     }
 
     const closeMobileMenu = () => {
