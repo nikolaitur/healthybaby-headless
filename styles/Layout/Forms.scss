@@ -172,6 +172,7 @@
         line-height: 19px;
         letter-spacing: 0.02em;
         margin-bottom: 20px;
+        cursor: pointer;
 
         @include breakpoint-up('md') {
             font-size: 18px;
@@ -200,6 +201,7 @@
         background: none;
         border: none;
         border-bottom: 1px solid $primaryBrown;
+        cursor: pointer;
 
         @include breakpoint-up('md') {
             font-size: 18px;
