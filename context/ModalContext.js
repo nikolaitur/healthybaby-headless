@@ -21,6 +21,12 @@ export function ModalProvider({ children }) {
 
 //   }, [isOpen, content])
 
+  if(isOpen) {
+    document.body.classList.add("no-scroll")
+  } else {
+    document.body.classList.remove("no-scroll")
+  }
+
   return (
     <ModalContext.Provider value={{ isOpen, setIsOpen, modalType, setModalType }}>
       {isOpen &&
