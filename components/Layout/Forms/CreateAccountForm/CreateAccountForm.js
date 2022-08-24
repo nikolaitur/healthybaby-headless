@@ -1,6 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
 import { useModalContext } from '../../../../context/ModalContext'
 import { useCustomerContext } from '../../../../context/CustomerContext'
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css"
 
 import Diaper from '../../../../svgs/diaper.svg'
 import ShoppingCart from '../../../../svgs/shopping-cart.svg'
@@ -22,6 +25,10 @@ const CreateAccountForm = () => {
     const babyBirthday2Ref = useRef()
     const babyBirthday3Ref = useRef()
     const emailMarketingConsentRef = useRef()
+
+    const [babyBirthday1, setbabyBirthday1] = useState(false);
+    const [babyBirthday2, setbabyBirthday2] = useState(false);
+    const [babyBirthday3, setbabyBirthday3] = useState(false);
     
     const [checked, setChecked] = useState(false)
     const [error, setError] = useState(false)
@@ -48,40 +55,42 @@ const CreateAccountForm = () => {
             email: emailRef.current.value,
             password: passwordRef.current.value,
             babyName1: babyName1Ref.current.value,
-            babyBirthday1: babyBirthday1Ref.current.value,
+            babyBirthday1: babyBirthday1,
             babyName2: babyName2Ref.current.value,
-            babyBirthday2: babyBirthday2Ref.current.value,
+            babyBirthday2: babyBirthday2,
             babyName3: babyName3Ref.current.value,
-            babyBirthday3: babyBirthday3Ref.current.value,
+            babyBirthday3: babyBirthday3,
             emailMarketingConsent: checked
         }
 
-        const response = await customerContext.register(formData)
+        console.log(formData)
 
-        if (response.errors?.length) {
-            console.log(response)
-            // setError(response.errors[0].field[1])
-            setErrorMessage(response.errors[0].message)
-        } else {
-            const response = await customerContext.login({
-                email: emailRef.current.value,
-                password: passwordRef.current.value,
-            })
+        // const response = await customerContext.register(formData)
 
-            if (response) {
-                firstNameRef.current.value = ""
-                emailRef.current.value = ""
-                passwordRef.current.value = ""
-                babyName1Ref.current.value = ""
-                babyBirthday1Ref.current.value = ""
-                babyName2Ref.current.value = ""
-                babyBirthday2Ref.current.value = ""
-                babyName3Ref.current.value = ""
-                babyBirthday3Ref.current.value = ""
-                setChecked(!checked)
-                modalContext.setIsOpen(false)
-            }
-        }
+        // if (response.errors?.length) {
+        //     console.log(response)
+        //     // setError(response.errors[0].field[1])
+        //     setErrorMessage(response.errors[0].message)
+        // } else {
+        //     const response = await customerContext.login({
+        //         email: emailRef.current.value,
+        //         password: passwordRef.current.value,
+        //     })
+
+        //     if (response) {
+        //         firstNameRef.current.value = ""
+        //         emailRef.current.value = ""
+        //         passwordRef.current.value = ""
+        //         babyName1Ref.current.value = ""
+        //         babyBirthday1Ref.current.value = ""
+        //         babyName2Ref.current.value = ""
+        //         babyBirthday2Ref.current.value = ""
+        //         babyName3Ref.current.value = ""
+        //         babyBirthday3Ref.current.value = ""
+        //         setChecked(!checked)
+        //         modalContext.setIsOpen(false)
+        //     }
+        // }
     }
 
 
@@ -123,14 +132,16 @@ const CreateAccountForm = () => {
                     <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName1Ref} />
                 </div>
                 <div className="account-form__group">
-                    <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday1Ref} />
+                    {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday1Ref} /> */}
+                    <DatePicker closeOnScroll={true}  onChange={(date) => setbabyBirthday1(date)} placeholderText="Baby’s birth / due date  (optional)" />
                 </div>
                 <div className={`extra-baby ${extraBaby >= 1 ? "show" : ""}`}>
                     <div className="account-form__group">
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName2Ref} />
                     </div>
                     <div className="account-form__group">
-                        <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday2Ref} />
+                        {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday2Ref} /> */}
+                        <DatePicker closeOnScroll={true} onChange={(date) => setbabyBirthday2(date)} placeholderText="Baby’s birth / due date  (optional)" />
                     </div>
                 </div>
                 <div className={`extra-baby ${extraBaby >= 2 ? "show" : ""}`}>
@@ -138,7 +149,8 @@ const CreateAccountForm = () => {
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName3Ref} />
                     </div>
                     <div className="account-form__group">
-                        <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday3Ref} />
+                        {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday3Ref} /> */}
+                        <DatePicker closeOnScroll={true} onChange={(date) => setbabyBirthday3(date)} placeholderText="Baby’s birth / due date  (optional)" />
                     </div>
                 </div>
                 <div className={`account-form__add ${extraBaby >= 2 ? "hide" : ""}`} onClick={() => addBaby()}>

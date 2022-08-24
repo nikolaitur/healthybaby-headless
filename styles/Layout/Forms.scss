@@ -220,4 +220,25 @@
             display: block;
         }
     }
+
+    .react-datepicker {
+        font-family: $NeutraText;
+        background: #A0B0D2;
+
+        &__week {
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        &__day {
+            color: #fff;
+            margin: 0 0.166rem;
+
+            &--selected,
+            &--keyboard-selected {
+                background: #C2CDC6;
+            }
+        }
+    }
 }
