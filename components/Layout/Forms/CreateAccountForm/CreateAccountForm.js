@@ -65,32 +65,32 @@ const CreateAccountForm = () => {
 
         console.log(formData)
 
-        // const response = await customerContext.register(formData)
+        const response = await customerContext.register(formData)
 
-        // if (response.errors?.length) {
-        //     console.log(response)
-        //     // setError(response.errors[0].field[1])
-        //     setErrorMessage(response.errors[0].message)
-        // } else {
-        //     const response = await customerContext.login({
-        //         email: emailRef.current.value,
-        //         password: passwordRef.current.value,
-        //     })
+        if (response.errors?.length) {
+            console.log(response)
+            // setError(response.errors[0].field[1])
+            setErrorMessage(response.errors[0].message)
+        } else {
+            const response = await customerContext.login({
+                email: emailRef.current.value,
+                password: passwordRef.current.value,
+            })
 
-        //     if (response) {
-        //         firstNameRef.current.value = ""
-        //         emailRef.current.value = ""
-        //         passwordRef.current.value = ""
-        //         babyName1Ref.current.value = ""
-        //         babyBirthday1Ref.current.value = ""
-        //         babyName2Ref.current.value = ""
-        //         babyBirthday2Ref.current.value = ""
-        //         babyName3Ref.current.value = ""
-        //         babyBirthday3Ref.current.value = ""
-        //         setChecked(!checked)
-        //         modalContext.setIsOpen(false)
-        //     }
-        // }
+            if (response) {
+                firstNameRef.current.value = ""
+                emailRef.current.value = ""
+                passwordRef.current.value = ""
+                babyName1Ref.current.value = ""
+                babyBirthday1Ref.current.value = ""
+                babyName2Ref.current.value = ""
+                babyBirthday2Ref.current.value = ""
+                babyName3Ref.current.value = ""
+                babyBirthday3Ref.current.value = ""
+                setChecked(!checked)
+                modalContext.setIsOpen(false)
+            }
+        }
     }
 
 
