@@ -14,7 +14,7 @@ import Product from 'pages/products/[handle]';
 const searchClient = algoliasearch(process.env.NEXT_PUBLIC_ALOGLIA_APPLICATION_ID, process.env.NEXT_PUBLIC_ALOGLIA_WRITE_API_KEY)
 const index = searchClient.initIndex('shopify_products')
 
-const SearchMenu = ({ query, toggleSearch }) => {
+const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
 
     const [searchState, setSearchState] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
@@ -138,7 +138,7 @@ const SearchMenu = ({ query, toggleSearch }) => {
                 </div>
             </div> 
         </div>
-        <div className={`search-menu__overlay ${query.length > 0 ? "show" : ""}`} onClick={() => closeSearchMenu()}></div>
+        <div className={`search-menu__overlay ${query.length > 0 || isSearchOpen ? "show" : ""}`} onClick={() => closeSearchMenu()}></div>
       </div>
     );
   };

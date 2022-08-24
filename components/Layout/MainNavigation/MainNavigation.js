@@ -34,7 +34,13 @@ const MainNavigation = ({props}) => {
     const [isSearchOpen, setSearchOpen] = useState(false)
     const [query, setQuery] = useState('');
 
-    useEffect(() => {}, [isSearchOpen])
+    useEffect(() => {
+        if(isSearchOpen) {
+            document.body.classList.add("no-scroll")
+        } else {
+            document.body.classList.remove("no-scroll")
+        }
+    }, [isSearchOpen])
 
     const onMenuMouseEnter = () => {
         setmegaMenuIsOpen(false);
@@ -86,8 +92,6 @@ const MainNavigation = ({props}) => {
         setSearchOpen(!isSearchOpen);
         setQuery("")
     }
-
-
 
     const handleSearchChange = event => {
       setQuery(event.target.value);
@@ -196,7 +200,7 @@ const MainNavigation = ({props}) => {
                 <input type="text" className="input" placeholder="search products, articles, events, etc..." onChange={handleSearchChange} />
                 <span><Search/></span>
             </div>
-            <SearchMenu query={query} toggleSearch={toggleSearch} />
+            <SearchMenu query={query} toggleSearch={toggleSearch} isSearchOpen={isSearchOpen} />
         </div>
       </>
     )

@@ -23,6 +23,7 @@
     position: relative;
     z-index: 4;
     background: #FBF8F8;
+    height: calc(100vh - 53px);
     
     @include breakpoint-up('md') {
         height: 576px;
