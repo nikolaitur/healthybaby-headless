@@ -94,9 +94,10 @@
         .react-datepicker {
             font-family: $NeutraText;
             background: #A0B0D2;
+            font-size: 1.2rem;
 
             &__week {
-                height: 30px;
+                height: 35px;
                 display: flex;
                 align-items: center;
             }
@@ -206,28 +207,28 @@
     }
 
     &__cta {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
-        display: flex;
-        align-items: center;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-        background: #fff;
-        padding: 19px 70px;
-        max-width: max-content;
-        border-radius: 60px;
-        max-width: 350px;
-        cursor: pointer;
-        margin: 0 auto;
+        // font-family: $NeutraText;
+        // font-style: normal;
+        // font-weight: 500;
+        // font-size: 18px;
+        // line-height: 22px;
+        // display: flex;
+        // align-items: center;
+        // letter-spacing: 0.02em;
+        // color: #3D3331;
+        // background: #fff;
+        // padding: 19px 70px;
+        // max-width: max-content;
+        // border-radius: 60px;
+        // max-width: 350px;
+        // cursor: pointer;
+        // margin: 0 auto;
 
-        @include breakpoint-up('md') {
-            display: flex;
-            align-items: center;
-            margin: 0;
-        }
+        // @include breakpoint-up('md') {
+        //     display: flex;
+        //     align-items: center;
+        //     margin: 0;
+        // }
     }
 
     &__clear {

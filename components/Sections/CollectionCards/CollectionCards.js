@@ -11,8 +11,8 @@ const CollectionCards = ({ content }) => {
         <section className="collection-cards">
             <div className="collection-cards__container container">
                 <div className="collection-cards__content">
-                    <div className="collection-cards__subheader">{ subheader }</div>
-                    <div className={`collection-cards__header ${headerFontStyle.toLowerCase()}`}>{ header }</div>
+                    <h6 className="collection-cards__subheader">{ subheader }</h6>
+                    <h2 className={`collection-cards__header ${headerFontStyle.toLowerCase()}`}>{ header }</h2>
                 </div>
                 <div className="collection-cards__wrapper">
                     {collectionCards.map((card, index) => (
