@@ -52,7 +52,7 @@ const DiaperFinderCard = ({ content }) => {
             </div>
             <div className="vitamin-finder__content">
                 <div className={`vitamin-finder__stage vitamin-finder__stage--1 ${stage === 1 ? "active" : ""}`}>
-                    <h6 class="vitamin-finder__subheader">{subheader}</h6>
+                    <h6 className="vitamin-finder__subheader">{subheader}</h6>
                     <div className="vitamin-finder__header">{header}</div>
                     <DatePicker closeOnScroll={true}  onChange={(date) => setBirthday(date)} placeholderText="Enter your due date" />
                     <button className="btn" onClick={() => showVitaminRestult()}>
@@ -61,7 +61,7 @@ const DiaperFinderCard = ({ content }) => {
                     </button>
                 </div>
                 <div className={`vitamin-finder__stage vitamin-finder__stage--2 ${stage === 2 ? "active" : ""}`}>
-                    <h6 class="vitamin-finder__subheader">PRECONCEPTION & TRIMESTER 1</h6>
+                    <h6 className="vitamin-finder__subheader">PRECONCEPTION & TRIMESTER 1</h6>
                     <div className="vitamin-finder__header">Your Optimized Blend</div>
                     <button className="btn secondary">
                         <span>{ addToCartText }</span>
