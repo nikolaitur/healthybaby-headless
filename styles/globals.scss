@@ -22,6 +22,10 @@
 // @import './utility/_container.scss';
 
 // ===========================================================================
+// *** Pages
+// ===========================================================================
+
+// ===========================================================================
 // *** Layout
 // ===========================================================================
 @import './Layout/MainNavigation.scss';
@@ -29,6 +33,11 @@
 @import './Layout/MobileMenu.scss';
 @import './Layout/MegaMenu.scss';
 @import './Layout/Footer.scss';
+
+// ===========================================================================
+// *** Pages
+// ===========================================================================
+@import './Pages/ShopAll.scss';
 
 // ===========================================================================
 // *** Sections
@@ -50,3 +59,4 @@
 @import './Components/Cards/ContentCard.scss';
 @import './Components/Cards/CollectionCard.scss';
 @import './Components/Cards/ProductCard.scss';
+@import './Components/Cards/VitaminFinder.scss';

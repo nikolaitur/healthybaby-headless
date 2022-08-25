@@ -77,6 +77,21 @@ h6,
     }
 }
 
+p.large {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+        font-size: 20px;
+        line-height: 26px;
+    }
+}
+
 // p,
 // .body {
 //   font-family: 'FrankRuhl';
