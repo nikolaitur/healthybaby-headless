@@ -67,6 +67,12 @@
             margin-bottom: 30px;
         }
 
+        &.hide-mobile {
+            @include breakpoint-down('md') {
+                display: none;
+            }
+        }
+
         &:hover {
             // Featured Image
             > span {
@@ -111,6 +117,14 @@
             // top: 0!important;
             // min-height: auto!important;
             // max-height: auto!important;
+        }
+    }
+
+    &__slider {
+        margin-bottom: 15px;
+
+        @include breakpoint-up('md') {
+            display: none;
         }
     }
 }

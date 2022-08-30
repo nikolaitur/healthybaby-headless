@@ -5,7 +5,6 @@ import Link from 'next/link';
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
 
-    console.log(content)
     return (
         <section className="collection-header">
             <div className="collection-header__container container">
@@ -31,6 +30,10 @@ const CollectionHeader = ({ content }) => {
 
                     {content.fields?.description ?
                         <p className="collection-header__description">{ content.fields.description }</p>
+                    : ""}
+
+                    {content?.description ?
+                        <p className="collection-header__description">{ content.description }</p>
                     : ""}
 
                     <div className="collection-header__links">
@@ -59,7 +62,7 @@ const CollectionHeader = ({ content }) => {
                             </div>
                         </Link>
                         <Link href={"/collections/prenatals"}>
-                            <div className={`collection-header__link${router.asPath == `/collections/prenatals` ? "active" : ""}`}>
+                            <div className={`collection-header__link ${router.asPath == `/collections/prenatals` ? "active" : ""}`}>
                                 <span className="image"></span>
                                 <span>Prenatals</span>
                             </div>

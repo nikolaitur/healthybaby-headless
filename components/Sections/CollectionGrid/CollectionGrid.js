@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
 
 import CollectionCallout from '../../Sections/CollectionCallout'
 import CollectionProductCard from '../../Cards/CollectionProductCard'
@@ -8,12 +6,11 @@ import VitaminFinder from '../../Cards/VitaminFinder'
 import DiaperFinderCard from '../../Cards/DiaperFinderCard'
 
 const CollectionGrid = ({ content }) => {
-    // console.log(content, "CollectionGrid");
     const sectionItems = content.fields.sections
     const {header, subheader } = content.fields
 
     return (
-        <section className="collection-grid">
+        <section className="collection-grid" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor : ""}>
             <div className="collection-grid__container container">
                 <div className="collection-grid__content">
                     <h2 className={`collection-grid__header`}>{ header }</h2>

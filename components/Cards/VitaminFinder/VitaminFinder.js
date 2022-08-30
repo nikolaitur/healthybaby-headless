@@ -30,7 +30,7 @@ const VitaminFinder = ({ content }) => {
     }
 
     const showVitaminRestult = () => {
-        console.log(birthday)
+        // console.log(birthday)
         goToNextStage(3)
         setVitaminFinderData(viatminFinderData => ({
             ...viatminFinderData,
@@ -38,7 +38,7 @@ const VitaminFinder = ({ content }) => {
             birthday
         }))
 
-        console.log(viatminFinderData)
+        // console.log(viatminFinderData)
     }
 
     return (
@@ -55,7 +55,7 @@ const VitaminFinder = ({ content }) => {
                     <h6 className="vitamin-finder__subheader">{subheader}</h6>
                     <div className="vitamin-finder__header">{header}</div>
                     <p className="vitamin-finder__copy large">{description}</p>
-                    <button className="btn" onClick={() => goToNextStage(2, "conceive")}>
+                    <button className="btn" onClick={() => goToNextStage(3, "conceive")}>
                         <span>{ ctaText1 }</span>
                     </button>
                     <button className="btn" onClick={() => goToNextStage(2, "pregnant")}>
@@ -80,7 +80,7 @@ const VitaminFinder = ({ content }) => {
                 </div>
                 <div className={`vitamin-finder__stage vitamin-finder__stage--3 ${stage === 3 ? "active" : ""}`}>
                     <h6 className="vitamin-finder__subheader">PRECONCEPTION & TRIMESTER 1</h6>
-                    <div className="vitamin-finder__header">Your Optimized Blend</div>
+                    <div className="vitamin-finder__header">Your Optimized Blend</div>
                     <div className="vitamin-finder__image">
                         <Image
                             src={`https://images.ctfassets.net/urdrzzac4igp/2kfkhrxpdozOPP2dhPysYQ/f2743ef8a575229986a7f19032b70ee8/image_70.png?h=315`}

@@ -1,10 +1,14 @@
 .collection-callout {
     width: 100%;
     text-align: center;
-    padding: 144px 0;
+    padding: 36px 0;
     border-top: 1px solid rgba(61, 51, 49, 0.15);
     border-bottom: 1px solid rgba(61, 51, 49, 0.15);
     margin-bottom: 50px;
+
+    @include breakpoint-up('md') {
+        padding: 144px 0;
+    }
 
     &__callout {
         max-width: 1360px;
@@ -21,7 +25,7 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 16px;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: $primaryBrown;
         margin-bottom: 20px;
@@ -42,5 +46,8 @@
         color: $primaryGreen;
         margin-top: 30px;
         cursor: pointer;
+        border-bottom: 1px solid $primaryGreen;
+        width: max-content;
+        margin: 30px auto 0;
     }
 }

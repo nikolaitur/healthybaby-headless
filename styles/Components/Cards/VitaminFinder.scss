@@ -9,18 +9,22 @@
     position: relative;
     flex-grow: 1;
     width: 100%;
-    min-height: 460px;
+    min-height: 643px;
+    max-height: 643px;
     margin-bottom: 30px;
 
     @include breakpoint-up('md') {
         width: calc(50% - 30px);
         max-width: calc(50% - 30px);
+        max-height: 870px;
         margin-bottom: 0px;
+        
     }
     
     @include breakpoint-up('lg') {
         width: calc(33% - 30px);
         max-width: calc(33% - 30px);
+        max-height: 653px;
         margin-bottom: 0;
     }
 
@@ -77,11 +81,16 @@
     } 
 
     &__copy {
-        margin-bottom: 60px;
+        max-width: 375px;
+        margin: 0 auto 30px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 60px;
+        }
     }
 
     &__image {
-        margin: 30px 0 35px;
+        margin: 15px 0 20px;
     }
 
     &__clear {
