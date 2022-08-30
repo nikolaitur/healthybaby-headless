@@ -1,0 +1,124 @@
+.collection-header {
+    text-align: left;
+    padding-top: 60px;
+    
+    @include breakpoint-up('md') {
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 0px;
+    }
+
+    &__container {
+        @include breakpoint-down('md') {
+            width: calc(100% - 30px);
+        }
+    }
+
+    &__content {
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(61, 51, 49, 0.15);
+
+        @include breakpoint-up('md') {
+            text-align: center;
+            padding-bottom: 60px;
+        }
+    }
+
+    &__breadcrumbs {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+
+        @include breakpoint-up('md') {
+            justify-content: center;
+        }
+    }
+
+    &__breadcrumb {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        cursor: pointer;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+        }
+    }
+
+    &__description {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 26px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        max-width: 870px;
+        margin: 30px auto 20px;
+    }
+
+    &__links {
+        display: flex;
+        justify-content: flex-start;
+        overflow: hidden;
+        overflow-x: scroll;
+
+        @include breakpoint-up('md') {
+            justify-content: center;
+            overflow: visible;
+        }
+    }
+
+    &__link {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin: 30px 20px 0;
+        cursor: pointer;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+
+        @include breakpoint-up('md') {
+            
+        }
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            margin-left: 20px;
+        }
+
+        &.active {
+            color: $primaryGreen;
+        }
+
+        .image {
+            width: 60px;
+            height: 60px;
+            background: rgb(217, 217, 217);
+            border-radius: 100%;
+            margin-bottom: 10px;
+            position: relative;
+            display: block;
+
+            @include breakpoint-up('md') {
+                width: 85px;
+                height: 85px;
+            }
+        }
+    }
+}

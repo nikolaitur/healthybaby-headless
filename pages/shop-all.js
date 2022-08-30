@@ -2,29 +2,35 @@ import React, {useState, useEffect} from 'react'
 import { nacelleClient } from 'services'
 
 import CollectionGrid from '../components/Sections/CollectionGrid'
-import VitaminFinder from '../components/Cards/VitaminFinder'
-import DiaperFinderCard from '../components/Cards/DiaperFinderCard'
+import CollectionHeader from '../components/Sections/CollectionHeader'
+import ValueProps from '../components/Sections/ValueProps'
 
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-
 export default function ShopAll({ pages }) {
-    console.log(pages[0].fields)
-
-    const shopAllSections = pages[0].fields.sections
+    console.log(pages[0].fields, "Shop All")
+    const shopAll = pages[0].fields
+    const shopAllSections = shopAll.sections
 
   return (
     <>
         <div className="shop-all">
-            <section className="collection-header">
-
-            </section>
+            <CollectionHeader content={shopAll} />
 
             {/* TO do Add swtich to apply different section types */}
             {shopAllSections.map((section, index) => {
-                return <CollectionGrid content={section} key={index} />
+                let type = section.type;
+
+                switch (type) {
+                    case 'collection':
+                        return <CollectionGrid content={section} key={index} />
+                    case 'valueProps':
+                        return <ValueProps content={section} key={index} />
+                    default:
+                    return null
+                }
             })}
         </div>
     </>

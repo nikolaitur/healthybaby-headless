@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 
+import CollectionCallout from '../../Sections/CollectionCallout'
 import CollectionProductCard from '../../Cards/CollectionProductCard'
 import VitaminFinder from '../../Cards/VitaminFinder'
 import DiaperFinderCard from '../../Cards/DiaperFinderCard'
 
 const CollectionGrid = ({ content }) => {
-    console.log(content, "CollectionGrid");
+    // console.log(content, "CollectionGrid");
     const sectionItems = content.fields.sections
     const {header, subheader } = content.fields
 
@@ -25,6 +26,8 @@ const CollectionGrid = ({ content }) => {
                         switch (type) {
                             case 'collectionProductCard':
                                 return <CollectionProductCard content={item} key={index} />
+                            case 'collectionCallout':
+                                return <CollectionCallout content={item} key={index} />
                             case 'diaperCalculator':
                                 return <DiaperFinderCard content={item} key={index} />
                             case 'vitaminFinder':

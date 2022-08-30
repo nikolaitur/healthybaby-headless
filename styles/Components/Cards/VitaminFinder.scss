@@ -9,10 +9,18 @@
     position: relative;
     flex-grow: 1;
     width: 100%;
-    max-height: 710px;
-    
+    min-height: 460px;
+    margin-bottom: 30px;
+
     @include breakpoint-up('md') {
+        width: calc(50% - 30px);
+        max-width: calc(50% - 30px);
+        margin-bottom: 0px;
+    }
+    
+    @include breakpoint-up('lg') {
         width: calc(33% - 30px);
+        max-width: calc(33% - 30px);
         margin-bottom: 0;
     }
 
