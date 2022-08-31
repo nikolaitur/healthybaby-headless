@@ -30,7 +30,6 @@ const VitaminFinder = ({ content }) => {
     }
 
     const showVitaminRestult = () => {
-        // console.log(birthday)
         goToNextStage(3)
         setVitaminFinderData(viatminFinderData => ({
             ...viatminFinderData,
