@@ -105,7 +105,11 @@
         }
 
         .placeholder {
-            height: 710px;
+            height: 310px;
+
+            @include breakpoint-up('md') {
+                height: 610px;
+            }
         }
 
         img {

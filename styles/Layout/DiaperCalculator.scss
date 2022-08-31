@@ -1,12 +1,15 @@
 .diaper-calculator {
     position: absolute;
+    position: fixed;
+    top: 0;
     width: 100vw;
     height: 100vh;
     z-index: 999;
     overflow: hidden;
-    display: none;
+    pointer-events: none;
 
     &.active {
+        pointer-events: all;
 
         .diaper-calculator__overlay {
             opacity: 0.3;

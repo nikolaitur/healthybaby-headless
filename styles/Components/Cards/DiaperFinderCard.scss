@@ -155,6 +155,12 @@
         .input-wrapper {
             display: flex;
             justify-content: space-evenly;
+            flex-direction: column;
+            align-items: center;
+
+            @include breakpoint-up('md') {
+                flex-direction: row;
+            }
 
             &:not(:first-child) {
                 margin-top: 30px;
@@ -163,6 +169,14 @@
             &.weight {
                 max-width: 350px;
                 margin: 30px auto 0;
+            }
+
+            span {
+                margin-bottom: 15px;
+
+                @include breakpoint-up('md') {
+                    margin-bottom: 0px;
+                }
             }
         }
 
@@ -202,13 +216,13 @@
             font-size: 32px;
             line-height: 32px;
             color: #4161A5;
-            transform: translate(-80px, 6px);
+            transform: translate(20px, 28px);
             position: absolute;
     
             @include breakpoint-up('md') {
                 font-size: 36px;
                 line-height: 50px;
-                transform: translate(170px, 0px);
+                transform: translate(145px, 0px);
             }
         }
     
