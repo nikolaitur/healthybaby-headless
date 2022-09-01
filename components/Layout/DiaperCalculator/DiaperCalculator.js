@@ -43,7 +43,7 @@ const DiaperCalculator = ({props, children}) => {
                     </div>
                     <h6 className="diaper-calculator__subheader">NEED SIZING HELP?</h6>
                     <div className="diaper-calculator__header">Size matters. We're here to help find the perfect fit for your baby's size & stage.</div>
-                    {/* <div className="diaper-calculator__form">
+                    <div className="diaper-calculator__form">
                         <div className="input-wrapper">
                             <DatePicker closeOnScroll={true}  onChange={(date) => setBirthday(date)} placeholderText="Enter your due date" />
                         </div>
@@ -51,7 +51,7 @@ const DiaperCalculator = ({props, children}) => {
                             <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperFinderData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>
-                    </div> */}
+                    </div>
                     <div className="diaper-calculator__size-guide">
 
                     </div>

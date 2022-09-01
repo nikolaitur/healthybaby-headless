@@ -16,6 +16,12 @@
         @include breakpoint-up('md') {
             display: flex;
             flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        @include breakpoint-up('lg') {
+            display: flex;
+            flex-wrap: wrap;
             gap: 30px;
         }
     }
@@ -25,39 +31,12 @@
     }
 
     &__header {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 24px;
-        color: #3D3331;
-
         @include breakpoint-up('md') {
-            font-size: 40px;
-            line-height: 40px;
             margin-bottom: 5px;
-        }
-
-        @include breakpoint-up('lg') {
-            font-size: 48px;
-            line-height: 48px;
         }
     } 
 
     &__subheader {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
-        letter-spacing: -0.01em;
-        color: #3D3331;
         margin-top: 15px;
-
-        @include breakpoint-up('md') {
-            
-            font-size: 22px;
-            line-height: 30px;
-        }
     }
 }

@@ -81,7 +81,7 @@ const DiaperFinderCard = ({ content }) => {
             <div className="diaper-finder-card__content">
                 <div className={`diaper-finder-card__stage`}>
                     <h6 className="diaper-finder-card__subheader">{subheader}</h6>
-                    <div className="diaper-finder-card__header">{header}</div>
+                    <h5 className="diaper-finder-card__header">{header}</h5>
                     <div className="diaper-finder-card__form">
                         <div className="input-wrapper birthday">
                             <span>Baby’s birthday</span>

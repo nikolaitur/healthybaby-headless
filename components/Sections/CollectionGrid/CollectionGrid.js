@@ -13,8 +13,8 @@ const CollectionGrid = ({ content }) => {
         <section className="collection-grid" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor : ""}>
             <div className="collection-grid__container container">
                 <div className="collection-grid__content">
-                    <h2 className={`collection-grid__header`}>{ header }</h2>
-                    <p className="collection-grid__subheader">{ subheader }</p>
+                    <h5 className={`collection-grid__header`}>{ header }</h5>
+                    <p className="collection-grid__subheader large">{ subheader }</p>
                 </div>
                 <div className="collection-grid__wrapper">
                     {sectionItems.map((item, index) => {

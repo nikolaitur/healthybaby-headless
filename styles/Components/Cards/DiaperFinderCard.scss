@@ -54,23 +54,13 @@
     }
 
     &__header {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 34px;
-        line-height: 34px;
-        color: #3D3331;
         margin-bottom: 10px;
 
         @include breakpoint-up('md') {
-            font-size: 40px;
-            line-height: 40px;
             margin-bottom: 5px;
         }
 
         @include breakpoint-up('lg') {
-            font-size: 48px;
-            line-height: 48px;
             margin-bottom: 10px;
         }
     } 
