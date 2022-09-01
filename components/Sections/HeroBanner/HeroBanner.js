@@ -26,14 +26,14 @@ const HeroBanner = ({ content }) => {
             </div>
             <div className="hero__container hero__container--bottom hero__container--left container">
                 <div className="hero__content">
-                    <div className="hero__subheader">{ subtitle }</div>
-                    <div className="hero__header">{ title }</div>
+                    <h6 className="hero__subheader">{ subtitle }</h6>
+                    <h1 className="hero__header">{ title }</h1>
                     <div className="hero__cta">
                         <Link href={ctaUrl}>
-                            <div className="hero__button">
+                            <button className="hero__button btn">
                                 <span>{ctaText}</span>
                                 <span><LongArrowRight /></span>
-                            </div>
+                            </button>
                         </Link>
                     </div>
                 </div>

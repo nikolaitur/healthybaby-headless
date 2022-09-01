@@ -19,8 +19,8 @@ const ShopByCategory = ({ content }) => {
         <section className="shop-by-category">
             <div className="shop-by-category__container container">
                 <div className="shop-by-category__content">
-                    <div className="shop-by-category__subheader">{ subheader }</div>
-                    <div className="shop-by-category__header">{ header }</div>
+                    <h6 className="shop-by-category__subheader">{ subheader }</h6>
+                    <h2 className="shop-by-category__header">{ header }</h2>
                     <div className="shop-by-category__link">
                         <Link href="/">
                             <div className="shop-by-category__button">

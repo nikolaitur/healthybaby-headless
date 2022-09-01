@@ -14,7 +14,7 @@ const WowAndHow = ({ content }) => {
     }
 
     return (
-        <section className="wow-and-how" style={{ backgroundColor: backgroundColor }}>
+        <section className="wow-and-how" data-background-color="teal">
             <div className="wow-and-how__container container">
                 <div className="wow-and-how__image wow-and-how__image--desktop">
                     <div className="wow-and-how__grid">
@@ -45,14 +45,14 @@ const WowAndHow = ({ content }) => {
                     </div>
                 </div>
                 <div className="wow-and-how__content">
-                    <div className="wow-and-how__subheader">{ subheader }</div>
-                    <div className="wow-and-how__header">{ header }</div>
-                    <div className="wow-and-how__copy">{ copy }</div>
+                    <h6 className="wow-and-how__subheader">{ subheader }</h6>
+                    <h4 className="wow-and-how__header">{ header }</h4>
+                    <h5 className="wow-and-how__copy">{ copy }</h5>
                     <div className="wow-and-how__cta">
                         <Link href={ctaUrl}>
-                            <div className="wow-and-how__button">
+                            <button className="btn">
                                 <span>{ ctaText }</span>
-                            </div>
+                            </button>
                         </Link>
                     </div>
                     <div className="wow-and-how__image wow-and-how__image--mobile">

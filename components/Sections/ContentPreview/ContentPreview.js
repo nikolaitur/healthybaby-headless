@@ -50,7 +50,7 @@ const ContentPreview = ({ content }) => {
     }
 
     return (
-        <section className="content-preview">
+        <section className="content-preview" data-background-color="green">
             <div className="content-preview__container container">
                 <div className="content-preview__content">
                     <div className="content-preview__subheader">{ subheader }</div>
@@ -71,7 +71,7 @@ const ContentPreview = ({ content }) => {
                 </div>
                 <div className="content-preview__wrapper">
                     {activeContent.fields.map((content, index) => (   
-                        <ContentCard content={content} key={index} />                     
+                        <ContentCard content={content} key={index} height={405} />                     
                     ))}
                 </div>
             </div>

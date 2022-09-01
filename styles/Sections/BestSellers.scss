@@ -1,6 +1,7 @@
 .best-sellers {
     padding: 100px 0;
     overflow: hidden;
+    background: #F5F2F2;
 
     &__content {
         position: relative;
@@ -41,6 +42,7 @@
         letter-spacing: 0.02em;
         color: #3D3331;
         margin-bottom: 30px;
+        cursor: pointer;
 
         @include breakpoint-up('md') {
             justify-content: flex-start;
