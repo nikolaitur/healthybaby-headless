@@ -53,6 +53,7 @@
         background: #E7EBF4; 
         transform: translateX(100vw);
         transition: 0.3s;
+        overflow-y: scroll;
 
         @include breakpoint-up('md') {
             // padding: 0;
@@ -92,16 +93,16 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
+        font-size: 28px;
+        line-height: 40px;
         color: $primaryBrown;
         margin-top: 35px;
         padding-top: 35px;
         border-top: 1px solid rgba(61, 51, 49, 0.1);
 
         @include breakpoint-up('md') {
-            font-size: 36px;
-            line-height: 50px;
+            font-size: 28px;
+            line-height: 40px;
         }
 
         input {
@@ -109,20 +110,20 @@
             font-family: $DomaineText;
             font-style: italic;
             font-weight: 500;
-            font-size: 32px;
-            line-height: 32px;
+            font-size: 28px;
+            line-height: 40px;
             color: #4161A5;
             border: none;
             border-bottom: 1px dashed #4161A5;
     
             @include breakpoint-up('md') {
                 margin-left: 8px;
-                font-size: 36px;
-                line-height: 50px;
+                font-size: 28px;
+                line-height: 40px;
             }
     
             &[name="weight"] {
-                width: 100px;
+                width: 70px;
     
                 &:before {
                     content: "lbs"
@@ -132,9 +133,9 @@
 
         .input-wrapper {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: flex-start;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
 
             @include breakpoint-up('md') {
                 flex-direction: row;
@@ -142,11 +143,6 @@
 
             &:not(:first-child) {
                 margin-top: 30px;
-            }
-
-            &.weight {
-                max-width: 350px;
-                margin: 30px auto 0;
             }
 
             span {
@@ -191,18 +187,160 @@
             font-family: $DomaineText;
             font-style: italic;
             font-weight: 500;
-            font-size: 32px;
-            line-height: 32px;
+            font-size: 28px;
+            line-height: 40px;
             color: #4161A5;
             transform: translate(20px, 28px);
             position: absolute;
     
             @include breakpoint-up('md') {
-                font-size: 36px;
-                line-height: 50px;
-                transform: translate(145px, 0px);
+                font-size: 28px;
+                line-height: 40px;
+                transform: translate(225px, 0px);
             }
         }
     
+    }
+
+    &__copy {
+        font-size: 20px;
+        line-height: 22px;
+        margin-top: 35px;
+        padding-top: 35px;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+    }
+
+    &__recommendation {
+        display: flex;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        line-height: 18px;
+        margin-top: 30px;
+
+        .circle {
+            padding: 10px;
+            background: #5975B1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            color: #fff;
+            margin-right: 15px;
+        }
+
+        .size {
+            font-size: 22px;
+            line-height: 22px;
+            margin-right: 10px
+        }
+
+        .weight {
+            transform: translateY(1.5px);
+        }
+
+
+    }
+
+    &__select {
+        margin-top: 30px;
+        font-size: 28px;
+        line-height: 40px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 35px;
+        padding-top: 35px;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+
+        .toggle {
+            font-size: 16px;
+            line-height: 22px;
+            border: 1px solid #B8C4DD;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                width: 67px;
+                height: 48px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #D0D8E9;
+
+                &.active {
+                    background: #5975B1;
+                    color: #fff;
+                }
+            }
+            
+        }
+    }
+
+    &__size-guide {
+        font-size: 18px;
+        line-height: 20px;
+        margin-top: 30px;
+        border: 1px solid #B8C4DD;
+        border-width: 1px 1px 0 1px;
+
+        &--header,
+        &--cell {
+            height: 60px;
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+
+            span {
+                position: relative;
+                position: relative;
+                width: 33%;
+                text-align: center;
+            }
+
+            span:nth-child(2) {
+                &:before {
+                    content: "";
+                    height: 60px;
+                    width: 1px;
+                    left: 0;
+                    top: -20px;
+                    position: absolute;
+                    background: #B8C4DD;;
+                    
+                }
+
+                &:after {
+                    content: "";
+                    height: 60px;
+                    width: 1px;
+                    right: 0;
+                    top: -20px;
+                    position: absolute;
+                    background: #B8C4DD;
+                }
+            }
+
+        }
+
+        &--header {
+            background: #5975B1;
+            color: #fff;
+            border-bottom: 1px solid #B8C4DD;;
+        }
+
+        &--cell {
+            background: #D0D8E9;
+            border-bottom: 1px solid #B8C4DD;;
+        }
+    }
+
+    &__contact {
+        font-size: 18px;
+        line-height: 25px;
+        margin-top: 30px
     }
 }
