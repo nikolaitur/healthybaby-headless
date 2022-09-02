@@ -28,6 +28,10 @@
 
     &__content {
         margin-bottom: 30px;
+
+        &.hide {
+            display: none;
+        }
     }
 
     &__header {
