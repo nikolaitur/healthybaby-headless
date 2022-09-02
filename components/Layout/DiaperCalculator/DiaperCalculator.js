@@ -149,14 +149,14 @@ const DiaperCalculator = ({props, children}) => {
                         <IconClose />
                     </div>
                     <h6 className="diaper-calculator__subheader">NEED SIZING HELP?</h6>
-                    <div className="diaper-calculator__header">Size matters. We're here to help find the perfect fit for your baby's size & stage.</div>
+                    <div className="diaper-calculator__header">{`Size matters. We're here to help find the perfect fit for your baby's size & stage.`}</div>
                     <div className="diaper-calculator__form">
                         <div className="input-wrapper">
-                            <span>Baby’s birthday</span>
+                            <span>{`Baby’s birthday`}</span>
                             <DatePicker closeOnScroll={true}  onChange={(date) => setBirthday(date)} selected={diaperCalculatorContext.diaperCalculatorData.birthday} />
                         </div>
                         <div className="input-wrapper weight">
-                            <span>Baby's weight</span>
+                            <span>{`Baby's weight`}</span>
                             <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>

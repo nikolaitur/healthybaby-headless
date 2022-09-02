@@ -87,16 +87,16 @@ const DiaperFinderCard = ({ content }) => {
                 /> */}
             </div>
             <div className="diaper-finder-card__content">
-                <div className={`diaper-finder-card__stage`}>
+                <div className="diaper-finder-card__stage">
                     <h6 className="diaper-finder-card__subheader">{subheader}</h6>
                     <h5 className="diaper-finder-card__header">{header}</h5>
                     <div className="diaper-finder-card__form">
                         <div className="input-wrapper birthday">
-                            <span>Baby’s birthday</span>
+                            <span>{`Baby’s birthday`}</span>
                             <DatePicker closeOnScroll={true} selected={birthday} onChange={(date) => handleDateChange(date)} placeholderText="MM/DD/YY" />
                         </div>
                         <div className="input-wrapper weight">
-                            <span>Baby's weight</span>
+                            <span>{`Baby's weight`}</span>
                             <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperFinderData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>
