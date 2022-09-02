@@ -11,12 +11,12 @@
         max-width: 100%;
     }
 
-    @include breakpoint-up('md') {
-        width: calc(50% - 20px);
-        max-width: calc(50% - 20px);        
-    }
+    // @include breakpoint-up('md') {
+    //     width: calc(50% - 20px);
+    //     max-width: calc(50% - 20px);        
+    // }
 
-    @include breakpoint-up('lg') {
+    @include breakpoint-up('md') {
         width: calc(33% - 30px);
         max-width: calc(33% - 30px);
         

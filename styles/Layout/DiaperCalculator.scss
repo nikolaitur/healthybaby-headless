@@ -217,6 +217,7 @@
         font-size: 18px;
         line-height: 18px;
         margin-top: 30px;
+        font-family: $NeutraText;
 
         .circle {
             padding: 10px;
@@ -246,6 +247,7 @@
 
     &__select {
         margin-top: 30px;
+        font-family: $NeutraText;
         font-size: 28px;
         line-height: 40px;
         display: flex;
@@ -261,6 +263,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
 
             span {
                 width: 67px;
@@ -280,6 +283,7 @@
     }
 
     &__size-guide {
+        font-family: $NeutraText;
         font-size: 18px;
         line-height: 20px;
         margin-top: 30px;

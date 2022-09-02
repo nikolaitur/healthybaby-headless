@@ -13,15 +13,15 @@
     max-height: 643px;
     margin-bottom: 30px;
 
-    @include breakpoint-up('md') {
-        width: calc(50% - 30px);
-        max-width: calc(50% - 30px);
-        max-height: 870px;
-        margin-bottom: 0px;
+    // @include breakpoint-up('md') {
+    //     width: calc(50% - 30px);
+    //     max-width: calc(50% - 30px);
+    //     max-height: 870px;
+    //     margin-bottom: 0px;
         
-    }
+    // }
     
-    @include breakpoint-up('lg') {
+    @include breakpoint-up('md') {
         width: calc(33% - 30px);
         max-width: calc(33% - 30px);
         max-height: 653px;
