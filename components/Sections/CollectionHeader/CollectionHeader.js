@@ -13,7 +13,7 @@ const CollectionHeader = ({ content }) => {
                         <div className="collection-header__breadcrumbs">
                             <Link href="/">
                                 <div className="collection-header__breadcrumb">
-                                    <span>Home /&nbsp;</span>
+                                    <span>Home /{`\u00A0`}</span>
                                 </div>
                             </Link>
                             <Link href={content.handle}>
