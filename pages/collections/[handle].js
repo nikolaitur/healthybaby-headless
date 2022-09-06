@@ -1,15 +1,19 @@
 import { nacelleClient } from 'services'
 
-import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionHeader from '../../components/Sections/CollectionHeader'
+import CollectionGrid from '../../components/Sections/CollectionGrid'
+import CollectionSections from '../../components/Sections/CollectionSections'
 
 function Collection(props) {
   const { collection } = props
+
+  console.log(collection)
 
   return (
       <>
         <CollectionHeader content={collection} />
         <CollectionGrid content={collection} />
+        <CollectionSections content={collection} />
       </>
     )
 }
