@@ -8,4 +8,52 @@
     &__subheader {
         text-align: center;
     }
+
+    &__wrapper {
+        display: flex;
+        max-width: 1270px;
+        margin: 70px auto 0 ;
+    }
+
+    &__expert {
+        width: 50%;
+    }
+
+    &__image {
+        img {
+            height: 512px;
+            width: 512px;
+            object-fit: cover;
+            border-radius: 100%;
+            margin: 0 auto
+        }
+    }
+
+    &__name {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(26px);
+        line-height: 29px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        position: relative;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    &__description {
+        margin-top: 30px;
+        text-align: center;
+        max-width: 500px;
+        margin: 30px auto;
+    }
+
+    &__cta {
+        margin-top: 30px;
+
+        .link {
+            margin: 0 auto;
+        }
+    }
 }

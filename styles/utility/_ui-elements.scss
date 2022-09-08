@@ -69,6 +69,21 @@
     }
 }
 
+.link {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+    color: $primaryGreen;
+    border-bottom: 1px solid $primaryGreen;
+    border-width: 0 0 1px 0;
+}
+
 .react-datepicker {
     font-family: $NeutraText;
     background: #A0B0D2;

@@ -71,6 +71,8 @@
     }
 
     &__content {
+        margin-top: 30px;
+
         h5 {
             font-family: $NeutraText;
             font-style: normal;
@@ -80,10 +82,14 @@
             letter-spacing: -0.01em;
             color: $primaryBrown;
             position: relative;
+
+            &:not(:first-of-type) {
+                margin-top: 30px;
+            }
         }
 
         p {
-
+            margin-top: 10px;
         }
     }
 }
