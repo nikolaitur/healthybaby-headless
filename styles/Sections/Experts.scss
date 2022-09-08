@@ -10,22 +10,41 @@
     }
 
     &__wrapper {
-        display: flex;
-        max-width: 1270px;
         margin: 70px auto 0 ;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            max-width: 1270px;
+        }
     }
 
     &__expert {
-        width: 50%;
+        &:not(:last-child) {
+            margin-bottom: 60px;
+        }
+
+        @include breakpoint-up('md') {
+            width: 50%;
+
+            &:not(:last-child) {
+                margin-bottom: 00px;
+            }
+        }
     }
 
     &__image {
         img {
-            height: 512px;
-            width: 512px;
-            object-fit: cover;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
             border-radius: 100%;
-            margin: 0 auto
+
+            @include breakpoint-up('lg') {
+                height: 512px;
+                width: 512px;
+                max-width: 512px;
+                object-fit: cover;
+            }
         }
     }
 

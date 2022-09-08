@@ -6,7 +6,7 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const Experts = ({ content }) => {
    const { header, subheader, sections } = content.fields
-   console.log(content)
+   // console.log(content)
 
     return (
         <section className="experts">

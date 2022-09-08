@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 
 const ProductDetailSlide = ({ content }) => {
    // const { header, subheader, sections } = content.fields
-   console.log(content)
+   // console.log(content)
 
     return (
         <div className="product-detail-slide">
