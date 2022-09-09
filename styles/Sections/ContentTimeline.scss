@@ -2,23 +2,23 @@
     padding: 70px 0;
 
     &__container {
-        display: flex;
+        @include breakpoint-up('lg') {
+            display: flex;
+        }
     }
 
     &__sticky {
-        position: sticky;
-        top: 50px;
-
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             width: 50%;
+            position: sticky;
+            top: 50px;
         }
     }
 
     &__content {
-        // height: 2000px;
-        padding-left: 100px;
-        padding-top: 100px;
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
+            padding-left: 100px;
+            padding-top: 100px;
             max-width: 700px;
         }
         
@@ -38,7 +38,11 @@
 
     &__items {
         position: relative;
-        margin: 80px 0;
+        margin: 30px 0;
+
+        @include breakpoint-up('lg') {
+            margin: 80px 0;
+        }
     }
 
     &__line {
@@ -53,10 +57,14 @@
     &__item {
         position: relative;
         max-width: 585px;
-        margin-bottom: 170px;
+        margin-bottom: 60px;
         padding: 0 0 0 60px;
         opacity: 0.5;
         transition:  0.3s;
+
+        @include breakpoint-up('lg') {
+            margin-bottom: 170px;
+        }
 
         &.fade-in {
             opacity: 1;
@@ -69,12 +77,18 @@
         &:before {
             content: "";
             position: absolute;
-            left: -9px;
+            left: -2px;
             top: 0;
             background: #5B7A68;
             border-radius: 100%;
-            height: 32px;
-            width: 32px;
+            height: 18px;
+            width: 18px;
+
+            @include breakpoint-up('lg') {
+                left: -9px;
+                height: 32px;
+                width: 32px;
+            }
         }
     }
 
@@ -82,36 +96,50 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: fontsize(28px);
+        font-size: fontsize(22px);
         line-height: 100%;
         color: $primaryBrown;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
+            margin-bottom: 30px;
             font-size: fontsize(28px);
         }
     }
 
     &__image {
-        position: sticky;
-        top: 150px;
+        margin: 0 0 30px;
+
+        @include breakpoint-up('lg') {
+            margin: 0;
+            position: sticky;
+            top: 150px;
+        }
 
         &--desktop {
             display: none!important;
 
-            @include breakpoint-up('md') {
+            @include breakpoint-up('lg') {
                 display: block!important;
             }
         }
 
         &--mobile {
-            @include breakpoint-up('md') {
+            @include breakpoint-up('lg') {
                 display: none!important;
             }
         }
 
+        span {
+            padding-top: 0!important;
+        }
+
         img {
             width: 100%;
+            object-fit: contain;
+            width: 100% !important;
+            position: relative !important;
+            height: unset !important;
         }
     }
 }

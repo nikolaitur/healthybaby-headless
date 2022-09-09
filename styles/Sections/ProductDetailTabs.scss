@@ -16,6 +16,13 @@
         justify-content: space-evenly;
         border-bottom: 1px solid rgba(61, 51, 49, 0.1);
         padding-bottom: 30px;
+        overflow: hidden;
+        overflow-x: scroll;
+
+        @include breakpoint-up('lg') {
+            overflow: visible;
+        }
+
     }
 
     &__tab {
@@ -28,6 +35,13 @@
         color: $primaryBrown;
         position: relative;
         cursor: pointer;
+        white-space: nowrap;
+        padding: 0 15px;
+
+        @include breakpoint-up('lg') {
+            white-space: unset;
+            padding: 0;
+        }
 
         &.active {
             color: $primaryGreen;
@@ -64,42 +78,142 @@
 
 .product-detail-slide {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include breakpoint-up('lg') {
+        flex-direction: row;
+    }
 
     &__column {
+        &:not(:first-of-type) {
+            margin: 0 0 30px;
+
+            @include breakpoint-up('lg') {
+                margin: 0 0 0px;
+            }
+        }
+
         &:first-child {
-            text-align: right;
+            margin: 0 0 30px;
+
+            @include breakpoint-up('lg') {
+                margin: 0 0 0px;
+                text-align: right;
+            }
+            
+
+            .product-detail-slide__content {
+                p {
+                    @include breakpoint-up('lg') {
+                        margin: 10px 0 0 auto;
+                    }
+                }
+            }
         }
 
         &:nth-child(2) {
-            max-width: 710px;
-            margin: 0 50px;
+            order: -1;
+            margin: 0 0 30px;
+
+            @include breakpoint-up('lg') {
+                order: 0;
+                max-width: 710px;
+                margin: 0 50px;
+            }
+
+            span {
+                padding-top: 0!important;
+            }
 
             img {
                 width: 100%;
+                object-fit: contain;
+                width: 100% !important;
+                position: relative !important;
+                height: unset !important;
+            }
+        }
+
+        &:nth-child(3) {
+            .product-detail-slide__content {
+                p {
+                    @include breakpoint-up('lg') {
+                        margin: 10px 0 auto 0;
+                    }
+                    
+                }
             }
         }
     }
 
     &__content {
-        margin-top: 30px;
+
+        h3 {
+            + h5 {
+                margin-top: 10px;
+            }
+        }
 
         h5 {
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: fontsize(26px);
-            line-height: 29px;
+            font-size: fontsize(24px);
+            line-height: 28px;
             letter-spacing: -0.01em;
             color: $primaryBrown;
             position: relative;
 
+            @include breakpoint-up('lg') {
+                font-size: fontsize(32px);
+            line-height: 36px;
+            }
+
+
+            @include breakpoint-up('lg') {
+                margin: 10px 0 auto 0;
+            }
+
             &:not(:first-of-type) {
                 margin-top: 30px;
+            }
+
+            + p,
+            + h6 {
+                margin-top: 30px;
+
+                @include breakpoint-up('lg') {
+                    margin-top: 40px;
+                }
+            }
+        }
+
+        h6 {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: fontsize(20px);
+            line-height: 22px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+            position: relative;
+            text-transform: initial;
+            margin-bottom: 0;
+
+            @include breakpoint-up('lg') {
+                font-size: fontsize(26px);
+                line-height: 29px;
             }
         }
 
         p {
             margin-top: 10px;
+            max-width: 340px;
+
+            + h6 {
+                margin-top: 30px;
+            }
         }
     }
 }

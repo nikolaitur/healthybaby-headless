@@ -1,5 +1,9 @@
 .nutrition-chart {
-    padding: 140px 0;
+    padding: 70px 0;
+
+    @include breakpoint-up('md') {
+        padding: 140px 0;
+    }
 
     &__header {
         text-align: center;
