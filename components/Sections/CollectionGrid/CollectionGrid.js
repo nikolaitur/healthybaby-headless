@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import CollectionCallout from '../../Sections/CollectionCallout'
 import CollectionProductCard from '../../Cards/CollectionProductCard'
 import VitaminFinder from '../../Cards/VitaminFinder'
-// import DiaperFinderCard from '../../Cards/DiaperFinderCard'
+import DiaperFinderCard from '../../Cards/DiaperFinderCard'
 
 const CollectionGrid = ({ content }) => {
     const sectionItems = content.fields.sections
@@ -27,8 +27,8 @@ const CollectionGrid = ({ content }) => {
                                 return <CollectionProductCard content={item} key={index} />
                             case 'collectionCallout':
                                 return <CollectionCallout content={item} key={index} />
-                            // case 'diaperCalculator':
-                            //     return <DiaperFinderCard content={item} key={index} />
+                            case 'diaperCalculator':
+                                return <DiaperFinderCard content={item} key={index} />
                             case 'vitaminFinder':
                                 return <VitaminFinder content={item} key={index} />
                             default:
