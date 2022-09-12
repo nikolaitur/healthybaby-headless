@@ -12,35 +12,31 @@ const Experts = ({ content }) => {
         <section className="experts">
             <div className="experts__container container">
                 <div className="experts__content">
-                    <h6 className="experts__subheader">{ subheader }</h6>
-                    <h2 className="experts__header">{ header }</h2>
+                    {content.fields?.subheader ? (
+                        <h6 className="experts__subheader">{ content.fields.subheader }</h6>
+                    ) : ""}
+                    {content.fields?.header ? (
+                        <h2 className="experts__header">{ content.fields.header }</h2>
+                    ) : ""}
                 </div>
-                <div className="experts__wrapper">
-                    <div className="experts__expert">
-                        <div className="experts__image">
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </div>
-                        <div className="experts__name">Dr. James Adams, PHD</div>
-                        <p className="experts__description">Dr. Adams serves as the co-founder & chair of the Scientific Advisory Board of the Neurological Health Foundation & has dedicated his entire career to helping women have healthy pregnancies.  His research focuses on medical & nutritional causes of autism.</p>
-                        <div className="experts__cta">
-                            <Link href={"/"}>
-                                <button className="link">More About Dr. Adams</button>
-                            </Link>
-                        </div>      
+                {content.fields?.sections ? (
+                    <div className="experts__wrapper"> 
+                        {content.fields.sections.map((item, index) => (
+                            <div className="experts__expert" key={index}>
+                                <div className="experts__image">
+                                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                                </div>
+                                <div className="experts__name">{ item.fields.name }</div>
+                                <p className="experts__description">{ item.fields.description }</p>
+                                <div className="experts__cta">
+                                    <Link href={item.fields.ctaUrl}>
+                                        <button className="link">{ item.fields.ctaText }</button>
+                                    </Link>
+                                </div>      
+                            </div>
+                        ))}                    
                     </div>
-                    <div className="experts__expert">
-                        <div className="experts__image">
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </div>
-                        <div className="experts__name">Dr. James Adams, PHD</div>
-                        <p className="experts__description">Dr. Adams serves as the co-founder & chair of the Scientific Advisory Board of the Neurological Health Foundation & has dedicated his entire career to helping women have healthy pregnancies.  His research focuses on medical & nutritional causes of autism.</p>
-                        <div className="experts__cta">
-                            <Link href={"/"}>
-                                <button className="link">More About Dr. Adams</button>
-                            </Link>
-                        </div>      
-                    </div>
-                </div>
+                ) : ""}
             </div>   
         </section>
     )

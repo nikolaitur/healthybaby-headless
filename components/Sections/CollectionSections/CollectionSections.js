@@ -6,32 +6,29 @@ import Experts from '../Experts'
 import ValueProps from '../ValueProps'
 
 const CollectionSections =  ({ content }) => {
-    const sections = content.fields.collectionSections
-
-    console.log(sections)
 
     return (
         <>
-            {sections.map((section, index) => {
-                const type = section.type
+            {content.fields?.collectionSections ? (
+                content.fields.collectionSections.map((section, index) => {
+                    const type = section.type
 
-                console.log(type)
-
-                switch (type) {
-                    case 'productDetailTabs':
-                       return <ProductDetailTabs content={section} key={index} />
-                    case 'contentTimeline':
-                        return <ContentTimeline content={section} key={index} />
-                    case 'nutritionChart':
-                        return <NutritionChart content={section} key={index} />
-                    case 'experts':
-                        return <Experts content={section} key={index} />
-                    case 'valueProps':
-                        return <ValueProps content={section} key={index} />
-                    default:
-                    return null
-                }
-            })}
+                    switch (type) {
+                        case 'productDetailTabs':
+                        return <ProductDetailTabs content={section} key={index} />
+                        case 'contentTimeline':
+                            return <ContentTimeline content={section} key={index} />
+                        case 'nutritionChart':
+                            return <NutritionChart content={section} key={index} />
+                        case 'experts':
+                            return <Experts content={section} key={index} />
+                        case 'valueProps':
+                            return <ValueProps content={section} key={index} />
+                        default:
+                        return null
+                    }
+                })
+            ) : ""} 
         </>
     )
 }
