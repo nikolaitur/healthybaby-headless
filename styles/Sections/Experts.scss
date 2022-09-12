@@ -35,7 +35,7 @@
     &__image {
         max-width: 512px!important;
         margin: 0 auto;
-        
+
         img {
             width: 100%;
             max-width: 300px;
@@ -73,6 +73,7 @@
 
     &__cta {
         margin-top: 30px;
+        cursor: pointer;
 
         .link {
             margin: 0 auto;
