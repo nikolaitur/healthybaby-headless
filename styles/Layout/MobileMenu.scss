@@ -8,6 +8,14 @@
     transition: 0.5s;
     transform: translateX(calc(-100% - 42px));
 
+    &--search {
+        background: #FBF8F8;
+
+        .mobile-menu__close {
+            background: #FBF8F8;
+        }
+    }
+
     @include breakpoint-up('md') {
         display: none;
     }
@@ -47,6 +55,40 @@
         svg {
             transform: rotate(-90deg);
             margin-right: 20px;
+        }
+    }
+
+    &__search {
+        position: absolute;
+        z-index: 13;
+        top: 22px;
+        left: 28px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: calc(100% - 60px);
+
+        input {
+            background: #FFFFFF;
+            border: 1px solid #DBEDF8;
+            border-radius: 60px;
+            height: 48px;
+            width: 100%;
+            max-width: 520px;
+            padding: 0 30px;
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: $primaryBrown;
+            padding: 0 55px 0 30px;
+        }
+
+        svg {
+            position: absolute;
+            right: 15px;
+            top: 15px;
         }
     }
 
