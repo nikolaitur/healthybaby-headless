@@ -23,9 +23,19 @@ const Experts = ({ content }) => {
                     <div className="experts__wrapper"> 
                         {content.fields.sections.map((item, index) => (
                             <div className="experts__expert" key={index}>
-                                <div className="experts__image">
-                                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                                </div>
+                                {item.fields?.image ? (
+                                    <div className="experts__image">
+                                        <Image
+                                            className=""
+                                            src={`https:${item.fields.image.fields.file.url}`}
+                                            alt={item.fields.image.fields.title}
+                                            layout="responsive"
+                                            objectFit="cover"
+                                            height="512"
+                                            width="512"
+                                        />
+                                    </div>
+                                ) : ""}
                                 <div className="experts__name">{ item.fields.name }</div>
                                 <p className="experts__description">{ item.fields.description }</p>
                                 <div className="experts__cta">

@@ -5,8 +5,6 @@ import Image from 'next/image';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const ProductDetailSlide = ({ content }) => {
-    console.log(content.fields.image)
-
     const [textBlock1, setTextBlock1] = useState(false)
     const [textBlock2, setTextBlock2] = useState(false)
 
@@ -20,7 +18,7 @@ const ProductDetailSlide = ({ content }) => {
             }
         }
         getRichTextToHtml()
-    }, [])
+    })
 
     return (
         <div className="product-detail-slide">

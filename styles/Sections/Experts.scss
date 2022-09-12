@@ -33,6 +33,9 @@
     }
 
     &__image {
+        max-width: 512px!important;
+        margin: 0 auto;
+        
         img {
             width: 100%;
             max-width: 300px;
@@ -40,9 +43,9 @@
             border-radius: 100%;
 
             @include breakpoint-up('lg') {
-                height: 512px;
-                width: 512px;
-                max-width: 512px;
+                height: 512px!important;
+                width: 512px!important;
+                max-width: 512px!important;
                 object-fit: cover;
             }
         }

@@ -62,8 +62,30 @@
     }
 
     &__image {
+        &--desktop {
+            display: none!important;
+
+            @include breakpoint-up('lg') {
+                display: block!important;
+            }
+        }
+
+        &--mobile {
+            @include breakpoint-up('lg') {
+                display: none!important;
+            }
+        }
+
+        span {
+            padding-top: 0!important;
+        }
+
         img {
             width: 100%;
+            object-fit: contain;
+            width: 100% !important;
+            position: relative !important;
+            height: unset !important;
         }
     }
 }

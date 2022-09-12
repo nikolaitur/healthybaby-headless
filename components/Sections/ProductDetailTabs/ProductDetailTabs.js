@@ -24,7 +24,7 @@ const ProductDetailTabs = ({ content }) => {
     return (
         <section className="product-detail-tabs">
             <div className="product-detail-tabs__container container">
-                <div classname="product-detail-tabs__content">
+                <div className="product-detail-tabs__content">
                     {content.fields?.subheader ? (
                         <h6 className="product-detail-tabs__subheader">{ content.fields.subheader }</h6>
                     ) : ""}
