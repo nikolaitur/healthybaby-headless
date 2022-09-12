@@ -8,8 +8,6 @@ const NutritionChartDropdown = ({ items, swiperIntstance }) => {
   const [isActive, setIsActive] = useState(false);
   const [activeItem, setActiveItem] = useState(items[0])
 
-  console.log(activeItem)
-
   const toggleDropDropdown = () => {
     setIsActive(!isActive)
   }

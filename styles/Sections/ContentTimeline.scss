@@ -2,21 +2,22 @@
     padding: 70px 0;
 
     &__container {
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             display: flex;
         }
     }
 
     &__sticky {
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             width: 50%;
             position: sticky;
             top: 50px;
+            min-width: 400px;
         }
     }
 
     &__content {
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             padding-left: 100px;
             padding-top: 100px;
             max-width: 700px;
@@ -40,7 +41,7 @@
         position: relative;
         margin: 30px 0;
 
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             margin: 80px 0;
         }
     }
@@ -62,7 +63,7 @@
         opacity: 0.5;
         transition:  0.3s;
 
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             margin-bottom: 170px;
         }
 
@@ -84,7 +85,7 @@
             height: 18px;
             width: 18px;
 
-            @include breakpoint-up('lg') {
+            @include breakpoint-up('md') {
                 left: -9px;
                 height: 32px;
                 width: 32px;
@@ -101,7 +102,7 @@
         color: $primaryBrown;
         margin-bottom: 20px;
 
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             margin-bottom: 30px;
             font-size: fontsize(28px);
         }
@@ -110,22 +111,26 @@
     &__image {
         margin: 0 0 30px;
 
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             margin: 0;
             position: sticky;
+            top: 100px;
+        }
+
+        @include breakpoint-up('lg') {
             top: 150px;
         }
 
         &--desktop {
             display: none!important;
 
-            @include breakpoint-up('lg') {
+            @include breakpoint-up('md') {
                 display: block!important;
             }
         }
 
         &--mobile {
-            @include breakpoint-up('lg') {
+            @include breakpoint-up('md') {
                 display: none!important;
             }
         }
