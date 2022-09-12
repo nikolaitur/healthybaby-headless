@@ -3,6 +3,8 @@ import { useState, useRef, useEffect  } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 
+import NutritionChartDropdown from './NutritionChartDropdown';
+
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { EffectFade } from "swiper";
 
@@ -37,6 +39,9 @@ const NutritionChart = ({ content }) => {
                                 return <div key={index} className={`nutrition-chart__tab ${index == activeSlide ? "active" : ""}`} onClick={() => goToSlide(index)}>{item.fields.title}</div>
                             })}
                         </div>
+
+                        <NutritionChartDropdown swiperIntstance={swiperIntstance} items={content.fields.sections}/>
+
                         <Swiper
                             className="nutrition-chart__slider"
                             modules={[EffectFade]}
@@ -52,9 +57,9 @@ const NutritionChart = ({ content }) => {
                             {content.fields.sections.map((item, index) => (
                                 <SwiperSlide key={index}>
                                     <div className="nutrition-chart__slide">
-                                        {content.fields?.description ? (
+                                        {item.fields?.description ? (
                                             <p className="nutrition-chart__description large">
-                                                {content.fields.description}
+                                                {item.fields.description}
                                             </p>
                                         ) : ""}
 

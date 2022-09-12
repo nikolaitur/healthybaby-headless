@@ -16,7 +16,10 @@
     }
 
     &__tabs {
+        display: none;
+
         @include breakpoint-up('md') {
+            display: block;
             margin-top: 50px;
             display: flex;
             justify-content: space-evenly;
@@ -86,6 +89,73 @@
             width: 100% !important;
             position: relative !important;
             height: unset !important;
+        }
+    }
+}
+
+.nutrition-chart-dropdown {
+    margin-top: 30px;
+
+    @include breakpoint-up('md') {
+        display: none;
+    }
+
+    &__selected {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(16px);
+        line-height: 19px;
+        letter-spacing: 0.15em;
+        color: $primaryBrown;
+        position: relative;
+        padding: 17px 35px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgba(61, 51, 49, 0.2);
+        border-radius: 60px;
+
+        svg {
+            transition: 0.3s;
+        }
+
+        &.is-open {
+            background: #5B7A68;
+            color: #fff;
+            svg {
+                transform: rotateX(180deg);
+
+                path {
+                    stroke: #fff
+                }
+            }
+
+        }
+    }
+
+    &__menu {
+        display: none;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(16px);
+        line-height: 19px;
+        letter-spacing: 0.15em;
+        color: $primaryBrown;
+        padding: 25px;
+
+        &.is-open {
+            display: block;
+        }
+    }
+
+    &__item {
+        cursor: pointer;
+        
+        &:not(:last-child) {
+            margin-bottom: 10px;
         }
     }
 }
