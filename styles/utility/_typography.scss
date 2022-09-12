@@ -1,0 +1,94 @@
+h1,
+.h1 {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 42px;
+    color: $primaryBrown;
+    
+    @include breakpoint-up('md') {
+        font-size: 96px;
+        line-height: 96px;
+    }
+}
+
+h2,
+.h2 {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 34px;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+        font-size: 76px;
+        line-height: 76px;
+    }
+}
+
+h3, 
+.h3  {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+        font-size: 62px;
+        line-height: 62px;
+    }
+}
+
+h4,
+.h4 {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+        font-size: 32px;
+        line-height: 35px;
+    }
+}
+
+h6,
+.h6 {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
+    margin-bottom: 30px;
+
+    @include breakpoint-up('md') {
+        font-size: 18px;
+        line-height: 18px;
+    }
+}
+
+// p,
+// .body {
+//   font-family: 'FrankRuhl';
+//   font-weight: 400;
+//   font-size: fontsize(16px);
+//   line-height: 150%;
+
+//   @include breakpoint-up('md') {
+//     font-size: fontsize(18px);
+//   }
+
+//   @include breakpoint-up('xl') {
+//     font-size: fontsize(21px);
+//   }
+// }

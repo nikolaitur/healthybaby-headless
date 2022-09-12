@@ -5,17 +5,17 @@ import Image from 'next/image';
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const About = ({ content }) => {
-    const { header, subheader, copy, links } = content.fields
+    const { header, subheader, copy, links, imageTitle, imageSubtitle } = content.fields
     const image = content.fields.image.fields.file.url  
 
     return (
         <section className="about">
             <div className="about__container container">
                 <div className="about__content">
-                    <div className="about__subheader">{ subheader }</div>
-                    <div className="about__header">
+                    <h6 className="about__subheader">{ subheader }</h6>
+                    <h3 className="about__header">
                         { header }
-                    </div>
+                    </h3>
                     <div className="about__image about__image--mobile">
                         <Image
                             src={`https:${image}`}
@@ -24,9 +24,9 @@ const About = ({ content }) => {
                             height="750"
                         />
                     </div>
-                    <div className="about__copy">
+                    <h5 className="about__copy">
                         { copy }
-                    </div>
+                    </h5>
                     <div className="about__links">
                         {links.map((link, index) => {
                             return (
@@ -49,6 +49,12 @@ const About = ({ content }) => {
                         width="785"
                         height="750"
                     />
+                    <div className="about__title">
+                        {imageTitle}
+                    </div>
+                    <div className="about__subtitle">
+                        {imageSubtitle}
+                    </div>
                 </div>
             </div>
         </section>

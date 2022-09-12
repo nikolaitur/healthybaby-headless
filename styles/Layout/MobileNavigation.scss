@@ -4,6 +4,7 @@
     padding: 0 20px;
     position: relative;
     z-index: 10;
+    background: #fff;
 
     @include breakpoint-up('md') {
         display: none;

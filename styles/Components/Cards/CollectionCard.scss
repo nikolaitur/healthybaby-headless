@@ -2,15 +2,21 @@
     position: relative;
     height: 255px;
     flex-grow: 1;
-    margin: 0 0 30px;
+    margin: 0 auto 30px;
+    max-width: 365px;
 
     &:last-child {
-        margin: 0 0 0;
+        margin: 0 auto 0;
     }
 
     @include breakpoint-up('md') {
         height: 700px;
         margin: 0 20px;
+        max-width: 100%;
+
+        &:last-child {
+            margin: 0 20px 0;
+        }
     }
 
     &__cta {
@@ -18,35 +24,25 @@
         bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 100%;
+        width: calc(100% - 40px);
 
         @include breakpoint-up('md') {
             bottom: 40px;
             padding: 0 30px;
+            width: 100%;
         }
 
-        a {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 19px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            letter-spacing: 0.02em;
-            color: #3D3331;
-            background: #fff;
-            padding: 19px 50px;
-            border-radius: 60px;
-            margin: 0 10px 0;
+        .btn {
+            padding: 19px 30px;
+            margin: 0 auto 0;
 
             @include breakpoint-up('md') {
-                font-size: 18px;
-                line-height: 22px;
                 padding: 19px 0px;
                 margin: 0 auto;
                 width: 100%;
+                max-width: 100%;
+                text-align: center;
+                justify-content: center;
             }
         }
     }

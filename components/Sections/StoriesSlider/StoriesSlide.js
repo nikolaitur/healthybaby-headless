@@ -14,15 +14,15 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
         <div className="stories-slide">
             <div className="stories-slide__container">
                 <div className="stories-slide__content">
-                    <div className="stories-slide__subtitle">
+                    <h6 className="stories-slide__subtitle">
                         { subtitle }
-                    </div>
-                    <div className="stories-slide__title">
+                    </h6>
+                    <h3 className="stories-slide__title">
                         { title }
-                    </div>
-                    <div className="stories-slide__copy">
+                    </h3>
+                    <h5 className="stories-slide__copy">
                         { copy }
-                    </div>
+                    </h5>
                     <div className="stories-slide__author">
                        { author }
                     </div>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Lazy, EffectFade } from "swiper";
+import { Lazy, EffectFade, Autoplay } from "swiper";
 import StoriesSlide from './StoriesSlide'
 
 import 'swiper/css';
@@ -20,15 +20,13 @@ const StoriesSlider = ({ content }) => {
     // const swiper = useSwiper();
     // const slides = [1, 2, 3]
     const slides = content.fields.storiesSlides
-
-    console.log(content, 'Stories slider')
     
     return (
         <section className="stories-slider">
             <div className="stories-slider__container container">
                 <div className="stories-slider__slider">
                     <Swiper
-                        modules={[Lazy, EffectFade]}
+                        modules={[Lazy, EffectFade, Autoplay]}
                         spaceBetween={20}
                         slidesPerView={1}
                         lazy={true}
@@ -36,6 +34,9 @@ const StoriesSlider = ({ content }) => {
                         style={{
                             "--swiper-navigation-color": "#fff",
                             "--swiper-pagination-color": "#fff",
+                        }}
+                        autoplay={{
+                            delay: 3000
                         }}
                         onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                         onSwiper={(swiper) => setActiveSlide(swiper.activeIndex)}

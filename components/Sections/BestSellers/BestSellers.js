@@ -37,7 +37,7 @@ const BestSellers = ({ content }) => {
         <section className="best-sellers">
             <div className="best-sellers__container container">
                 <div className="best-sellers__content">
-                    <div className="best-sellers__header">{ header }</div>
+                    <h2 className="best-sellers__header">{ header }</h2>
                     <div className="best-sellers__link">
                         <Link href="/">
                             <div className="best-sellers__button">

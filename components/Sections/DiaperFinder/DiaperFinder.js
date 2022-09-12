@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react'
 import Select, { components } from "react-select";
 import Link from 'next/link';
 import Image from 'next/image';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css"
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import CheckCircle from '../../../svgs/check-circle.svg'
@@ -24,6 +27,7 @@ const DiaperFinder = ({ content }) => {
     }
 
     const [isActive, setIsActive] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
 
     const showDiaperResults = () => {
@@ -101,12 +105,12 @@ const DiaperFinder = ({ content }) => {
     }
 
     return (
-        <section className="diaper-finder">
+        <section className="diaper-finder" data-background-color="blue">
             <div className="diaper-finder__container container">
                 <div className="diaper-finder__content">
-                    <div className="diaper-finder__subheader">
+                    <h6 className="diaper-finder__subheader">
                         LET’S PERSONALIZE YOUR EXPERIENCE
-                    </div>
+                    </h6>
                     <div className="diaper-finder__form">
                         <span>
                             <span>My baby’s name is</span>
@@ -121,7 +125,8 @@ const DiaperFinder = ({ content }) => {
                                 onChange={(e) => onSelectChange(e)}/>
                             <span className="select-line">
                                 <span>{diaperFinderData.gender == "They" ? "were" : "was"} born on </span>
-                                <input name="birthday" label="Birthday" onChange={handleInputChange}  value={diaperFinderData.birthday}></input>
+                                {/* <input name="birthday" label="Birthday" onChange={handleInputChange}  value={diaperFinderData.birthday}></input> */}
+                                <DatePicker closeOnScroll={true} selected={startDate} onChange={(date) => setStartDate(date)} />
                             </span>
                         </span>
                         <span className="weight">
@@ -133,7 +138,7 @@ const DiaperFinder = ({ content }) => {
                         </span>
                     </div>
                     <div className="diaper-finder__cta" onClick={() => showDiaperResults()}>
-                        Explore Recommendations
+                        <button className="btn">Explore Recommendations</button>
                     </div>
                     <div className={`diaper-finder__clear ${isActive ? "is-open" : "hidden"}`} onClick={() => clearDiaperResults()}>
                         <span>x&nbsp;&nbsp;</span>
