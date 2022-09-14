@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 
 const CartDrawer = ({ content }) => {
-    console.log(content, "content")
+
     const [
         { cart },
         { incrementItem, decrementItem, removeFromCart, clearCart, addToCart },
@@ -119,7 +119,7 @@ const CartDrawer = ({ content }) => {
                                     <span><strong>You’ve earned free shipping!</strong></span>
                                 </>
                             ) : (
-                                <span><strong>${freeShippingLimit - cartSubtotal}</strong> away from complimentary shipping</span>
+                                <span><strong>${(freeShippingLimit - cartSubtotal).toFixed(2)}</strong> away from complimentary shipping</span>
                             )}
                         </span>
                         <span className="border">
@@ -151,7 +151,7 @@ const CartDrawer = ({ content }) => {
                             
                             <div className="cart-drawer__checkout">
                                 <button className="btn secondary full-width" onClick={handleProcessCheckout}>
-                                    <span>{`Checkout - $${cartSubtotal}`}</span>
+                                    <span>{`Checkout - $${cartSubtotal.toFixed(2)}`}</span>
                                 </button>
                             </div>
                         </>

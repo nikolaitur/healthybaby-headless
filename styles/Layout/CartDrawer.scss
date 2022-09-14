@@ -50,7 +50,7 @@
         max-width: 525px;
         // padding: 30px;
         height: 100vh;
-        background: #E7EBF4; 
+        background:#E5E5E5;
         transform: translateX(100vw);
         transition: 0.3s;
         overflow-y: scroll;
@@ -177,11 +177,21 @@
     }
 
     &__items {
+        position: relative;
         padding: 25px 30px 0;
         margin-top: 25px;
         display: flex;
         flex-direction: column;
-        border-top: 1px solid rgba(61, 51, 49, 0.1);
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            width: calc(100% - 60px);
+            height: 1px;
+            background: rgba(61, 51, 49, 0.1);
+        }
     }
 
     &__upsells {
@@ -206,222 +216,34 @@
             overflow: scroll;
         }
     }
+
     &__checkout {
         padding: 0 30px;
     }
-}
 
-.line-item {
-    position: relative;
-    margin-bottom: 25px;
-    border-bottom: 1px solid rgba(61, 51, 49, 0.1);
-    padding-bottom: 25px;
-
-    &:last-child {
-        // margin-bottom: 0;
-        padding-bottom: 25px;
-    }
-
-    &__wrapper {
-        display: flex;
+    &__empty {
         position: relative;
-    }
-
-    &__image {
-        max-width: 108px;
-        background: #FFFEFE;
-
-        img {
-            width: 100%;
-            object-fit: contain;
-            width: 100% !important;
-            position: relative !important;
-            height: unset !important;
-        }
-
-        span {
-            padding-top: 0!important;
-        }
-    }
-
-    &__content {
-        margin: 0 0 0 24px;
-    }
-
-    &__title {
-        font-family: $NeutraTextDemi;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-    }
-
-    &__option {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 10px;
-    }
-
-    &__price {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 10px;
-    }
-
-    &__quantity {
-        position: absolute;
-        right: 0px;
-        display: flex;
-        align-items: center;
-        bottom: 5px;
-
-        &--wrapper {
-            display: flex;
-            background: #fff;
-            padding: 8px 5px;
-            margin-right: 5px;
-        }
-    }
-
-    &__decrement, 
-    &__increment {
-        border: none;
-        background: #fff;
-        cursor: pointer;
-    }
-
-    &__count {
-        font-family: $NeutraTextDemi;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-        letter-spacing: 0.02em;
-        color: $primaryBrown;
-        margin: 0 5px;
-    }
-
-    &__trash {
-        border: none;
-        background: none;
-        cursor: pointer;
-    }
-
-    &__upgrade {
-        width: 100%;
-        margin: 30px 0 0;
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        border: none;
-        background: #fff;
-        padding: 9px 12px;
-        text-align: left;
-        cursor: pointer;
-    }
-}
-
-.upsell {
-    width: 100%;
-    max-width: 410px;
-    background: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    min-width: 410px;
-
-    &:not(:first-child) {
-        margin-left: 20px;
-    }
-
-    &__container {
-        display: flex;
-    }
-
-    &__wrapper {
-        margin: 0 0 0 24px;
-        padding: 7px 0 3px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    &__image {
-        max-width: 108px;
-        background: #FFFEFE;
-
-        img {
-            width: 100%;
-            object-fit: contain;
-            width: 100% !important;
-            position: relative !important;
-            height: unset !important;
-        }
-
-        span {
-            padding-top: 0!important;
-        }
-    }
-
-    &__title {
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: -0.01em;
+        font-size: 22px;
+        line-height: 22px;
         color: $primaryBrown;
-    }
+        text-align: center;
+        padding: 50px 30px 0;
+        margin-top: 25px;
 
-    &__option {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 10px;
-    }
-
-    &__price {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 10px;
-    }
-
-    &__add-to-cart {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .btn {
-            padding: 7px 20px;
-            
-            span {
-                margin: 0!important;
-            }
+        &:before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            width: calc(100% - 60px);
+            height: 1px;
+            background: rgba(61, 51, 49, 0.1);
         }
     }
 }
+
+@import './CartDrawer/LineItem.scss';
+@import './CartDrawer/Upsell.scss';

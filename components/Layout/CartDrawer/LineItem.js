@@ -28,7 +28,6 @@ const LineItem = ({item}) => {
 
     const getSubscriptionProduct = (tag) => {
         let handle = tag.split("::")
-        console.log(handle[1], "handle")
         const getProduct = async () => {
             await nacelleClient.products({
                 handles: handle[1]
@@ -48,7 +47,10 @@ const LineItem = ({item}) => {
         })
         addToCart({
             variant,
-            quantity: 1
+            quantity: 1,
+            properties: {
+                _
+            }
         })
     }
 
@@ -95,7 +97,7 @@ const LineItem = ({item}) => {
                     <div className="line-item__option">{ item.variant.selectedOptions[0].value }</div>
                 ) : ""}
                 
-                <div className="line-item__price">${ item.variant.price }</div>
+                <div className="line-item__price">${ (item.variant.price).toFixed(2) }</div>
                 <div className="line-item__quantity">
                     <div className="line-item__quantity--wrapper">
                         <button onClick={() => decrement()} className="line-item__decrement">

@@ -9,7 +9,6 @@ import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 
 const Upsell = ({product, variantId }) => {
-    // console.log(product, variantId)
     const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
     const [
         { cart },
@@ -20,8 +19,6 @@ const Upsell = ({product, variantId }) => {
     if (product?.content?.options?.some((option) => option.values.length > 1)) {
       options = product?.content?.options
     }
-
-    // console.log(product, product.content.title, selectedVariant)
 
     useEffect(() => {
         if(variantId) {
@@ -53,8 +50,8 @@ const Upsell = ({product, variantId }) => {
                         alt={ product.content.title }
                         layout="responsive"
                         objectFit="cover"
-                        height="132"
-                        width="108"
+                        height="90"
+                        width="72"
                     />
                 </div>
                 <div className="upsell__wrapper">
@@ -73,8 +70,6 @@ const Upsell = ({product, variantId }) => {
                 </div>
                 
             </div>
-            
-
         </div>
     )
 };
