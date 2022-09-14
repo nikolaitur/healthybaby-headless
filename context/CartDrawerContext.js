@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { nacelleClient } from 'services'
 import CartDrawer from '../components/Layout/CartDrawer'
 import Router, { useRouter } from 'next/router'
 
@@ -9,13 +10,24 @@ export function useCartDrawerContext() {
 }
 
 export function CartDrawerProvider({ children }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [content, setContent] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
+    const [content, setContent] = useState('')
 
-  return (
-    <CartDrawerContext.Provider value={{ isOpen, setIsOpen }}>
-      {children}
-      <CartDrawer />
-    </CartDrawerContext.Provider>
-  )
+    useEffect(() => {
+        const getCartDrawerContent = async () => {
+            await nacelleClient.content({
+                handles: ['cart-drawer']
+            }).then(response => {
+                setContent(response)
+            })            
+        }
+        getCartDrawerContent()
+    }, [])
+
+    return (
+        <CartDrawerContext.Provider value={{ isOpen, setIsOpen, content }}>
+            {children}
+            <CartDrawer />
+        </CartDrawerContext.Provider>
+    )
 }

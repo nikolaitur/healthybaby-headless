@@ -48,7 +48,7 @@
         position: relative;
         width: 100%;
         max-width: 525px;
-        padding: 30px;
+        // padding: 30px;
         height: 100vh;
         background: #E7EBF4; 
         transform: translateX(100vw);
@@ -60,16 +60,154 @@
         }
     }
 
+    &__messaging {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: -0.01em;
+        color: #fff;
+        position: relative;
+        padding: 10px 0;
+        text-align: center;
+        background: #889CC7;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 30px;
+            }
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        margin: 30px 0 0;
+    }
+
+    &__title {
+        position: relative;
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 29px;
+        color: $primaryBrown;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include breakpoint-up('md') {
+            font-size: 36px;
+            line-height: 36px;
+        }
+
+        span {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+            background: #fff;
+            border-radius: 100%;
+            padding: 3px 9px 1px 9px;
+            margin-left: 20px;
+        }
+    }
+
     &__close {
         position: relative;
         display: flex;
         justify-content: flex-end;
-        // margin: 10px;
-        margin-bottom: 30px;
         cursor: pointer;
 
         // @include breakpoint-up('md') {
         //     right: 10px;
         // }
+    }
+
+    &__items {
+        padding: 25px 30px 0;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+    }
+
+    &__image {
+        
+    }
+
+    &__checkout {
+        padding: 0 30px;
+    }
+}
+
+.line-item {
+    display: flex;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(61, 51, 49, 0.1);
+    padding-bottom: 25px;
+
+    &:last-child {
+        // margin-bottom: 0;
+        padding-bottom: 25px;
+    }
+
+    &__image {
+        max-width: 108px;
+        background: #FFFEFE;
+
+        img {
+            width: 100%;
+            object-fit: contain;
+            width: 100% !important;
+            position: relative !important;
+            height: unset !important;
+        }
+
+        span {
+            padding-top: 0!important;
+        }
+    }
+
+    &__content {
+        margin: 0 0 0 24px;
+    }
+
+    &__title {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    }
+
+    &__option {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__price {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
     }
 }

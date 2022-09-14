@@ -25,6 +25,34 @@
         max-width: max-content;
     }
 
+    &.secondary {
+        background: $primaryGreen;
+        color: #fff;
+
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+
+        &:hover {
+            background: #fff;
+            color: $primaryBrown;
+
+            svg {
+                path {
+                    fill: $primaryBrown;
+                }
+            }
+        }
+    }
+
+    &.full-width {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+    }
+
     &:hover {
         background: $primaryGreen;
         color: #fff;
