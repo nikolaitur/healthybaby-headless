@@ -2,8 +2,20 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { useCart } from '@nacelle/react-hooks'
+
+import Plus from '../../../svgs/plus.svg'
+import Minus from '../../../svgs/minus.svg'
+import Trash from '../../../svgs/trash.svg'
+
 const LineItem = ({item}) => {
   console.log(item)
+
+  const [
+    { cart },
+    { incrementItem, decrementItem, removeFromCart },
+  ] = useCart()
+
   const getOptions = () => {
     let singleVariant = true
     if(item.variant.selectedOptions.length > 0) {
@@ -14,6 +26,15 @@ const LineItem = ({item}) => {
 
     return true
   }
+
+  const decrement = () => {
+    if (item.quantity <= 1) {
+      removeFromCart(item)
+    } else {
+      decrementItem(item)
+    }
+  }
+
   return (
     <div className="line-item">
         <div className="line-item__image">
@@ -34,8 +55,21 @@ const LineItem = ({item}) => {
             ) : ""}
             
             <div className="line-item__price">${ item.variant.price }</div>
-            <div className="line-item__quanity">
-
+            <div className="line-item__quantity">
+                <div className="line-item__quantity--wrapper">
+                    <button onClick={() => decrement()} className="line-item__decrement">
+                        <Minus />
+                    </button>
+                    <div className="line-item__count" aria-label="product quantity">
+                        {item.quantity}
+                    </div>
+                    <button onClick={() => incrementItem(item)} className="line-item__increment">
+                        <Plus />
+                    </button>
+                </div>
+                <button onClick={() => removeFromCart(item)} className="line-item__trash">
+                    <Trash />
+                </button>
             </div>
         </div>
     </div>

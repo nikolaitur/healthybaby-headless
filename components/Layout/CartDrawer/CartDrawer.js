@@ -28,16 +28,6 @@ const CartDrawer = ({props, children}) => {
         console.log(cart, "cart", cartDrawerContent)
     })
 
-    const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-        // setDiaperFinderData(diaperFinderData => ({
-        //     ...diaperFinderData,
-        //     [name]: value,
-
-        // }))
-    };
-
     const closeSlide = () => {
         cartDrawerContext.setIsOpen(false)
     }
@@ -71,9 +61,9 @@ const CartDrawer = ({props, children}) => {
             <div className="cart-drawer__overlay" onClick={() => closeSlide()}></div>
             <div className={`cart-drawer__container`}>
                 <div className="cart-drawer__content">
-                    {/* {cartDrawerContent.fields?.marketingMessage ? (
+                    {cartDrawerContent.fields?.marketingMessage ? (
                         <div className="cart-drawer__messaging">{ cartDrawerContent.fields.marketingMessage }</div>
-                    ) : ""} */}
+                    ) : ""}
 
                     <div className="cart-drawer__header">
                         <div className="cart-drawer__title">
