@@ -27,7 +27,7 @@ export function CartDrawerProvider({ children }) {
     return (
         <CartDrawerContext.Provider value={{ isOpen, setIsOpen, content }}>
             {children}
-            <CartDrawer />
+            <CartDrawer content={content} />
         </CartDrawerContext.Provider>
     )
 }

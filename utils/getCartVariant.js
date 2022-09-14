@@ -20,9 +20,10 @@ export const getCartVariant = ({ product, variant }) => {
       featuredMedia: featuredMedia || productFeaturedMedia,
       selectedOptions,
       title,
+      tags: product.tags,
       productHandle,
       productTitle,
-      productContent: product.content
+      product: product
     }
   }
 }

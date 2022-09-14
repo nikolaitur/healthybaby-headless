@@ -204,6 +204,7 @@ const PAGE_QUERY = `
           altText
         }
 			}
+      tags
       variants{
         nacelleEntryId
         sourceEntryId

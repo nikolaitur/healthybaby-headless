@@ -54,6 +54,7 @@
         transform: translateX(100vw);
         transition: 0.3s;
         overflow-y: scroll;
+        padding: 0 0 30px;
 
         @include breakpoint-up('md') {
             // padding: 0;
@@ -130,6 +131,51 @@
         // }
     }
 
+    &__shipping {
+        position: relative;
+        padding: 0 30px;
+        margin: 15px 0 0;
+
+        &.free {
+            .message {
+                color: $primaryGreen;
+            }
+            .progress-bar {
+                background: $primaryGreen
+            }
+        }
+
+        .message {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            strong {
+                font-family: $NeutraTextDemi;
+            }
+        }
+
+        .border {
+            display: block;
+            width: 100%;
+            background: #FFFFFF;
+            border-radius: 60px;
+            margin: 5px 0 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: #D0D8E9;
+            display: block;
+            height: 10px;
+            border-radius: 60px;
+        }
+    }
+
     &__items {
         padding: 25px 30px 0;
         margin-top: 25px;
@@ -138,10 +184,28 @@
         border-top: 1px solid rgba(61, 51, 49, 0.1);
     }
 
-    &__image {
-        
-    }
+    &__upsells {
+        padding: 0 30px;
+        margin: 0 0 30px;
 
+        &--title {
+            position: relative;
+            font-family: $DomaineText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 18px;
+            color: $primaryBrown;
+        }
+
+        &--wrapper {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            overflow: scroll;
+        }
+    }
     &__checkout {
         padding: 0 30px;
     }
@@ -149,7 +213,6 @@
 
 .line-item {
     position: relative;
-    display: flex;
     margin-bottom: 25px;
     border-bottom: 1px solid rgba(61, 51, 49, 0.1);
     padding-bottom: 25px;
@@ -157,6 +220,11 @@
     &:last-child {
         // margin-bottom: 0;
         padding-bottom: 25px;
+    }
+
+    &__wrapper {
+        display: flex;
+        position: relative;
     }
 
     &__image {
@@ -217,7 +285,7 @@
         right: 0px;
         display: flex;
         align-items: center;
-        bottom: 20px;
+        bottom: 5px;
 
         &--wrapper {
             display: flex;
@@ -248,5 +316,112 @@
     &__trash {
         border: none;
         background: none;
+        cursor: pointer;
+    }
+
+    &__upgrade {
+        width: 100%;
+        margin: 30px 0 0;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        border: none;
+        background: #fff;
+        padding: 9px 12px;
+        text-align: left;
+        cursor: pointer;
+    }
+}
+
+.upsell {
+    width: 100%;
+    max-width: 410px;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-width: 410px;
+
+    &:not(:first-child) {
+        margin-left: 20px;
+    }
+
+    &__container {
+        display: flex;
+    }
+
+    &__wrapper {
+        margin: 0 0 0 24px;
+        padding: 7px 0 3px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__image {
+        max-width: 108px;
+        background: #FFFEFE;
+
+        img {
+            width: 100%;
+            object-fit: contain;
+            width: 100% !important;
+            position: relative !important;
+            height: unset !important;
+        }
+
+        span {
+            padding-top: 0!important;
+        }
+    }
+
+    &__title {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    }
+
+    &__option {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__price {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__add-to-cart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .btn {
+            padding: 7px 20px;
+            
+            span {
+                margin: 0!important;
+            }
+        }
     }
 }
