@@ -5,10 +5,6 @@ import CollectionGrid from '../components/Sections/CollectionGrid'
 import CollectionHeader from '../components/Sections/CollectionHeader'
 import ValueProps from '../components/Sections/ValueProps'
 
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-
 export default function ShopAll({ pages }) {
     console.log(pages[0].fields, "Shop All")
     const shopAll = pages[0].fields
