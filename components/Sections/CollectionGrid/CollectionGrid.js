@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import CollectionCallout from '../../Sections/CollectionCallout'
 import CollectionProductCard from '../../Cards/CollectionProductCard'
-import VitaminFinder from '../../Cards/VitaminFinder'
 import DiaperFinderCard from '../../Cards/DiaperFinderCard'
+import VitaminFinder from '../../Cards/VitaminFinder'
 
 const CollectionGrid = ({ content }) => {
     const sectionItems = content.fields.sections
