@@ -95,6 +95,8 @@
 
 .nutrition-chart-dropdown {
     margin-top: 30px;
+    position: relative;
+    z-index: 10;
 
     @include breakpoint-up('md') {
         display: none;
@@ -109,27 +111,30 @@
         letter-spacing: 0.15em;
         color: $primaryBrown;
         position: relative;
-        padding: 17px 35px;
+        padding: 17px 25px;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
         border: 1px solid rgba(61, 51, 49, 0.2);
         border-radius: 60px;
+        position: relative;
+        z-index: 1;
 
         svg {
             transition: 0.3s;
         }
 
         &.is-open {
-            background: #5B7A68;
-            color: #fff;
+            background: transparent;
+            border: 1px solid transparent;
+            // color: #fff;
             svg {
                 transform: rotateX(180deg);
 
-                path {
-                    stroke: #fff
-                }
+                // path {
+                //     stroke: #fff
+                // }
             }
 
         }
@@ -144,7 +149,14 @@
         line-height: 19px;
         letter-spacing: 0.15em;
         color: $primaryBrown;
-        padding: 25px;
+        padding: 60px 25px 25px;
+        position: absolute;
+        background: #fff;
+        border-radius: 30px;
+        top: -2px;
+        border: 1px solid rgba(61, 51, 49, 0.2);
+        width: calc(100% + 2px);
+        left: -1px;
 
         &.is-open {
             display: block;
@@ -153,9 +165,12 @@
 
     &__item {
         cursor: pointer;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+        margin-bottom: 0px;
+        padding-top: 15px;
 
         &:not(:last-child) {
-            margin-bottom: 10px;
+            margin-bottom:15px;
         }
     }
 }
