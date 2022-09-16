@@ -181,6 +181,16 @@
         
     }
 
+    &__error {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+        color: red;
+        margin: 0 0 30px;
+    }
+
     &__links {
         display: flex;
         flex-direction: column;

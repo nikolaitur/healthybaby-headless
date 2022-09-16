@@ -9,9 +9,9 @@ const WowAndHow = ({ content }) => {
     const imageGrid3 = content.fields.imageGrid3.fields.file.url 
     const imageGrid4 = content.fields.imageGrid4.fields.file.url 
 
-    if(backgroundColor.indexOf('#') !== 0) {
-        backgroundColor = "#C7E0E5"
-    }
+    // if(backgroundColor.indexOf('#') !== 0) {
+    //     backgroundColor = "#C7E0E5"
+    // }
 
     return (
         <section className="wow-and-how" data-background-color="teal">

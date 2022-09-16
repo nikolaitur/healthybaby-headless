@@ -82,17 +82,13 @@ const CreateAccountForm = () => {
                 emailRef.current.value = ""
                 passwordRef.current.value = ""
                 babyName1Ref.current.value = ""
-                babyBirthday1Ref.current.value = ""
                 babyName2Ref.current.value = ""
-                babyBirthday2Ref.current.value = ""
                 babyName3Ref.current.value = ""
-                babyBirthday3Ref.current.value = ""
                 setChecked(!checked)
                 modalContext.setIsOpen(false)
             }
         }
     }
-
 
     return (
         <div className="account-form">
@@ -117,7 +113,7 @@ const CreateAccountForm = () => {
             </div>
             <form onSubmit={(e) => onSubmit(e)}>
                 {errorMessage &&
-                    <p className={classes['account-form__error']}>{errorMessage}</p>
+                    <p className="account-form__error">{errorMessage}</p>
                 }
                 <div className="account-form__group">
                     <input type="text" className="input" placeholder="Your first name" ref={firstNameRef} />
@@ -133,7 +129,7 @@ const CreateAccountForm = () => {
                 </div>
                 <div className="account-form__group">
                     {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday1Ref} /> */}
-                    <DatePicker closeOnScroll={true}  onChange={(date) => setbabyBirthday1(date)} placeholderText="Baby’s birth / due date  (optional)" />
+                <DatePicker closeOnScroll={true}  onChange={(date) => setbabyBirthday1(date)} placeholderText="Baby’s birth / due date  (optional)" />
                 </div>
                 <div className={`extra-baby ${extraBaby >= 1 ? "show" : ""}`}>
                     <div className="account-form__group">
