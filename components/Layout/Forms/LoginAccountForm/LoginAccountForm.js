@@ -59,7 +59,7 @@ const LoginAccountForm = ({ }) => {
         </div>
         <form onSubmit={(e) => onSubmit(e)}>
           {errorMessage &&
-              <p className={classes['account-form__error']}>{errorMessage}</p>
+              <p className="account-form__error">{errorMessage}</p>
           }
           <div className="account-form__group">
             <input type="email" className="input" placeholder="email address" ref={emailRef} />

@@ -14,9 +14,9 @@
         background: #000;
         filter: blur(0px);
         opacity: 0;
-        pointer-events: none;
         transition: 0.3s;
         opacity: 0.3;
+        z-index: 998;
     }
 
     &__container {

@@ -28,21 +28,25 @@ const Modal = ({props, children}) => {
   }
 
   const closeModal = () => {
+    console.log("Closed")
     modalContext.setIsOpen(false)
   }
 
   return (
-    <div className={`modal`}>
-      <div className={`modal__overlay`} onClick={() => closeModal()}></div>
-      <div className={`modal__container`}>
-          <div className="modal__content">
-            <div className="modal__close" onClick={() => closeModal()}>
-                <IconClose />
-            </div>
-            {getContent(modalContext.modalType, children)}
-          </div>   
+    <>
+      <div className={`modal`}>
+        <div className={`modal__container`}>
+            <div className="modal__content">
+              <div className="modal__close" onClick={() => closeModal()}>
+                  <IconClose />
+              </div>
+              {getContent(modalContext.modalType, children)}
+            </div>   
+        </div>
       </div>
-    </div>
+      <div className={`modal__overlay`} onClick={() => closeModal()}></div>
+    </>
+
   )
 }
 
