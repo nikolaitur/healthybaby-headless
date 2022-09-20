@@ -1,5 +1,5 @@
 .btn {
-    font-family: $NeutraText;
+    font-family: $NeutraTextDemi;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -23,6 +23,34 @@
         justify-content: flex-start;
         padding: 19px 100px;
         max-width: max-content;
+    }
+
+    &.secondary {
+        background: $primaryGreen;
+        color: #fff;
+
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+
+        &:hover {
+            background: #fff;
+            color: $primaryBrown;
+
+            svg {
+                path {
+                    fill: $primaryBrown;
+                }
+            }
+        }
+    }
+
+    &.full-width {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
     }
 
     &:hover {

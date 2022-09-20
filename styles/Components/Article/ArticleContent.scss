@@ -1,0 +1,69 @@
+.article {
+    &__container {
+        max-width: 1175px;
+        margin: 0 auto;
+    }
+}
+
+.article-content {
+    h5 {
+        margin-bottom: 40px;
+    }
+
+    h6 {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 31px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-bottom: 20px;
+    
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 31px;
+        }
+    }
+
+    blockquote {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 31px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        padding-top: 20px;
+        margin-bottom: 40px;
+    
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 31px;
+        }
+    }
+
+    p {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 31px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-bottom: 20px;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 31px;
+        }
+    }
+
+    p + h6 {
+        padding-top: 20px;
+    }
+
+    p + p {
+        padding-top: 20px;
+    }
+}
