@@ -1,0 +1,228 @@
+.search {
+    height: calc(100vh - 53px);
+    overflow: scroll;
+
+    @include breakpoint-up('md') {
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 153px);
+        top: 95px;
+        left: 0;
+        // background: #FBF8F8;
+        // z-index: -1;
+        display: none;
+        overflow: hidden;
+    }
+
+    &.show {
+        display: block;
+    }
+}
+
+.search-menu {
+    position: relative;
+    z-index: 4;
+    background: #FBF8F8;
+    height: calc(100vh - 53px);
+    
+    @include breakpoint-up('md') {
+        height: 576px;
+        padding-top: 40px;
+        overflow: hidden;
+    }
+
+    &__close {
+        display: none;
+
+        @include breakpoint-up('md') {
+            display: block;
+            position: absolute;
+            right: 40px;
+            top: 10px;
+            cursor: pointer;
+            z-index: 5;
+            right: 10px;
+        }
+    }
+
+    &__header {
+        margin: 92px 0px 22px;
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 22px;
+        color: $primaryBrown;
+
+        @include breakpoint-up('md') {
+            font-size: 24px;
+            line-height: 29px;
+            margin: 92px 20px 42px;
+        }
+    }
+
+    &__container {
+        @include breakpoint-up('md') {
+            display: flex;
+        }
+    }
+
+    &__products {
+        display: flex;
+        flex-direction: column;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            flex-direction: column;
+            max-width: 60%;
+        }
+
+        .search-menu__wrapper {
+            flex-direction: row;
+
+            @include breakpoint-up('md') {
+                flex-direction: row;
+            }
+        }
+
+        .product-card {
+            height: auto;
+            
+            @include breakpoint-up('md') {
+                margin-bottom: 30px;
+            }
+        }
+
+        .product-card:nth-child(1) {
+            margin-right: 10px;
+
+            @include breakpoint-up('md') {
+                margin-right: 20px;
+            }
+        }
+
+        .product-card:nth-child(2) {
+            margin-left: 10px;
+
+            @include breakpoint-up('md') {
+                margin-left: 0px;
+            }
+        }
+
+        .product-card:nth-child(3) {
+            display: none;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
+    }
+
+    &__articles {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        @include breakpoint-up('md') {
+            padding-left: 90px;
+        }
+
+        .search-menu__header {
+            margin: 0px 0px 22px;
+
+            @include breakpoint-up('md') {
+                font-size: 24px;
+                line-height: 29px;
+                margin: 92px 20px 42px;
+            }
+        }
+
+        .search-menu__wrapper {
+            flex-direction: column;
+
+            @include breakpoint-up('md') {
+                margin: 0 0 0 20px;
+            }
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        order: 1;
+
+        @include breakpoint-up('md') {
+            flex-direction: column;
+            order: 0;
+        }
+    }
+
+    &__link {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: -0.01em;
+        color: #3D3331;
+        cursor: pointer;
+        margin:  0 0 20px;
+        padding: 0 0 20px;
+        border-bottom: 1px solid #F0E3E5;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 25px;
+        }
+
+        &:last-child {
+            margin-bottom: 30px;
+        }
+    }
+
+    &__result {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+        margin-bottom: 20px;
+        cursor: pointer;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            justify-content: flex-start;
+            max-width: max-content;
+            margin: 0 0 30px 20px;
+        }
+
+        span:last-child {
+            margin-left: 20px;
+        }
+    }
+
+    &__overlay {
+        width: 100vw;
+        position: absolute;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        opacity: 0.5;
+        background: #000;
+        filter: blur(0px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        z-index: -1;
+
+        &.show {
+            opacity: 0.3;
+            pointer-events: initial;
+        }
+    }
+}
