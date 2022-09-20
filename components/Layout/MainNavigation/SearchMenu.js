@@ -106,7 +106,7 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
                     <div className="search-menu__wrapper">
                         {searchProducts.hits.length > 0 ? (
                             searchProducts.hits.map((product, index) => (
-                                <ProductCard content={productData(product)} />
+                                <ProductCard content={productData(product)} key={index} />
                             ))
                         ) : ""}
                     </div>
