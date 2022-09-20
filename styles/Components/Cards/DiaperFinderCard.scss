@@ -1,0 +1,222 @@
+.diaper-finder-card {
+    // max-width: 570px;
+    background: #E7EBF4!important;
+    border-radius: 3px;
+    padding: 36px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    min-height: 643px;
+    max-height: 643px;
+    margin-bottom: 30px;
+
+    // @include breakpoint-up('md') {
+    //     width: calc(50% - 30px);
+    //     max-width: calc(50% - 30px);
+    //     max-height: 870px;
+    //     margin-bottom: 0px;
+        
+    // }
+    
+    @include breakpoint-up('md') {
+        width: calc(33% - 30px);
+        max-width: calc(33% - 30px);
+        max-height: 653px;
+        margin-bottom: 0;
+    }
+
+    &__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+    }
+
+    &__stage {
+        // display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        max-width: calc(100% - 40px);
+        width: 100%;
+        left: 20px;
+        display: block;
+    }
+
+    &__subheader {
+        margin-bottom: 15px;
+    }
+
+    &__header {
+        margin-bottom: 10px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 5px;
+        }
+
+        @include breakpoint-up('lg') {
+            margin-bottom: 10px;
+        }
+    } 
+
+    &__copy {
+        max-width: 375px;
+        margin: 0 auto 30px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 60px;
+        }
+    }
+
+    &__image {
+        margin: 15px 0 20px;
+    }
+
+    &__clear {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: $primaryBrown;
+        border: none;
+        background: none;
+        cursor: pointer;     
+    }
+
+    .btn {
+        padding: 19px 20px;
+        width: 100%;
+        max-width: initial;
+        justify-content: center;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    &__form {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 32px;
+        color: $primaryBrown;
+        margin-top: 35px;
+        padding-top: 35px;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+
+        @include breakpoint-up('md') {
+            font-size: 36px;
+            line-height: 50px;
+        }
+
+        input {
+            background: transparent;
+            font-family: $DomaineText;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 32px;
+            color: #4161A5;
+            border: none;
+            border-bottom: 1px dashed #4161A5;
+    
+            @include breakpoint-up('md') {
+                margin-left: 8px;
+                font-size: 36px;
+                line-height: 50px;
+            }
+    
+            &[name="weight"] {
+                width: 100px;
+    
+                &:before {
+                    content: "lbs"
+                }
+            }
+        }
+
+        .input-wrapper {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            align-items: center;
+
+            @include breakpoint-up('md') {
+                flex-direction: row;
+            }
+
+            &:not(:first-child) {
+                margin-top: 30px;
+            }
+
+            &.weight {
+                max-width: 350px;
+                margin: 30px auto 0;
+            }
+
+            span {
+                margin-bottom: 15px;
+
+                @include breakpoint-up('md') {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+
+        .react-datepicker {
+            font-family: $NeutraText;
+            background: #A0B0D2;
+            font-size: 1.2rem;
+
+            &__week {
+                height: 35px;
+                display: flex;
+                align-items: center;
+            }
+
+            &__day {
+                color: #fff;
+                margin: 0 0.166rem;
+
+                &--selected,
+                &--keyboard-selected {
+                    background: #C2CDC6;
+                }
+            }
+        }
+
+        .react-datepicker-wrapper {
+            width: max-content;
+            input {
+                width: 210px;
+            }
+        }
+    
+        .suffix {
+            font-family: $DomaineText;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 32px;
+            color: #4161A5;
+            transform: translate(20px, 28px);
+            position: absolute;
+    
+            @include breakpoint-up('md') {
+                font-size: 36px;
+                line-height: 50px;
+                transform: translate(145px, 0px);
+            }
+        }
+    
+    }
+
+
+}

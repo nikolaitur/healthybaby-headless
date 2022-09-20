@@ -1,0 +1,350 @@
+.diaper-calculator {
+    position: absolute;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    overflow: hidden;
+    pointer-events: none;
+
+    &.active {
+        pointer-events: all;
+
+        .diaper-calculator__overlay {
+            opacity: 0.3;
+            pointer-events: all;
+        }
+
+        .diaper-calculator__content {
+            transform: translateX(0);
+            transition: 0.3s;
+        }
+    }
+
+    &__overlay {
+        width: 100vw;
+        position: absolute;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        opacity: 0.5;
+        background: #000;
+        filter: blur(0px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+    }
+
+    &__container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        position: relative;
+    }
+
+    &__content {
+        position: relative;
+        width: 100%;
+        max-width: 525px;
+        padding: 30px;
+        height: 100vh;
+        background: #E7EBF4; 
+        transform: translateX(100vw);
+        transition: 0.3s;
+        overflow-y: scroll;
+
+        @include breakpoint-up('md') {
+            // padding: 0;
+        }
+    }
+
+    &__close {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        // margin: 10px;
+        margin-bottom: 30px;
+        cursor: pointer;
+
+        // @include breakpoint-up('md') {
+        //     right: 10px;
+        // }
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 34px;
+        line-height: 34px;
+        color: #3D3331;
+        margin-bottom: 10px;
+
+        @include breakpoint-up('md') {
+            font-size: 40px;
+            line-height: 40px;
+            margin-bottom: 5px;
+        }
+    } 
+
+    &__form {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 40px;
+        color: $primaryBrown;
+        margin-top: 35px;
+        padding-top: 35px;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+
+        @include breakpoint-up('md') {
+            font-size: 28px;
+            line-height: 40px;
+        }
+
+        input {
+            background: transparent;
+            font-family: $DomaineText;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 40px;
+            color: #4161A5;
+            border: none;
+            border-bottom: 1px dashed #4161A5;
+    
+            @include breakpoint-up('md') {
+                margin-left: 8px;
+                font-size: 28px;
+                line-height: 40px;
+            }
+    
+            &[name="weight"] {
+                width: 70px;
+    
+                &:before {
+                    content: "lbs"
+                }
+            }
+        }
+
+        .input-wrapper {
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+
+            @include breakpoint-up('md') {
+                flex-direction: row;
+            }
+
+            &:not(:first-child) {
+                margin-top: 30px;
+            }
+
+            span {
+                margin-bottom: 15px;
+
+                @include breakpoint-up('md') {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+
+        .react-datepicker {
+            font-family: $NeutraText;
+            background: #A0B0D2;
+            font-size: 1.2rem;
+
+            &__week {
+                height: 35px;
+                display: flex;
+                align-items: center;
+            }
+
+            &__day {
+                color: #fff;
+                margin: 0 0.166rem;
+
+                &--selected,
+                &--keyboard-selected {
+                    background: #C2CDC6;
+                }
+            }
+        }
+
+        .react-datepicker-wrapper {
+            width: max-content;
+            input {
+                width: 210px;
+            }
+        }
+    
+        .suffix {
+            font-family: $DomaineText;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 40px;
+            color: #4161A5;
+            transform: translate(20px, 28px);
+            position: absolute;
+    
+            @include breakpoint-up('md') {
+                font-size: 28px;
+                line-height: 40px;
+                transform: translate(225px, 0px);
+            }
+        }
+    
+    }
+
+    &__copy {
+        font-size: 20px;
+        line-height: 22px;
+        margin-top: 35px;
+        padding-top: 35px;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+    }
+
+    &__recommendation {
+        display: flex;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        line-height: 18px;
+        margin-top: 30px;
+        font-family: $NeutraText;
+
+        .circle {
+            padding: 10px;
+            background: #5975B1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            color: #fff;
+            margin-right: 15px;
+        }
+
+        .size {
+            font-size: 22px;
+            line-height: 22px;
+            margin-right: 10px
+        }
+
+        .weight {
+            transform: translateY(1.5px);
+        }
+
+
+    }
+
+    &__select {
+        margin-top: 30px;
+        font-family: $NeutraText;
+        font-size: 28px;
+        line-height: 40px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 35px;
+        padding-top: 35px;
+        border-top: 1px solid rgba(61, 51, 49, 0.1);
+
+        .toggle {
+            font-size: 16px;
+            line-height: 22px;
+            border: 1px solid #B8C4DD;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            span {
+                width: 67px;
+                height: 48px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #D0D8E9;
+
+                &.active {
+                    background: #5975B1;
+                    color: #fff;
+                }
+            }
+            
+        }
+    }
+
+    &__size-guide {
+        font-family: $NeutraText;
+        font-size: 18px;
+        line-height: 20px;
+        margin-top: 30px;
+        border: 1px solid #B8C4DD;
+        border-width: 1px 1px 0 1px;
+
+        &--header,
+        &--cell {
+            height: 60px;
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+
+            span {
+                position: relative;
+                position: relative;
+                width: 33%;
+                text-align: center;
+            }
+
+            span:nth-child(2) {
+                &:before {
+                    content: "";
+                    height: 60px;
+                    width: 1px;
+                    left: 0;
+                    top: -20px;
+                    position: absolute;
+                    background: #B8C4DD;;
+                    
+                }
+
+                &:after {
+                    content: "";
+                    height: 60px;
+                    width: 1px;
+                    right: 0;
+                    top: -20px;
+                    position: absolute;
+                    background: #B8C4DD;
+                }
+            }
+
+        }
+
+        &--header {
+            background: #5975B1;
+            color: #fff;
+            border-bottom: 1px solid #B8C4DD;;
+        }
+
+        &--cell {
+            background: #D0D8E9;
+            border-bottom: 1px solid #B8C4DD;;
+        }
+    }
+
+    &__contact {
+        font-size: 18px;
+        line-height: 25px;
+        margin-top: 30px
+    }
+}

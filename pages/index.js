@@ -9,8 +9,6 @@ import styles from '../styles/Home.module.css'
 
 export default function Home({ pages }) {
   const sections = pages[0].fields.sections
-  // console.log(sections, "sections", pages)
-  // const homePage = pages.find((page) => page.handle === 'homepage')
 
   useEffect(function mount() {
     window.addEventListener("scroll", backgroundColorChange);
