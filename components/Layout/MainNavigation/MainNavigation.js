@@ -93,6 +93,8 @@ const MainNavigation = ({props}) => {
         setQuery("")
     }
 
+
+
     const handleSearchChange = event => {
       setQuery(event.target.value);
       // console.log('value is:', event.target.value);
