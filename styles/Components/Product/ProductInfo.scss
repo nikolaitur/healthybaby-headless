@@ -1,0 +1,235 @@
+.product-info {
+    width: 40%;
+    padding: 40px 0 0;
+
+    &__sticky {
+        // position: sticky;
+        // top: 40px;
+    }
+
+    &__reviews {
+        display: flex;
+        align-items: center;
+
+        &--count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 25px;
+            letter-spacing: -0.01em;;
+            color: $primaryGreen;
+            margin-left: 15px;
+        }
+    }
+
+    &__title {
+       padding: 20px 0 0;
+    }
+
+    &__description {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 29px;
+        letter-spacing: -0.01em;;
+        color: $primaryBrown;
+        padding: 20px 0 0;
+    }
+
+    &__price {
+        padding: 20px 0 0;
+    }
+}
+
+.product-form {
+    padding: 30px 0 30px;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+    margin-top: 30px;
+
+    &__label {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 31px;
+        letter-spacing: -0.01em;;
+        color: $primaryBrown;
+        margin: 0 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span:last-child {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 25px;
+            color: $primaryGreen;
+            text-decoration: underline;
+            cursor: pointer;
+        }   
+    }
+
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin: 0 0 25px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr 1fr;
+        gap: 10px 10px;
+    }
+
+    &__option {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;;
+        color: $primaryBrown;
+        flex: 0 0 33.333333%;
+        background: #fff;
+        border: 1px solid rgb(0 0 0 / 10%);
+        padding: 18px 10px;
+        cursor: pointer;
+
+        &.active {
+            background: $primaryGreen;
+            color: #fff;
+        }
+    }
+
+    &__count {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 31px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        padding: 0 0 30px;
+        border-bottom: 1px solid rgb(0 0 0 / 10%);
+        margin-bottom: 30px;
+    }
+
+    &__add-on {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 6px 15px 6px 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &--image {
+            width: 72px;
+            height: 72px;
+            background: rgba(217, 217, 217, 1);
+        }
+
+        &--content {
+            width: calc(100% - 85px);
+            padding: 0 10px;
+        }
+
+        &--title {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 31px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+        }
+
+        &--price {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 18px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+        }
+    }
+
+    &__subscription {
+        margin: 30px 0 0;
+    }
+
+    &__input-wrapper {
+        padding: 12px 12px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+
+        &.active {
+            background: #fff;
+
+            label {
+                font-family: $NeutraTextDemi;
+            }
+        }
+
+        input {
+            margin-right: 10px;
+        }
+
+        label {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 22px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            span {
+                font-size: 18px;
+                line-height: 18px;
+            }
+        }
+    }
+
+    &__add-to-cart {
+        margin: 30px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__quantity {
+        // position: absolute;
+        right: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        min-width: 170px;
+        background: #fff;
+        padding: 19px 5px;
+        max-width: 170px;
+        margin-right: 15px;
+
+        &--decrement, 
+        &--increment {
+            border: none;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        &--count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+            margin: 0 5px;
+        }
+    }
+
+    
+
+
+}

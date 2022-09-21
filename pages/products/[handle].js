@@ -6,12 +6,14 @@ import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import styles from 'styles/Product.module.css'
 
+import ProductGallery from '../../components/Product/ProductGallery'
+import ProductInfo from '../../components/Product/ProductInfo'
+import ProductReviews from '../../components/Product/ProductReviews'
+
 function Product({ product }) {
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-  const [selectedOptions, setSelectedOptions] = useState(
-    selectedVariant.content.selectedOptions
-  )
+  const [selectedOptions, setSelectedOptions] = useState( selectedVariant.content.selectedOptions)
   const [quantity, setQuantity] = useState(1)
 
   let options = null
@@ -27,6 +29,7 @@ function Product({ product }) {
 
   const handleOptionChange = (event, option) => {
     const newOption = { name: option.name, value: event.target.value }
+    console.log(newOption)
     const optionIndex = selectedOptions.findIndex((selectedOption) => {
       return selectedOption.name === newOption.name
     })
@@ -65,68 +68,14 @@ function Product({ product }) {
 
   return (
     product && (
-      <div className={styles.product}>
-        {product.content.featuredMedia && (
-          <div className={styles.media}>
-            <Image
-              src={product.content.featuredMedia.src}
-              alt={product.content.featuredMedia.altText}
-              width={530}
-              height={350}
-              className={styles.image}
-            />
-          </div>
-        )}
-        <div className={styles.main}>
-          {product.content.title && <h1>{product.content.title}</h1>}
-          <div className={styles.prices}>
-            {selectedVariant.compareAtPrice && (
-              <div className={styles.compare}>
-                ${selectedVariant.compareAtPrice}
-              </div>
-            )}
-            <div>${selectedVariant.price}</div>
-          </div>
-          {options &&
-            options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <label htmlFor={`select-${oIndex}-${product.id}`}>
-                  {option.name}
-                </label>
-                <select
-                  id={`select-${oIndex}-${product.id}`}
-                  onChange={($event) => handleOptionChange($event, option)}
-                >
-                  {option.values.map((value, vIndex) => (
-                    <option key={vIndex} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ))}
-          {product.content.description && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.content.description }}
-            />
-          )}
-          <div>
-            <label htmlFor={`quantity-${product.nacelleEntryId}`}>
-              Quantity:
-            </label>
-            <input
-              id={`quantity-${product.nacelleEntryId}`}
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
-          </div>
-          <button type="button" onClick={handleAddItem}>
-            {buttonText}
-          </button>
+      <section className="product-main">
+        <div className="product-main__container container">
+          <ProductGallery product={product} />
+          <ProductInfo product={product} />
         </div>
-      </div>
+        <div className="product-main__sections"></div>
+        <ProductReviews />
+      </section>
     )
   )
 }

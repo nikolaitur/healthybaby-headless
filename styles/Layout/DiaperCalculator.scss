@@ -42,6 +42,9 @@
         align-items: center;
         height: 100%;
         position: relative;
+        max-width: 525px;
+        margin-right: 0;
+        margin-left: auto;
     }
 
     &__content {
