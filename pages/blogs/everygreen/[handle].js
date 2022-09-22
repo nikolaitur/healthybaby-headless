@@ -14,58 +14,50 @@ import ArticleTags from '../../../components/Article/ArticleTags'
 import ArticleRelated from '../../../components/Article/ArticleReleated'
 
 function Article({ article }) {
+  console.log(article)
 
   return (
-        <article className="article">
-            <div className="article__container">
-                <ArticleHeroEveryGreen />
-                <ArticleContent content={true}/>
+    <article className="article">
+      <div className="article__container">
+        <ArticleHeroEveryGreen content={article} />
+        {/* <ArticleContent content={true}/>
                 <ArticleVideo />
                 <ArticleContent content={false}/>
                 <ArticleSources />
-                <ArticleTags />
-            </div>
-            <ArticleRelated />
-        </article>
+                <ArticleTags /> */}
+      </div>
+      <ArticleRelated />
+    </article>
   )
 }
 
 export default Article
 
 export async function getStaticPaths() {
-    // Performs a GraphQL query to Nacelle to get product handles.
-    // (https://nacelle.com/docs/querying-data/storefront-sdk)
-    //   const results = await nacelleClient.query({
-    //     query: HANDLES_QUERY,
-    //   })
-    //   const handles = results.products
-    //     .filter((product) => product.content?.handle)
-    //     .map((product) => ({ params: { handle: product.content.handle } }))
+  const articles = await nacelleClient.content({ type: 'collection' })
 
-    return {
-        paths: [{ params: { handle: "test-1 "} }],
-        fallback: 'blocking',
-    }
+  const handles = articles
+    .filter((article) => article.handle)
+    .map((article) => ({ params: { handle: article.handle } }))
+
+  return {
+    paths: handles,
+    fallback: 'blocking',
+  }
 }
 
 export async function getStaticProps({ params }) {
-    // Performs a GraphQL query to Nacelle to get product data,
-    // using the handle of the current page.
-    // (https://nacelle.com/docs/querying-data/storefront-sdk)
-    //   const { products } = await nacelleClient.query({
-    //     query: PAGE_QUERY,
-    //     variables: { handle: params.handle },
-    //   })
+  const articles = await nacelleClient.content({ handles: [params.handle] })
 
-    //   if (!products.length) {
-    //     return {
-    //       notFound: true,
-    //     }
-    //   }
-
+  if (!articles.length) {
     return {
-        props: {
-            article: []
-        },
+      notFound: true,
     }
+  }
+
+  return {
+    props: {
+      article: articles[0],
+    },
+  }
 }
