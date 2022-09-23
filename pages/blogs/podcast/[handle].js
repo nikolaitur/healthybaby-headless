@@ -6,16 +6,14 @@ import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import styles from 'styles/Product.module.css'
 
-import ArticlePodcast from '../../../components/Article/ArticlePodcast'
+import ArticleHeroPodcast from '../../../components/Article/ArticleHeroPodcast'
 
 function Article({ article }) {
   console.log(article)
 
   return (
     <article className="article">
-      <div className="article__container">
-        <ArticlePodcast content={article} />
-      </div>
+      <ArticleHeroPodcast content={article} />
     </article>
   )
 }
