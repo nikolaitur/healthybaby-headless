@@ -8,6 +8,8 @@ import styles from 'styles/Product.module.css'
 
 import ProductGallery from '../../components/Product/ProductGallery'
 import ProductInfo from '../../components/Product/ProductInfo'
+import ProductTechnologyCallout from '../../components/Product/ProductTechnologyCallout'
+import ProductAbout from '../../components/Product/ProductAbout'
 import ProductReviews from '../../components/Product/ProductReviews'
 
 function Product({ product }) {
@@ -70,10 +72,13 @@ function Product({ product }) {
     product && (
       <section className="product-main">
         <div className="product-main__container container">
-          <ProductGallery product={product} />
-          <ProductInfo product={product} />
+            <ProductGallery product={product} />
+            <ProductInfo product={product} />
         </div>
-        <div className="product-main__sections"></div>
+        <div className="product-main__sections">
+            <ProductTechnologyCallout />
+            <ProductAbout />
+        </div>
         <ProductReviews />
       </section>
     )

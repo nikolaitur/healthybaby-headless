@@ -1,9 +1,12 @@
 .product-main {
-    padding: 100px 0 100px;
+    padding: 100px 0 0px;
     &__container {
         display: flex;
+        padding: 0 0 140px
     }
 }
 
 @import './ProductGallery.scss';
-@import './ProductInfo.scss'
+@import './ProductInfo.scss';
+@import './ProductTechnologyCallout.scss';
+@import './ProductAbout.scss'

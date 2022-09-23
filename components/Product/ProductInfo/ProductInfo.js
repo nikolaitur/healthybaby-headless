@@ -21,6 +21,7 @@ const ProductInfo = ( props ) => {
     const [selectedOptions, setSelectedOptions] = useState(selectedVariant.content.selectedOptions)
     const [selectedCombination, setSelectedCombination] = useState(true);
     const [activeOption, setActiveOption] = useState(0)
+    const [activeTab, setActiveTab] = useState(0);
     const [quantity, setQuantity] = useState(1)
     const [review, setReview] = useState(false)
 
@@ -188,7 +189,25 @@ const ProductInfo = ( props ) => {
                                 </button>
                             </div> 
                             <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
-                        </div>  
+                        </div> 
+                        <div className='product-tabs'>
+                            <div className="product-tabs__nav">
+                                <div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>Details</div>
+                                <div className={`product-tabs__title ${activeTab == 1 ? "active" : ""}`} onClick={() => setActiveTab(1)}>Ingredients</div>
+                                <div className={`product-tabs__title ${activeTab == 2 ? "active" : ""}`} onClick={() => setActiveTab(2)}>Beneifts</div>
+                            </div>
+                            <div className="product-tabs__content">
+                                <div className={`product-tabs__tab ${activeTab == 0 ? "active" : ""}`}>
+                                    Plant-powered & engineered with proprietary magic channels & flash dry technology to instantly wick moisture from baby's skin, providing 30% better leak protection, even overnight.
+                                </div>
+                                <div className={`product-tabs__tab ${activeTab == 1 ? "active" : ""}`}>
+                                    Plant-powered & engineered with proprietary magic channels & flash dry technology to instantly wick moisture from baby's skin, providing 30% better leak protection, even overnight.
+                                </div>
+                                <div className={`product-tabs__tab ${activeTab == 2 ? "active" : ""}`}>
+                                    Plant-powered & engineered with proprietary magic channels & flash dry technology to instantly wick moisture from baby's skin, providing 30% better leak protection, even overnight.
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>

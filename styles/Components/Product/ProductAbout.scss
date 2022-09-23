@@ -1,0 +1,217 @@
+.product-about {
+    padding: 100px 0;
+    background: #F0E3E5;
+
+    &__container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        @include breakpoint-up('md') {
+            flex-direction: row;
+        }
+    }
+
+    &__content {
+        order: 1;
+
+        @include breakpoint-up('md') {
+            order: 0;
+            padding-right: 60px;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+
+    &__image {
+        order: 0;
+        margin-bottom: 40px;
+
+        @include breakpoint-up('md') {
+            width: 50%;
+            padding-left: 120px;
+            margin-bottom: 0;
+        }
+
+        &--desktop {
+            display: none;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
+
+        &--mobile {
+            display: block;
+
+            @include breakpoint-up('md') {
+                display: none;
+            }
+        }
+
+        img {
+            height: 350px;
+            object-fit: cover;
+
+            @include breakpoint-up('md') {
+                height: 750px!important;
+            }
+        }
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 34px;
+        line-height: 34px;
+        color: $primaryBrown;
+        margin-bottom: 40px;
+
+        @include breakpoint-up('md') {
+            font-size: 62px;
+            line-height: 62px;
+            margin-bottom: 60px;
+        }
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: $primaryBrown;
+        margin-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 18px;
+        }
+    }
+
+    &__copy {
+        margin-bottom: 40px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 70px;
+        }
+    }
+
+    &__link,
+    .prod {
+        border-top: 1px solid rgba(61, 51, 49, 0.2);
+
+        &:last-child {
+            border-bottom: 1px solid rgba(61, 51, 49, 0.2);
+        }
+    }
+
+    &__button {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+        padding: 30px 0;
+        cursor: pointer;
+
+        @include breakpoint-up('md') {
+            
+            max-width: 100%;
+            margin-bottom: 0px;
+        }
+
+        span:last-child {
+            margin-left: 20px;
+        }
+    }
+
+    &__title {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 29px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 15px;
+    }
+
+    &__subtitle {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    }
+
+    .accordion-item {
+        position: relative;
+        padding: 24px 0px;
+
+        &.is-open {
+
+            svg {
+                transform: rotateX(180deg);
+            }
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: calc(100% - 44px);
+            height: 1px;
+            transform: translateX(-50%);
+            background: #D0D8E9;;
+        }
+    }
+
+    .accordion-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 32px;
+        letter-spacing: 0.02em;
+        color: #3D3331;
+
+        svg {
+            transition: 0.3s;
+        }
+    }
+
+    .accordion-content {
+        padding: 30px 0 10px; 
+        list-style: none;
+
+        li:not(:last-child) {
+            margin-bottom: 18px;
+        }
+
+        a {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            color: #3D3331;
+            text-decoration: none;
+        }
+    }
+}
