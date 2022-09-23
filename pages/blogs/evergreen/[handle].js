@@ -18,15 +18,15 @@ function Article({ article }) {
 
   return (
     <article className="article">
+      <ArticleHeroEveryGreen content={article} />
       <div className="article__container">
-        <ArticleHeroEveryGreen content={article} />
-        {/* <ArticleContent content={true}/>
-                <ArticleVideo />
+        <ArticleContent content={true} />
+        {/* <ArticleVideo />
                 <ArticleContent content={false}/>
                 <ArticleSources />
                 <ArticleTags /> */}
       </div>
-      <ArticleRelated />
+      {/* <ArticleRelated /> */}
     </article>
   )
 }
