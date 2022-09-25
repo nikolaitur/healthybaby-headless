@@ -5,9 +5,30 @@ import ShieldPlus from '../../../svgs/ShieldPlus.svg'
 import DoubleWave from '../../../svgs/DoubleWave.js'
 import DoubleWaveMobile from 'svgs/DoubleWaveMobile'
 
-const ArticleHeroEveryGreen = ({ content }) => {
+const ArticleHeroEverGreen = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
   // const backgroundImage = content.fields.image.fields.file.url
+
+  const getDateFormat = (date) => {
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ]
+
+    const d = new Date(date)
+    return `${monthNames[d.getMonth()]} ${d.getDate()},  ${d.getFullYear()}`
+  }
+
   return (
     <div
       className="article-hero"
@@ -39,7 +60,7 @@ const ArticleHeroEveryGreen = ({ content }) => {
         </div>
         <h3 className="article-hero__title">{content.fields.title}</h3>
         <div className="article-hero__pub">
-          <span>Sep 10, 2022 • 3 min read</span>
+          <span>{getDateFormat(content.fields.publishDate)} • 4 min read</span>
         </div>
         <div className="article-hero__content">
           <div className="article-hero__written">
@@ -47,7 +68,10 @@ const ArticleHeroEveryGreen = ({ content }) => {
               <div className="article-hero__author-image">
                 <Image
                   className=""
-                  src={`https://images.ctfassets.net/urdrzzac4igp/53rLh7AGXQVR2AW0DF4iTq/9f996b64bb25d31dbac5d6f994981117/Mask_group__20_.png`}
+                  src={
+                    'https:' +
+                    content.fields.author.fields.photo.fields.file.url
+                  }
                   alt={`image`}
                   layout="responsive"
                   objectFit="cover"
@@ -56,7 +80,10 @@ const ArticleHeroEveryGreen = ({ content }) => {
                 />
               </div>
               <div className="article-hero__author-name">
-                Written by <span className="name">Caroline Colvin</span>
+                Written by{' '}
+                <span className="name">
+                  {content.fields.author.fields.name}
+                </span>
               </div>
             </div>
             <div className="article-hero__written--reviewer">
@@ -65,7 +92,9 @@ const ArticleHeroEveryGreen = ({ content }) => {
               </div>
               <div className="article-hero__author-name">
                 Medically Reviewed by{' '}
-                <span className="name">Dr.James Adams, PHD</span>
+                <span className="name">
+                  {content.fields.doctor.fields.name}
+                </span>
               </div>
             </div>
           </div>
@@ -89,4 +118,4 @@ const ArticleHeroEveryGreen = ({ content }) => {
   )
 }
 
-export default ArticleHeroEveryGreen
+export default ArticleHeroEverGreen

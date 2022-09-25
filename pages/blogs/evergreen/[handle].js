@@ -6,7 +6,7 @@ import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import styles from 'styles/Product.module.css'
 
-import ArticleHeroEveryGreen from '../../../components/Article/ArticleHeroEveryGreen'
+import ArticleHeroEverGreen from '../../../components/Article/ArticleHeroEverGreen'
 import ArticleContent from '../../../components/Article/ArticleContent'
 import ArticleVideo from '../../../components/Article/ArticleVideo'
 import ArticleSources from '../../../components/Article/ArticleSources'
@@ -18,7 +18,7 @@ function Article({ article }) {
 
   return (
     <article className="article">
-      <ArticleHeroEveryGreen content={article} />
+      <ArticleHeroEverGreen content={article} />
       <div className="article__container">
         <ArticleContent content={true} />
         {/* <ArticleVideo />

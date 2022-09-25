@@ -1,69 +1,88 @@
 .article {
-    &__container {
-        max-width: 1175px;
-        margin: 0 auto;
-    }
+  &__container {
+    max-width: 1175px;
+    margin: 0 auto;
+  }
 }
 
 .article-content {
-    h5 {
-        margin-bottom: 40px;
+  padding: 0 28px;
+  h5 {
+    margin-bottom: 16px;
+    @include breakpoint-up('md') {
+      margin-bottom: 40px;
+    }
+  }
+
+  h6 {
+    font-family: $NeutraTextDemi;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 31px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-bottom: 20px;
+
+    @include breakpoint-up('md') {
+      font-size: 26px;
+      line-height: 31px;
+    }
+  }
+
+  blockquote {
+    font-family: $NeutraTextDemi;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    margin-left: 30px;
+
+    @include breakpoint-up('md') {
+      font-size: 26px;
+      line-height: 31px;
+      margin-left: 0;
     }
 
-    h6 {
-        font-family: $NeutraTextDemi;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 26px;
-        line-height: 31px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-bottom: 20px;
-    
-        @include breakpoint-up('md') {
-            font-size: 26px;
-            line-height: 31px;
-        }
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: -30px;
+      top: 0;
+      width: 6px;
+      height: 100%;
+      background-color: $primaryGreen;
     }
+  }
 
-    blockquote {
-        font-family: $NeutraTextDemi;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 26px;
-        line-height: 31px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        padding-top: 20px;
-        margin-bottom: 40px;
-    
-        @include breakpoint-up('md') {
-            font-size: 26px;
-            line-height: 31px;
-        }
+  p {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-bottom: 10px;
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+      line-height: 31px;
+      margin-bottom: 20px;
     }
+  }
 
-    p {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 22px;
-        line-height: 31px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-bottom: 20px;
+  p + h6 {
+    padding-top: 20px;
+  }
 
-        @include breakpoint-up('md') {
-            font-size: 22px;
-            line-height: 31px;
-        }
-    }
-
-    p + h6 {
-        padding-top: 20px;
-    }
-
-    p + p {
-        padding-top: 20px;
-    }
+  p + p {
+    padding-top: 20px;
+  }
 }

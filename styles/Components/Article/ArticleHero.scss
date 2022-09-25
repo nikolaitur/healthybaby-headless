@@ -133,11 +133,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 28px;
-    padding-right: 28px;
+    margin-left: 28px;
+    margin-right: 28px;
     justify-content: center;
     gap: 14px;
     font-family: $NeutraText;
+    padding-bottom: 28px;
+    border-bottom: 1px solid $primaryBrown;
 
     @include breakpoint-up('md') {
       margin-top: 24px;
@@ -145,6 +147,7 @@
       align-items: center;
       flex-direction: row;
       gap: 34px;
+      border-bottom: none;
     }
   }
 
