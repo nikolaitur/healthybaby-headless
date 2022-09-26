@@ -153,7 +153,7 @@ const ProductInfo = ( props ) => {
         
                                             </>
                                         ) : (
-                                            <div class="product-form__add-on">
+                                            <div className="product-form__add-on">
                                                 <div className="product-form__add-on--image"></div>
                                                 <div className="product-form__add-on--content">
                                                     <div className="product-form__add-on--title">Add a 4-pk of Wipes?</div>

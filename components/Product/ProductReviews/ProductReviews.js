@@ -1,33 +1,22 @@
 import React from 'react'
-import { useEffect } from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
+import Script from 'next/script';
 
 const ProductReviews = ({ props }) => {
-    // const { header, subheader, desktopImage, mobileImage, ctaText, ctaUrl } = content.fields
-
-    useEffect(() => {
-        const getReview = async () => {
-            await fetch('https://api.juniphq.com/v1/product_reviews/', {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                  'Junip-Store-Key': '8Y8nYkJkWCVANh2xkZy7L5xL'
-                },
-              })
-              .then(res => res.json())
-              .then((data) => {
-                console.log(data, "Reviews")
-                // setReview(data.product)
-            })
-        }
-    
-        getReview()
-    }, [])
-
     return (
-        <div className="product-reviews">
-        </div>
+        <>
+            <Script
+                src="https://scripts.juniphq.com/v1/junip_shopify.js"
+                strategy="lazyOnload"
+                onLoad={() =>
+                    console.log(``)
+                }
+            />
+            <section className="product-reviews">
+                <span class="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                <span class="junip-product-review" data-product-id="4522469523505"></span>
+            </section>
+        </>
+        
     )
 }
 

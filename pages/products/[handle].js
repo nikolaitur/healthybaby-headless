@@ -8,15 +8,21 @@ import styles from 'styles/Product.module.css'
 
 import ProductGallery from '../../components/Product/ProductGallery'
 import ProductInfo from '../../components/Product/ProductInfo'
+import ProductSections from '../../components/Product/ProductSections'
 import ProductTechnologyCallout from '../../components/Product/ProductTechnologyCallout'
 import ProductAbout from '../../components/Product/ProductAbout'
+import ProductCrossSells from '../../components/Product/ProdcutCrossSells'
+import ProductValueProps from '../../components/Product/ProductValueProps'
 import ProductReviews from '../../components/Product/ProductReviews'
 
-function Product({ product }) {
+
+function Product({ product, page }) {
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [selectedOptions, setSelectedOptions] = useState( selectedVariant.content.selectedOptions)
   const [quantity, setQuantity] = useState(1)
+
+  console.log(page)
 
   let options = null
   if (product?.content?.options?.some((option) => option.values.length > 1)) {
@@ -75,11 +81,13 @@ function Product({ product }) {
             <ProductGallery product={product} />
             <ProductInfo product={product} />
         </div>
+        <ProductSections content={page} />
         <div className="product-main__sections">
             <ProductTechnologyCallout />
             <ProductAbout />
+            <ProductCrossSells />
         </div>
-        <ProductReviews />
+        <ProductReviews product={product} />
       </section>
     )
   )
@@ -112,6 +120,10 @@ export async function getStaticProps({ params }) {
     variables: { handle: params.handle },
   })
 
+  const pages = await nacelleClient.content({
+    handles: [params.handle]
+  })
+
   if (!products.length) {
     return {
       notFound: true,
@@ -121,6 +133,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product: products[0],
+      page: pages[0]
     },
   }
 }

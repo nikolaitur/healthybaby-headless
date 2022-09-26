@@ -1,0 +1,266 @@
+.product-reviews {
+
+    .junip-product-review-container, 
+    .junip-review-section-title {
+        @extend .container;
+    }
+
+    .junip-product-review-summary-container, 
+    .junip-product-review-title,
+    .junip-filters-label,
+    .junip-filters-container {
+        padding: 0;
+    }
+
+    .junip-product-review-bar {
+        border-radius: 12px;
+    }
+
+    .junip-product-review-average {
+        font-family: $DomaineTextItalic;
+    }
+
+    .junip-product-review-bar-filled {
+        height: 100%;
+        background-color: #B8C4DD!important;
+        border-radius: 12px;
+    }
+
+    .junip-write-review-cta-container {
+        position: relative;
+        right: 0;
+        /* top: 0; */
+        margin: 30px 0 30px!important;
+    }
+
+    .junip-btn {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.02em;
+        color: #fff;
+        background: $primaryGreen;
+        padding: 14px 20px;
+        width: 100%;
+        border-radius: 60px!important;
+        border-width: 0;
+        cursor: pointer;
+        transition: 0.3s;
+    
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            justify-content: flex-start;
+            padding: 19px 50px!important;
+            max-width: max-content;
+        }
+
+        &:hover {
+            background: #fff!important;
+            color: $primaryBrown!important;
+    
+            svg {
+                path {
+                    fill: $primaryBrown;
+                }
+            }
+        }
+    }
+
+    .junip-gallery-container,
+    .junip-separator {
+        margin: 0;
+    }
+
+    .junip-review-list-item-container {
+        padding: 0 0 40px;
+    }
+
+    .junip-product-review-count,
+    .junip-powered-by-footer {
+        display: none;
+    }
+
+    .junip-gallery-container {
+        min-height: 266px;
+        height: 266px;
+    }
+
+    .junip-gallery-item-wrapper {
+        width: 266px;
+        height: 266px;
+
+        img {
+            height: 266px;
+        }
+    }
+
+    .junip-review-list-item-container .junip-review-customer {
+        min-width: 350px;
+    }
+
+    .junip-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .junip-review-author {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(26px);
+        line-height: 110%;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+
+        @include breakpoint-up('md') {
+            font-size: fontsize(26px);
+        }
+
+        @include breakpoint-up('xl') {
+            font-size: fontsize(26px);
+        }
+    }
+
+    .junip-filters-label,
+    .junip-select-label,
+    .junip-select,
+    .junip-checkbox,
+    .junip-product-review-bar-rating,
+    .junip-verified, 
+    .junip-recommendation-container,
+    .junip-review-date, 
+    .junip-review-product-container,
+    .junip-review-vote-container {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(16px)!important;
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryBrown!important;
+        text-transform: none;
+        opacity: 1;
+    }
+
+    .junip-select-label {
+        font-size: fontsize(14px)!important;
+    }
+
+    .junip-recommendation-container {
+        padding-left: 130px;
+        transform: translateY(-50px);
+    }
+
+    .junip-review-title,
+    .junip-step-title {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(26px)!important;
+        line-height: 29px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        text-transform: none;
+        opacity: 1;
+    }
+
+    .junip-review-body {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(22px)!important;
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        text-transform: none;
+        opacity: 1;
+    }
+
+    .junip-star {
+        width: 16px!important;
+        height: 16px!important;
+        svg {
+            path {
+                fill: $primaryGreen;
+            }
+        }
+    }
+
+    
+
+}
+
+.junip-modal-wrapper {
+    .junip-step-title {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(26px)!important;
+        line-height: 29px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        text-transform: none;
+        opacity: 1;
+    }
+    .junip-dropzone-text,
+    .junip-submit-recaptcha,
+    input,
+    textarea,
+    label {
+        font-family: $NeutraText!important;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(16px)!important;
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryBrown!important;
+        text-transform: none;
+        opacity: 1;
+    }
+
+    .junip-btn {
+        font-family: $NeutraText!important;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.02em;
+        color: #fff;
+        background: $primaryGreen;
+        padding: 14px 20px;
+        width: 100%;
+        border-radius: 60px!important;
+        border-width: 0;
+        cursor: pointer;
+        transition: 0.3s;
+        margin: 0 auto;
+    
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            justify-content: flex-start;
+            padding: 19px 50px!important;
+            max-width: max-content;
+        }
+
+        &:hover {
+            background: #fff!important;
+            color: $primaryBrown!important;
+    
+            svg {
+                path {
+                    fill: $primaryBrown;
+                }
+            }
+        }
+    }
+}
