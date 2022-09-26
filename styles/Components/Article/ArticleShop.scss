@@ -1,0 +1,71 @@
+.article-shop {
+  padding: 40px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  margin: 40px 28px;
+
+  @include breakpoint-up('md') {
+    padding: 48px 0;
+    margin: 40px 0;
+    flex-direction: row;
+    gap: 64px;
+  }
+
+  &__image {
+    flex-basis: 50%;
+    width: 100%;
+
+    @include breakpoint-up('md') {
+      width: unset;
+    }
+  }
+
+  &__info {
+    flex-basis: 50%;
+    &-eyebrow {
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: $primaryGreen;
+      text-transform: uppercase;
+      font-family: $NeutraText;
+    }
+
+    &-title {
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: $primaryBrown;
+      margin-top: 17px;
+      font-family: $DomaineText;
+
+      @include breakpoint-up('md') {
+        margin-top: 24px;
+        font-size: 32px;
+      }
+    }
+
+    &-subtitle {
+      margin-top: 17px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 140%;
+      letter-spacing: -0.01em;
+      color: $primaryBrown;
+      margin-bottom: 28px;
+      font-family: $NeutraText;
+
+      @include breakpoint-up('md') {
+        margin-top: 32px;
+        margin-bottom: 46px;
+      }
+    }
+
+    &-cta .btn {
+      width: 285px;
+    }
+  }
+}

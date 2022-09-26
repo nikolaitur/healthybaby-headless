@@ -8,6 +8,7 @@ import styles from 'styles/Product.module.css'
 
 import ArticleHeroEverGreen from '../../../components/Article/ArticleHeroEverGreen'
 import ArticleContent from '../../../components/Article/ArticleContent'
+import ArticleShop from '../../../components/Article/ArticleShop'
 import ArticleVideo from '../../../components/Article/ArticleVideo'
 import ArticleSources from '../../../components/Article/ArticleSources'
 import ArticleTags from '../../../components/Article/ArticleTags'
@@ -21,8 +22,9 @@ function Article({ article }) {
       <ArticleHeroEverGreen content={article} />
       <div className="article__container">
         <ArticleContent content={true} />
-        {/* <ArticleVideo />
-                <ArticleContent content={false}/>
+        <ArticleShop></ArticleShop>
+        {/* <ArticleVideo /> */}
+        {/* <ArticleContent content={false}/>
                 <ArticleSources />
                 <ArticleTags /> */}
       </div>
