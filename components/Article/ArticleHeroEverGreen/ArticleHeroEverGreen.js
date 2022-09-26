@@ -33,18 +33,26 @@ const ArticleHeroEverGreen = ({ content }) => {
     <div
       className="article-hero"
       style={{
-        background:
-          'linear-gradient(180deg, #C7E0E5 0%, rgba(199, 224, 229, 0) 100%)',
+        background: `linear-gradient(180deg, ${content.fields.articleHero.fields.backgroundColor} 0%, rgba(199, 224, 229, 0) 100%)`,
       }}
     >
-      <div className="article-hero__wave">
-        <span className="svg-wrap article-hero__wave--desktop">
-          <DoubleWave fillColor="#C7E0E5" />
-        </span>
-        <span className="svg-wrap article-hero__wave--mobile">
-          <DoubleWaveMobile fillColor="#C7E0E5" />
-        </span>
-      </div>
+      {content.fields.articleHero.fields.showWave ? (
+        <div className="article-hero__wave">
+          <span className="svg-wrap article-hero__wave--desktop">
+            <DoubleWave
+              fillColor={content.fields.articleHero.fields.waveColor}
+            />
+          </span>
+          <span className="svg-wrap article-hero__wave--mobile">
+            <DoubleWaveMobile
+              fillColor={content.fields.articleHero.fields.waveColor}
+            />
+          </span>
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div className="article__container">
         <div className="article-hero__breadcrumbs">
           <Link href="/">
@@ -99,17 +107,30 @@ const ArticleHeroEverGreen = ({ content }) => {
             </div>
           </div>
           <div className="article-hero__image">
-            <Image
-              className=""
-              src={`https://images.ctfassets.net/urdrzzac4igp/53rLh7AGXQVR2AW0DF4iTq/9f996b64bb25d31dbac5d6f994981117/Mask_group__20_.png`}
-              alt={`image`}
-              layout="responsive"
-              objectFit="cover"
-              height="700"
-              width="650"
-            />
+            <div className="article-hero__image--desktop">
+              <Image
+                className=""
+                src={`https://${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            </div>
+            <div className="article-hero__image--mobile">
+              <Image
+                className=""
+                src={`https://${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            </div>
             <div className="article-hero__image--credit">
-              Photo Credit Goes Here
+              {content.fields.articleHero.fields.photoCredit}
             </div>
           </div>
         </div>

@@ -118,6 +118,7 @@
 
   &__iheart {
     margin-top: 20px;
+    max-width: 600px;
 
     @include breakpoint-up('md') {
       margin-top: 24px;
