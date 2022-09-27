@@ -5,6 +5,7 @@ import React from 'react'
 // import Experts from '../Experts'
 // import ValueProps from '../ValueProps'
 import ProductValueProps from '../../Product/ProductValueProps'
+import ProductIngredients from '../../Product/ProductIngredients'
 
 const ProductSections =  ({ content }) => {
     // console.log("product sections", content)
@@ -17,16 +18,10 @@ const ProductSections =  ({ content }) => {
                     console.log(section)
 
                     switch (type) {
-                        case 'productDetailTabs':
-                        return <ProductDetailTabs content={section} key={index} />
-                        case 'contentTimeline':
-                            return <ContentTimeline content={section} key={index} />
-                        case 'nutritionChart':
-                            return <NutritionChart content={section} key={index} />
-                        case 'experts':
-                            return <Experts content={section} key={index} />
                         case 'productValueProps':
                             return <ProductValueProps content={section} key={index} />
+                        case 'productIngredients':
+                            return <ProductIngredients content={section} key={index} />;
                         default:
                         return null
                     }

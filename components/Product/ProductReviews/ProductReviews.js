@@ -1,7 +1,11 @@
 import React from 'react'
 import Script from 'next/script';
 
-const ProductReviews = ({ props }) => {
+const ProductReviews = ( props ) => {
+    const { product } = props
+
+    console.log(product, "reveiws");
+
     return (
         <>
             <Script
