@@ -11,7 +11,7 @@
  @use "sass:math";
 
  $font-size-root: 16; // No units | Assume font size base of most browsers is 16px.
- 
+
  // Remove units from a number.
  // @param {Number} $numb - Number to remove unit from
  // @return {Number} - Unitless number REF:
@@ -19,7 +19,7 @@
  @function strip-unit($num) {
    @return math.div($num, $num * 0 + 1);
  }
- 
+
  // Convert px to rem
  // Use this for font-size
  // @param {Number} $pxval - Number in pixels to convert to rem
@@ -28,11 +28,11 @@
  @function pxtorem($pxval, $base: $font-size-root) {
    @return math.div(strip-unit($pxval), $base) * 1rem;
  }
- 
+
  @function fontsize($pxval, $base: $font-size-root) {
    @return pxtorem($pxval, $base);
  }
- 
+
  // Convert px to em
  // Use this for letter-spacing
  // @param {Number} $pxval - Number in pixels to convert to em
@@ -41,24 +41,24 @@
  @function pxtoem($pxval, $base: $font-size-root) {
    @return math.div(strip-unit($pxval), $base) * 1em;
  }
- 
+
  @function letterspacing($pxval, $base: $font-size-root) {
    @return pxtoem($pxval, $base);
  }
- 
+
  // Convert to unitless value
  // Use this for line-height
  // @param {Number} $line-height-in-px - Line height in px
  // @param {Number} $font-size-in-px - Font size in px
- 
+
  // *line-height* (unit-less) = line height (px) / font size (px)
  @function lineheight($line-height-in-px, $font-size-in-px: 1) {
- 
+
    // If "normal" entered, font size is ignored
    @if ($line-height-in-px =='normal') {
      @return 1.2; // Standard "normal" line-height
    }
- 
+
    @return math.div(strip-unit($line-height-in-px), strip-unit($font-size-in-px));
  }
 
@@ -70,7 +70,7 @@ h1,
     font-size: fontsize(42px);
     line-height: 42px;
     color: $primaryBrown;
-    
+
     @include breakpoint-up('md') {
         font-size: fontsize(96px);
         line-height: 96px;
@@ -92,7 +92,7 @@ h2,
     }
 }
 
-h3, 
+h3,
 .h3  {
     font-family: $DomaineText;
     font-style: normal;
@@ -129,7 +129,7 @@ h4,
     }
 }
 
-h5, 
+h5,
 .h5 {
     font-family: $DomaineText;
     font-style: normal;
@@ -170,7 +170,7 @@ h6,
 }
 
 .eyebrow {
-    
+
 }
 
 p,

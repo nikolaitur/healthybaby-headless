@@ -1,5 +1,3 @@
-import React from 'react'
-
 import HeroBanner from '../HeroBanner'
 import ContentBanner from '../ContentBanner'
 import CollectionCards from '../CollectionCards'
@@ -10,13 +8,14 @@ import ContentPreview from '../ContentPreview'
 import StoriesSlider from '../StoriesSlider'
 import About from '../About'
 import WowAndHow from '../WowAndHow'
+import FAQGroup from '../FAQGroup'
 
 const ContentSections = ({ sections }) => {
     return (
         <>
             {sections.map((section, index) => {
                 const type = section.type
-        
+
                 switch (type) {
                     case 'heroBanner':
                         return <HeroBanner content={section} key={index} />
@@ -29,7 +28,7 @@ const ContentSections = ({ sections }) => {
                     case 'shopByCategory':
                         return <ShopByCategory content={section} key={index} />
                     case 'bestSellers':
-                            return <BestSellers content={section} key={index} />
+                        return <BestSellers content={section} key={index} />
                     case 'storiesSlider':
                         return <StoriesSlider content={section} key={index} />
                     case 'contentPreview':
@@ -38,6 +37,8 @@ const ContentSections = ({ sections }) => {
                         return <WowAndHow content={section} key={index} />
                     case 'about':
                         return <About content={section} key={index} />
+                    case 'faqGroup':
+                        return <FAQGroup content={section} key={index} />
                     default:
                     return null
                 }
