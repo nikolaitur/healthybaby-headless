@@ -1,0 +1,73 @@
+.product-ingredients {
+    padding: 100px 0 100px;
+
+    &__content {
+        text-align: center;
+    }
+
+    &__items {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;  
+        padding: 70px 0 0;
+    }
+
+    &__item {
+        background: #fff;
+        flex: 1 0 30.333333%;
+        margin: 15px;      
+        padding: 30px;
+
+        &--content {
+            display: flex;
+            align-items: center;
+        }
+
+        &--wrapper {
+            margin-left: 15px;
+        }
+
+        &--image {
+            position: relative;
+            width: 100px;
+    
+            span {
+                padding-top: 0!important;
+            }
+    
+            img {
+                width: 100%;
+                object-fit: contain;
+                width: 100% !important;
+                position: relative !important;
+                height: unset !important;
+            }
+        }
+
+        &--subheader {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: fontsize(26px);
+            line-height: 29px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+            margin-top: 5px;
+            margin-bottom: 10px;
+
+            @include breakpoint-up('md') {
+                font-size: fontsize(26px);
+            }
+
+            @include breakpoint-up('xl') {
+                font-size: fontsize(26px);
+            }
+        }
+
+        &--copy {
+            border-top: 1px solid rgb(0 0 0 / 10%);
+            margin-top: 25px;
+            padding-top: 25px;
+        }
+    }
+}

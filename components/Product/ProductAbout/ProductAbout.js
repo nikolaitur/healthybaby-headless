@@ -4,20 +4,18 @@ import Image from 'next/image';
 
 import ProductAboutAccordion from './ProductAboutAccordion';
 
-import LongArrowRight from '../../../svgs/long-arrow-right.svg'
-
 const ProductAbout = ({ content }) => {
-    // const { header, subheader, copy, links, imageTitle, imageSubtitle } = content.fields
-    // const image = content.fields.image.fields.file.url  
 
     return (
-        <section className="product-about">
+        <div className="product-about">
             <div className="product-about__container container">
                 <div className="product-about__content">
-                    <h6 className="about__subheader">SUPERIOR STANDARDS</h6>
-                    <h3 className="product-about__header">
-                        Safe for developing brains & bodies
-                    </h3>
+                    {content.fields?.subheader ? (
+                        <h6 className="product-about__subheader">{ content.fields.subheader }</h6>
+                    ) : ""}
+                    {content.fields?.header ? (
+                        <h3 className="product-about__header">{ content.fields.header }</h3>
+                    ) : ""}
                     <div className="product-about__image about__image--mobile">
                         <Image
                             src={`https://images.ctfassets.net/urdrzzac4igp/71vy1gTzW8vYaWYDCqeRXz/041cd5e9a5efbf80c7d1356686491beb/Mask_group__24_.png`}
@@ -26,12 +24,19 @@ const ProductAbout = ({ content }) => {
                             height="750"
                         />
                     </div>
-                    <div className="product-about__wrapper">
+                    {content.fields?.sections ? (
+                        <div className="product-about__wrapper">
+                            {content.fields.sections.map((item, index) => {
+                                return <ProductAboutAccordion item={item} key={index} />
+                            })}
+                        </div>
+                    ) : ""}
+                    {/* <div className="product-about__wrapper">
                         <ProductAboutAccordion />
                         <ProductAboutAccordion />
                         <ProductAboutAccordion />
                         <ProductAboutAccordion />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="product-about__image about__image--desktop">
                     <Image
@@ -42,7 +47,7 @@ const ProductAbout = ({ content }) => {
                     />
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
 

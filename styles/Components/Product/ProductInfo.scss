@@ -61,7 +61,7 @@
         justify-content: space-between;
         align-items: center;
 
-        span:last-child {
+        span:last-child:not(:only-of-type) {
             font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;

@@ -9,7 +9,7 @@ import ValuePropSvg4 from '../../../svgs/value-prop-4.svg'
 const ProductValueProps = ({ content }) => {
 
     return (
-       <section className="value-props">
+       <div className="value-props">
             <div className="value-props__wrapper container">
                 {(content.fields?.valuePropText1) ? (
                     <div className="value-props__item">
@@ -52,7 +52,7 @@ const ProductValueProps = ({ content }) => {
                     </div>
                 ) : ("")}
             </div>
-       </section>
+       </div>
     )
 }
 

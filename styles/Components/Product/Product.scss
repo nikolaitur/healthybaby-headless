@@ -1,8 +1,14 @@
 .product-main {
     padding: 100px 0 0px;
+
     &__container {
         display: flex;
         padding: 0 0 140px
+    }
+
+    .product-detail-tabs {
+        background: #F4EAEB;
+        padding: 140px 0 140px;
     }
 }
 
@@ -10,5 +16,7 @@
 @import './ProductInfo.scss';
 @import './ProductTechnologyCallout.scss';
 @import './ProductAbout.scss';
+@import './ProductIngredients.scss';
+@import './ProductFiftyFifty.scss';
 @import './ProductCrossSells.scss';
 @import './ProductReviews.scss';

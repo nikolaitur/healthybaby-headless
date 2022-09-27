@@ -108,6 +108,10 @@ h3,
     @include breakpoint-up('xl') {
         font-size: fontsize(62px);
     }
+
+    i {
+        font-family: $DomaineTextItalic;
+    }
 }
 
 h4,
@@ -161,7 +165,7 @@ h6,
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: $primaryBrown;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     @include breakpoint-up('md') {
         font-size: 18px;

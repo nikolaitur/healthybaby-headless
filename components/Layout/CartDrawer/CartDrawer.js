@@ -17,7 +17,13 @@ const CartDrawer = ({ content }) => {
     const [
         { cart },
         { incrementItem, decrementItem, removeFromCart, clearCart, addToCart },
-      ] = useCart()
+        ] = useCart()
+
+    // The `processCheckout` method, which allows for cart data
+    // to be passed to the checkout client, is provided by the
+    // `useCheckout` hook from `@nacelle/react-hooks`.
+    // (https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks)
+    const [, { processCheckout }] = useCheckout()
     
     const [drawerContent, setDrawerContent] = useState(false)
     const [upsells, setUpsells] = useState(false)

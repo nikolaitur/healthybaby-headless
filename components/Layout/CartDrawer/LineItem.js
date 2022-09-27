@@ -94,9 +94,8 @@ const LineItem = ({item}) => {
             <div className="line-item__content">
                 <div className="line-item__title">{ item.variant.productTitle }</div>
                 {getOptions() ? (
-                    <div className="line-item__option">{ item.variant.selectedOptions[0].value }</div>
+                    <div className="line-item__option">{ item.variant.selectedOptions[0].value } {item.variant.selectedOptions[1]?.value ? <span>/ {item.variant.selectedOptions[1].value}</span> : ""}</div>
                 ) : ""}
-                
                 <div className="line-item__price">${ (item.variant.price).toFixed(2) }</div>
                 <div className="line-item__quantity">
                     <div className="line-item__quantity--wrapper">

@@ -1,6 +1,5 @@
-.product-about {
-    padding: 100px 0;
-    background: #F0E3E5;
+.product-fifty-fifty {
+    padding: 70px 0 140px;
 
     &__container {
         position: relative;
@@ -30,7 +29,7 @@
 
         @include breakpoint-up('md') {
             width: 50%;
-            padding-left: 120px;
+            // padding-left: 60px;
             margin-bottom: 0;
         }
 
@@ -99,15 +98,38 @@
         @include breakpoint-up('md') {
             margin-bottom: 70px;
         }
+
+        p {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: fontsize(18px);
+            line-height: 140%;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: fontsize(20px);
+            }
+
+            @include breakpoint-up('xl') {
+                font-size: fontsize(22px);
+            }
+        }
     }
 
-    &__link,
-    .prod {
-        border-top: 1px solid rgba(61, 51, 49, 0.2);
-
-        &:last-child {
-            border-bottom: 1px solid rgba(61, 51, 49, 0.2);
-        }
+    &__link {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: $primaryGreen;
+        margin-top: 30px;
+        cursor: pointer;
+        border-bottom: 1px solid $primaryGreen;
+        width: max-content;
     }
 
     &__button {
@@ -182,6 +204,7 @@
     .accordion-title {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
@@ -189,41 +212,9 @@
         line-height: 32px;
         letter-spacing: 0.02em;
         color: #3D3331;
-        position: relative;
-
-        .accordion-image {
-            width: 56px;
-            margin-right: 20px;
-        };
-
-        .accordion-arrow {
-            position: absolute;
-            right: 0
-        }
 
         svg {
             transition: 0.3s;
-        }
-
-        h4 {
-            font-family: $DomaineText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: fontsize(28px);
-            line-height: 100%;
-            color: $primaryBrown;
-
-            @include breakpoint-up('md') {
-                font-size: fontsize(32px);
-            }
-
-            @include breakpoint-up('lg') {
-                font-size: fontsize(32px);
-            }
-
-            @include breakpoint-up('xl') {
-                font-size: fontsize(32px);
-            }
         }
     }
 
@@ -235,8 +226,6 @@
             margin-bottom: 18px;
         }
 
-        
-
         a {
             font-family: $NeutraText;
             font-style: normal;
@@ -245,52 +234,6 @@
             line-height: 22px;
             color: #3D3331;
             text-decoration: none;
-        }
-
-        p {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: fontsize(18px);
-            line-height: 140%;
-            letter-spacing: -0.01em;
-            color: $primaryBrown;
-        
-            @include breakpoint-up('md') {
-                font-size: fontsize(20px);
-            }
-        
-            @include breakpoint-up('xl') {
-                font-size: fontsize(22px);
-            }
-        }
-
-        ul {
-            padding-top: 20px;
-
-            li {
-                list-style: none;
-
-                &:not(last-child) {
-                    margin-top: 20px;
-                }
-            }
-
-            p {
-                list-style: none;
-                font-family: $NeutraTextDemi;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 26px;
-                line-height: 36px;
-                letter-spacing: -0.01em;
-                color: $primaryBrown;
-            
-                @include breakpoint-up('md') {
-                    font-size: 26px;
-                    line-height: 36px;
-                }
-            }
         }
     }
 }

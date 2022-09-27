@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Image from 'next/image'
+import Script from 'next/script';
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -9,10 +10,6 @@ import styles from 'styles/Product.module.css'
 import ProductGallery from '../../components/Product/ProductGallery'
 import ProductInfo from '../../components/Product/ProductInfo'
 import ProductSections from '../../components/Product/ProductSections'
-import ProductTechnologyCallout from '../../components/Product/ProductTechnologyCallout'
-import ProductAbout from '../../components/Product/ProductAbout'
-import ProductCrossSells from '../../components/Product/ProdcutCrossSells'
-import ProductValueProps from '../../components/Product/ProductValueProps'
 import ProductReviews from '../../components/Product/ProductReviews'
 
 
@@ -21,8 +18,6 @@ function Product({ product, page }) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [selectedOptions, setSelectedOptions] = useState( selectedVariant.content.selectedOptions)
   const [quantity, setQuantity] = useState(1)
-
-  console.log(page)
 
   let options = null
   if (product?.content?.options?.some((option) => option.values.length > 1)) {
@@ -77,16 +72,18 @@ function Product({ product, page }) {
   return (
     product && (
       <section className="product-main">
+          <Script
+              src="https://scripts.juniphq.com/v1/junip_shopify.js"
+              strategy="lazyOnload"
+              onLoad={() =>
+                  console.log(`junip`)
+              }
+        />
         <div className="product-main__container container">
-            <ProductGallery product={product} />
-            <ProductInfo product={product} />
+            <ProductGallery product={product} page={page} />
+            <ProductInfo product={product} page={page} />
         </div>
         <ProductSections content={page} />
-        <div className="product-main__sections">
-            <ProductTechnologyCallout />
-            <ProductAbout />
-            <ProductCrossSells />
-        </div>
         <ProductReviews product={product} />
       </section>
     )
@@ -124,16 +121,30 @@ export async function getStaticProps({ params }) {
     handles: [params.handle]
   })
 
+  let pageData = pages[0]
+
   if (!products.length) {
     return {
       notFound: true,
     }
   }
 
+  if(!pages.length) {
+      pageData = [
+        {
+          "content": {
+            "fields": {
+              "sections": []
+            }
+          }
+        }
+      ]
+  }
+
   return {
     props: {
       product: products[0],
-      page: pages[0]
+      page: pageData
     },
   }
 }

@@ -6,7 +6,11 @@ import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import Link from 'next/link';
 import Image from 'next/image';
+import Script from 'next/script';
 
+import ProductOptions from '../../Product/ProductOptions'
+
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
 import StarFull from '../../../svgs/star-full.svg'
@@ -14,7 +18,9 @@ import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 
 const ProductInfo = ( props ) => {
-    const { product } = props
+    const { product, page } = props
+
+    // console.log(page, product, "info")
 
     const [, { addToCart }] = useCart()
     const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -25,6 +31,7 @@ const ProductInfo = ( props ) => {
     const [quantity, setQuantity] = useState(1)
     const [review, setReview] = useState(false)
 
+    const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext = useDiaperCalculatorContext()
 
     let options = null
@@ -51,7 +58,7 @@ const ProductInfo = ( props ) => {
             options: newSelectedOptions,
         })
         setSelectedVariant(variant ? { ...variant } : null)
-        setActiveOption(index)
+        // setActiveOption(index)
     }
 
     const handleCheckBoxChange = (option) => { 
@@ -92,6 +99,7 @@ const ProductInfo = ( props ) => {
             variant,
             quantity,
         })
+        cartDrawerContext.setIsOpen(true)
     }
 
     useEffect(() => {
@@ -111,20 +119,17 @@ const ProductInfo = ( props ) => {
     
         getReview()
     }, [])
-
+ 
     return (
         product ? (
             <div className="product-info">
                 <div className="product-info__sticky">
                     {review ? (
                         <div className="product-info__reviews">
-                            <div className="product-info__reviews--stars">
-                                <StarFull />
-                                <StarFull />
-                                <StarFull />
-                                <StarFull />
-                                <StarFull />
-                            </div>
+                            <>
+                                <span class="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                                <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span>
+                            </>
                             <div className="product-info__reviews--count">{ review.rating_count } reviews</div>
                         </div>
                     ) : ""}
@@ -136,46 +141,41 @@ const ProductInfo = ( props ) => {
                         <div className="product-form__options">
                             {options &&
                                 options.map((option, oIndex) => {
-                                    return (
-                                        option.name == "Size" ? (
-                                            <>
-                                                <div className="product-form__label">
-                                                    <span>Choose Size:</span><span onClick={() => diaperCalculatorContext.setIsOpen(true)}>Diaper calculator</span>
-                                                </div>
-                                                <div className="product-form__items">
-                                                    {option.values.map((value, vIndex) => (
-                                                        <button className={`product-form__option ${activeOption == vIndex ? "active" : ""}`} key={vIndex} value={value} onClick={() => handleOptionChange(option.name, value, vIndex)}>
-                                                            {value}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                                <div className="product-form__count">{ selectedVariant.content.selectedOptions[0].value.match(/\((.*)\)/).pop().replace('diapers','') } Diapers per pack</div>
-        
-                                            </>
-                                        ) : (
-                                            <div className="product-form__add-on">
-                                                <div className="product-form__add-on--image"></div>
-                                                <div className="product-form__add-on--content">
-                                                    <div className="product-form__add-on--title">Add a 4-pk of Wipes?</div>
-                                                    <div className="product-form__add-on--price">+$27</div>
-                                                </div>
-                                                <input type="checkbox" onChange={() => handleCheckBoxChange(option)}></input>
-                                            </div>
-                                        )
-                                    )
+                                    
+                                        let type = option.name
+
+                                        switch (type) {
+                                            case 'Combination': 
+                                                return (
+                                                    <div className="product-form__add-on">
+                                                        <div className="product-form__add-on--image"></div>
+                                                        <div className="product-form__add-on--content">
+                                                            <div className="product-form__add-on--title">Add a 4-pk of Wipes?</div>
+                                                            <div className="product-form__add-on--price">+$27</div>
+                                                        </div>
+                                                        <input type="checkbox" onChange={() => handleCheckBoxChange(option)}></input>
+                                                    </div>
+                                                )
+                                            default:
+                                            return <ProductOptions option={option} handleOptionChange={handleOptionChange}/>
+                                        }
                                 })  
                             }
                         </div> 
-                        <div className="product-form__subscription" onChange={() => handleSubscriptionChange(event)}>
-                            <div className="product-form__input-wrapper active">
-                                <input type="radio" id="html" name="subscription" value="One Time" />
-                                <label for="html">Buy One Time</label>
+
+                        {product.tags.includes("Subscription") ? (
+                            <div className="product-form__subscription" onChange={() => handleSubscriptionChange(event)}>
+                                <div className="product-form__input-wrapper active">
+                                    <input type="radio" id="html" name="subscription" value="One Time" />
+                                    <label for="html">Buy One Time</label>
+                                </div>
+                                <div className="product-form__input-wrapper">
+                                    <input type="radio" id="html" name="subscription" value="Subscription" />
+                                    <label for="html">Monthly Auto-Ship  <span>Update sizing or cancel anytime</span></label>
+                                </div>
                             </div>
-                            <div className="product-form__input-wrapper">
-                                <input type="radio" id="html" name="subscription" value="Subscription" />
-                                <label for="html">Monthly Auto-Ship  <span>Update sizing or cancel anytime</span></label>
-                            </div>
-                        </div>
+                        ): ""}
+                        
                         <div className="product-form__add-to-cart">
                             <div className="product-form__quantity">
                                 <button  className="product-form__quantity--decrement" onClick={() => handleDecrementChange()}>

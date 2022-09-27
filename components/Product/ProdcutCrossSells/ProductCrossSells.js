@@ -24,7 +24,7 @@ const ProductCrossSells = ({ content }) => {
         <div className="product-cross-sells">
             <div className="product-cross-sells__container container">
                 <h6 className="product-cross-sells__subheader">YOU MAY ALSO LIKE</h6>
-                <h4 className="product-cross-sells__header">Simplify daily routines with <i>fewer,<br/> better</i> things</h4>
+                <h3 className="product-cross-sells__header">Simplify daily routines with <i>fewer,<br/> better</i> things</h3>
                 {product ? (
                     <div className="product-cross-sells__items">
                         <CollectionProductCard content={product} />
