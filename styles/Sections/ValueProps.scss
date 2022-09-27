@@ -1,0 +1,74 @@
+.value-props {
+    text-align: center;
+    padding-top: 70px;
+    padding-bottom: 70px;
+
+    @include breakpoint-up('md') {
+        padding-top: 0;
+        padding-bottom: 100px;
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 28px;
+        color: $primaryBrown;
+
+        @include breakpoint-up('lg') {
+            font-size: 48px;
+            line-height: 48px;
+        }
+    } 
+
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+
+        @include breakpoint-up('md') {
+            margin-top: 70px;
+        }
+    }
+
+    &__item {
+        margin: 0 30px;
+        width: calc(33% - 15px);
+        max-width: calc(33% - 15px);
+
+        @include breakpoint-up('md') {
+            width: calc(33% - 30px);
+            max-width: calc(33% - 30px);
+        }
+    }
+
+    &__image {
+        margin-bottom: 30px;
+
+        svg {
+            max-width: 46px;
+            max-height: 46px;
+
+            @include breakpoint-up('md') {
+                max-width: 116px;
+                max-height: 115px;
+            }
+        }
+    }
+
+    &__copy {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 29px;
+        }
+    }
+}

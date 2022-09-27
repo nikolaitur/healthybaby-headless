@@ -1,0 +1,53 @@
+.collection-callout {
+    width: 100%;
+    text-align: center;
+    padding: 36px 0;
+    border-top: 1px solid rgba(61, 51, 49, 0.15);
+    border-bottom: 1px solid rgba(61, 51, 49, 0.15);
+    margin-bottom: 50px;
+
+    @include breakpoint-up('md') {
+        padding: 144px 0;
+    }
+
+    &__callout {
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    &__header {
+        margin-top: 10px;
+    }
+
+    &__subheader {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: $primaryBrown;
+        margin-bottom: 20px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 18px;
+        }
+    }
+
+    &__link {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: $primaryGreen;
+        margin-top: 30px;
+        cursor: pointer;
+        border-bottom: 1px solid $primaryGreen;
+        width: max-content;
+        margin: 30px auto 0;
+    }
+}
