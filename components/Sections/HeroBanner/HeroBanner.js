@@ -1,41 +1,48 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { Player } from 'video-react';
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const HeroBanner = ({ content }) => {
-    const { title, subtitle, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl } = content.fields
+    const { title, subtitle, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl, alignment, verticalAlignment, hideCta } = {...content.fields}
 
-    // console.log('HeroBanner', content)
+    const isVideo = featuredMedia?.fields?.file?.contentType.includes('video')
+
+    console.log('HeroBanner', content)
     return (
-        <section className="hero">
+        <section className={`hero ${isVideo ? 'hero--video' : ''}`}>
             <div className="hero__image">
-                <Image
+
+                {featuredMedia && isVideo && <Player playsInline loop={true} autoPlay={true} muted={true}>
+                    <source src={`https:${featuredMedia.fields.file.url}`} />
+                </Player>}
+
+                {featuredMedia && !isVideo && <Image
                     className="hero__image--desktop"
                     src={`https:${featuredMedia.fields.file.url}`}
                     alt={title}
                     layout="fill"
-                />
-                <Image
+                />}
+                {mobileBackgroundImage && mobileBackgroundImage.fields.file.contentType.includes('image') && <Image
                     className="hero__image--mobile"
                     src={`https:${mobileBackgroundImage.fields.file.url}`}
                     alt={title}
                     layout="fill"
-                />
+                />}
             </div>
-            <div className="hero__container hero__container--bottom hero__container--left container">
+            <div className={`hero__container hero__container--vertical-${alignment} hero__container--horizontal-${verticalAlignment} container`}>
                 <div className="hero__content">
                     <h6 className="hero__subheader">{ subtitle }</h6>
                     <h1 className="hero__header">{ title }</h1>
-                    <div className="hero__cta">
-                        <Link href={ctaUrl}>
+                    {!hideCta && <div className="hero__cta">
+                        <Link href={ctaUrl || ''}>
                             <button className="hero__button btn">
                                 <span>{ctaText}</span>
                                 <span><LongArrowRight /></span>
                             </button>
                         </Link>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </section>
