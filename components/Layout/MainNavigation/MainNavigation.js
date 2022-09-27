@@ -9,6 +9,7 @@ import MegaMenuItem from './MegaMenuItem'
 import DropDownMenuItem from './DropdownMenuItem'
 
 import { useHeaderContext } from '../../../context/HeaderContext'
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import Logo from '../../../svgs/healthybaby-logo.svg'
 import LogoMobile from '../../../svgs/healthybaby-logo-mobile.svg'
@@ -27,6 +28,7 @@ const MainNavigation = ({props}) => {
     // const cartIcon = props.cartIcon.fields.file.url
 
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
+    const cartDrawerContext =  useCartDrawerContext()
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);
@@ -88,12 +90,13 @@ const MainNavigation = ({props}) => {
         document.documentElement.style.setProperty("--megaMenuLinkBackground",  "#D0D8E9");
     }
 
+    const openCartDrawer = () => {
+        cartDrawerContext.setIsOpen(true)
+    }
     const toggleSearch = () => {
         setSearchOpen(!isSearchOpen);
         setQuery("")
     }
-
-
 
     const handleSearchChange = event => {
       setQuery(event.target.value);
@@ -128,7 +131,7 @@ const MainNavigation = ({props}) => {
                 <div className="main-nav__item">
                     <Baby/>
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => openCartDrawer()}>
                     <Cart />
                 </div>
                 <div className={`main-nav__search ${isSearchOpen ? "active" : ""}`}>
@@ -154,7 +157,7 @@ const MainNavigation = ({props}) => {
                 <div className="main-nav__item">
                     <Baby />
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => openCartDrawer()}>
                     <Cart />
                 </div>
             </div>
