@@ -1,0 +1,103 @@
+.upsell {
+    width: 100%;
+    max-width: 410px;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-width: 290px;
+
+    @include breakpoint-up('md') {
+        min-width: 410px;
+    }
+
+    &:not(:first-child) {
+        margin-left: 20px;
+    }
+
+    &__container {
+        display: flex;
+    }
+
+    &__wrapper {
+        margin: 0 0 0 12px;
+        padding: 2px 0 3px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__image {
+        max-width: 108px;
+        min-height: 90px;
+        min-width: 72px;
+
+        @include breakpoint-up('md') {
+            min-height: 110px;
+            min-width: 140px;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            width: 100% !important;
+            position: relative !important;
+            height: 90px !important;
+
+            @include breakpoint-up('md') {
+                height: 110px!important;
+            }
+        }
+
+        span {
+            padding-top: 0!important;
+        }
+    }
+
+    &__title {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    }
+
+    &__option {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__price {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__add-to-cart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .btn {
+            padding: 7px 20px;
+            width: 75px;
+            
+            span {
+                margin: 0!important;
+            }
+        }
+    }
+}
