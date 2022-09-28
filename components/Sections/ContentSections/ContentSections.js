@@ -10,6 +10,7 @@ import About from '../About'
 import WowAndHow from '../WowAndHow'
 import FAQGroup from '../FAQGroup'
 import ContactForm from '../ContactForm'
+import AfterShip from '../AfterShip'
 
 const ContentSections = ({ sections }) => {
     return (
@@ -42,6 +43,8 @@ const ContentSections = ({ sections }) => {
                         return <FAQGroup content={section} key={index} />
                     case 'contactForm':
                         return <ContactForm content={section} key={index} />
+                    case 'afterShipWidget':
+                        return <AfterShip content={section} key={index} />
                     default:
                     return null
                 }
