@@ -1,0 +1,125 @@
+.line-item {
+    position: relative;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(61, 51, 49, 0.1);
+    padding-bottom: 25px;
+
+    &:last-child {
+        // margin-bottom: 0;
+        padding-bottom: 25px;
+    }
+
+    &__wrapper {
+        display: flex;
+        position: relative;
+    }
+
+    &__image {
+        max-width: 108px;
+        min-height: 132px;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            width: 100% !important;
+            position: relative !important;
+            height: 132px !important;
+        }
+
+        span {
+            padding-top: 0!important;
+        }
+    }
+
+    &__content {
+        margin: 0 0 0 24px;
+    }
+
+    &__title {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    }
+
+    &__option {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__price {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 10px;
+    }
+
+    &__quantity {
+        position: absolute;
+        right: 0px;
+        display: flex;
+        align-items: center;
+        bottom: 5px;
+
+        &--wrapper {
+            display: flex;
+            background: #fff;
+            padding: 8px 5px;
+            margin-right: 5px;
+        }
+    }
+
+    &__decrement, 
+    &__increment {
+        border: none;
+        background: #fff;
+        cursor: pointer;
+    }
+
+    &__count {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        letter-spacing: 0.02em;
+        color: $primaryBrown;
+        margin: 0 5px;
+    }
+
+    &__trash {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    &__upgrade {
+        width: 100%;
+        margin: 30px 0 0;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        border: none;
+        background: #fff;
+        padding: 9px 12px;
+        text-align: left;
+        cursor: pointer;
+    }
+}
