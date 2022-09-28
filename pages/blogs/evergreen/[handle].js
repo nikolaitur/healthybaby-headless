@@ -13,6 +13,7 @@ import ArticleVideo from '../../../components/Article/ArticleVideo'
 import ArticleSources from '../../../components/Article/ArticleSources'
 import ArticleTags from '../../../components/Article/ArticleTags'
 import ArticleRelated from '../../../components/Article/ArticleReleated'
+import ArticlePullQuote from '../../../components/Article/ArticlePullQuote'
 
 function Article({ article }) {
   console.log(article)
@@ -21,12 +22,16 @@ function Article({ article }) {
     <article className="article">
       <ArticleHeroEverGreen content={article} />
       <div className="article__container">
-        <ArticleContent content={true} />
-        <ArticleShop></ArticleShop>
+        <ArticleContent content={article.fields.content} />
+        <ArticlePullQuote content={article} />
         {/* <ArticleVideo /> */}
-        {/* <ArticleContent content={false}/>
-                <ArticleSources />
-                <ArticleTags /> */}
+        <ArticleContent content={article.fields.content2} />
+        <ArticleShop content={article}></ArticleShop>
+        <ArticleContent content={article.fields.content3} />
+        <ArticleShop content={article}></ArticleShop>
+        <ArticleContent content={article.fields.content4} />
+        {/* <ArticleSources />
+        <ArticleTags /> */}
       </div>
       {/* <ArticleRelated /> */}
     </article>

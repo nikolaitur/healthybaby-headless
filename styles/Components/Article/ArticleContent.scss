@@ -23,6 +23,7 @@
     letter-spacing: -0.01em;
     color: $primaryBrown;
     margin-bottom: 20px;
+    text-transform: none;
 
     @include breakpoint-up('md') {
       font-size: 26px;
@@ -84,5 +85,31 @@
 
   p + p {
     padding-top: 20px;
+  }
+
+  li {
+    font-family: $NeutraText;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    list-style: none;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 26px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 6px;
+      height: 6px;
+      background-color: $primaryBrown;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+    }
   }
 }
