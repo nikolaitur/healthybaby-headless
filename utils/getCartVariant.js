@@ -9,8 +9,7 @@ export const getCartVariant = ({ product, variant }) => {
       title: productTitle,
       featuredMedia: productFeaturedMedia,
     } = product.content
-    const { availableForSale, compareAtPrice, sourceEntryId, price, sku } =
-      variant
+    const { availableForSale, compareAtPrice, sourceEntryId, price, sku } = variant
     const { featuredMedia, selectedOptions, title } = variant.content
     return {
       availableForSale,
@@ -21,8 +20,10 @@ export const getCartVariant = ({ product, variant }) => {
       featuredMedia: featuredMedia || productFeaturedMedia,
       selectedOptions,
       title,
+      tags: product.tags,
       productHandle,
       productTitle,
+      product: product
     }
   }
 }

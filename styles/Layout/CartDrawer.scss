@@ -1,0 +1,249 @@
+.cart-drawer {
+    position: absolute;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    overflow: hidden;
+    pointer-events: none;
+
+    &.active {
+        pointer-events: all;
+
+        .cart-drawer__overlay {
+            opacity: 0.3;
+            pointer-events: all;
+        }
+
+        .cart-drawer__content {
+            transform: translateX(0);
+            transition: 0.3s;
+        }
+    }
+
+    &__overlay {
+        width: 100vw;
+        position: absolute;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        opacity: 0.5;
+        background: #000;
+        filter: blur(0px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+    }
+
+    &__container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        position: relative;
+    }
+
+    &__content {
+        position: relative;
+        width: 100%;
+        max-width: 525px;
+        // padding: 30px;
+        height: 100vh;
+        background:#E5E5E5;
+        transform: translateX(100vw);
+        transition: 0.3s;
+        overflow-y: scroll;
+        padding: 0 0 30px;
+
+        @include breakpoint-up('md') {
+            // padding: 0;
+        }
+    }
+
+    &__messaging {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: -0.01em;
+        color: #fff;
+        position: relative;
+        padding: 10px 0;
+        text-align: center;
+        background: #889CC7;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 30px;
+            }
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        margin: 30px 0 0;
+    }
+
+    &__title {
+        position: relative;
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 29px;
+        color: $primaryBrown;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include breakpoint-up('md') {
+            font-size: 36px;
+            line-height: 36px;
+        }
+
+        span {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+            background: #fff;
+            border-radius: 100%;
+            padding: 3px 9px 1px 9px;
+            margin-left: 20px;
+        }
+    }
+
+    &__close {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        cursor: pointer;
+
+        // @include breakpoint-up('md') {
+        //     right: 10px;
+        // }
+    }
+
+    &__shipping {
+        position: relative;
+        padding: 0 30px;
+        margin: 15px 0 0;
+
+        &.free {
+            .message {
+                color: $primaryGreen;
+            }
+            .progress-bar {
+                background: $primaryGreen
+            }
+        }
+
+        .message {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            strong {
+                font-family: $NeutraTextDemi;
+            }
+        }
+
+        .border {
+            display: block;
+            width: 100%;
+            background: #FFFFFF;
+            border-radius: 60px;
+            margin: 5px 0 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: #D0D8E9;
+            display: block;
+            height: 10px;
+            border-radius: 60px;
+        }
+    }
+
+    &__items {
+        position: relative;
+        padding: 25px 30px 0;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            width: calc(100% - 60px);
+            height: 1px;
+            background: rgba(61, 51, 49, 0.1);
+        }
+    }
+
+    &__upsells {
+        padding: 0 30px;
+        margin: 0 0 30px;
+
+        &--title {
+            position: relative;
+            font-family: $DomaineText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 18px;
+            color: $primaryBrown;
+        }
+
+        &--wrapper {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            overflow: scroll;
+        }
+    }
+
+    &__checkout {
+        padding: 0 30px;
+    }
+
+    &__empty {
+        position: relative;
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 22px;
+        color: $primaryBrown;
+        text-align: center;
+        padding: 50px 30px 0;
+        margin-top: 25px;
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 0;
+            width: calc(100% - 60px);
+            height: 1px;
+            background: rgba(61, 51, 49, 0.1);
+        }
+    }
+}
+
+@import './CartDrawer/LineItem.scss';
+@import './CartDrawer/Upsell.scss';
