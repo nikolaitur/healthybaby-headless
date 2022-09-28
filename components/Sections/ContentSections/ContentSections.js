@@ -9,6 +9,7 @@ import StoriesSlider from '../StoriesSlider'
 import About from '../About'
 import WowAndHow from '../WowAndHow'
 import FAQGroup from '../FAQGroup'
+import ContactForm from '../ContactForm'
 
 const ContentSections = ({ sections }) => {
     return (
@@ -39,6 +40,8 @@ const ContentSections = ({ sections }) => {
                         return <About content={section} key={index} />
                     case 'faqGroup':
                         return <FAQGroup content={section} key={index} />
+                    case 'contactForm':
+                        return <ContactForm content={section} key={index} />
                     default:
                     return null
                 }

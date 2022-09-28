@@ -5,9 +5,15 @@ import { Player } from 'video-react';
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const HeroBanner = ({ content }) => {
-    const { title, subtitle, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl, alignment, verticalAlignment, hideCta } = {...content.fields}
+    const { title, subtitle, subtitlePosition, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl, alignment, verticalAlignment, hideCta } = {...content.fields}
 
     const isVideo = featuredMedia?.fields?.file?.contentType.includes('video')
+
+    let subtitleTruePosition = 'above title'
+
+    if (subtitlePosition) {
+        subtitleTruePosition = subtitlePosition
+    }
 
     console.log('HeroBanner', content)
     return (
@@ -33,8 +39,9 @@ const HeroBanner = ({ content }) => {
             </div>
             <div className={`hero__container hero__container--vertical-${alignment} hero__container--horizontal-${verticalAlignment} container`}>
                 <div className="hero__content">
-                    <h6 className="hero__subheader">{ subtitle }</h6>
+                    {subtitleTruePosition === 'above title' && <h6 className="hero__subheader">{ subtitle }</h6>}
                     <h1 className="hero__header">{ title }</h1>
+                    {subtitleTruePosition === 'below title' && <h6 className="hero__subheader">{ subtitle }</h6>}
                     {!hideCta && <div className="hero__cta">
                         <Link href={ctaUrl || ''}>
                             <button className="hero__button btn">

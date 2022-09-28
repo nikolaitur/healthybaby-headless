@@ -23,7 +23,7 @@ const FAQItem = ({props}) => {
       },
       [BLOCKS.PARAGRAPH]: (node, children) => <p className="large">{children}</p>
     },
-};
+  }
 
   return (
     <li className={`faq-item ${height !== 0 ? 'is-expanded' : ''}`}>
