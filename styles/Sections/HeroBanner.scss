@@ -81,6 +81,10 @@
             align-items: center;
         }
 
+        &--vertical-right {
+            align-items: flex-end;
+        }
+
         &--vertical-bottom {
             align-items: flex-end;
             padding: 0 0 70px;

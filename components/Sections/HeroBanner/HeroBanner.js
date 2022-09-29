@@ -37,12 +37,12 @@ const HeroBanner = ({ content }) => {
                     layout="fill"
                 />}
             </div>
-            <div className={`hero__container hero__container--vertical-${alignment} hero__container--horizontal-${verticalAlignment} container`}>
+            <div className={`hero__container hero__container--vertical-${verticalAlignment} hero__container--horizontal-${alignment} container`}>
                 <div className="hero__content">
                     {subtitleTruePosition === 'above title' && <h6 className="hero__subheader">{ subtitle }</h6>}
                     <h1 className="hero__header">{ title }</h1>
                     {subtitleTruePosition === 'below title' && <h6 className="hero__subheader">{ subtitle }</h6>}
-                    {!hideCta && <div className="hero__cta">
+                    {hideCta === 'False' && <div className="hero__cta">
                         <Link href={ctaUrl || ''}>
                             <button className="hero__button btn">
                                 <span>{ctaText}</span>
