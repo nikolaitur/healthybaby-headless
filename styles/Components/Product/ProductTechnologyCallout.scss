@@ -1,6 +1,10 @@
 .product-technology-callout {
-    padding: 140px 0 80px;
+    padding: 70px 0 70px;
     background:  #D6DED9;
+
+    @include breakpoint-up('md') {
+        padding: 140px 0 80px;
+    }
 
     &__content {
         text-align: center;
@@ -15,9 +19,13 @@
     }
 
     &__item {
-        display: flex;
-        align-items: center;
-        margin: 0 0 60px;
+        margin: 0 0 30px;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            align-items: center;
+            margin: 0 0 60px;
+        }
 
         &.flipped {
             .product-technology-callout__image {
@@ -33,9 +41,13 @@
 
     &__image {
         position: relative;
-        width: 50%;
-        padding-right: 30px;
+        
         // margin: 40px auto 0;
+
+        @include breakpoint-up('md') {
+            width: 50%;
+            padding-right: 30px;
+        }
 
         &--desktop {
             display: none!important;
@@ -65,8 +77,11 @@
     }
 
     &__wrapper {
-        width: 50%;
-        padding-left: 30px;
+    
+        @include breakpoint-up('md') {
+            width: 50%;
+            padding-left: 30px;
+        }
 
         h4 {
             margin: 20px 0 0;

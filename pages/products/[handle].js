@@ -72,13 +72,13 @@ function Product({ product, page }) {
   return (
     product && (
       <section className="product-main">
-          <Script
+          {/* <Script
               src="https://scripts.juniphq.com/v1/junip_shopify.js"
               strategy="lazyOnload"
               onLoad={() =>
                   console.log(`junip`)
               }
-        />
+        /> */}
         <div className="product-main__container container">
             <ProductGallery product={product} page={page} />
             <ProductInfo product={product} page={page} />
@@ -114,12 +114,14 @@ export async function getStaticProps({ params }) {
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
   const { products } = await nacelleClient.query({
     query: PAGE_QUERY,
-    variables: { handle: params.handle, nameSpace: "shopify", key: "sellingPlanAllocations" },
+    variables: { handle: params.handle },
   })
 
   const pages = await nacelleClient.content({
     handles: [params.handle]
   })
+
+  console.log(pages, "pages", params.handle)
 
   let pageData = pages[0]
 

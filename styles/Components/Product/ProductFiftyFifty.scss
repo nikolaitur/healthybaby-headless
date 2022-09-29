@@ -1,5 +1,9 @@
 .product-fifty-fifty {
-    padding: 70px 0 140px;
+    padding: 0 0 70px;
+
+    @include breakpoint-up('md') {
+        padding: 70px 0 140px;
+    }
 
     &__container {
         position: relative;
@@ -25,7 +29,7 @@
 
     &__image {
         order: 0;
-        margin-bottom: 40px;
+        margin-bottom: 0px;
 
         @include breakpoint-up('md') {
             width: 50%;

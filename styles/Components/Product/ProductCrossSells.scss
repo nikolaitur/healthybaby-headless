@@ -1,5 +1,9 @@
 .product-cross-sells {
-    padding: 140px 0;
+    padding: 70px 0 70px;
+
+    @include breakpoint-up('md') {
+        padding: 140px 0 140px;
+    }
 
     &__header {
         font-family: $DomaineText;

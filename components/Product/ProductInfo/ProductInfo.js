@@ -38,13 +38,13 @@ const ProductInfo = ( props ) => {
     const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext = useDiaperCalculatorContext()
 
-    console.log(product, "info", selectedVariant)
+   console.log(product, "info", selectedVariant, page)
 
     const richTextRenderOptions = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {
                 return (
-                    `<img src=https:${node.data.target.fields.file.url} />`
+                    <></>
                 )
             },
         }

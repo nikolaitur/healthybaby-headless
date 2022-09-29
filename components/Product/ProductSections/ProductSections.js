@@ -1,16 +1,18 @@
 import React from 'react'
 import ProductValueProps from '../../Product/ProductValueProps'
+import ProductContentBanner from '../../Product/ProductContentBanner'
 import ProductIngredients from '../../Product/ProductIngredients'
 import ProductTechnologyCallout from '../../Product/ProductTechnologyCallout'
 import ProductAbout from '../../Product/ProductAbout'
 import ProductFiftyFifty from '../../Product/ProductFiftyFifty'
 import ProductDetail from '../../Product/ProductDetail'
 import ProductCrossSells from '../../Product/ProdcutCrossSells'
+
 // import ProductReviews from '../../Product/ProdcutReviews'
 
 const ProductSections =  ({ content }) => {
     
-    // console.log("product sections", content)
+    console.log("product sections", content)
 
     return (
         <div className="product-main__sections">
@@ -23,6 +25,8 @@ const ProductSections =  ({ content }) => {
                     switch (type) {
                         case 'productValueProps':
                             return <ProductValueProps content={section} key={index} />;
+                        case 'productContentBanner':
+                            return <ProductContentBanner content={section} key={index} />;
                         case 'productIngredients':
                             return <ProductIngredients content={section} key={index} />;
                         case 'productFiftyFifty':

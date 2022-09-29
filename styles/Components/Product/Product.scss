@@ -2,13 +2,21 @@
     padding: 100px 0 0px;
 
     &__container {
-        display: flex;
-        padding: 0 0 140px
+        //padding: 0 0 70px;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            padding: 0 0 100px;
+        }
     }
 
     .product-detail-tabs {
         background: #F4EAEB;
-        padding: 140px 0 140px;
+        padding: 70px 0 70px;
+
+        @include breakpoint-up('md') {
+            padding: 140px 0 140px;
+        }
     }
 }
 

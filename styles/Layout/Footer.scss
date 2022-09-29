@@ -172,6 +172,10 @@ $NeutraText: 'NeutraText';
     &__content {
         max-width: 950px;
         width: 100%;
+
+        @include breakpoint-up('md') {
+            padding-right: 30px;
+        }
     }
 
     &__header {
@@ -245,7 +249,7 @@ $NeutraText: 'NeutraText';
         width: 100%;
 
         @include breakpoint-up('md') {
-            max-width: 400px;
+            max-width: 532px;
         }
 
         input {

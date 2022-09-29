@@ -9,7 +9,7 @@ export function Header({ content }) {
   return (
       <>
         <header>
-            {content.fields.announcementBar?.fields.enable &&
+            {content.fields?.announcementBar.fields.enable == "Yes" &&
                 <AnnouncementBar props={content.fields.announcementBar} />
             }
             <nav className='nav' id="SiteNav">

@@ -7,11 +7,17 @@ const FooterNewsletter = ({ content}) => {
 
   }
 
+  // console.log(content, "newsletter")
+
   return (
     <div className="footer__newsletter">
         <div className="footer__content">
-            <h6 className="footer__eyebrow">{content.fields.subtitle}</h6>
-            <div className="footer__header">{content.fields.header}</div>
+            {content.fields?.subtitle ? (
+              <h6 className="footer__eyebrow">{content.fields.subtitle}</h6>
+            ) : ""}
+            {content.fields?.header ? (
+               <div className="footer__header">{content.fields.header}</div>
+            ) : ""}
         </div>
         <form className="footer__form">
             <input type="text" placeholder={content.fields.inputPlaceholder} />

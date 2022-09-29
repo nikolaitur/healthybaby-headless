@@ -1,6 +1,9 @@
 .product-info {
-    width: 40%;
-    padding: 40px 0 0px;
+    
+    @include breakpoint-up('md') {
+        width: 40%;
+        padding: 40px 0 0px;
+    }
 
     &__sticky {
         // position: sticky;
@@ -11,7 +14,8 @@
         display: flex;
         align-items: center;
 
-        &--count {
+        &--count,
+        .junip-product-summary-review-count {
             font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;
@@ -21,10 +25,23 @@
             color: $primaryGreen;
             margin-left: 15px;
         }
+
+        .junip-product-summary-star {
+            svg {
+                path {
+                    fill: $primaryGreen;
+                }
+            }
+        }
     }
 
     &__title {
        padding: 20px 0 0;
+       font-size: 28px;
+
+       @include breakpoint-up('md') {
+            font-size: 62px;
+       }
     }
 
     &__description {
@@ -248,12 +265,17 @@
         font-family: $NeutraTextDemi;
         font-style: normal;
         font-weight: 500;
-        font-size: 26px;
-        line-height: 36px;
+        font-size: 18px;
+        line-height: 20px;
         color: $primaryBrown;
         cursor: pointer;
         padding: 10px 0;
         position: relative;
+
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 36px;
+        }
 
         &:nth-child(2) {
             padding: 10px 38px;

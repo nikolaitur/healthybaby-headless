@@ -151,16 +151,31 @@ const CartDrawer = ({ content }) => {
         console.log(cartItems)
         
         const shopifyCart = await cartClient.cartCreate({
-            lines: cartItems,
+            lines: [],
             attributes: [{ key: 'gift_options', value: 'in box with bow' }],
             note: 'Please use a red ribbon for the bow, if possible :)'
         }).then(response => {
-            console.log(response)
+            //console.log(response)
+
             // cartDrawerContext.setShopifyCartCartClient(response)
             // cartDrawerContext.setShopifyCartId(response.id)
-            // Cookies.set('shopifyCartId', response.id)
+            Cookies.set('shopifyCartId', response.id)
             // console.log(response)
         });  
+
+        console.log(shopifyCart)
+
+        await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
+            lines: []
+          })
+          .then((res) => {
+            // console.log(res)
+            // commit('setCartLineItems', res.lines)
+          })
+          .catch((err) => {
+            console.error(err, "Error")
+          })
 
         // console.log(shopifyCart)   
     }

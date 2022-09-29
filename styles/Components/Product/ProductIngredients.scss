@@ -1,5 +1,9 @@
 .product-ingredients {
-    padding: 100px 0 100px;
+    padding: 40px 0 70px;
+
+    @include breakpoint-up('md') {
+        padding: 100px 0 100px;
+    }
 
     &__content {
         text-align: center;
@@ -9,15 +13,32 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;  
-        padding: 70px 0 0;
+        padding: 30px 0 0;
+
+        @include breakpoint-up('md') {
+            padding: 70px 0 0;
+        }
     }
 
     &__item {
         background: #fff;
-        flex: 1 0 30.333333%;
-        max-width: 30.333333%;
-        margin: 15px;      
+        width: 100%;
+        margin: 0 0 24px;      
         padding: 30px;
+
+        &:last-child {
+            margin: 0;
+        }
+
+        @include breakpoint-up('md') {
+            margin: 15px;  
+            flex: 1 0 30.333333%;
+            max-width: 30.333333%;
+
+            &:last-child {
+                margin: 15px;  
+            }
+        }
 
         &--content {
             display: flex;
@@ -30,7 +51,11 @@
 
         &--image {
             position: relative;
-            width: 100px;
+            width: 60px;
+
+            @include breakpoint-up('md') {
+                width: 100px;
+            }
     
             span {
                 padding-top: 0!important;
@@ -49,19 +74,16 @@
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: fontsize(26px);
-            line-height: 29px;
+            font-size: fontsize(20px);
+            line-height: 22px;
             letter-spacing: -0.01em;
             color: $primaryBrown;
             margin-top: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
 
             @include breakpoint-up('md') {
                 font-size: fontsize(26px);
-            }
-
-            @include breakpoint-up('xl') {
-                font-size: fontsize(26px);
+                margin-bottom: 10px;
             }
         }
 
