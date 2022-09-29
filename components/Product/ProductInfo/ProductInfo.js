@@ -2,11 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
+import cartClient from 'services/nacelleClientCart'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
+
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import ProductOptions from '../../Product/ProductOptions'
 
@@ -20,12 +24,12 @@ import Minus from '../../../svgs/minus.svg'
 const ProductInfo = ( props ) => {
     const { product, page } = props
 
-    // console.log(page, product, "info")
-
     const [, { addToCart }] = useCart()
     const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
     const [selectedOptions, setSelectedOptions] = useState(selectedVariant.content.selectedOptions)
     const [selectedCombination, setSelectedCombination] = useState(true);
+    const [isSubscription, setIsSubscription] = useState(false)
+    const [purchaseSubscription, setPurchaseSubscription] = useState(false)
     const [activeOption, setActiveOption] = useState(0)
     const [activeTab, setActiveTab] = useState(0);
     const [quantity, setQuantity] = useState(1)
@@ -33,6 +37,18 @@ const ProductInfo = ( props ) => {
 
     const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext = useDiaperCalculatorContext()
+
+    console.log(product, "info", selectedVariant)
+
+    const richTextRenderOptions = {
+        renderNode: {
+            [BLOCKS.EMBEDDED_ASSET]: (node) => {
+                return (
+                    `<img src=https:${node.data.target.fields.file.url} />`
+                )
+            },
+        }
+      }
 
     let options = null
 
@@ -72,6 +88,9 @@ const ProductInfo = ( props ) => {
     // To Do Confgiure Recharge
     const handleSubscriptionChange = (event) => {
         console.log(event.target.value)
+        if(event.target.value === "Subscription") {
+            setPurchaseSubscription(true)
+        }
     }
 
     const handleDecrementChange = () => {
@@ -90,17 +109,103 @@ const ProductInfo = ( props ) => {
     // Get product data and add it to the cart by using `addToCart`
     // from the `useCart` hook provided by `@nacelle/react-hooks`.
     // (https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks)
-    const handleAddItem = () => {
+    const handleAddItem = async () => {
         const variant = getCartVariant({
             product,
             variant: selectedVariant,
         })
-        addToCart({
-            variant,
-            quantity,
-        })
+
+        if(purchaseSubscription) {
+            let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+
+            let lineItem = {
+                nacelleEntryId: selectedVariant.nacelleEntryId,
+                quantity: quantity,
+            }
+
+            if(!sellingPlan) {
+                sellingPlan = false
+            } else {
+                const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+                const sellingPlanId = atob(sellingPlanAllocationsValue[0].sellingPlan.id)
+
+                lineItem = {
+                    nacelleEntryId: selectedVariant.id,
+                    quantity: quantity,
+                    sellingPlanId,
+                    attributes: [{ key: 'subscription', value: sellingPlanId }]
+                }
+            }
+
+            addToCart({
+                variant,
+                quantity,
+                sellingPlan,
+                subscription: true,
+                nacelleEntryId: selectedVariant.nacelleEntryId
+            })
+
+            await cartClient.cartLinesAdd({
+                cartId: `${cartDrawerContext.shopifyCartId}`,
+                lines: [
+                    lineItem    
+                ]
+              })
+              .then((data) => {
+                console.log(data, "Cart data")
+                // commit('setCartLineItems', res.lines)
+              })
+              .catch((err) => {
+                console.error(err, "Error")
+              })
+        } else {
+            console.log("one-time")
+            let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+
+            if(!sellingPlan) {
+                sellingPlan = false
+            }
+
+            addToCart({
+                variant,
+                quantity,
+                sellingPlan,
+                subscription: false,
+                nacelleEntryId: selectedVariant.nacelleEntryId
+            })
+
+            await cartClient.cartLinesAdd({
+                cartId: cartDrawerContext.shopifyCartId,
+                lines: [
+                  {
+                    nacelleEntryId: selectedVariant.nacelleEntryId,
+                    quantity: quantity,
+                  }
+                ]
+              })
+              .then((res) => {
+                console.log(res)
+                // commit('setCartLineItems', res.lines)
+              })
+              .catch((err) => {
+                console.error(err, "Error")
+              })
+        }
+
+        // console.log(cartDrawerContext)
+
         cartDrawerContext.setIsOpen(true)
     }
+
+    useEffect(() => {
+        const sellingPlanAllocations = selectedVariant.metafields.find(
+            (metafield) => metafield.key === 'sellingPlanAllocations'
+        )
+
+        setIsSubscription(sellingPlanAllocations)
+
+        // console.log(sellingPlanAllocations, "sellingPlan")
+    }, [])
 
     useEffect(() => {
         const getReview = async () => {
@@ -128,7 +233,9 @@ const ProductInfo = ( props ) => {
                         <div className="product-info__reviews">
                             <>
                                 <span class="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
-                                <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span>
+                                
+                                <span class="junip-product-summary" data-product-id="4522469523505"></span>
+                                {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
                             </>
                             <div className="product-info__reviews--count">{ review.rating_count } reviews</div>
                         </div>
@@ -147,24 +254,24 @@ const ProductInfo = ( props ) => {
                                         switch (type) {
                                             case 'Combination': 
                                                 return (
-                                                    <div className="product-form__add-on">
+                                                    <div className="product-form__add-on" onChange={() => handleCheckBoxChange(option)}>
                                                         <div className="product-form__add-on--image"></div>
                                                         <div className="product-form__add-on--content">
                                                             <div className="product-form__add-on--title">Add a 4-pk of Wipes?</div>
                                                             <div className="product-form__add-on--price">+$27</div>
                                                         </div>
-                                                        <input type="checkbox" onChange={() => handleCheckBoxChange(option)}></input>
+                                                        <input type="checkbox" ></input>
                                                     </div>
                                                 )
                                             default:
-                                            return <ProductOptions option={option} handleOptionChange={handleOptionChange}/>
+                                            return <ProductOptions option={option} handleOptionChange={handleOptionChange} key={oIndex}/>
                                         }
                                 })  
                             }
                         </div> 
 
-                        {product.tags.includes("Subscription") ? (
-                            <div className="product-form__subscription" onChange={() => handleSubscriptionChange(event)}>
+                        {isSubscription ? (
+                            <div className="product-form__subscription" onChange={(event) => handleSubscriptionChange(event)}>
                                 <div className="product-form__input-wrapper active">
                                     <input type="radio" id="html" name="subscription" value="One Time" />
                                     <label for="html">Buy One Time</label>
@@ -192,20 +299,20 @@ const ProductInfo = ( props ) => {
                         </div> 
                         <div className='product-tabs'>
                             <div className="product-tabs__nav">
-                                <div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>Details</div>
-                                <div className={`product-tabs__title ${activeTab == 1 ? "active" : ""}`} onClick={() => setActiveTab(1)}>Ingredients</div>
-                                <div className={`product-tabs__title ${activeTab == 2 ? "active" : ""}`} onClick={() => setActiveTab(2)}>Beneifts</div>
+                                {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (<div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>{page.fields.productDetailTabTitle1}</div>) : ""}
+                                {page.fields?.productDetailTabTitle2 && page.fields?.productDetailTabContent2 ?(<div className={`product-tabs__title ${activeTab == 1 ? "active" : ""}`} onClick={() => setActiveTab(1)}>{page.fields.productDetailTabTitle2}</div>) : ""}
+                                {page.fields?.productDetailTabTitle3 && page.fields?.productDetailTabContent3 ? (<div className={`product-tabs__title ${activeTab == 2 ? "active" : ""}`} onClick={() => setActiveTab(2)}>{page.fields.productDetailTabTitle3}</div>) : ""}
                             </div>
                             <div className="product-tabs__content">
-                                <div className={`product-tabs__tab ${activeTab == 0 ? "active" : ""}`}>
-                                    Plant-powered & engineered with proprietary magic channels & flash dry technology to instantly wick moisture from baby's skin, providing 30% better leak protection, even overnight.
-                                </div>
-                                <div className={`product-tabs__tab ${activeTab == 1 ? "active" : ""}`}>
-                                    Plant-powered & engineered with proprietary magic channels & flash dry technology to instantly wick moisture from baby's skin, providing 30% better leak protection, even overnight.
-                                </div>
-                                <div className={`product-tabs__tab ${activeTab == 2 ? "active" : ""}`}>
-                                    Plant-powered & engineered with proprietary magic channels & flash dry technology to instantly wick moisture from baby's skin, providing 30% better leak protection, even overnight.
-                                </div>
+                                {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (
+                                    <div className={`product-tabs__tab ${activeTab == 0 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent1, richTextRenderOptions) }}></div>
+                                ) : ""}
+                                {page.fields?.productDetailTabTitle2 && page.fields?.productDetailTabContent2 ? (
+                                    <div className={`product-tabs__tab ${activeTab == 1 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent2, richTextRenderOptions) }}></div>
+                                ) : ""}
+                                {page.fields?.productDetailTabTitle3 && page.fields?.productDetailTabContent3 ? (
+                                    <div className={`product-tabs__tab ${activeTab == 2 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent3, richTextRenderOptions) }}></div>
+                                ) : ""}
                             </div>
                         </div> 
                     </div>

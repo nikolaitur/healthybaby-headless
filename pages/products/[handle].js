@@ -114,7 +114,7 @@ export async function getStaticProps({ params }) {
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
   const { products } = await nacelleClient.query({
     query: PAGE_QUERY,
-    variables: { handle: params.handle },
+    variables: { handle: params.handle, nameSpace: "shopify", key: "sellingPlanAllocations" },
   })
 
   const pages = await nacelleClient.content({
@@ -181,6 +181,12 @@ const PAGE_QUERY = `
           thumbnailSrc
           altText
         }
+        media {
+          id
+          src
+          thumbnailSrc
+          altText
+        }
 			}
       tags
       variants{
@@ -190,6 +196,11 @@ const PAGE_QUERY = `
         availableForSale
         price
         compareAtPrice
+        metafields {
+          namespace
+          value
+          key
+        }
         content{
           title
           selectedOptions{

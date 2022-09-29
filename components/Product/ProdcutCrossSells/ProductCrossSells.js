@@ -12,7 +12,7 @@ const ProductCrossSells = ({ content }) => {
             await nacelleClient.content({
                 nacelleEntryIds: ["aWQ6Ly9DT05URU5URlVML3VyZHJ6emFjNGlncC9tYXN0ZXIvQ09OVEVOVC82UmlReUFrY0pqdmR3OTZYMHNWR0xKL2VuLVVT"]
             }).then(response => {
-                console.log(response[0])
+                // console.log(response[0])
                 setProduct(response[0])
             });
         }

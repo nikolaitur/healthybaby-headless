@@ -16,6 +16,8 @@ const LineItem = ({item}) => {
         { incrementItem, decrementItem, removeFromCart, addToCart },
     ] = useCart()
 
+    // console.log(item, "item")
+
     let isSubscription = false
     let hasSubscriptionProduct = false
 
@@ -48,9 +50,9 @@ const LineItem = ({item}) => {
         addToCart({
             variant,
             quantity: 1,
-            properties: {
-                _
-            }
+            // properties: {
+    
+            // }
         })
     }
 
@@ -75,6 +77,10 @@ const LineItem = ({item}) => {
 
     const upgradeToSubscription = () => {
         getSubscriptionProduct(hasSubscriptionProduct)
+    }
+
+    const removeSubscription = () => {
+
     }
 
   return (
@@ -115,8 +121,11 @@ const LineItem = ({item}) => {
                 </div>
             </div>
         </div>
-        {hasSubscriptionProduct ? (
-            <button className="line-item__upgrade" onClick={() => upgradeToSubscription()}>Upgrade to Subscribe & Save 15%</button>
+        {!item.subscription && item?.sellingPlan ? (
+            <button className="line-item__upgrade" onClick={() => upgradeToSubscription()}>Upgrade to Subscribe & Save 10%</button>
+        ) : ""}
+        {item.subscription && item?.sellingPlan ? (
+            <button className="line-item__upgrade bold" onClick={() => removeSubscription()}>Delivery Every 1 Month</button>
         ) : ""}
     </div>
   )

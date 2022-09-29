@@ -123,6 +123,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        cursor: pointer;
 
         &--image {
             width: 72px;
@@ -287,5 +288,42 @@
         &.active {
             display: block;
         }
+    }
+
+    p, li {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(18px);
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    
+        @include breakpoint-up('md') {
+            font-size: fontsize(20px);
+        }
+    
+        @include breakpoint-up('xl') {
+            font-size: fontsize(22px);
+        }
+    }
+
+    ul {
+        // padding-top: 20px;
+        padding-left: 15px;
+
+        li {
+            // display: block;
+            list-style: disc;
+
+            &:not(last-child) {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    img {
+        margin-top: 30px;
+        width: 100%;
     }
 }

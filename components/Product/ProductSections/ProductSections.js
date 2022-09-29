@@ -18,7 +18,7 @@ const ProductSections =  ({ content }) => {
                 content.fields.sections.map((section, index) => {
                     const type = section.type
 
-                    console.log(section)
+                    // console.log(section)
 
                     switch (type) {
                         case 'productValueProps':

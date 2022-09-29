@@ -1,7 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import cartClient from 'services/nacelleClientCart'
+import { useCart, useCheckout } from '@nacelle/react-hooks'
 import CartDrawer from '../components/Layout/CartDrawer'
 import Router, { useRouter } from 'next/router'
+
+import * as Cookies from 'es-cookie'
 
 const CartDrawerContext = createContext()
 
@@ -10,8 +14,12 @@ export function useCartDrawerContext() {
 }
 
 export function CartDrawerProvider({ children }) {
+    const [ { cart } ] = useCart()
+
     const [isOpen, setIsOpen] = useState(false)
     const [content, setContent] = useState('')
+    const [shopifyCartClient, setShopifyCartCartClient] = useState('')
+    const [shopifyCartId, setShopifyCartId] = useState(false)
 
     useEffect(() => {
         const getCartDrawerContent = async () => {
@@ -24,8 +32,42 @@ export function CartDrawerProvider({ children }) {
         getCartDrawerContent()
     }, [])
 
+    useEffect(() => {
+        const getCartClient = async () => {
+
+            const cartItems = cart.map((lineItem) => ({
+                merchandiseId: lineItem.nacelleEntryId,
+                nacelleEntryId: lineItem.nacelleEntryId,
+                quantity: lineItem.quantity,
+            }))
+
+            if(Cookies.get('shopifyCartId')) {
+                // console.log(shopifyCartId, "ID")
+                cartClient.cart({
+                    cartId: Cookies.get('shopifyCartId')
+                }).then(response => {
+                    console.log(response, "response")
+                    setShopifyCartCartClient(response)
+                    setShopifyCartId(response.id)
+                })
+            } else {
+                const shopifyCart = await cartClient.cartCreate({
+                    lines: cartItems,
+                    attributes: [{ key: 'gift_options', value: 'in box with bow' }],
+                    note: 'Please use a red ribbon for the bow, if possible :)'
+                }).then(response => {
+                    setShopifyCartCartClient(response)
+                    setShopifyCartId(response.id)
+                    Cookies.set('shopifyCartId', response.id)
+                });                
+            }
+        }
+
+        getCartClient()
+    }, [])
+
     return (
-        <CartDrawerContext.Provider value={{ isOpen, setIsOpen, content }}>
+        <CartDrawerContext.Provider value={{ isOpen, setIsOpen, content, shopifyCartClient, setShopifyCartCartClient,  shopifyCartId, setShopifyCartId }}>
             {children}
             <CartDrawer content={content} />
         </CartDrawerContext.Provider>

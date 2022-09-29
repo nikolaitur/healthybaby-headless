@@ -8,7 +8,7 @@ import CaretRight from '../../../svgs/caret-right.svg'
 const ProductAboutAccordion = ({ item }) => {
     const [isActive, setIsActive] = useState(false);
 
-    console.log(item)
+    // console.log(item)
 
     return (
         <div className={`accordion-item ${isActive ? "is-open" : ""}`}>

@@ -1,5 +1,6 @@
 .product-reviews {
-
+    padding: 0 0 40px;
+    
     .junip-product-review-container, 
     .junip-review-section-title {
         @extend .container;
@@ -51,6 +52,7 @@
         border-width: 0;
         cursor: pointer;
         transition: 0.3s;
+        margin-top: 60px;
     
         @include breakpoint-up('md') {
             font-size: 18px;
