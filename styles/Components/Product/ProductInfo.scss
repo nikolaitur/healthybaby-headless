@@ -252,6 +252,63 @@
 
 }
 
+.product-status {
+    margin-top: 30px;
+
+    p {
+        span {
+            font-family: $NeutraTextDemi;
+            color: $primaryGreen
+        }
+    }
+
+    p + p {
+        margin-top: 10px;
+    }
+}
+
+.product-message {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+    position: relative;
+
+    &__wrapper {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid rgb(0 0 0 / 10%);
+        display: flex;
+        align-items: center;
+    }
+
+    &__image {
+        width: 72px;
+        height: 72px;
+        background: #D9D9D9;
+    }
+
+    &__text {
+        margin-left: 10px;
+        p {
+            font-family: $NeutraTextDemi;
+        }
+    }
+
+    &__link {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryGreen;
+        cursor: pointer;
+        text-decoration: underline;
+        position: absolute;
+        right: 15px;
+    }
+}
+
 .product-tabs {
     padding: 70px 0 0;
 

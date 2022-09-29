@@ -38,7 +38,7 @@ const ProductInfo = ( props ) => {
     const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext = useDiaperCalculatorContext()
 
-   console.log(product, "info", selectedVariant, page)
+   // console.log(product, "info", selectedVariant, page)
 
     const richTextRenderOptions = {
         renderNode: {
@@ -237,7 +237,7 @@ const ProductInfo = ( props ) => {
                                 <span class="junip-product-summary" data-product-id="4522469523505"></span>
                                 {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
                             </>
-                            <div className="product-info__reviews--count">{ review.rating_count } reviews</div>
+                            {/* <div className="product-info__reviews--count">{ review.rating_count } reviews</div> */}
                         </div>
                     ) : ""}
 
@@ -296,25 +296,49 @@ const ProductInfo = ( props ) => {
                                 </button>
                             </div> 
                             <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
-                        </div> 
-                        <div className='product-tabs'>
-                            <div className="product-tabs__nav">
-                                {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (<div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>{page.fields.productDetailTabTitle1}</div>) : ""}
-                                {page.fields?.productDetailTabTitle2 && page.fields?.productDetailTabContent2 ?(<div className={`product-tabs__title ${activeTab == 1 ? "active" : ""}`} onClick={() => setActiveTab(1)}>{page.fields.productDetailTabTitle2}</div>) : ""}
-                                {page.fields?.productDetailTabTitle3 && page.fields?.productDetailTabContent3 ? (<div className={`product-tabs__title ${activeTab == 2 ? "active" : ""}`} onClick={() => setActiveTab(2)}>{page.fields.productDetailTabTitle3}</div>) : ""}
+                        </div>
+                        <div className="product-status">
+                            {product.availableForSale ? (
+                                <p><span>• In Stock</span> Ships within 1-2 business days.</p>
+                            ) : ""}
+                            <p>Complimentary shipping over $100</p>
+                        </div>
+                        {page.fields?.messageTitle && page.fields?.messageText && page.fields?.messageUrl ? (
+                            <div className="product-message">
+                                <p className="product-message__title large">{ page.fields.messageTitle }</p>
+                                <div className="product-message__wrapper">
+                                    <div className="product-message__image"></div>
+                                    <p className="product-message__text large">{ page.fields.messageText }</p>
+                                    <Link href={page.fields.messageUrl }>
+                                        <div className="product-message__link">
+                                            <span>Shop Now</span>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="product-tabs__content">
-                                {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (
-                                    <div className={`product-tabs__tab ${activeTab == 0 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent1, richTextRenderOptions) }}></div>
-                                ) : ""}
-                                {page.fields?.productDetailTabTitle2 && page.fields?.productDetailTabContent2 ? (
-                                    <div className={`product-tabs__tab ${activeTab == 1 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent2, richTextRenderOptions) }}></div>
-                                ) : ""}
-                                {page.fields?.productDetailTabTitle3 && page.fields?.productDetailTabContent3 ? (
-                                    <div className={`product-tabs__tab ${activeTab == 2 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent3, richTextRenderOptions) }}></div>
-                                ) : ""}
-                            </div>
-                        </div> 
+                        ) : ""}
+                        
+                        {page.fields?.productDetailTabTitle1 ? (
+                            <div className='product-tabs'>
+                                <div className="product-tabs__nav">
+                                    {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (<div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>{page.fields.productDetailTabTitle1}</div>) : ""}
+                                    {page.fields?.productDetailTabTitle2 && page.fields?.productDetailTabContent2 ?(<div className={`product-tabs__title ${activeTab == 1 ? "active" : ""}`} onClick={() => setActiveTab(1)}>{page.fields.productDetailTabTitle2}</div>) : ""}
+                                    {page.fields?.productDetailTabTitle3 && page.fields?.productDetailTabContent3 ? (<div className={`product-tabs__title ${activeTab == 2 ? "active" : ""}`} onClick={() => setActiveTab(2)}>{page.fields.productDetailTabTitle3}</div>) : ""}
+                                </div>
+                                <div className="product-tabs__content">
+                                    {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (
+                                        <div className={`product-tabs__tab ${activeTab == 0 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent1, richTextRenderOptions) }}></div>
+                                    ) : ""}
+                                    {page.fields?.productDetailTabTitle2 && page.fields?.productDetailTabContent2 ? (
+                                        <div className={`product-tabs__tab ${activeTab == 1 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent2, richTextRenderOptions) }}></div>
+                                    ) : ""}
+                                    {page.fields?.productDetailTabTitle3 && page.fields?.productDetailTabContent3 ? (
+                                        <div className={`product-tabs__tab ${activeTab == 2 ? "active" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(page.fields.productDetailTabContent3, richTextRenderOptions) }}></div>
+                                    ) : ""}
+                                </div>
+                            </div> 
+                         ) : ""}
+    
                     </div>
                 </div>
             </div>

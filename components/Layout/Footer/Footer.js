@@ -11,7 +11,7 @@ import FooterDetail1 from '../../../svgs/footer-detail-1.svg'
 import FooterDetail2 from '../../../svgs/footer-detail-2.svg'
 
 const Footer = ({ content }) => {
-    const { mainNavigation, newsletter, copyright, policy, social } = content[0].fields
+    const { mainNavigation, newsletter, copyright, policy, social } = content.fields
 
     const getSocialIcon = (title) => {
         switch(title){

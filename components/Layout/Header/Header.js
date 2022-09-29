@@ -16,7 +16,6 @@ export function Header({ content }) {
                 <MainNavigation props={content.fields} />
                 <MobileNavigation props={content.fields}/>
             </nav>
-            
         </header>
       </>
     )

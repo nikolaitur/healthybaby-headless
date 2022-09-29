@@ -2,6 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
 import CollectionProductCard from '../../Cards/CollectionProductCard'
 
 const ProductCrossSells = ({ content }) => {
@@ -10,9 +12,9 @@ const ProductCrossSells = ({ content }) => {
     useEffect(() => {
         const getProduct = async () => {
             await nacelleClient.content({
-                nacelleEntryIds: ["aWQ6Ly9DT05URU5URlVML3VyZHJ6emFjNGlncC9tYXN0ZXIvQ09OVEVOVC82UmlReUFrY0pqdmR3OTZYMHNWR0xKL2VuLVVT"]
+                nacelleEntryIds: ["Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzgwMzIwMTM1NDk4MDg="]
             }).then(response => {
-                // console.log(response[0])
+                console.log(response)
                 setProduct(response[0])
             });
         }
@@ -20,16 +22,22 @@ const ProductCrossSells = ({ content }) => {
         getProduct()
     }, [])
 
+    console.log(content, "cross sells")
+
     return (
         <div className="product-cross-sells">
             <div className="product-cross-sells__container container">
-                <h6 className="product-cross-sells__subheader">YOU MAY ALSO LIKE</h6>
-                <h3 className="product-cross-sells__header">Simplify daily routines with <i>fewer,<br/> better</i> things</h3>
-                {product ? (
+                {content.fields?.subheader ? 
+                        <h6 className="product-cross-sells__subheader">{ content.fields.subheader }</h6>
+                : ""}
+                {content.fields?.subheader ? 
+                    <div className="product-cross-sells__header" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.fields.header) }}></div>
+                : ""}
+                {content.fields?.sections ? (
                     <div className="product-cross-sells__items">
-                        <CollectionProductCard content={product} />
-                        <CollectionProductCard content={product} />
-                        <CollectionProductCard content={product} />
+                         {content.fields.sections.map((item, index) => {
+                            return <CollectionProductCard content={item} key={index}/>
+                         })}
                     </div>
                 ) : ""}
             </div>

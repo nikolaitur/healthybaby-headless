@@ -112,8 +112,8 @@ const MainNavigation = ({props}) => {
                         Build a Box
                     </Link>
                 </div>
-                {props?.primaryNavigatio ? (
-                    props.primaryNavigation.map((item, index) => (
+                {props?.mainNavigation ? (
+                    props.mainNavigation.map((item, index) => (
                         <MegaMenuItem key={index} menu={item}/>
                     ))
                 ) : "" }

@@ -39,12 +39,15 @@
     }  
 
     &__items {
-        display: flex;
-        justify-content: space-between;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 1fr;
-        gap: 0 36px;
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+            gap: 0 36px;
+        }
+
     }
 
     .collection-product-card {

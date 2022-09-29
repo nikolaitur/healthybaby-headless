@@ -111,7 +111,10 @@ const CollectionProductCard = ({ content }) => {
             <div className="collection-product-card__content">
                 <div className="collection-product-card__title">{ title }</div>
                 <p className="collection-product-card__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <div className="collection-product-card__reviews"></div>
+                <div className="collection-product-card__reviews">
+                    <span class="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                    <span class="junip-product-summary" data-product-id="4522469523505"></span>
+                </div>
                 <div className="collection-product-card__cta">
                     <Link href="/">
                         <button className="btn secondary"><span>Add To Cart </span>{productPrice ? <>{`\u00A0`}- ${productPrice}</> : ""}</button>

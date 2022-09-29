@@ -37,13 +37,13 @@ const ProductSections =  ({ content }) => {
                             return <ProductAbout content={section} key={index} />;
                         case 'productTechnology':
                             return <ProductTechnologyCallout content={section} key={index} />;
+                        case 'productCrossSells':
+                                return <ProductCrossSells content={section} key={index} />;
                         default:
                         return null
                     }
                 })
             ) : ""} 
-            <ProductCrossSells />
-            {/* <ProductReviews /> */}
         </div>
     )
 }

@@ -35,7 +35,6 @@
         line-height: 19px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin-bottom: 5px;
 
         @include breakpoint-up('md') {
             font-size: 26px;
@@ -51,11 +50,34 @@
         line-height: 17px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin-bottom: 15px;
+        margin-top: 5px;
 
         @include breakpoint-up('md') {
             font-size: 22px;
             line-height: 31px;
+        }
+    }
+
+    &__reviews {
+        margin-top: 10px;
+
+        .junip-product-summary-review-count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 25px;
+            letter-spacing: -0.01em;;
+            color: $primaryGreen;
+            margin-left: 15px;
+        }
+
+        .junip-product-summary-star {
+            svg {
+                path {
+                    fill: $primaryGreen;
+                }
+            }
         }
     }
 
@@ -127,6 +149,10 @@
             // min-height: auto!important;
             // max-height: auto!important;
         }
+    }
+
+    &__cta {
+        margin-top: 10px;
     }
 
     &__slider {
