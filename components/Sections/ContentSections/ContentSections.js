@@ -11,6 +11,7 @@ import WowAndHow from '../WowAndHow'
 import FAQGroup from '../FAQGroup'
 import ContactForm from '../ContactForm'
 import AfterShip from '../AfterShip'
+import JazzHR from '../JazzHR'
 
 const ContentSections = ({ sections }) => {
     return (
@@ -45,6 +46,8 @@ const ContentSections = ({ sections }) => {
                         return <ContactForm content={section} key={index} />
                     case 'afterShipWidget':
                         return <AfterShip content={section} key={index} />
+                    case 'jazzHrWidget':
+                        return <JazzHR content={section} key={index} />
                     default:
                     return null
                 }
