@@ -1,8 +1,9 @@
 // import classes from './MainNavigation.scss'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import SearchMenu from './SearchMenu';
 import MegaMenu from './MegaMenu'
 import MegaMenuItem from './MegaMenuItem'
 import DropDownMenuItem from './DropdownMenuItem'
@@ -10,6 +11,7 @@ import DropDownMenuItem from './DropdownMenuItem'
 import { useCustomerContext } from '../../../context/CustomerContext'
 import { useModalContext } from '../../../context/ModalContext'
 import { useHeaderContext } from '../../../context/HeaderContext'
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import Logo from '../../../svgs/healthybaby-logo.svg'
 import LogoMobile from '../../../svgs/healthybaby-logo-mobile.svg'
@@ -21,22 +23,32 @@ import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
 const MainNavigation = ({props}) => {
-    const logo = props.logo.fields.file.url
     const primaryNavigation = props.mainNavigation
     const secondaryNavigation = props.secondaryNavigation
-    const searchIcon = props.searchIcon.fields.file.url
-    const accountIcon = props.babyIcon.fields.file.url
-    const cartIcon = props.cartIcon.fields.file.url
+    // const searchIcon = props.searchIcon.fields.file.url
+    // const accountIcon = props.babyIcon.fields.file.url
+    // const cartIcon = props.cartIcon.fields.file.url
 
     const customerContext =  useCustomerContext()
     const modalContext = useModalContext()
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
+    const cartDrawerContext =  useCartDrawerContext()
 
     console.log('Cust', customerContext.customer)
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);
     const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false);
+    const [isSearchOpen, setSearchOpen] = useState(false)
+    const [query, setQuery] = useState('');
+
+    useEffect(() => {
+        if(isSearchOpen) {
+            document.body.classList.add("no-scroll")
+        } else {
+            document.body.classList.remove("no-scroll")
+        }
+    }, [isSearchOpen])
 
     const openAccountModal = () => {
         modalContext.setIsOpen(false)
@@ -90,6 +102,19 @@ const MainNavigation = ({props}) => {
         document.documentElement.style.setProperty("--menuItemHover",  "#D0D8E9");
         document.documentElement.style.setProperty("--megaMenuLinkBackground",  "#D0D8E9");
     }
+
+    const openCartDrawer = () => {
+        cartDrawerContext.setIsOpen(true)
+    }
+    const toggleSearch = () => {
+        setSearchOpen(!isSearchOpen);
+        setQuery("")
+    }
+
+    const handleSearchChange = event => {
+      setQuery(event.target.value);
+      // console.log('value is:', event.target.value);
+    };
     
     return (
     <>
@@ -113,24 +138,28 @@ const MainNavigation = ({props}) => {
                 {secondaryNavigation.map((item, index) => (
                     <DropDownMenuItem key={index} item={item} />
                 ))}
-                <div className="main-nav__item">
+                <div className={`main-nav__item ${isSearchOpen ? "active" : ""}`} onClick={() => toggleSearch()}>
                     <Search/>
                 </div>
                 <div className="main-nav__item" onClick={() => openAccountModal()}>
                     <Baby/>
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => openCartDrawer()}>
                     <Cart />
+                </div>
+                <div className={`main-nav__search ${isSearchOpen ? "active" : ""}`}>
+                    <input type="text" className="input" placeholder="search products, articles, events, etc..." onChange={handleSearchChange} />
                 </div>
             </div> 
             <MegaMenu menu={megaMenu} />
+            <SearchMenu query={query} toggleSearch={toggleSearch} />
         </div>
         <div className="mobile-nav">
             <div className="mobile-nav__left">
                 <div className="main-nav__item" onClick={() => openMobileMenu()}>
                     <HamburgerMenu />
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => toggleSearch()}>
                     <Search />
                 </div>
             </div>
@@ -141,7 +170,7 @@ const MainNavigation = ({props}) => {
                 <div className="main-nav__item" onClick={() => console.log('openModal')}>
                     <Baby />
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => openCartDrawer()}>
                     <Cart />
                 </div>
             </div>
@@ -179,6 +208,17 @@ const MainNavigation = ({props}) => {
                 </div>
                 <MegaMenu menu={megaMenu}/>
             </div>
+        </div>
+
+        <div className={`mobile-menu mobile-menu--search ${isSearchOpen ? "is-open" : ""}`}>
+            <div className="mobile-menu__close" onClick={() => toggleSearch()}>
+                <CloseIcon />
+            </div>
+            <div className={`mobile-menu__search`}>
+                <input type="text" className="input" placeholder="search products, articles, events, etc..." onChange={handleSearchChange} />
+                <span><Search/></span>
+            </div>
+            <SearchMenu query={query} toggleSearch={toggleSearch} isSearchOpen={isSearchOpen} />
         </div>
       </>
     )

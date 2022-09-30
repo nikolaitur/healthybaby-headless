@@ -10,7 +10,7 @@
     letter-spacing: 0.02em;
     color: $primaryBrown;
     background: #fff;
-    padding: 14px 60px;
+    padding: 14px 20px;
     width: 100%;
     border-radius: 60px;
     border-width: 0;
@@ -25,6 +25,35 @@
         max-width: max-content;
     }
 
+    &.secondary {
+        background: $primaryGreen;
+        color: #fff;
+
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+
+        &:hover {
+            background: #fff;
+            color: $primaryBrown;
+
+    
+            svg {
+                path {
+                    fill: $primaryBrown;
+                }
+            }
+        }
+    }
+
+    &.full-width {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+    }
+
     &:hover {
         background: $primaryGreen;
         color: #fff;
@@ -36,7 +65,43 @@
         }
     }
 
-    span:last-child {
+    span + span {
         margin-left: 20px;
+    }
+}
+
+.link {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+    color: $primaryGreen;
+    border-bottom: 1px solid $primaryGreen;
+    border-width: 0 0 1px 0;
+}
+
+.react-datepicker {
+    font-family: $NeutraText;
+    background: #A0B0D2;
+
+    &__week {
+        height: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__day {
+        color: #fff;
+        margin: 0 0.166rem;
+
+        &--selected,
+        &--keyboard-selected {
+            background: #C2CDC6;
+        }
     }
 }

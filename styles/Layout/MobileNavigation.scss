@@ -35,19 +35,20 @@
         }
     }
 
+    &__left,
+    &__right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      z-index: 11;
+    }
+
     &__left {
-        position: relative;
-        display: flex;
-        align-items: center;
         justify-content: flex-start;
         width: calc(50% - 100px);
-        z-index: 11;
     }
 
     &__right {
-        position: relative;
-        display: flex;
-        align-items: center;
         justify-content: flex-end;
         width: calc(50% - 100px);
     }

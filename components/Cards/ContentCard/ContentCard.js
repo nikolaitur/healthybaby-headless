@@ -22,7 +22,7 @@ const ContentCard = ({ content }) => {
                     <span>{ topic }</span>
                     {stage ? (
                         <>
-                            <span className="bullet">&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+                            <span className="bullet">{`\u00A0`}{`\u00A0`}{`\u00A0`}•{`\u00A0`}{`\u00A0`}{`\u00A0`}</span>
                             <span>{ stage }</span>
                         </>
                     ) : ""}

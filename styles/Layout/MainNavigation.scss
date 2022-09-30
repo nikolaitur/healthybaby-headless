@@ -32,7 +32,7 @@
         border-radius: 100%;
         left: 50%;
         top: -280px;
-        z-index: 0;
+        z-index: 6;
         transform: translateX(-50%);
     }
 
@@ -42,6 +42,7 @@
         max-height: 96px;
         transform: translateY(40px);
         cursor: pointer;
+        z-index: 7;
 
         img {
             max-height: 96px;
@@ -54,26 +55,27 @@
         }
     };
 
+    &__left,
+    &__right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      z-index: 11;
+    }
+
     &__left {
-        position: relative;
-        display: flex;
-        align-items: center;
         justify-content: flex-start;
         width: calc(50% - 205px);
         z-index: 11;
     }
 
     &__right {
-        position: relative;
-        display: flex;
-        align-items: center;
         justify-content: flex-end;
         width: calc(50% - 205px);
     }
 
     &__item {
         position: relative;
-        padding-right: 28px;
         cursor: pointer;
         transition: 0.3s;
         color: #3D3331;
@@ -82,6 +84,11 @@
         @include breakpoint-up('md') {
             font-size: 18px;
             line-height: 21px;
+            padding: 14px;
+        }
+
+        &.active {
+            z-index: 11;
         }
 
         &:hover {
@@ -105,14 +112,49 @@
         }
     }
 
+    &__search {
+        position: absolute;
+        right: 100px;
+        width: 0;
+        transition: 0.3s;
+        opacity: 0;
+        pointer-events: none;
+        max-width: 520px;
+        z-index: 10;
+
+        &.active {
+            width: calc(100% - 110px);
+            opacity: 1;
+            pointer-events: inherit;
+        }
+
+        input {
+            background: #FFFFFF;
+            border: 1px solid #DBEDF8;
+            border-radius: 60px;
+            height: 48px;
+            width: 100%;
+            max-width: 520px;
+            padding: 0 30px;
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+            padding: 0 55px 0 30px;
+        }
+    }
+
     &__dropdown {
         position: absolute;
-        width: 300px;
+        width: 280px;
         background: #fff;
         margin: 0;
         padding: 60px 20px 20px;
-        left: -20px;
-        top: 20px;
+        left: -25px;
+        top: 34px;
         opacity: 0;
         pointer-events: none;
         transition: 0.3s;

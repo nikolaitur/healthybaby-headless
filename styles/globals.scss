@@ -28,9 +28,18 @@
 @import './Layout/MobileNavigation.scss';
 @import './Layout/MobileMenu.scss';
 @import './Layout/MegaMenu.scss';
+@import './Layout/DiaperCalculator.scss';
+@import './Layout/SearchMenu.scss';
 @import './Layout/Footer.scss';
 @import './Layout/Modal.scss';
 @import './Layout/Forms.scss';
+@import './Layout/CartDrawer.scss';
+
+// ===========================================================================
+// *** Pages
+// ===========================================================================
+@import './Pages/ShopAll.scss';
+@import './Pages/Collections/Collection.scss';
 
 // ===========================================================================
 // *** Sections
@@ -45,6 +54,15 @@
 @import './Sections/StoriesSlider.scss';
 @import './Sections/WowAndHow.scss';
 @import './Sections/About.scss';
+@import './Sections/ValueProps.scss';
+@import './Sections/ProductDetailTabs.scss';
+@import './Sections/ContentTimeline.scss';
+@import './Sections/NutritionChart.scss';
+@import './Sections/Experts.scss';
+@import './Sections/FAQGroup.scss';
+@import './Sections/ContactForm.scss';
+@import './Sections/AfterShip.scss';
+@import './Sections/JazzHR.scss';
 
 // ===========================================================================
 // *** Components
@@ -52,3 +70,5 @@
 @import './Components/Cards/ContentCard.scss';
 @import './Components/Cards/CollectionCard.scss';
 @import './Components/Cards/ProductCard.scss';
+@import './Components/Cards/DiaperFinderCard.scss';
+@import './Components/Cards/VitaminFinder.scss';

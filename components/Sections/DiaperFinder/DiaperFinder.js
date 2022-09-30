@@ -141,7 +141,7 @@ const DiaperFinder = ({ content }) => {
                         <button className="btn">Explore Recommendations</button>
                     </div>
                     <div className={`diaper-finder__clear ${isActive ? "is-open" : "hidden"}`} onClick={() => clearDiaperResults()}>
-                        <span>x&nbsp;&nbsp;</span>
+                        <span>x{`\u00A0`}{`\u00A0`}</span>
                         <span>Clear My Results</span>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ const BestSellers = ({ content }) => {
 
         getBestSellers()
     }, [products]);
-
+    
     return (
         <section className="best-sellers">
             <div className="best-sellers__container container">

@@ -1,0 +1,82 @@
+.experts {
+    padding: 70px 0;
+
+    &__header {
+        text-align: center;
+    }
+    
+    &__subheader {
+        text-align: center;
+    }
+
+    &__wrapper {
+        margin: 70px auto 0 ;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            max-width: 1270px;
+        }
+    }
+
+    &__expert {
+        &:not(:last-child) {
+            margin-bottom: 60px;
+        }
+
+        @include breakpoint-up('md') {
+            width: 50%;
+
+            &:not(:last-child) {
+                margin-bottom: 00px;
+            }
+        }
+    }
+
+    &__image {
+        max-width: 512px!important;
+        margin: 0 auto;
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 100%;
+
+            @include breakpoint-up('lg') {
+                height: 512px!important;
+                width: 512px!important;
+                max-width: 512px!important;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &__name {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(26px);
+        line-height: 29px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        position: relative;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    &__description {
+        margin-top: 30px;
+        text-align: center;
+        max-width: 500px;
+        margin: 30px auto;
+    }
+
+    &__cta {
+        margin-top: 30px;
+        cursor: pointer;
+
+        .link {
+            margin: 0 auto;
+        }
+    }
+}

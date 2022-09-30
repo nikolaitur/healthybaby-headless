@@ -4,7 +4,9 @@ import { useEffect } from 'react'
 
 import { CustomerProvider } from '../context/CustomerContext';
 import { ModalProvider } from '../context/ModalContext';
+import { CartDrawerProvider } from '../context/CartDrawerContext';
 import { HeaderProvider } from '../context/HeaderContext';
+import { DiaperCalculatorProvider } from '../context/DiaperCalculatorContext';
 import Footer from './Layout/Footer';
 
 // This component utilizes `useCart` and `useCheckout` hooks from
@@ -25,16 +27,20 @@ function Layout({ children, headerSettings, footerSettings }) {
 
   return (
     <>
-      <CustomerProvider>
-          <ModalProvider>
-            <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                <main>{children}</main>
-                <Footer content={footerSettings} />
-            </HeaderProvider>
-          </ModalProvider>
-      </CustomerProvider>
+      <CartDrawerProvider>
+        <CustomerProvider>
+          <DiaperCalculatorProvider>
+              <ModalProvider>
+                <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                    <main>{children}</main>
+                    <Footer content={footerSettings} />
+                </HeaderProvider>
+              </ModalProvider>
+          </DiaperCalculatorProvider>
+        </CustomerProvider>
+      </CartDrawerProvider>
     </>
-  )        
+  )
 }
 
 export default Layout
