@@ -25,17 +25,17 @@ function Layout({ children, headerSettings, footerSettings }) {
 
   return (
     <>
-      <CartDrawerProvider>      
+      <CartDrawerProvider>
         <DiaperCalculatorProvider >
           <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
               <main>{children}</main>
               <Footer content={footerSettings} />
-          </HeaderProvider>    
-        </DiaperCalculatorProvider> 
+          </HeaderProvider>
+        </DiaperCalculatorProvider>
       </CartDrawerProvider>
     </>
   )
-        
+
 }
 
 export default Layout
