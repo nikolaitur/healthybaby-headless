@@ -6,7 +6,21 @@
     }
 
     &__content {
-        text-align: center;
+        text-align: left;
+
+        @include breakpoint-up('md') {
+            text-align: center;
+        }
+    }
+
+    &__header {
+        h3 {
+            display: inline-block;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
     }
 
     &__items {
@@ -24,13 +38,14 @@
         background: #fff;
         width: 100%;
         margin: 0 0 24px;      
-        padding: 30px;
+        padding: 15px;
 
         &:last-child {
             margin: 0;
         }
 
         @include breakpoint-up('md') {
+            padding: 30px;
             margin: 15px;  
             flex: 1 0 30.333333%;
             max-width: 30.333333%;

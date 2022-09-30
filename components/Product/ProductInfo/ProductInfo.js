@@ -278,7 +278,7 @@ const ProductInfo = ( props ) => {
                                 </div>
                                 <div className="product-form__input-wrapper">
                                     <input type="radio" id="html" name="subscription" value="Subscription" />
-                                    <label for="html">Monthly Auto-Ship  <span>Update sizing or cancel anytime</span></label>
+                                    <label for="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span></label>
                                 </div>
                             </div>
                         ): ""}

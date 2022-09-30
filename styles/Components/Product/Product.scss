@@ -18,6 +18,20 @@
             padding: 140px 0 140px;
         }
     }
+
+    .content-banner {
+        @include breakpoint-down('md') {
+            text-align: center;
+        }
+
+        &__cta {
+            @include breakpoint-down('md') {
+                .btn {
+                    padding: 19px 30px;
+                }
+            }
+        }
+    }
 }
 
 @import './ProductGallery.scss';

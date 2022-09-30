@@ -48,11 +48,16 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 26px;
-        line-height: 29px;
+        font-size: 20px;
+        line-height: 22px;
         letter-spacing: -0.01em;;
         color: $primaryBrown;
         padding: 20px 0 0;
+
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 29px;
+       }
     }
 
     &__price {
@@ -61,32 +66,48 @@
 }
 
 .product-form {
-    padding: 30px 0 30px;
+    padding: 20px 0 20px;
     border-top: 1px solid rgb(0 0 0 / 10%);
-    margin-top: 30px;
+    margin-top: 20px;
+
+    @include breakpoint-up('md') {
+        padding: 30px 0 30px;
+        margin-top: 30px;
+    }
 
     &__label {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 22px;
-        line-height: 31px;
+        font-size: 14px;
+        line-height: 20px;
         letter-spacing: -0.01em;;
         color: $primaryBrown;
-        margin: 0 0 20px;
+        margin: 0 0 15px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @include breakpoint-up('md') {
+            margin: 0 0 20px;
+            font-size: 22px;
+            line-height: 31px;
+        }
 
         span:last-child:not(:only-of-type) {
             font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
-            line-height: 25px;
+            font-size: 14px;
+            line-height: 20px;
             color: $primaryGreen;
             text-decoration: underline;
             cursor: pointer;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 25px;
+            }
         }   
     }
 
@@ -157,20 +178,30 @@
             font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;
-            font-size: 22px;
-            line-height: 31px;
+            font-size: 18px;
+            line-height: 25px;
             letter-spacing: -0.01em;
             color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 22px;
+                line-height: 31px;
+            }
         }
 
         &--price {
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: 18px;
-            line-height: 18px;
+            font-size: 16px;
+            line-height: 22px;
             letter-spacing: -0.01em;
             color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 22px;
+                line-height: 31px;
+            }
         }
     }
 
@@ -198,14 +229,29 @@
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
-            font-size: 22px;
+            font-size: 16px;
             line-height: 22px;
             letter-spacing: -0.01em;
             color: $primaryBrown;
 
+            @include breakpoint-up('md') {
+                font-size: 22px;
+
+                br {
+                    display: none;
+                }
+            }
+
             span {
-                font-size: 18px;
-                line-height: 18px;
+                font-size: 12px;
+                line-height: 12px;
+                padding-left: 27px;
+
+                @include breakpoint-up('md') {
+                    font-size: 18px;
+                    line-height: 18px;
+                    padding-left: 0px;
+                }
             }
         }
     }
@@ -222,11 +268,17 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        min-width: 170px;
+        min-width: 85px;
         background: #fff;
-        padding: 19px 5px;
-        max-width: 170px;
+        padding: 13px 5px;
+        max-width: 85px;
         margin-right: 15px;
+
+        @include breakpoint-up('md') {
+            padding: 19px 5px;
+            min-width: 170px;
+            max-width: 170px;
+        }
 
         &--decrement, 
         &--increment {
@@ -254,6 +306,11 @@
 
 .product-status {
     margin-top: 30px;
+    text-align: center;
+
+    @include breakpoint-up('md') {
+        text-align: left;
+    }
 
     p {
         span {
@@ -310,7 +367,11 @@
 }
 
 .product-tabs {
-    padding: 70px 0 0;
+    padding: 40px 0 0;
+
+    @include breakpoint-up('md') {
+        padding: 70px 0 0;
+    }
 
     &__nav {
         display: flex;
