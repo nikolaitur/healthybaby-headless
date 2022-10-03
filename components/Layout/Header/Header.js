@@ -8,16 +8,15 @@ import MobileNavigation from '../MobileNavigation'
 export function Header({ content }) {
   return (
     <>
-      {/* <header>
-            {content.fields.announcementBar?.fields.enable &&
-                <AnnouncementBar props={content.fields.announcementBar} />
-            }
-            <nav className='nav' id="SiteNav">
-                <MainNavigation props={content.fields} />
-                <MobileNavigation props={content.fields}/>
-            </nav>
-
-        </header> */}
+      <header>
+        {content.fields.announcementBar?.fields.enable && (
+          <AnnouncementBar props={content.fields.announcementBar} />
+        )}
+        <nav className="nav" id="SiteNav">
+          <MainNavigation props={content.fields} />
+          <MobileNavigation props={content.fields} />
+        </nav>
+      </header>
     </>
   )
 }

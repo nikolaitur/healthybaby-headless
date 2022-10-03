@@ -73,6 +73,10 @@
     color: $primaryBrown;
     margin-bottom: 10px;
 
+    strong {
+      color: $primaryGreen;
+    }
+
     @include breakpoint-up('md') {
       font-size: 22px;
       line-height: 31px;
