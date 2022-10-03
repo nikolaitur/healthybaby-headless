@@ -1,0 +1,156 @@
+.vitamin-finder {
+    // max-width: 570px;
+    background: #E7EBF4!important;
+    border-radius: 3px;
+    padding: 36px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    min-height: 643px;
+    max-height: 643px;
+    margin-bottom: 30px;
+
+    // @include breakpoint-up('md') {
+    //     width: calc(50% - 30px);
+    //     max-width: calc(50% - 30px);
+    //     max-height: 870px;
+    //     margin-bottom: 0px;
+        
+    // }
+    
+    @include breakpoint-up('md') {
+        width: calc(33% - 30px);
+        max-width: calc(33% - 30px);
+        max-height: 653px;
+        margin-bottom: 0;
+    }
+
+    &__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+    }
+
+    &__stage {
+        // display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        opacity: 0;
+        transition: 0.3s;
+        pointer-events: none;
+        max-width: calc(100% - 40px);
+        width: 100%;
+        left: 20px;
+
+        &.active {
+            display: block;
+            opacity: 1;
+            pointer-events: all;
+        }
+
+    }
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 34px;
+        line-height: 34px;
+        color: #3D3331;
+        margin-bottom: 10px;
+
+        @include breakpoint-up('md') {
+            font-size: 40px;
+            line-height: 40px;
+            margin-bottom: 5px;
+        }
+
+        @include breakpoint-up('lg') {
+            font-size: 48px;
+            line-height: 48px;
+            margin-bottom: 10px;
+        }
+    } 
+
+    &__copy {
+        max-width: 375px;
+        margin: 0 auto 30px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 60px;
+        }
+    }
+
+    &__image {
+        margin: 15px 0 20px;
+    }
+
+    &__clear {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: $primaryBrown;
+        border: none;
+        background: none;
+        cursor: pointer;     
+    }
+
+    .btn {
+        padding: 19px 20px;
+        width: 100%;
+        max-width: initial;
+        justify-content: center;
+        max-width: 380px;
+        margin: 0 auto;
+
+        &:not(:first-child) {
+            margin-bottom: 36px;
+        }
+
+        span {
+            &:last-child {
+                margin-right: 20px
+            }
+        }
+    }
+
+    input {
+        background: #FFFFFF;
+        border: 1px solid #DBEDF8;
+        border-radius: 60px;
+        height: 60px;
+        width: 100%;
+        max-width: 520px;
+        padding: 0 30px;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        letter-spacing: 0.02em;
+        color: $primaryBrown;
+        max-width: 380px;
+        margin: 0 auto;
+        margin-bottom: 36px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+        &.error {
+            border-color: red;
+        }
+    }
+}

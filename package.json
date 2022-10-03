@@ -1,6 +1,9 @@
 {
   "name": "healthybaby",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,20 +12,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^15.13.1",
+    "@contentful/rich-text-react-renderer": "^15.12.1",
     "@nacelle/react-hooks": "^8.0.0",
     "@nacelle/shopify-checkout": "^0.0.12",
     "@nacelle/storefront-sdk": "^1.7.4",
     "algoliasearch": "^4.14.2",
+    "contentful": "^9.1.34",
     "graphql": "^16.5.0",
+    "html-react-parser": "^3.0.4",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-date-picker": "^8.4.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "18.2.0",
+    "react-expand-animated": "^1.0.2",
     "react-instantsearch-dom": "^6.31.1",
     "react-player": "^2.11.0",
     "react-select": "^5.4.0",
-    "swiper": "^8.3.1"
+    "swiper": "^8.3.1",
+    "video-react": "^0.15.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",

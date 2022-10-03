@@ -31,7 +31,7 @@ function Cart() {
       quantity: lineItem.quantity,
     }))
 
-    // `processCheckout` utilizes the Shopify Checkout client to create
+    // `processCheckout` utilizes the Shopify Checkout client to create 
     // a checkout using the provided `cartItems` array. If successful,
     // a URL and completed state are returned, which can then be used to
     // redirect the user to the Shopify checkout.
@@ -59,12 +59,12 @@ function Cart() {
                 key={`${lineItem.variant.id}-${index}`}
               >
                 <div className={styles.image}>
-                  <Image
+                  {/* <Image
                     src={lineItem.variant.featuredMedia.src}
                     alt={lineItem.variant.featuredMedia.altText}
                     width={200}
                     height={200}
-                  />
+                  /> */}
                 </div>
                 <div>
                   <h2 className={styles.title}>
