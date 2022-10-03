@@ -24,6 +24,7 @@ const ArticleSources = ({ content }) => {
             <a
               href={articleSourceItem.fields.articleSourceItem}
               target="_blank"
+              rel="noreferrer"
               className="article-sources__item"
               key={index}
             >
