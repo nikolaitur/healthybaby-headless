@@ -1,0 +1,50 @@
+.article-banner1 {
+  margin: 30px 28px;
+  padding: 30px 17px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  text-align: center;
+
+  @include breakpoint-up('md') {
+    margin: 40px 0;
+    padding: 40px;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  &__content {
+    max-width: 800px;
+    margin-bottom: 30px;
+
+    @include breakpoint-up('md') {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 500;
+    font-family: $DomaineText;
+    line-height: 28px;
+    color: $primaryBrown;
+    margin-bottom: 6px;
+
+    @include breakpoint-up('md') {
+      font-size: 32px;
+      line-height: 35px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: $NeutraText;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+    }
+  }
+}

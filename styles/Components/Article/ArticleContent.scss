@@ -6,6 +6,7 @@
 }
 
 .article-content {
+  margin: 40px 0;
   padding: 0 28px;
   h5 {
     margin-bottom: 16px;
@@ -90,7 +91,7 @@
   li {
     font-family: $NeutraText;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 120%;
     letter-spacing: -0.01em;
     color: $primaryBrown;
@@ -98,6 +99,10 @@
     margin-bottom: 20px;
     position: relative;
     padding-left: 26px;
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+    }
 
     &:before {
       content: '';

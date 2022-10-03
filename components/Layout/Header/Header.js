@@ -7,8 +7,8 @@ import MobileNavigation from '../MobileNavigation'
 
 export function Header({ content }) {
   return (
-      <>
-        <header>
+    <>
+      {/* <header>
             {content.fields.announcementBar?.fields.enable &&
                 <AnnouncementBar props={content.fields.announcementBar} />
             }
@@ -16,10 +16,10 @@ export function Header({ content }) {
                 <MainNavigation props={content.fields} />
                 <MobileNavigation props={content.fields}/>
             </nav>
-            
-        </header>
-      </>
-    )
+
+        </header> */}
+    </>
+  )
 }
 
 export default Header

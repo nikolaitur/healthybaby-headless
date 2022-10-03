@@ -1,12 +1,9 @@
 import { useState } from 'react'
-import Image from 'next/image'
-import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
-import { getSelectedVariant } from 'utils/getSelectedVariant'
-import { getCartVariant } from 'utils/getCartVariant'
-import styles from 'styles/Product.module.css'
 
 import ArticleHeroPodcast from '../../../components/Article/ArticleHeroPodcast'
+import ArticleSocial from '../../../components/Article/ArticleSocial'
+import ArticleSectionsContent from '../../../components/Article/ArticleSectionsContent'
 
 function Article({ article }) {
   console.log(article)
@@ -14,6 +11,10 @@ function Article({ article }) {
   return (
     <article className="article">
       <ArticleHeroPodcast content={article} />
+      <div className="article__container">
+        <ArticleSectionsContent sections={article.fields.articleSections} />
+        <ArticleSocial content={article.fields.articleSocial} key="social" />
+      </div>
     </article>
   )
 }
@@ -21,9 +22,10 @@ function Article({ article }) {
 export default Article
 
 export async function getStaticPaths() {
-  const articles = await nacelleClient.content({ type: 'collection' })
+  const articles = await nacelleClient.content({ type: 'article' })
 
   const handles = articles
+    .filter((article) => article.fields.articleType === 'podcast')
     .filter((article) => article.handle)
     .map((article) => ({ params: { handle: article.handle } }))
 

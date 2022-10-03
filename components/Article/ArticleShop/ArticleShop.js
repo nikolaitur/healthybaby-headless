@@ -10,35 +10,25 @@ const ArticleShop = ({ content }) => {
       <div className="article-shop__image">
         <Image
           className=""
-          src={`https:${content.fields.articleShop.fields.image.fields.file.url}`}
+          src={`https:${content.fields.image.fields.file.url}`}
           alt={`image`}
           layout="responsive"
           objectFit="cover"
-          height={
-            content.fields.articleShop.fields.image.fields.file.details.image
-              .height
-          }
-          width={
-            content.fields.articleShop.fields.image.fields.file.details.image
-              .width
-          }
+          height={content.fields.image.fields.file.details.image.height}
+          width={content.fields.image.fields.file.details.image.width}
         />
       </div>
       <div className="article-shop__info">
         <div className="article-shop__info-eyebrow">
-          {content.fields.articleShop.fields.eyebrowText}
+          {content.fields.eyebrowText}
         </div>
-        <div className="article-shop__info-title">
-          {content.fields.articleShop.fields.title}
-        </div>
+        <div className="article-shop__info-title">{content.fields.title}</div>
         <div className="article-shop__info-subtitle">
-          {content.fields.articleShop.fields.subtitle}
+          {content.fields.subtitle}
         </div>
         <div className="article-shop__info-cta">
-          <Link href={content.fields.articleShop.fields.buttonText}>
-            <div className="btn secondary">
-              {content.fields.articleShop.fields.buttonText}
-            </div>
+          <Link href={content.fields.buttonText}>
+            <div className="btn secondary">{content.fields.buttonText}</div>
           </Link>
         </div>
       </div>

@@ -8,7 +8,7 @@ const ArticleContent = ({ content }) => {
       {content ? (
         <div
           dangerouslySetInnerHTML={{
-            __html: content.content[0].content[0].value,
+            __html: content.fields.richContent.content[0].content[0].value,
           }}
         ></div>
       ) : (

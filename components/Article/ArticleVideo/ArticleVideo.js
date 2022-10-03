@@ -9,7 +9,14 @@ const ArticleVideo = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
   // const backgroundImage = content.fields.image.fields.file.url
 
+  const [hasWindow, setHasWindow] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHasWindow(true)
+    }
+  }, [])
 
   const playVideo = () => {
     setIsPlaying(true)
@@ -29,20 +36,24 @@ const ArticleVideo = ({ content }) => {
       >
         <Image
           className=""
-          src={`https://images.ctfassets.net/urdrzzac4igp/4WMD3LDJEyzqwXl7gJ3LnQ/5dab6b027ab4c5897e8d970e6a4a844b/Group_551.png`}
+          src={`https:${content.fields.coverImage.fields.file.url}`}
           alt={`video`}
           layout="responsive"
           objectFit="cover"
-          height="650"
-          width="650"
+          height={content.fields.coverImage.fields.file.details.image.height}
+          width={content.fields.coverImage.fields.file.details.image.width}
         />
       </div>
-      {/* <ReactPlayer
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                playing={isPlaying}
-                controls={true}
-                className='article-video__video'
-            /> */}
+      <div className="article-video__video">
+        {hasWindow && (
+          <ReactPlayer
+            url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+            playing={isPlaying}
+            controls={true}
+            className=""
+          />
+        )}
+      </div>
     </div>
   )
 }

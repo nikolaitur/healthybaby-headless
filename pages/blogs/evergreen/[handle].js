@@ -1,39 +1,33 @@
 import { useState } from 'react'
-import Image from 'next/image'
-import { useCart } from '@nacelle/react-hooks'
+
 import { nacelleClient } from 'services'
-import { getSelectedVariant } from 'utils/getSelectedVariant'
-import { getCartVariant } from 'utils/getCartVariant'
-import styles from 'styles/Product.module.css'
 
 import ArticleHeroEverGreen from '../../../components/Article/ArticleHeroEverGreen'
-import ArticleContent from '../../../components/Article/ArticleContent'
-import ArticleShop from '../../../components/Article/ArticleShop'
-import ArticleVideo from '../../../components/Article/ArticleVideo'
-import ArticleSources from '../../../components/Article/ArticleSources'
-import ArticleTags from '../../../components/Article/ArticleTags'
-import ArticleRelated from '../../../components/Article/ArticleReleated'
-import ArticlePullQuote from '../../../components/Article/ArticlePullQuote'
+import ArticleSocial from '../../../components/Article/ArticleSocial'
+import ArticleSectionsContent from '../../../components/Article/ArticleSectionsContent'
 
 function Article({ article }) {
   console.log(article)
 
   return (
     <article className="article">
-      <ArticleHeroEverGreen content={article} />
+      {article.fields.articleHero ? (
+        <ArticleHeroEverGreen content={article} />
+      ) : (
+        <></>
+      )}
       <div className="article__container">
-        <ArticleContent content={article.fields.content} />
-        <ArticlePullQuote content={article} />
-        {/* <ArticleVideo /> */}
-        <ArticleContent content={article.fields.content2} />
-        <ArticleShop content={article}></ArticleShop>
-        <ArticleContent content={article.fields.content3} />
-        <ArticleShop content={article}></ArticleShop>
-        <ArticleContent content={article.fields.content4} />
-        {/* <ArticleSources />
-        <ArticleTags /> */}
+        {article.fields.articleSections ? (
+          <ArticleSectionsContent sections={article.fields.articleSections} />
+        ) : (
+          <></>
+        )}
+        {article.fields.articleSocial ? (
+          <ArticleSocial content={article.fields.articleSocial} key="social" />
+        ) : (
+          <></>
+        )}
       </div>
-      {/* <ArticleRelated /> */}
     </article>
   )
 }
@@ -41,9 +35,10 @@ function Article({ article }) {
 export default Article
 
 export async function getStaticPaths() {
-  const articles = await nacelleClient.content({ type: 'collection' })
+  const articles = await nacelleClient.content({ type: 'article' })
 
   const handles = articles
+    .filter((article) => article.fields.articleType === 'evergreen')
     .filter((article) => article.handle)
     .map((article) => ({ params: { handle: article.handle } }))
 
