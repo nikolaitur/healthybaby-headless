@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       'Content-Type': 'application/json'
     },
     auth: {
-      'username': 'team@scoutside.com/token',
+      'username': 'kendall@healthynesting.com/token',
       'password': process.env.NEXT_PUBLIC_ZENDESK_TOKEN
     }
   })
