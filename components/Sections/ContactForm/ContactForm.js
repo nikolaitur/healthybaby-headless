@@ -35,7 +35,7 @@ const ContactForm = ({content}) => {
       data[keyName] = value
     }
 
-    data['subject'] = requestType;
+    data['subject'] = requestType.value;
 
     const response = await fetch('/api/zendesk/create-ticket', {
       method: 'POST',
@@ -91,7 +91,7 @@ const ContactForm = ({content}) => {
     <div className="contact-form-section container">
       {formSubmitted ? (
         <div className="contact-form">
-          <h1 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h1>
+          <h3 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h3>
         </div>
       ):(
         <form className="contact-form" onSubmit={(e) => onSubmit(e)}>

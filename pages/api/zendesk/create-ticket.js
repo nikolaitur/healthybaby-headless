@@ -22,12 +22,14 @@ export default async function handler(req, res) {
     }
   }
 
-  axios.post('https://{{ domain }}.zendesk.com/api/v2/tickets.json', JSON.stringify(body), {
+  console.log("body:", body)
+
+  axios.post('https://healthynesting.zendesk.com/api/v2/tickets.json', JSON.stringify(body), {
     headers: {
       'Content-Type': 'application/json'
     },
     auth: {
-      'username': '',
+      'username': 'kendall@healthynesting.com/token',
       'password': process.env.NEXT_PUBLIC_ZENDESK_TOKEN
     }
   })
