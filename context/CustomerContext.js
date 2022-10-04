@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
 import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '../gql/index.js'
+import { Multipass } from "multipass-js"
 
+const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
 import * as Cookies from 'es-cookie'
 
 const CustomerContext = createContext()
@@ -52,14 +54,17 @@ export function CustomerProvider({ children }) {
     if (errors && errors.length) {
       return { errors: errors }
     }
+
     if (data?.customer && expiresAt) {
       Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
     }
 
     const { customer } = data
+    const multipassRedirectURL = multipass.withCustomerData({email: customer.email}).withDomain('healthybaby-dev.myshopify.com').url();
 
     if (customer?.addresses?.edges.length > 0) {
       customer.addresses = transformEdges(customer.addresses)
+      customer.shopify_login_redirect_url = multipassRedirectURL
     }
 
     setCustomer(customer)

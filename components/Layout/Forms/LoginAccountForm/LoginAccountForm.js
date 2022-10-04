@@ -1,14 +1,17 @@
 import { useRef, useState } from 'react'
 import { useModalContext } from '../../../../context/ModalContext'
 import { useCustomerContext } from '../../../../context/CustomerContext'
+import { useRouter } from 'next/router'
 
 import Diaper from '../../../../svgs/diaper.svg'
 import ShoppingCart from '../../../../svgs/shopping-cart.svg'
 import Baby from '../../../../svgs/baby.svg'
 import Waves from '../../../../svgs/waves.svg'
 
-const LoginAccountForm = ({ }) => {
 
+const LoginAccountForm = ({ redirect }) => {
+
+  const router = useRouter()
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const emailRef = useRef()
@@ -33,6 +36,7 @@ const LoginAccountForm = ({ }) => {
           setErrorMessage(response.errors[0].message)
       } else {
           modalContext.setIsOpen(false)
+          router.push(redirect)
       }
   }
 
