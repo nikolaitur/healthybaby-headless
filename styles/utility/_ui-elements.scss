@@ -39,7 +39,7 @@
             background: #fff;
             color: $primaryBrown;
 
-    
+
             svg {
                 path {
                     fill: $primaryBrown;
@@ -104,4 +104,8 @@
             background: #C2CDC6;
         }
     }
+}
+
+.text-align--center {
+    text-align: center;
 }

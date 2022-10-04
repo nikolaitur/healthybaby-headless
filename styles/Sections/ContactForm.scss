@@ -4,18 +4,38 @@
   margin-top: 70px;
   margin-bottom: 70px;
   @include breakpoint-up('sm') {
-    flex-direction: row;
-    flex-wrap: wrap;
     margin-top: 140px;
     margin-bottom: 140px;
+  }
+  @include breakpoint-up('md') {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 
 .contact-form {
   flex: 1;
   margin-bottom: 70px;
-  @include breakpoint-up('sm') {
+  padding-right: 0;
+  @include breakpoint-up('md') {
     margin-bottom: 0;
+  }
+  @include breakpoint-up('lg') {
+    padding-right: 20px;
+  }
+  @include breakpoint-up('xl') {
+    padding-right: 80px;
+  }
+  .btn {
+    width: 100%;
+    max-width: 720px;
+    justify-content: center;
+  }
+  .contact-form__error-msg {
+    font-family: $NeutraText;
+    display: block;
+    margin-top: 10px;
+    color: $error;
   }
 }
 
@@ -24,6 +44,10 @@
   @include breakpoint-up('sm') {
     flex-basis: 430px;
     width: 430px;
+    margin: 0 auto;
+  }
+  @include breakpoint-up('md') {
+    margin: 0;
   }
 }
 
@@ -76,3 +100,4 @@
     }
   }
 }
+
