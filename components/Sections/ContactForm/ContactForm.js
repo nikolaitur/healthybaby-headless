@@ -11,7 +11,7 @@ const ContactForm = ({content}) => {
   const [showRequestTypeErrorMsg, setShowRequestTypeErrorMsg] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const refs = ['name', 'email', 'phone', 'order_number', 'message']
+  const refs = ['name', 'email', 'phone_number', 'order_number', 'message']
 
   const formRef = useRef(refs.reduce((carry, ref) => {
     return {
@@ -116,7 +116,7 @@ const ContactForm = ({content}) => {
                     event.preventDefault();
                   }
                 }}
-                ref={formRef.current.phone}
+                ref={formRef.current.phone_number}
               />
               <label className="label">Phone Number</label>
             </div>

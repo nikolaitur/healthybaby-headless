@@ -6,30 +6,36 @@ export default async function handler(req, res) {
 
   const body = {
     "ticket": {
+      "status": "new",
       "subject": subject,
+      "is_public": true,
       "comment": {
-        "body": message
+        "body": message,
+        "public": true
       },
       "recipient": email,
       "requester": { "name": name, "email": email },
       "custom_fields" : [
         {
-          "name": name,
-          "order_number": order_number,
-          "phone_number": phone_number
+          "id": 360029378952,
+          "value": order_number,
+        },
+        {
+          "id": 9837143197076,
+          "value": phone_number
         }
       ]
     }
   }
 
-  console.log("body:", body)
+  // console.log("body:", body)
 
   axios.post('https://healthynesting.zendesk.com/api/v2/tickets.json', JSON.stringify(body), {
     headers: {
       'Content-Type': 'application/json'
     },
     auth: {
-      'username': 'kendall@healthynesting.com/token',
+      'username': 'team@scoutside.com/token',
       'password': process.env.NEXT_PUBLIC_ZENDESK_TOKEN
     }
   })
