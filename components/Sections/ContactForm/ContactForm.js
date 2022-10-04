@@ -91,7 +91,7 @@ const ContactForm = ({content}) => {
     <div className="contact-form-section container">
       {formSubmitted ? (
         <div className="contact-form">
-          <h3 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h3>
+          <h4 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h4>
         </div>
       ):(
         <form className="contact-form" onSubmit={(e) => onSubmit(e)}>
