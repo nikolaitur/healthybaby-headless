@@ -5,7 +5,7 @@ import Image from 'next/image';
 const ProductContentBanner = ({ content }) => {
     const { header, subheader, desktopImage, mobileImage, ctaText, ctaUrl } = content.fields
 
-    console.log("contentbanner", content)
+    // console.log("contentbanner", content)
 
     let styles = {}
     if(content.fields.backgroundColor) {

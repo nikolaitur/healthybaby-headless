@@ -13,14 +13,6 @@ const ProductAbout = ({ content }) => {
             <div className="product-about__container container">
                 <div className="product-about__content">
 
-                    {content.fields?.subheader ? (
-                        <h6 className="product-about__subheader">{ content.fields.subheader }</h6>
-                    ) : ""}
-
-                    {content.fields?.header ? (
-                        <h3 className="product-about__header">{ content.fields.header }</h3>
-                    ) : ""}
-
                     {content.fields?.image.fields.file.url ? (
                         <div className="product-about__image about__image--mobile">
                             <Image
@@ -30,6 +22,14 @@ const ProductAbout = ({ content }) => {
                                 height="750"
                             />
                         </div>
+                    ) : ""}
+
+                    {content.fields?.subheader ? (
+                        <h6 className="product-about__subheader">{ content.fields.subheader }</h6>
+                    ) : ""}
+
+                    {content.fields?.header ? (
+                        <h3 className="product-about__header">{ content.fields.header }</h3>
                     ) : ""}
                     
                     {content.fields?.sections ? (

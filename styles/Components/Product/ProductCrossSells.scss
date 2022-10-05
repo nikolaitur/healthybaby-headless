@@ -30,7 +30,6 @@
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: $primaryBrown;
-        margin-bottom: 30px;
 
         @include breakpoint-up('md') {
             font-size: 18px;

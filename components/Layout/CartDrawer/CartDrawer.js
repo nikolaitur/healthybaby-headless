@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
+import { NacelleCartInput, CartResponse } from '@nacelle/shopify-cart';
+
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
@@ -35,11 +37,13 @@ const CartDrawer = ({ content }) => {
     const cartDrawerContent = cartDrawerContext.content[0]
 
     const cartSubtotal = cart.reduce((sum, lineItem) => {
-        return sum + lineItem.variant.price * lineItem.quantity
+       return sum + lineItem.variant.price * lineItem.quantity
+       // return 0
     }, 0)
 
     const cartItemTotal = cart.reduce((sum, lineItem) => {
         return sum + lineItem.quantity
+        // return 0
     }, 0)
 
     let freeShipping = false
@@ -72,7 +76,7 @@ const CartDrawer = ({ content }) => {
         // }
 
         // getCartClient()
-        console.log(cartDrawerContext, "cartdrawer")
+       // console.log(cartDrawerContext, "cartdrawer")
     }, [])
 
     useEffect(() => {
@@ -106,15 +110,6 @@ const CartDrawer = ({ content }) => {
     }
 
     const handleProcessCheckout = async () => {
-        // Maps the cart line items into a new array with Shopify
-        // required properties: `variantId` and `quantity`.
-        // const cartItems = cart.map((lineItem) => ({
-        //     variantId: lineItem.variant.id,
-        //     quantity: lineItem.quantity,
-        //     sellingPlan: lineItem.sellingPlan,
-        //     subscription: lineItem.subscription
-        // }))
-
         // `processCheckout` utilizes the Shopify Checkout client to create 
         // a checkout using the provided `cartItems` array. If successful,
         // a URL and completed state are returned, which can then be used to
@@ -130,6 +125,9 @@ const CartDrawer = ({ content }) => {
         //     console.error(err)
         //   })
 
+        // clearCart()
+        // return
+
         const cartItems = cart.map((lineItem) => {
             const returnItem = {
                 merchandiseId: lineItem.nacelleEntryId,
@@ -137,47 +135,31 @@ const CartDrawer = ({ content }) => {
                 quantity: lineItem.quantity,
             }
 
+            // console.log(returnItem, lineItem)
+
             if (lineItem.subscription) {
                 const sellingPlanAllocationsValue = JSON.parse(lineItem.sellingPlan.value)
-                const sellingPlanId = atob(sellingPlanAllocationsValue[0].sellingPlan.id)
+                const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
                 returnItem.sellingPlanId = sellingPlanId
-                returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
+                // returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
             }
 
             return returnItem
         })
 
-        console.log(cartItems)
+        const lines = cartItems
         
         const shopifyCart = await cartClient.cartCreate({
-            lines: [],
-            attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-            note: 'Please use a red ribbon for the bow, if possible :)'
+            lines,
+            // attributes: [{ key: 'gift_options', value: 'in box with bow' }],
+            // note: 'Please use a red ribbon for the bow, if possible :)'
         }).then(response => {
-            //console.log(response)
-
-            // cartDrawerContext.setShopifyCartCartClient(response)
-            // cartDrawerContext.setShopifyCartId(response.id)
-            Cookies.set('shopifyCartId', response.id)
-            // console.log(response)
+            console.log(response)
+            if (response.cart?.checkoutUrl) {
+                window.location.href = response.cart.checkoutUrl;
+            }
         });  
-
-        console.log(shopifyCart)
-
-        await cartClient.cartLinesAdd({
-            cartId: Cookies.get('shopifyCartId'),
-            lines: []
-          })
-          .then((res) => {
-            // console.log(res)
-            // commit('setCartLineItems', res.lines)
-          })
-          .catch((err) => {
-            console.error(err, "Error")
-          })
-
-        // console.log(shopifyCart)   
     }
 
     return (

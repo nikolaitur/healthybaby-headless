@@ -29,6 +29,7 @@ const ProductInfo = ( props ) => {
     const [selectedOptions, setSelectedOptions] = useState(selectedVariant.content.selectedOptions)
     const [selectedCombination, setSelectedCombination] = useState(true);
     const [isSubscription, setIsSubscription] = useState(false)
+    const [subscriptionPrice, setSubscriptionPrice] = useState(false)
     const [purchaseSubscription, setPurchaseSubscription] = useState(false)
     const [activeOption, setActiveOption] = useState(0)
     const [activeTab, setActiveTab] = useState(0);
@@ -87,10 +88,15 @@ const ProductInfo = ( props ) => {
 
     // To Do Confgiure Recharge
     const handleSubscriptionChange = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
+        const value = event.target.value
         if(event.target.value === "Subscription") {
-            setPurchaseSubscription(true)
+            
         }
+
+        setPurchaseSubscription(value)
+
+        console.log(purchaseSubscription, value)
     }
 
     const handleDecrementChange = () => {
@@ -103,7 +109,6 @@ const ProductInfo = ( props ) => {
 
     const handleIncrementChange = () => {
         setQuantity(++quantity)
-        // setQuantity(+event.target.value)
     }
 
     // Get product data and add it to the cart by using `addToCart`
@@ -115,10 +120,13 @@ const ProductInfo = ( props ) => {
             variant: selectedVariant,
         })
 
-        if(purchaseSubscription) {
+        console.log(variant, purchaseSubscription)
+
+        if(purchaseSubscription === "Subscription") {
             let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
 
             let lineItem = {
+                merchandiseId: selectedVariant.nacelleEntryId,
                 nacelleEntryId: selectedVariant.nacelleEntryId,
                 quantity: quantity,
             }
@@ -127,10 +135,12 @@ const ProductInfo = ( props ) => {
                 sellingPlan = false
             } else {
                 const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
-                const sellingPlanId = atob(sellingPlanAllocationsValue[0].sellingPlan.id)
+                const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+                console.log(sellingPlanId)
 
                 lineItem = {
-                    nacelleEntryId: selectedVariant.id,
+                    merchandiseId: selectedVariant.nacelleEntryId,
+                    nacelleEntryId: selectedVariant.nacelleEntryId,
                     quantity: quantity,
                     sellingPlanId,
                     attributes: [{ key: 'subscription', value: sellingPlanId }]
@@ -138,22 +148,23 @@ const ProductInfo = ( props ) => {
             }
 
             addToCart({
+                product,
                 variant,
                 quantity,
                 sellingPlan,
                 subscription: true,
-                nacelleEntryId: selectedVariant.nacelleEntryId
+                nacelleEntryId: selectedVariant.nacelleEntryId,
+                selectedVariant
             })
 
             await cartClient.cartLinesAdd({
-                cartId: `${cartDrawerContext.shopifyCartId}`,
+                cartId: cartDrawerContext.shopifyCartId,
                 lines: [
                     lineItem    
                 ]
               })
               .then((data) => {
                 console.log(data, "Cart data")
-                // commit('setCartLineItems', res.lines)
               })
               .catch((err) => {
                 console.error(err, "Error")
@@ -164,20 +175,23 @@ const ProductInfo = ( props ) => {
 
             if(!sellingPlan) {
                 sellingPlan = false
-            }
+            } 
 
             addToCart({
+                product,
                 variant,
                 quantity,
                 sellingPlan,
                 subscription: false,
-                nacelleEntryId: selectedVariant.nacelleEntryId
+                nacelleEntryId: selectedVariant.nacelleEntryId,
+                selectedVariant
             })
 
             await cartClient.cartLinesAdd({
                 cartId: cartDrawerContext.shopifyCartId,
                 lines: [
                   {
+                    merchandiseId: selectedVariant.nacelleEntryId,
                     nacelleEntryId: selectedVariant.nacelleEntryId,
                     quantity: quantity,
                   }
@@ -185,14 +199,11 @@ const ProductInfo = ( props ) => {
               })
               .then((res) => {
                 console.log(res)
-                // commit('setCartLineItems', res.lines)
               })
               .catch((err) => {
                 console.error(err, "Error")
               })
         }
-
-        // console.log(cartDrawerContext)
 
         cartDrawerContext.setIsOpen(true)
     }
@@ -204,25 +215,16 @@ const ProductInfo = ( props ) => {
 
         setIsSubscription(sellingPlanAllocations)
 
-        // console.log(sellingPlanAllocations, "sellingPlan")
-    }, [])
+        if(sellingPlanAllocations) {
+            setIsSubscription(sellingPlanAllocations)
 
-    useEffect(() => {
-        const getReview = async () => {
-            await fetch('https://api.juniphq.com/v1/products/1167302', {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                  'Junip-Store-Key': '8Y8nYkJkWCVANh2xkZy7L5xL'
-                },
-              })
-              .then(res => res.json())
-              .then((data) => {
-                setReview(data.product)
-            })
+            let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+            
+            const sellingPlanPriceValue = JSON.parse(sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+
+            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
         }
-    
-        getReview()
     }, [])
  
     return (
@@ -233,17 +235,23 @@ const ProductInfo = ( props ) => {
                         <div className="product-info__reviews">
                             <>
                                 <span class="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
-                                
                                 <span class="junip-product-summary" data-product-id="4522469523505"></span>
                                 {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
                             </>
-                            {/* <div className="product-info__reviews--count">{ review.rating_count } reviews</div> */}
                         </div>
                     ) : ""}
 
                     {product.content?.title && <h1 className="product-info__title h3">{product.content.title}</h1>}
                     <div className="product-info__description">The safest diaper for baby's developing brain & body.</div>
-                    <h4 className="product-info__price">${selectedVariant.price}</h4>
+                    <h4 className="product-info__price">
+                        <>
+                            {purchaseSubscription === "Subscription" ? (
+                                `$${Number(subscriptionPrice).toFixed(2)}`
+                            ) : (
+                                `$${selectedVariant.price.toFixed(2)}`
+                            )}
+                        </>
+                    </h4>
                     <div className="product-form">
                         <div className="product-form__options">
                             {options &&
@@ -297,12 +305,14 @@ const ProductInfo = ( props ) => {
                             </div> 
                             <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
                         </div>
+
                         <div className="product-status">
-                            {product.availableForSale ? (
+                            {selectedVariant.availableForSale ? (
                                 <p><span>• In Stock</span> Ships within 1-2 business days.</p>
                             ) : ""}
                             <p>Complimentary shipping over $100</p>
                         </div>
+
                         {page.fields?.messageTitle && page.fields?.messageText && page.fields?.messageUrl ? (
                             <div className="product-message">
                                 <p className="product-message__title large">{ page.fields.messageTitle }</p>
@@ -338,7 +348,6 @@ const ProductInfo = ( props ) => {
                                 </div>
                             </div> 
                          ) : ""}
-    
                     </div>
                 </div>
             </div>

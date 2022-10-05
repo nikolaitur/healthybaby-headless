@@ -12,7 +12,7 @@ import ProductCrossSells from '../../Product/ProdcutCrossSells'
 
 const ProductSections =  ({ content }) => {
     
-    console.log("product sections", content)
+    // console.log("product sections", content)
 
     return (
         <div className="product-main__sections">

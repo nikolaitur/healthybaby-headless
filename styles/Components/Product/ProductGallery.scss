@@ -12,6 +12,20 @@
         gap: 0 36px;
     }
 
+    &__slider {
+        max-width: 90%;
+        overflow: visible;
+        margin: 0 0 30px;
+
+        @include breakpoint-up('md') {
+            display: none;
+        }
+
+        .swiper-pagination-bullets {
+            bottom: 20px;
+        }
+    }
+
     &__image {
         position: relative;
         width: 100%;

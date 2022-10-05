@@ -57,6 +57,13 @@
                 line-height: 24px;
             }
         }
+
+        h4 {
+            @include breakpoint-down('md') {
+                font-size: 18px;
+                line-height: 24px;
+            }
+        }
     }
 
     &__image {

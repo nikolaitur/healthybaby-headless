@@ -2,107 +2,65 @@ import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 
-const ProductGallery = ( props ) => {
-    // const { header, subheader, desktopImage, mobileImage, ctaText, ctaUrl } = content.fields
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Lazy, Pagination } from "swiper";
 
-    // console.log(props, "gallery")
+import 'swiper/css';
+import "swiper/css/pagination";
+
+const ProductGallery = ( props ) => {
 
     const { product } = props
 
     return (
-        <div className="product-gallery">
-            {product.content.media.map((image, index) => {
-                return (
-                    <div className="product-gallery__image" key={index}>
-                        <Image
-                            className=""
-                            src={image.src}
-                            alt={`image`}
-                            layout="responsive"
-                            objectFit="cover"
-                            height="615"
-                            width="490"
-                        />
-                    </div>
-                )
-            })}
-            {/* <div className="product-gallery__image">
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/2tXTyHkmAmp1vt1mQG3Vui/1739c50f44a05d20ed917b264e4628a6/Group_74__4_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="615"
-                    width="490"
-                />
+        <>
+            <div className="product-gallery">
+                {product.content.media.map((image, index) => {
+                    return (
+                        <div className="product-gallery__image" key={index}>
+                            <Image
+                                className=""
+                                src={image.src}
+                                alt={`image`}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="615"
+                                width="490"
+                            />
+                        </div>
+                    )
+                })}
             </div>
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/2tXTyHkmAmp1vt1mQG3Vui/1739c50f44a05d20ed917b264e4628a6/Group_74__4_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="615"
-                    width="490"
-                />
-            </div>
-            <div className="product-gallery__image product-gallery__image--full-width">
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/53rLh7AGXQVR2AW0DF4iTq/9f996b64bb25d31dbac5d6f994981117/Mask_group__20_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="700"
-                    width="650"
-                />
-            </div>
-            <div className="product-gallery__image">
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/2tXTyHkmAmp1vt1mQG3Vui/1739c50f44a05d20ed917b264e4628a6/Group_74__4_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="615"
-                    width="490"
-                />
-            </div>
-            <div className="product-gallery__image">
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/2tXTyHkmAmp1vt1mQG3Vui/1739c50f44a05d20ed917b264e4628a6/Group_74__4_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="615"
-                    width="490"
-                />
-            </div>
-            <div className="product-gallery__image">
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/2tXTyHkmAmp1vt1mQG3Vui/1739c50f44a05d20ed917b264e4628a6/Group_74__4_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="615"
-                    width="490"
-                />
-            </div>
-            <div className="product-gallery__image">
-                <Image
-                    className=""
-                    src={`https://images.ctfassets.net/urdrzzac4igp/2tXTyHkmAmp1vt1mQG3Vui/1739c50f44a05d20ed917b264e4628a6/Group_74__4_.png`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="615"
-                    width="490"
-                />
-            </div> */}
-        </div>
+            <Swiper
+                className="product-gallery__slider"
+                modules={[Lazy, Pagination]}
+                spaceBetween={20}
+                slidesPerView={1}
+                lazy={true}
+                pagination={true}
+                style={{
+                    "--swiper-navigation-color": "#fff",
+                    "--swiper-pagination-color": "#00B188",
+                    "--swiper-pagination-bullet-inactive-color": "#fff"
+                }}
+            >
+                {product.content.media.map((image, index) => {
+                    return (
+                        <SwiperSlide key={index}>
+                            <Image
+                                className=""
+                                src={image.src}
+                                alt={`image`}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="600"
+                                width="490"
+                            />
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
+        </>
     )
 }
 

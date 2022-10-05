@@ -47,6 +47,7 @@
 
         &--mobile {
             display: block;
+            margin: 0 0 36px;
 
             @include breakpoint-up('md') {
                 display: none;
@@ -88,7 +89,6 @@
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: $primaryBrown;
-        margin-bottom: 30px;
 
         @include breakpoint-up('md') {
             font-size: 18px;
@@ -97,7 +97,7 @@
     }
 
     &__copy {
-        margin-bottom: 40px;
+        margin-bottom: 0px;
 
         @include breakpoint-up('md') {
             margin-bottom: 70px;
@@ -130,10 +130,14 @@
         line-height: 22px;
         letter-spacing: 0.02em;
         color: $primaryGreen;
-        margin-top: 30px;
+        margin-top: 15px;
         cursor: pointer;
         border-bottom: 1px solid $primaryGreen;
         width: max-content;
+
+        @include breakpoint-up('md') {
+            margin-top: 30px;
+        }
     }
 
     &__button {
