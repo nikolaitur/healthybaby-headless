@@ -5,9 +5,10 @@ import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
 
 function Collection(props) {
-  const { collection } = props
+  const { collection, products } = {...props}
 
-  console.log(collection)
+  console.log("collection:", collection)
+  // console.log("products:", products)
 
   return (
       <>
@@ -34,17 +35,41 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const collection = await nacelleClient.content({ handles: [params.handle] })
+  const collections = await nacelleClient.content({ handles: [params.handle] })
 
-  if (!collection.length) {
+  if (!collections.length) {
     return {
       notFound: true,
     }
   }
 
+  if (collections[0].fields.sections) {
+    const productHandles = collections[0].fields.sections.filter(section => {
+      if (section.fields.productHandle) return section
+    }).map(section => section.fields.productHandle)
+
+    console.log("productHandles:", productHandles)
+
+    const products = await nacelleClient.content({
+      nacelleEntryIds: productHandles
+    })
+
+    console.log("products:", products)
+
+    if (products.length) {
+      return {
+        props: {
+          collection: collection[0],
+          products
+        },
+      }
+    }
+
+  }
+
   return {
     props: {
-      collection: collection[0]
+      collection: collections[0]
     },
   }
 }
