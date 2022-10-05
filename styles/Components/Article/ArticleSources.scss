@@ -1,0 +1,69 @@
+.article-sources {
+  padding: 16px 28px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  @include breakpoint-up('md') {
+    padding: 40px 0;
+  }
+
+  &__title {
+    font-family: $NeutraTextDemi;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 31px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .arrow svg {
+      width: 12px;
+
+      @include breakpoint-up('md') {
+        width: 20px;
+      }
+    }
+
+    .opened {
+      transform: rotate(180deg);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+
+    &.opened {
+      max-height: 500px;
+      padding-top: 20px;
+    }
+  }
+
+  &__item {
+    display: block;
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 31px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    text-decoration: underline;
+    margin: 0 0 5px;
+    word-break: break-all;
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+    }
+  }
+}

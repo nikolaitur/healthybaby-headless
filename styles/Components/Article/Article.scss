@@ -1,0 +1,47 @@
+@import './ArticleHero.scss';
+@import './PodcastHero.scss';
+@import './ArticleContent.scss';
+@import './ArticleVideo.scss';
+@import './ArticleSources.scss';
+@import './ArticleTags.scss';
+@import './ArticleRelated.scss';
+@import './ArticleShop.scss';
+@import './ArticlePullQuote.scss';
+@import './ArticleBanner1.scss';
+@import './ArticleBanner2.scss';
+@import './ArticleAuthorSpotlight.scss';
+@import './ArticleSocial.scss';
+
+.section-break {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.article-cta {
+  width: 285px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.article-cta .btn {
+  max-width: unset;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: center;
+}
+
+.article-cta.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-cta.left {
+  margin-left: 28px;
+  margin-right: auto;
+}
+
+.article-cta.right {
+  margin-left: auto;
+  margin-right: 28px;
+}

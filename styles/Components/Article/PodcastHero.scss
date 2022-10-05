@@ -1,0 +1,127 @@
+.podcast-hero {
+  padding: 48px 0 0;
+  position: relative;
+
+  @include breakpoint-up('md') {
+    padding: 112px 0 0;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    @include breakpoint-up('md') {
+      gap: 37px;
+      flex-direction: row;
+      padding-bottom: 87px;
+    }
+  }
+
+  &__title {
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  &__breadcrumbs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+
+  &__breadcrumb {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    cursor: pointer;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+
+  &__image {
+    position: relative;
+    width: 100%;
+
+    &--desktop {
+      display: none !important;
+
+      @include breakpoint-up('md') {
+        display: block !important;
+      }
+    }
+
+    &--mobile {
+      margin-top: 24px;
+      @include breakpoint-up('md') {
+        display: none !important;
+        margin-top: 0px;
+      }
+    }
+
+    span {
+      padding-top: 0 !important;
+    }
+
+    img {
+      width: 100%;
+      object-fit: contain;
+      width: 100% !important;
+      position: relative !important;
+      height: unset !important;
+    }
+
+    &--credit {
+      margin-top: 12px;
+      font-family: $NeutraText;
+      font-weight: 500;
+      font-size: 8px;
+      padding-right: 28px;
+      color: #000;
+      text-align: right;
+      width: 100%;
+
+      @include breakpoint-up('md') {
+        font-size: 16px;
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__written {
+    margin-top: 14px;
+    color: $primaryBrown;
+    font-family: $NeutraText;
+    font-size: 16px;
+    font-weight: 500;
+
+    .name {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+      margin-top: 24px;
+    }
+  }
+
+  &__iheart {
+    margin-top: 20px;
+    max-width: 600px;
+
+    @include breakpoint-up('md') {
+      margin-top: 24px;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.article-quote {
+  margin-top: 45px;
+  margin-bottom: 45px;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 0 0;
+
+  text-align: center;
+
+  @include breakpoint-up('md') {
+    margin-top: 104px;
+    margin-bottom: 78px;
+  }
+
+  &__content {
+    font-family: $DomaineText;
+    color: $primaryGreen;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1;
+
+    @include breakpoint-up('md') {
+      font-size: 58px;
+    }
+  }
+
+  &__author {
+    margin-top: 40px;
+    font-family: $NeutraText;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+      font-size: 26px;
+    }
+  }
+}

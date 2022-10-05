@@ -1,0 +1,63 @@
+.article-banner2 {
+  margin: 30px 28px;
+  padding: 58px 10px;
+
+  text-align: center;
+
+  @include breakpoint-up('md') {
+    padding: 40px;
+    margin: 40px 0;
+  }
+
+  &__eyebrow {
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: black;
+    font-family: $DomaineText;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+    }
+  }
+
+  &__title {
+    font-size: 34px;
+    line-height: 110%;
+    font-weight: 500;
+    font-family: $DomaineText;
+    color: black;
+    margin-top: 27px;
+
+    @include breakpoint-up('md') {
+      font-size: 32px;
+      margin-top: 9px;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 23px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: black;
+    font-family: $NeutraText;
+    max-width: 640px;
+
+    @include breakpoint-up('md') {
+      margin: 19px auto;
+    }
+  }
+
+  &__link {
+    font-size: 18px;
+    line-height: 140%;
+    font-weight: 500;
+    color: $primaryGreen;
+    font-family: $NeutraText;
+    text-decoration: underline;
+  }
+}
