@@ -321,11 +321,11 @@ const ProductInfo = ( props ) => {
                             <div className="product-form__subscription" onChange={(event) => handleSubscriptionChange(event)}>
                                 <div className="product-form__input-wrapper active">
                                     <input type="radio" id="html" name="subscription" value="One Time" />
-                                    <label for="html">Buy One Time</label>
+                                    <label htmlFor="html">Buy One Time</label>
                                 </div>
                                 <div className="product-form__input-wrapper">
                                     <input type="radio" id="html" name="subscription" value="Subscription" />
-                                    <label for="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span></label>
+                                    <label htmlFor="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span></label>
                                 </div>
                             </div>
                         ): ""}
