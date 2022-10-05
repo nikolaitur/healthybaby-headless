@@ -8,6 +8,8 @@ import MegaMenu from './MegaMenu'
 import MegaMenuItem from './MegaMenuItem'
 import DropDownMenuItem from './DropdownMenuItem'
 
+import { useCustomerContext } from '../../../context/CustomerContext'
+import { useModalContext } from '../../../context/ModalContext'
 import { useHeaderContext } from '../../../context/HeaderContext'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
@@ -27,8 +29,12 @@ const MainNavigation = ({props}) => {
     // const accountIcon = props.babyIcon.fields.file.url
     // const cartIcon = props.cartIcon.fields.file.url
 
+    const customerContext =  useCustomerContext()
+    const modalContext = useModalContext()
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
     const cartDrawerContext =  useCartDrawerContext()
+
+    console.log('Cust', customerContext.customer)
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);
@@ -44,6 +50,12 @@ const MainNavigation = ({props}) => {
         }
     }, [isSearchOpen])
 
+    const openAccountModal = () => {
+        modalContext.setIsOpen(false)
+        modalContext.setModalType('create')
+        modalContext.setIsOpen(true)
+    }
+
     const onMenuMouseEnter = () => {
         setmegaMenuIsOpen(false);
         setMegaMenu(false)
@@ -51,6 +63,7 @@ const MainNavigation = ({props}) => {
 
     const openMobileMenu = () => {
         setMobileMenuOpen(!isMobileMenuOpen)
+        setmegaMenuIsOpen(true)
     }
 
     const closeMobileMenu = () => {
@@ -128,7 +141,7 @@ const MainNavigation = ({props}) => {
                 <div className={`main-nav__item ${isSearchOpen ? "active" : ""}`} onClick={() => toggleSearch()}>
                     <Search/>
                 </div>
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => openAccountModal()}>
                     <Baby/>
                 </div>
                 <div className="main-nav__item" onClick={() => openCartDrawer()}>
@@ -154,7 +167,7 @@ const MainNavigation = ({props}) => {
                 <LogoMobile />
             </div>
             <div className="mobile-nav__right">
-                <div className="main-nav__item">
+                <div className="main-nav__item" onClick={() => console.log('openModal')}>
                     <Baby />
                 </div>
                 <div className="main-nav__item" onClick={() => openCartDrawer()}>
