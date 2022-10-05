@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import { nacelleClient } from 'services'
@@ -10,10 +9,26 @@ import { Lazy, Pagination } from "swiper";
 import 'swiper/css';
 import "swiper/css/pagination";
 
-const CollectionProductCard = ({ content }) => {
+const findProductBadge = ({content, products, productBadges}) => {
+    if (content.fields?.productHandle && products && productBadges) {
+        const handle = content.fields.productHandle.replace('::en-US', '')
+        const product = products.find(product => product.content.handle === handle)
+        const badge = productBadges.find(badge => {
+            return product?.tags.some(tag => tag.indexOf(badge.handle) > -1)
+        })
+        if (badge?.fields?.image?.fields) {
+            return badge.fields.image.fields
+        }
+    }
+    return null
+}
+
+
+const CollectionProductCard = ({ content, products, productBadges }) => {
     const [isloading, setIsLoading] = useState(false)
     const [productPrice, setProductPrice] = useState(false)
     const { title, cardWidth } = content.fields
+    const badge = findProductBadge({content, products, productBadges})
 
     if(content.fields?.handle) {
         const getProduct = async () => {
@@ -25,7 +40,7 @@ const CollectionProductCard = ({ content }) => {
                 getProdouctPrice(response[0])
             });
         }
-    
+
         getProduct()
     }
 
@@ -44,6 +59,20 @@ const CollectionProductCard = ({ content }) => {
 
     return (
         <div className={`collection-product-card ${cardWidth == "Full Width" ? "full-width" : ""}`}>
+
+            {!!badge &&
+                <div className="collection-product-card__badge">
+                    <Image
+                        src={`https:${badge.file.url}`}
+                        alt={badge.title}
+                        layout="responsive"
+                        objectFit="cover"
+                        height={100}
+                        width={100}
+                    />
+                </div>
+            }
+
             <div className={`collection-product-card__image ${content.fields?.image && content.fields?.imageHover ? "hide-mobile" : ""}`}>
                 {content.fields?.image ? (
                     <>
