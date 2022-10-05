@@ -34,18 +34,28 @@ const ProductInfo = ( props ) => {
     const [activeOption, setActiveOption] = useState(0)
     const [activeTab, setActiveTab] = useState(0);
     const [quantity, setQuantity] = useState(1)
+    const [diaperAmount, setDiaperAmount] = useState(false)
     const [review, setReview] = useState(false)
 
     const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext = useDiaperCalculatorContext()
 
-   // console.log(product, "info", selectedVariant, page)
+    // console.log(product, "info", selectedVariant, page)
 
     const richTextRenderOptions = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {
+                console.log(node)
                 return (
                     <></>
+                   //  `<img src=https:${node.data.target.fields.file.url} />`
+                )
+            },
+            [INLINES.EMBEDDED_ENTRY]: (node) => {
+                console.log(node)
+                return (
+                    <></>
+                   //  `<img src=https:${node.data.target.fields.file.url} />`
                 )
             },
         }
@@ -75,7 +85,19 @@ const ProductInfo = ( props ) => {
             options: newSelectedOptions,
         })
         setSelectedVariant(variant ? { ...variant } : null)
-        // setActiveOption(index)
+
+        if(variant){
+            let sizeOption = variant.content.selectedOptions.filter(option => {
+                return option.name == "Size"
+            })
+
+            let regExp = /\(([^)]+)\)/;
+            let match = regExp.exec(sizeOption[0].value);
+
+            if(match[1].includes('diapers')) {
+                setDiaperAmount(match[1].replace(' diapers', ''))
+            }
+        }
     }
 
     const handleCheckBoxChange = (option) => { 
@@ -88,11 +110,7 @@ const ProductInfo = ( props ) => {
 
     // To Do Confgiure Recharge
     const handleSubscriptionChange = (event) => {
-        // console.log(event.target.value)
         const value = event.target.value
-        if(event.target.value === "Subscription") {
-            
-        }
 
         setPurchaseSubscription(value)
 
@@ -136,7 +154,6 @@ const ProductInfo = ( props ) => {
             } else {
                 const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
                 const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
-                console.log(sellingPlanId)
 
                 lineItem = {
                     merchandiseId: selectedVariant.nacelleEntryId,
@@ -225,6 +242,26 @@ const ProductInfo = ( props ) => {
 
             setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
         }
+
+        if(selectedVariant) {
+            const variant = getCartVariant({
+                product,
+                variant: selectedVariant,
+            })
+    
+            if(variant){
+                let sizeOption = variant.selectedOptions.filter(option => {
+                    return option.name == "Size"
+                })
+    
+                let regExp = /\(([^)]+)\)/;
+                let match = regExp.exec(sizeOption[0].value);
+    
+                if(match[1].includes('diapers')) {
+                    setDiaperAmount(match[1].replace(' diapers', ''))
+                }
+            }
+        }
     }, [])
  
     return (
@@ -234,15 +271,17 @@ const ProductInfo = ( props ) => {
                     {review ? (
                         <div className="product-info__reviews">
                             <>
-                                <span class="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
-                                <span class="junip-product-summary" data-product-id="4522469523505"></span>
+                                <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                                <span className="junip-product-summary" data-product-id="4522469523505"></span>
                                 {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
                             </>
                         </div>
                     ) : ""}
 
                     {product.content?.title && <h1 className="product-info__title h3">{product.content.title}</h1>}
-                    <div className="product-info__description">The safest diaper for baby's developing brain & body.</div>
+                    {page.fields?.productDescription ? (
+                        <div className="product-info__description">{page.fields.productDescription}</div>
+                    ) : ""} 
                     <h4 className="product-info__price">
                         <>
                             {purchaseSubscription === "Subscription" ? (
@@ -272,7 +311,7 @@ const ProductInfo = ( props ) => {
                                                     </div>
                                                 )
                                             default:
-                                            return <ProductOptions option={option} handleOptionChange={handleOptionChange} key={oIndex}/>
+                                            return <ProductOptions option={option} handleOptionChange={handleOptionChange} diaperAmount={diaperAmount} key={oIndex}/>
                                         }
                                 })  
                             }
@@ -303,7 +342,12 @@ const ProductInfo = ( props ) => {
                                     <Plus />
                                 </button>
                             </div> 
-                            <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
+                            {selectedVariant.availableForSale ? (
+                                <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
+                            ) : (
+                                <button className="product-form__submit btn secondary full-width disabled" onClick={() => handleAddItem()}>Out of Stock</button>
+                            )}
+                            
                         </div>
 
                         <div className="product-status">

@@ -18,7 +18,7 @@
         .value-props__wrapper {
             flex-wrap: wrap;
             width: 100%;
-            margin: 0;
+            margin: 0 auto;
         }
 
         .value-props__item {
@@ -62,10 +62,53 @@
             }
         }
 
+        &__content {
+            @include breakpoint-up('md') {
+                padding: 30px 30px 30px 0px;
+            }
+        }
+
         &__cta {
             @include breakpoint-down('md') {
                 .btn {
                     padding: 19px 30px;
+                }
+            }
+        }
+
+        &__image {
+    
+            display: none;
+
+            @include breakpoint-up('md') {
+                max-width: 170px;
+                display: block;
+                width: 100%;
+                max-height: 100%;
+            }
+    
+            &--desktop {
+                display: none;
+    
+                @include breakpoint-up('md') {
+                    display: block;
+                }
+            }
+    
+            &--mobile {
+                display: block;
+    
+                @include breakpoint-up('md') {
+                    display: none;
+                }
+            }
+    
+            img {
+                height: 350px;
+                object-fit: cover;
+    
+                @include breakpoint-up('md') {
+                    height: 750px!important;
                 }
             }
         }

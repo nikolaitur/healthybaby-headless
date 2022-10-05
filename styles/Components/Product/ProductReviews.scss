@@ -1,6 +1,6 @@
 .product-reviews {
     padding: 0 0 40px;
-    
+
     .junip-product-review-container, 
     .junip-review-section-title {
         @extend .container;
@@ -107,8 +107,16 @@
     }
 
     .junip-avatar {
-        width: 120px;
-        height: 120px;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        font-size: 1em;
+
+        @include breakpoint-up('md') {
+            width: 120px;
+            height: 120px;
+            font-size: 1.5em;
+        }
     }
 
     .junip-review-author {
@@ -155,8 +163,15 @@
     }
 
     .junip-recommendation-container {
-        padding-left: 130px;
-        transform: translateY(-50px);
+        padding-left: 47px;
+        transform: translateY(-10px);
+
+        @include breakpoint-up('md') {
+            padding-left: 130px;
+            transform: translateY(-50px);
+        }
+
+
     }
 
     .junip-review-title,
@@ -194,7 +209,26 @@
         }
     }
 
+    .junip-container-xs .junip-product-review-title,
+    .junip-container-xs .junip-product-review-summary-container,
+    .junip-container-xs .junip-write-review-cta-container,
+    .junip-container-xs .junip-filters-container, 
+    .junip-container-xs .junip-filters-label,
+    .junip-container-xs .junip-reviews-container .junip-review-list-item-container {
+        padding: 0;
+    }
     
+    .junip-container-xs .junip-gallery-container,
+    .junip-container-xs .junip-separator {
+        margin: 0;
+    }
+
+    .junip-container-xs .junip-separator {
+        @include breakpoint-down('md') {
+            margin-top: 2em!important;
+            margin-bottom: 2em!important;
+        }
+    }
 
 }
 

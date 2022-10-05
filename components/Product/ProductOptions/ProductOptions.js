@@ -5,7 +5,7 @@ import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorCon
 
 const ProductOptions = ( props ) => {
 
-    const { option } = props
+    const { option, diaperAmount } = props
 
     const [activeOption, setActiveOption] = useState(0)
 
@@ -28,6 +28,9 @@ const ProductOptions = ( props ) => {
                     </button>
                 ))}
             </div>
+            {option.name == "Size" && diaperAmount ? (
+                <p className="product-form__count">{diaperAmount} Diapers per pack</p>
+            ) : ""}
         </>
     )
 }

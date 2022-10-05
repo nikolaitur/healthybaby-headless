@@ -208,6 +208,12 @@
         }
     }
 
+    &__submit {
+        &.btn {
+            padding: 19px 30px;
+        }
+    }
+
     &__subscription {
         margin: 30px 0 0;
     }
@@ -349,6 +355,8 @@
 
     &__text {
         margin-left: 10px;
+        width: calc(100% - 180px);
+
         p {
             font-family: $NeutraTextDemi;
         }
@@ -371,10 +379,6 @@
 
 .product-tabs {
     padding: 40px 0 0;
-
-    @include breakpoint-up('md') {
-        padding: 70px 0 0;
-    }
 
     &__nav {
         display: flex;

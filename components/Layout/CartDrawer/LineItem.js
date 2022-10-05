@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -19,12 +19,23 @@ const LineItem = ({item}) => {
         { incrementItem, decrementItem, removeFromCart, addToCart },
     ] = useCart()
 
+    const [subscriptionPrice, setSubscriptionPrice] = useState(false)
+
     const cartDrawerContext =  useCartDrawerContext()
 
-    console.log(item, "item")
+    // console.log(item, "item")
 
     let isSubscription = false
     let hasSubscriptionProduct = false
+
+    useEffect(() => {
+        if(item.sellingPlan) {            
+            const sellingPlanPriceValue = JSON.parse(item.sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+
+            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
+        }
+    }, [])
 
     const getOptions = () => {
         let singleVariant = true
@@ -114,7 +125,15 @@ const LineItem = ({item}) => {
                 {getOptions() ? (
                     <div className="line-item__option">{ item.variant.selectedOptions[0].value } {item.variant.selectedOptions[1]?.value ? <span>/ {item.variant.selectedOptions[1].value}</span> : ""}</div>
                 ) : ""}
-                <div className="line-item__price">${ (item.variant.price).toFixed(2) }</div>
+                <div className="line-item__price">
+                    <>
+                        {item.sellingPlan ? (
+                            `$${Number(subscriptionPrice).toFixed(2)}`
+                            ) : (
+                            `$${ (item.variant.price).toFixed(2) }`
+                        )}
+                    </>
+                </div>
                 <div className="line-item__quantity">
                     <div className="line-item__quantity--wrapper">
                         <button onClick={() => decrement()} className="line-item__decrement">

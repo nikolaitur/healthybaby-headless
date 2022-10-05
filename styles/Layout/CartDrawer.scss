@@ -52,7 +52,7 @@
 
     &__content {
         position: relative;
-        width: 100%;
+        min-width: 100%;
         max-width: 525px;
         // padding: 30px;
         height: 100vh;
@@ -64,6 +64,7 @@
 
         @include breakpoint-up('md') {
             // padding: 0;
+            min-width: 525px;
         }
     }
 

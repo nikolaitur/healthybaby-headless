@@ -37,8 +37,13 @@ const CartDrawer = ({ content }) => {
     const cartDrawerContent = cartDrawerContext.content[0]
 
     const cartSubtotal = cart.reduce((sum, lineItem) => {
-       return sum + lineItem.variant.price * lineItem.quantity
-       // return 0
+        if(lineItem.sellingPlan) {            
+            const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+            return sum + sellingPlanPriceValue[0].priceAdjustments[0].price.amount * lineItem.quantity
+        } else {
+            return sum + lineItem.variant.price * lineItem.quantity
+        }
     }, 0)
 
     const cartItemTotal = cart.reduce((sum, lineItem) => {
@@ -134,8 +139,6 @@ const CartDrawer = ({ content }) => {
                 nacelleEntryId: lineItem.nacelleEntryId,
                 quantity: lineItem.quantity,
             }
-
-            // console.log(returnItem, lineItem)
 
             if (lineItem.subscription) {
                 const sellingPlanAllocationsValue = JSON.parse(lineItem.sellingPlan.value)
