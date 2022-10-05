@@ -1,3 +1,5 @@
+@import '~video-react/styles/scss/video-react';
+
 .hero {
     width: 100%;
     background: lightblue;
@@ -11,6 +13,22 @@
 
     @media screen and (min-width: 1074px) and  (max-height:900px) {
        min-height: 720px;
+    }
+
+    &--video {
+        height: auto;
+        .hero__image {
+            position: static;
+        }
+        .hero__container {
+            position: absolute;
+            z-index: 1;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
     }
 
     &__image {
@@ -46,7 +64,7 @@
         position: relative;
         z-index: 2;
 
-        &--top {
+        &--vertical-top {
             align-items: flex-start;
             padding: 70px 0 0;
 
@@ -63,7 +81,11 @@
             align-items: center;
         }
 
-        &--bottom {
+        &--vertical-right {
+            align-items: flex-end;
+        }
+
+        &--vertical-bottom {
             align-items: flex-end;
             padding: 0 0 70px;
 
@@ -76,15 +98,16 @@
             }
         }
 
-        &--left {
+        &--horizontal-left {
             justify-content: flex-start;
         }
 
-        &--horizontail-center {
+        &--horizontal-center {
+            text-align: center;
             justify-content: center;
         }
 
-        &--right {
+        &--horizontal-right {
             justify-content: flex-end;
         }
     }

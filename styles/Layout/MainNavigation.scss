@@ -55,26 +55,27 @@
         }
     };
 
+    &__left,
+    &__right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      z-index: 11;
+    }
+
     &__left {
-        position: relative;
-        display: flex;
-        align-items: center;
         justify-content: flex-start;
         width: calc(50% - 205px);
         z-index: 11;
     }
 
     &__right {
-        position: relative;
-        display: flex;
-        align-items: center;
         justify-content: flex-end;
         width: calc(50% - 205px);
     }
 
     &__item {
         position: relative;
-        padding-right: 28px;
         cursor: pointer;
         transition: 0.3s;
         color: #3D3331;
@@ -83,8 +84,9 @@
         @include breakpoint-up('md') {
             font-size: 18px;
             line-height: 21px;
+            padding: 14px;
         }
-        
+
         &.active {
             z-index: 11;
         }
@@ -147,12 +149,12 @@
 
     &__dropdown {
         position: absolute;
-        width: 300px;
+        width: 280px;
         background: #fff;
         margin: 0;
         padding: 60px 20px 20px;
-        left: -20px;
-        top: 20px;
+        left: -25px;
+        top: 34px;
         opacity: 0;
         pointer-events: none;
         transition: 0.3s;
