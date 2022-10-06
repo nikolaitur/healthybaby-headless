@@ -1,7 +1,7 @@
 <style>
   @font-face {
     font-family: 'DomaineText';
-    src: url('https://cdn.shopify.com/s/files/1/0654/2878/3344/files/DomaineText-Regular.otf?v=1664763899');
+    src: url('https://cdn.shopify.com/s/files/1/0654/2878/3344/files/DomaineDisp-Medium.otf?v=1665086437');
     font-weight: 500;
   }
 
@@ -16,6 +16,7 @@
     src: url('https://cdn.shopify.com/s/files/1/0654/2878/3344/files/NeutraTextDemiAlt.otf?v=1664763914');
     font-weight: 500;
   }
+
 
   :root {
     --white: #F5F2F2;
