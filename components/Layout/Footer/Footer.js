@@ -15,16 +15,18 @@ const Footer = ({ content }) => {
 
     const getSocialIcon = (title) => {
         switch(title){
-            case 'Twitter': 
+            case 'Twitter':
                 return <Twitter/>;
-            case 'Youtube': 
-                return <Youtube/>; 
-            case 'Facebook': 
-                return <Facebook/>; 
-            case 'Instagram': 
-                return <Instagram/>; 
+            case 'Youtube':
+                return <Youtube/>;
+            case 'Facebook':
+                return <Facebook/>;
+            case 'Instagram':
+                return <Instagram/>;
         }
     }
+
+    // console.log(content, "footer")
 
     return (
       <footer>
@@ -37,15 +39,18 @@ const Footer = ({ content }) => {
                             <div className="footer__title">
                                 {item.fields.title}
                             </div>
-                            <div className="footer__links">
-                                {item.fields.links.map((link, index) => (
-                                    <div className="footer__link" key={index}>
-                                        <Link href={link.fields.url}>
-                                            {link.fields.title}
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
+                            {item.fields?.links ? (
+                                <div className="footer__links">
+                                    {item.fields.links.map((link, index) => (
+                                        <div className="footer__link" key={index}>
+                                            <Link href={link.fields.url}>
+                                                {link.fields.title}
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : ""}
+
                         </div>
                     ))}
                     <div className="footer__wrapper footer__wrapper--accordion">
@@ -59,36 +64,53 @@ const Footer = ({ content }) => {
                 </div>
                 <div className="footer__copyright">
                     <div className='footer__legal'>
-                        <div className="footer__copy">&copy; {new Date().getFullYear()} {copyright}</div>            
-                        <div className="footer__policies">
-                            {policy.map((item, index) => (
+                        <div className="footer__copy">&copy; {new Date().getFullYear()} {copyright}</div>
+                        {content.fields?.policy ? (
+                            <div className="footer__policies">
+                                {policy.map((item, index) => (
+                                    <Link href={item.fields.url} key={index}>
+                                        <div className="footer__policy">{item.fields.title}</div>
+                                    </Link>
+                                ))}
+                            </div>
+                        ) : ""}
+                    </div>
+                    {content.fields?.social ? (
+                        <div className='footer__social'>
+                            {social.map((item, index) => (
                                 <Link href={item.fields.url} key={index}>
-                                    <div className="footer__policy">{item.fields.title}</div>
+                                    <div className="footer__icon">
+                                        {getSocialIcon(item.fields.title)}
+                                    </div>
                                 </Link>
                             ))}
                         </div>
-                    </div>
-                    <div className='footer__social'>
-                        {social.map((item, index) => (
-                            <Link href={item.fields.url} key={index}>
-                                <div className="footer__icon">
-                                    {getSocialIcon(item.fields.title)}
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    ) : "" }
+
                     <div className="footer__policy footer__policy--mobile">
-                        <Link href={policy[0].fields.url}>
-                            {policy[0].fields.title}  
-                        </Link>
-                        <span>|</span>
-                        <Link href={policy[1].fields.url}>
-                            {policy[1].fields.title}  
-                        </Link>
-                        <span>|</span>
-                        <Link href={policy[2].fields.url}>
-                            {policy[2].fields.title}  
-                        </Link>
+                        {content.fields?.policy ? (
+                            <Link href={policy[0].fields.url}>
+                                {policy[0].fields.title}
+                            </Link>
+                        ) : ""}
+
+                        {content.fields?.policy ? (
+                            <>
+                                <span>|</span>
+                                <Link href={policy[1].fields.url}>
+                                    {policy[1].fields.title}
+                                </Link>
+                            </>
+                        ) : ""}
+
+                        {content.fields?.policy ? (
+                            <>
+                                <span>|</span>
+                                <Link href={policy[2].fields.url}>
+                                    {policy[2].fields.title}
+                                </Link>
+                            </>
+                        ) : ""}
                     </div>
                 </div>
             </div>
@@ -102,5 +124,5 @@ const Footer = ({ content }) => {
       </footer>
     );
   };
-  
+
   export default Footer;

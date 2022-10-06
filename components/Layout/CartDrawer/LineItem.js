@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import { nacelleClient } from 'services'
+import cartClient from 'services/nacelleClientCart'
 import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
+
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
@@ -16,43 +19,23 @@ const LineItem = ({item}) => {
         { incrementItem, decrementItem, removeFromCart, addToCart },
     ] = useCart()
 
+    const [subscriptionPrice, setSubscriptionPrice] = useState(false)
+
+    const cartDrawerContext =  useCartDrawerContext()
+
+    // console.log(item, "item")
+
     let isSubscription = false
     let hasSubscriptionProduct = false
 
-    if (item.variant.tags) {
-        item.variant.tags.forEach(tag => {
-            tag.includes("Subscription Product") ? isSubscription = true : false
-            tag.includes("Subscription handle::") ? hasSubscriptionProduct = tag : false
-        });
-    }
+    useEffect(() => {
+        if(item.sellingPlan) {            
+            const sellingPlanPriceValue = JSON.parse(item.sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
 
-    const getSubscriptionProduct = (tag) => {
-        let handle = tag.split("::")
-        const getProduct = async () => {
-            await nacelleClient.products({
-                handles: handle[1]
-            }).then(response => {
-                removeFromCart(item)
-                addSubscriptionProduct(response)
-            })
+            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
         }
-
-        getProduct()
-    }
-
-    const addSubscriptionProduct = (product) => {
-        const variant = getCartVariant({
-            product: product[0],
-            variant: product[0].variants[0]
-        })
-        addToCart({
-            variant,
-            quantity: 1,
-            properties: {
-                _
-            }
-        })
-    }
+    }, [])
 
     const getOptions = () => {
         let singleVariant = true
@@ -67,14 +50,60 @@ const LineItem = ({item}) => {
 
     const decrement = () => {
         if (item.quantity <= 1) {
-        removeFromCart(item)
+            removeFromCart(item)
         } else {
-        decrementItem(item)
+            decrementItem(item)
         }
     }
 
-    const upgradeToSubscription = () => {
-        getSubscriptionProduct(hasSubscriptionProduct)
+    const upgradeToSubscription = async () => {
+        if (item.sellingPlan) {
+            const sellingPlanAllocationsValue = JSON.parse(item.sellingPlan.value)
+            const sellingPlanId = `${sellingPlanAllocationsValue[0].sellingPlan.id}`
+
+            let lineItem = {
+                merchandiseId: item.nacelleEntryId,
+                nacelleEntryId: item.nacelleEntryId,
+                quantity: 1,
+                sellingPlanId,
+                // attributes: [{ key: 'subscription', value: sellingPlanId }]
+            }
+
+            removeFromCart(item)
+
+            const variant = getCartVariant({
+                product: item.product,
+                variant: item.selectedVariant
+            })
+            
+            addToCart({
+                merchandiseId: item.nacelleEntryId,
+                nacelleEntryId: item.nacelleEntryId,
+                sellingPlan: item.sellingPlan,
+                subscription: true,
+                quantity: 1,
+                variant,
+                product: item.product,
+                selectedVariant: item.selectedVariant
+            })
+
+            await cartClient.cartLinesAdd({
+                cartId: cartDrawerContext.shopifyCartId,
+                lines: [
+                    lineItem    
+                ]
+              })
+              .then((data) => {
+                console.log(data, "Cart data")
+              })
+              .catch((err) => {
+                console.error(err, "Error")
+              })
+        }
+    }
+
+    const removeSubscription = () => {
+
     }
 
   return (
@@ -94,10 +123,17 @@ const LineItem = ({item}) => {
             <div className="line-item__content">
                 <div className="line-item__title">{ item.variant.productTitle }</div>
                 {getOptions() ? (
-                    <div className="line-item__option">{ item.variant.selectedOptions[0].value }</div>
+                    <div className="line-item__option">{ item.variant.selectedOptions[0].value } {item.variant.selectedOptions[1]?.value ? <span>/ {item.variant.selectedOptions[1].value}</span> : ""}</div>
                 ) : ""}
-                
-                <div className="line-item__price">${ (item.variant.price).toFixed(2) }</div>
+                <div className="line-item__price">
+                    <>
+                        {item.sellingPlan ? (
+                            `$${Number(subscriptionPrice).toFixed(2)}`
+                            ) : (
+                            `$${ (item.variant.price).toFixed(2) }`
+                        )}
+                    </>
+                </div>
                 <div className="line-item__quantity">
                     <div className="line-item__quantity--wrapper">
                         <button onClick={() => decrement()} className="line-item__decrement">
@@ -116,8 +152,11 @@ const LineItem = ({item}) => {
                 </div>
             </div>
         </div>
-        {hasSubscriptionProduct ? (
-            <button className="line-item__upgrade" onClick={() => upgradeToSubscription()}>Upgrade to Subscribe & Save 15%</button>
+        {!item.subscription && item.sellingPlan ? (
+            <button className="line-item__upgrade" onClick={() => upgradeToSubscription()}>Upgrade to Subscribe & Save 10%</button>
+        ) : ""}
+        {item.subscription && item.sellingPlan ? (
+            <button className="line-item__upgrade bold">Delivery Every 1 Month</button>
         ) : ""}
     </div>
   )

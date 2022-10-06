@@ -32,6 +32,8 @@
 @import './Layout/DiaperCalculator.scss';
 @import './Layout/SearchMenu.scss';
 @import './Layout/Footer.scss';
+@import './Layout/Modal.scss';
+@import './Layout/Forms.scss';
 @import './Layout/CartDrawer.scss';
 
 // ===========================================================================
@@ -69,5 +71,9 @@
 @import './Components/Cards/ContentCard.scss';
 @import './Components/Cards/CollectionCard.scss';
 @import './Components/Cards/ProductCard.scss';
+
+@import './Components/Article/Article.scss';
+
 @import './Components/Cards/DiaperFinderCard.scss';
 @import './Components/Cards/VitaminFinder.scss';
+@import './Components/Product/Product.scss';

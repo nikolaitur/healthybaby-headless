@@ -85,7 +85,6 @@
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: $primaryBrown;
-        margin-bottom: 30px;
 
         @include breakpoint-up('md') {
             font-size: 18px;
@@ -94,18 +93,9 @@
     }
 
     &__copy {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 22px;
-        line-height: 24px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
         margin-bottom: 40px;
 
         @include breakpoint-up('md') {
-            font-size: 32px;
-            line-height: 35px;
             margin-bottom: 70px;
         }
     }

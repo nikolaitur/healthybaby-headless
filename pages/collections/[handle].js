@@ -5,14 +5,12 @@ import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
 
 function Collection(props) {
-  const { collection } = props
-
-  console.log(collection)
+  const { collection, products, productBadges } = {...props}
 
   return (
       <>
         <CollectionHeader content={collection} />
-        <CollectionGrid content={collection} />
+        <CollectionGrid content={collection} products={products} productBadges={productBadges} />
         <CollectionSections content={collection} />
       </>
     )
@@ -34,17 +32,42 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const collection = await nacelleClient.content({ handles: [params.handle] })
+  const collections = await nacelleClient.content({ handles: [params.handle] })
 
-  if (!collection.length) {
+  if (!collections.length) {
     return {
       notFound: true,
     }
   }
 
+  if (collections[0].fields.sections) {
+    const productHandles = collections[0].fields.sections.filter(section => {
+      if (section.fields.productHandle) return section
+    }).map(section => section.fields.productHandle.replace('::en-US', ''))
+
+    const products = await nacelleClient.products({
+      handles: productHandles
+    })
+
+    const productBadges = await nacelleClient.content({
+      type: 'productBadge'
+    })
+
+    if (products.length) {
+      return {
+        props: {
+          collection: collections[0],
+          products,
+          productBadges
+        },
+      }
+    }
+
+  }
+
   return {
     props: {
-      collection: collection[0]
+      collection: collections[0]
     },
   }
 }

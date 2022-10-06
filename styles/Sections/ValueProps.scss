@@ -46,9 +46,23 @@
     &__image {
         margin-bottom: 30px;
 
+        &.desktop {
+            display: none;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
+
+        &.mobile {
+            @include breakpoint-up('md') {
+                display: none;
+            }
+        }
+
         svg {
-            max-width: 46px;
-            max-height: 46px;
+            max-width: 48px;
+            max-height: 48px;
 
             @include breakpoint-up('md') {
                 max-width: 116px;

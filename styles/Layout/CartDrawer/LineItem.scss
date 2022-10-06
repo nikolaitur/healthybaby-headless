@@ -121,5 +121,9 @@
         padding: 9px 12px;
         text-align: left;
         cursor: pointer;
+
+        &.bold {
+            font-family: $NeutraTextDemi;
+        }
     }
 }

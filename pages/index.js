@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 
 import ContentSections from '../components/Sections/ContentSections'
@@ -11,34 +11,37 @@ export default function Home({ pages }) {
   const sections = pages[0].fields.sections
 
   useEffect(function mount() {
-    window.addEventListener("scroll", backgroundColorChange);
+    window.addEventListener('scroll', backgroundColorChange)
 
     return function unMount() {
-      window.removeEventListener("scroll", backgroundColorChange);
-    };
-  });
+      window.removeEventListener('scroll', backgroundColorChange)
+    }
+  })
 
   const backgroundColorChange = () => {
-      
-      const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
-      const scroll = scrollPosition + (window.innerHeight / 3)
-      
-      const sections = document.querySelectorAll("section");
-      
-      sections.forEach(element => {
-          if(element.offsetTop <= scroll && element.offsetTop + element.offsetHeight > scroll) {
-              const bodyClasses = document.body.className
+    const scrollPosition =
+      document.documentElement.scrollTop || document.body.scrollTop
+    const scroll = scrollPosition + window.innerHeight / 3
 
-              for (let i = document.body.classList.length - 1; i >= 0; i--) {
-                  const className = document.body.classList[i];
-                  if (className.startsWith('color-')) {
-                      document.body.classList.remove(className);
-                  }
-              }
+    const sections = document.querySelectorAll('section')
 
-              document.body.classList.add(`color-${element.dataset.backgroundColor}`)
+    sections.forEach((element) => {
+      if (
+        element.offsetTop <= scroll &&
+        element.offsetTop + element.offsetHeight > scroll
+      ) {
+        const bodyClasses = document.body.className
+
+        for (let i = document.body.classList.length - 1; i >= 0; i--) {
+          const className = document.body.classList[i]
+          if (className.startsWith('color-')) {
+            document.body.classList.remove(className)
           }
-      });
+        }
+
+        document.body.classList.add(`color-${element.dataset.backgroundColor}`)
+      }
+    })
   }
 
   return (
@@ -58,35 +61,35 @@ export default function Home({ pages }) {
 export async function getStaticProps({ previewData }) {
   try {
     const pages = await nacelleClient.content({
-      handles: ['homepage']
+      handles: ['homepage'],
     })
 
     return {
-      props: { pages }
+      props: { pages },
     }
   } catch {
     // fake hero image section until Sanity is hooked up
     const page = {
       fields: {
-          sections: [
-            {
-              fields: {
-                handle: "",
-                title: "",
-                subtitle: "",
-                ctaText: "",
-                ctaUrl: "",
-                textColor: "",
-              }
-            }
-          ]
-      }
+        sections: [
+          {
+            fields: {
+              handle: '',
+              title: '',
+              subtitle: '',
+              ctaText: '',
+              ctaUrl: '',
+              textColor: '',
+            },
+          },
+        ],
+      },
     }
 
     return {
       props: {
-        page
-      }
+        page,
+      },
     }
   }
 }

@@ -5,6 +5,7 @@
     margin-bottom: 40px;
     width: calc(50% - 5px);
     max-width: calc(50% - 5px);
+    position: relative;
 
     &.full-width {
         width: 100%;
@@ -13,18 +14,18 @@
 
     // @include breakpoint-up('md') {
     //     width: calc(50% - 20px);
-    //     max-width: calc(50% - 20px);        
+    //     max-width: calc(50% - 20px);
     // }
 
     @include breakpoint-up('md') {
         width: calc(33% - 30px);
         max-width: calc(33% - 30px);
-        
+
         &.full-width {
             width: calc(50% - 30px);
             max-width: calc(50% - 30px);
         }
-        
+
     }
 
     &__title {
@@ -35,7 +36,6 @@
         line-height: 19px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin-bottom: 5px;
 
         @include breakpoint-up('md') {
             font-size: 26px;
@@ -51,11 +51,70 @@
         line-height: 17px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin-bottom: 15px;
+        margin-top: 5px;
 
         @include breakpoint-up('md') {
             font-size: 22px;
             line-height: 31px;
+        }
+    }
+
+    &__badge {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+        @include breakpoint-up('sm') {
+            width: 80px;
+            height: 80px;
+            top: 15px;
+            right: 15px;
+        }
+    }
+
+    &__reviews {
+        margin-top: 10px;
+
+        .junip-product-summary-star-ratings-container {
+            align-items: flex-start;
+            display: flex;
+            margin-left: -1px;
+            justify-content: flex-start;
+        }
+
+        .junip-product-summary-review-count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            letter-spacing: -0.01em;;
+            color: $primaryGreen;
+            margin-left: 6px;
+            padding-top: 2px;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 25px;
+            }
+        }
+
+        .junip-product-summary-star {
+            svg {
+                width: 12px;
+                height: 12px;
+
+                @include breakpoint-up('md') {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                path {
+                    fill: $primaryGreen;
+                }
+            }
         }
     }
 
@@ -127,6 +186,10 @@
             // min-height: auto!important;
             // max-height: auto!important;
         }
+    }
+
+    &__cta {
+        margin-top: 10px;
     }
 
     &__slider {

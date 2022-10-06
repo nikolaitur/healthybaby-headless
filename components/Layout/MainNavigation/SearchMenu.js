@@ -43,7 +43,7 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
 
     useEffect(() => {
         setSearchQuery(query)
-        console.log(searchQuery, "searchquery")
+        // console.log(searchQuery, "searchquery")
 
         searchClient.multipleQueries(queries).then(({ results }) => {
             if(searchQuery == "") {
@@ -69,7 +69,7 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
                 document.body.classList.remove("no-scroll")
             }
 
-            console.log(results, "results", searchProducts.hits, searchArticles.hits);
+            // console.log(results, "results", searchProducts.hits, searchArticles.hits);
         });
     }, [query])
 
