@@ -48,7 +48,7 @@ const ArticleHeroPodcast = ({ content }) => {
             <div className="podcast-hero__image--mobile">
               <Image
                 className=""
-                src={`https://${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
+                src={`https:${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"
