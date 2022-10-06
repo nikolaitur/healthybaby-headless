@@ -50,7 +50,7 @@ const ArticleVideo = ({ content }) => {
             url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
             playing={isPlaying}
             controls={true}
-            className=""
+            className="article-video__video-player"
           />
         )}
       </div>
