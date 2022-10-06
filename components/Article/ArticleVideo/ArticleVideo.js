@@ -51,6 +51,8 @@ const ArticleVideo = ({ content }) => {
             playing={isPlaying}
             controls={true}
             className="article-video__video-player"
+            width="100%"
+            height="100%"
           />
         )}
       </div>

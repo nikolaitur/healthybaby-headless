@@ -13,10 +13,6 @@
     @include breakpoint-up('md') {
       height: 650px !important;
     }
-
-    &-player {
-      width: 100% !important;
-    }
   }
 
   &__icon {
