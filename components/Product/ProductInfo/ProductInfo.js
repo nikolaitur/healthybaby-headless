@@ -22,7 +22,7 @@ import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 
 const ProductInfo = ( props ) => {
-    const { product, page } = props
+    const { product, page } = {...props}
 
     const [, { addToCart }] = useCart()
     const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -31,14 +31,14 @@ const ProductInfo = ( props ) => {
     const [isSubscription, setIsSubscription] = useState(false)
     const [subscriptionPrice, setSubscriptionPrice] = useState(false)
     const [purchaseSubscription, setPurchaseSubscription] = useState(false)
+    const [isCheckedOneTime, setIsCheckedOneTime] = useState(true)
+    const [isCheckedSubscription, setIsCheckedSubscription] = useState(false)
     const [activeOption, setActiveOption] = useState(0)
     const [activeTab, setActiveTab] = useState(0);
     const [quantity, setQuantity] = useState(1)
     const [diaperAmount, setDiaperAmount] = useState(false)
-    const [review, setReview] = useState(false)
 
     const cartDrawerContext =  useCartDrawerContext()
-    const diaperCalculatorContext = useDiaperCalculatorContext()
 
     // console.log(product, "info", selectedVariant, page)
 
@@ -74,16 +74,19 @@ const ProductInfo = ( props ) => {
         })
 
         const newSelectedOptions = [...selectedOptions]
+
         if (optionIndex > -1) {
             newSelectedOptions.splice(optionIndex, 1, newOption)
             setSelectedOptions([...newSelectedOptions])
         } else {
             setSelectedOptions([...newSelectedOptions, newOption])
         }
+
         const variant = getSelectedVariant({
             product,
             options: newSelectedOptions,
         })
+
         setSelectedVariant(variant ? { ...variant } : null)
 
         if(variant){
@@ -91,13 +94,18 @@ const ProductInfo = ( props ) => {
                 return option.name == "Size"
             })
 
-            let regExp = /\(([^)]+)\)/;
-            let match = regExp.exec(sizeOption[0].value);
-
-            if(match[1].includes('diapers')) {
-                setDiaperAmount(match[1].replace(' diapers', ''))
+            if(sizeOption.length > 0) {
+                let regExp = /\(([^)]+)\)/;
+                let match = regExp.exec(sizeOption[0].value);
+    
+                if(match[1].includes('diapers')) {
+                    setDiaperAmount(match[1].replace(' diapers', ''))
+                }
             }
         }
+
+        handleSubscriptionPrice(variant)
+
     }
 
     const handleCheckBoxChange = (option) => { 
@@ -108,13 +116,29 @@ const ProductInfo = ( props ) => {
         handleOptionChange(option.name, optionValue)
     }; 
 
-    // To Do Confgiure Recharge
     const handleSubscriptionChange = (event) => {
         const value = event.target.value
 
         setPurchaseSubscription(value)
 
-        console.log(purchaseSubscription, value)
+        if(value === "Subscription") {
+            setIsCheckedOneTime(false)
+            setIsCheckedSubscription(true)
+        } else {
+            setIsCheckedOneTime(true)
+            setIsCheckedSubscription(false)
+        }
+    }
+
+    const handleSubscriptionPrice = (newVariant = selectedVariant) => {
+        let sellingPlan = newVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+
+        if(sellingPlan) {
+            const sellingPlanPriceValue = JSON.parse(sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+
+            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
+        }
     }
 
     const handleDecrementChange = () => {
@@ -235,48 +259,48 @@ const ProductInfo = ( props ) => {
         if(sellingPlanAllocations) {
             setIsSubscription(sellingPlanAllocations)
 
-            let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
-            
-            const sellingPlanPriceValue = JSON.parse(sellingPlan.value)
-            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-
-            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
+            handleSubscriptionPrice()
         }
 
-        if(selectedVariant) {
-            const variant = getCartVariant({
-                product,
-                variant: selectedVariant,
-            })
-    
-            if(variant){
-                let sizeOption = variant.selectedOptions.filter(option => {
-                    return option.name == "Size"
+        const getDiaperCount = () => {
+            if(selectedVariant) {
+                const variant = getCartVariant({
+                    product,
+                    variant: selectedVariant,
                 })
-    
-                let regExp = /\(([^)]+)\)/;
-                let match = regExp.exec(sizeOption[0].value);
-    
-                if(match[1].includes('diapers')) {
-                    setDiaperAmount(match[1].replace(' diapers', ''))
+        
+                if(variant){
+                    let sizeOption = variant.selectedOptions.filter(option => {
+                        return option.name == "Size"
+                    })
+                    
+                    if(sizeOption.length > 0) {
+                        let regExp = /\(([^)]+)\)/;
+                        let match = regExp.exec(sizeOption[0].value);
+            
+                        if(match[1].includes('diapers')) {
+                            setDiaperAmount(match[1].replace(' diapers', ''))
+                        }
+                    }   
                 }
             }
         }
+
+        getDiaperCount()
+
     }, [])
  
     return (
         product ? (
             <div className="product-info">
                 <div className="product-info__sticky">
-                    {review ? (
-                        <div className="product-info__reviews">
-                            <>
-                                <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
-                                <span className="junip-product-summary" data-product-id="4522469523505"></span>
-                                {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
-                            </>
-                        </div>
-                    ) : ""}
+                    <div className="product-info__reviews">
+                        <>
+                            <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                            <span className="junip-product-summary" data-product-id="4522469523505"></span>
+                            {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
+                        </>
+                    </div>
 
                     {product.content?.title && <h1 className="product-info__title h3">{product.content.title}</h1>}
                     {page.fields?.productDescription ? (
@@ -319,13 +343,13 @@ const ProductInfo = ( props ) => {
 
                         {isSubscription ? (
                             <div className="product-form__subscription" onChange={(event) => handleSubscriptionChange(event)}>
-                                <div className="product-form__input-wrapper active">
-                                    <input type="radio" id="html" name="subscription" value="One Time" />
-                                    <label htmlFor="html">Buy One Time</label>
+                                <div className={`product-form__input-wrapper ${isCheckedOneTime ? "active" : ""}`}>
+                                    <input type="radio" id="html" name="subscription" value="One Time" checked={isCheckedOneTime} />
+                                    <label htmlFor="html">Buy One Time <span className="price">${selectedVariant.price.toFixed(2)}</span></label>
                                 </div>
-                                <div className="product-form__input-wrapper">
-                                    <input type="radio" id="html" name="subscription" value="Subscription" />
-                                    <label htmlFor="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span></label>
+                                <div className={`product-form__input-wrapper ${isCheckedSubscription ? "active" : ""}`}>
+                                    <input type="radio" id="html" name="subscription" value="Subscription" checked={isCheckedSubscription} />
+                                    <label htmlFor="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span><span className="price">${Number(subscriptionPrice).toFixed(2)}</span></label>
                                 </div>
                             </div>
                         ): ""}
@@ -342,12 +366,12 @@ const ProductInfo = ( props ) => {
                                     <Plus />
                                 </button>
                             </div> 
+
                             {selectedVariant.availableForSale ? (
                                 <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
                             ) : (
-                                <button className="product-form__submit btn secondary full-width disabled" onClick={() => handleAddItem()}>Out of Stock</button>
+                                <button className="product-form__submit btn secondary full-width disabled">Out of Stock</button>
                             )}
-                            
                         </div>
 
                         <div className="product-status">
@@ -372,7 +396,7 @@ const ProductInfo = ( props ) => {
                             </div>
                         ) : ""}
                         
-                        {page.fields?.productDetailTabTitle1 ? (
+                        {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (
                             <div className='product-tabs'>
                                 <div className="product-tabs__nav">
                                     {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (<div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>{page.fields.productDetailTabTitle1}</div>) : ""}

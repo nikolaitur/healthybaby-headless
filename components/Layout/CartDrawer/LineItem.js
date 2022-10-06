@@ -127,11 +127,14 @@ const LineItem = ({item}) => {
                 ) : ""}
                 <div className="line-item__price">
                     <>
-                        {item.sellingPlan ? (
+                        {!item.sellingPlan ? (
+                            `$${ (item.variant.price).toFixed(2) }`
+                            ) : item.subscription && item.sellingPlan ? (
                             `$${Number(subscriptionPrice).toFixed(2)}`
                             ) : (
                             `$${ (item.variant.price).toFixed(2) }`
-                        )}
+                            )
+                        }
                     </>
                 </div>
                 <div className="line-item__quantity">

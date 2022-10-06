@@ -1,17 +1,13 @@
 import { useState } from 'react'
-import Image from 'next/image'
-import Script from 'next/script';
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
-import styles from 'styles/Product.module.css'
 
 import ProductGallery from '../../components/Product/ProductGallery'
 import ProductInfo from '../../components/Product/ProductInfo'
 import ProductSections from '../../components/Product/ProductSections'
 import ProductReviews from '../../components/Product/ProductReviews'
-
 
 function Product({ product, page }) {
   const [, { addToCart }] = useCart()
@@ -72,13 +68,6 @@ function Product({ product, page }) {
   return (
     product && (
       <section className="product-main">
-          {/* <Script
-              src="https://scripts.juniphq.com/v1/junip_shopify.js"
-              strategy="lazyOnload"
-              onLoad={() =>
-                  console.log(`junip`)
-              }
-        /> */}
         <div className="product-main__container container">
             <ProductGallery product={product} page={page} />
             <ProductInfo product={product} page={page} />
