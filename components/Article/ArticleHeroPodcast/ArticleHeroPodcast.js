@@ -15,7 +15,7 @@ const ArticleHeroPodcast = ({ content }) => {
           <div className="podcast-hero__image--desktop">
             <Image
               className=""
-              src={`https://${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+              src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
               alt={`image`}
               layout="responsive"
               objectFit="cover"
