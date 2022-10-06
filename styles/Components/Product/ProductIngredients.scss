@@ -1,0 +1,111 @@
+.product-ingredients {
+    padding: 40px 0 70px;
+
+    @include breakpoint-up('md') {
+        padding: 100px 0 100px;
+    }
+
+    &__content {
+        text-align: left;
+
+        @include breakpoint-up('md') {
+            text-align: center;
+        }
+    }
+
+    &__header {
+        h3 {
+            display: inline-block;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
+    }
+
+    &__items {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;  
+        padding: 30px 0 0;
+
+        @include breakpoint-up('md') {
+            padding: 70px 0 0;
+        }
+    }
+
+    &__item {
+        background: #fff;
+        width: 100%;
+        margin: 0 0 24px;      
+        padding: 15px;
+
+        &:last-child {
+            margin: 0;
+        }
+
+        @include breakpoint-up('md') {
+            padding: 30px;
+            margin: 15px;  
+            flex: 1 0 30.333333%;
+            max-width: 30.333333%;
+
+            &:last-child {
+                margin: 15px;  
+            }
+        }
+
+        &--content {
+            display: flex;
+            align-items: center;
+        }
+
+        &--wrapper {
+            margin-left: 15px;
+        }
+
+        &--image {
+            position: relative;
+            width: 60px;
+
+            @include breakpoint-up('md') {
+                width: 100px;
+            }
+    
+            span {
+                padding-top: 0!important;
+            }
+    
+            img {
+                width: 100%;
+                object-fit: contain;
+                width: 100% !important;
+                position: relative !important;
+                height: unset !important;
+            }
+        }
+
+        &--subheader {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: fontsize(20px);
+            line-height: 22px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+            margin-top: 5px;
+            margin-bottom: 0px;
+
+            @include breakpoint-up('md') {
+                font-size: fontsize(26px);
+                margin-bottom: 10px;
+            }
+        }
+
+        &--copy {
+            border-top: 1px solid rgb(0 0 0 / 10%);
+            margin-top: 25px;
+            padding-top: 25px;
+        }
+    }
+}

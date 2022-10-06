@@ -23,8 +23,8 @@ import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
 const MainNavigation = ({props}) => {
-    const primaryNavigation = props.mainNavigation
-    const secondaryNavigation = props.secondaryNavigation
+    // const primaryNavigation = props.mainNavigation
+    // const secondaryNavigation = props.secondaryNavigation
     // const searchIcon = props.searchIcon.fields.file.url
     // const accountIcon = props.babyIcon.fields.file.url
     // const cartIcon = props.cartIcon.fields.file.url
@@ -125,9 +125,11 @@ const MainNavigation = ({props}) => {
                         Build a Box
                     </Link>
                 </div>
-                {primaryNavigation.map((item, index) => (
-                    <MegaMenuItem key={index} menu={item}/>
-                ))}
+                {props?.mainNavigation ? (
+                    props.mainNavigation.map((item, index) => (
+                        <MegaMenuItem key={index} menu={item}/>
+                    ))
+                ) : "" }
             </div>
             <div className="main-nav__logo">
                 <Link href="/">
@@ -135,9 +137,11 @@ const MainNavigation = ({props}) => {
                 </Link>
             </div>
             <div className="main-nav__right">
-                {secondaryNavigation.map((item, index) => (
-                    <DropDownMenuItem key={index} item={item} />
-                ))}
+                {props?.secondaryNavigation ? (
+                    props.secondaryNavigation.map((item, index) => (
+                        <DropDownMenuItem key={index} item={item} />
+                    ))
+                ) : ""}
                 <div className={`main-nav__item ${isSearchOpen ? "active" : ""}`} onClick={() => toggleSearch()}>
                     <Search/>
                 </div>
@@ -181,20 +185,24 @@ const MainNavigation = ({props}) => {
             </div>
             <div className="mobile-menu__primary">
                 <div className="mobile-menu__item">Build a Box</div>
-                {primaryNavigation.map((item, index) => (
-                    <div className="mobile-menu__item" key={index} onClick={() => openMobileMegaMenuSlide(item)}>
-                        <span>{item.fields.title}</span>
-                        <span><CaretRight /></span>
-                    </div>
-                ))}
+                {props?.primaryNavigation ?  (
+                    props.mainNavigation.map((item, index) => (
+                        <div className="mobile-menu__item" key={index} onClick={() => openMobileMegaMenuSlide(item)}>
+                            <span>{item.fields.title}</span>
+                            <span><CaretRight /></span>
+                        </div>
+                    ))
+                ) : "" }
             </div>
             <div className="mobile-menu__secondary">
-                {secondaryNavigation.map((item, index) => (
-                    <div className="mobile-menu__item" key={index} onClick={() => openMobileMegaMenuSlide(item, true)}>
-                        <span>{item.fields.title}</span>
-                        <span><CaretRight /></span>
-                    </div>
-                ))}
+                {props?.secondaryNavigation ? (
+                    props.secondaryNavigation.map((item, index) => (
+                        <div className="mobile-menu__item" key={index} onClick={() => openMobileMegaMenuSlide(item, true)}>
+                            <span>{item.fields.title}</span>
+                            <span><CaretRight /></span>
+                        </div>
+                    ))
+                ) : ""}
             </div>
             <div className="mobile-menu__sign-in">
                 <Link href="/sign-in">

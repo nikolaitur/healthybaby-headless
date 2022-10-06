@@ -37,16 +37,22 @@
     }
 
     &__container {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        height: 100%;
-        position: relative;
+        // display: flex;
+        // justify-content: flex-end;
+        // align-items: center;
+        // height: 100%;
+        // position: relative;
+        
+
+        @include breakpoint-up('md') {
+            position: absolute;
+            right: 0;
+        }
     }
 
     &__content {
         position: relative;
-        width: 100%;
+        min-width: 100%;
         max-width: 525px;
         // padding: 30px;
         height: 100vh;
@@ -58,6 +64,7 @@
 
         @include breakpoint-up('md') {
             // padding: 0;
+            min-width: 525px;
         }
     }
 
@@ -65,8 +72,8 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 24px;
-        line-height: 28px;
+        font-size: 14px;
+        line-height: 20px;
         letter-spacing: -0.01em;
         color: #fff;
         position: relative;
@@ -77,7 +84,7 @@
         @include breakpoint-up('md') {
             font-size: 22px;
             line-height: 30px;
-            }
+        }
     }
 
     &__header {

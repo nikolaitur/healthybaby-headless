@@ -1,17 +1,22 @@
 import { useState } from 'react'
 import Image from 'next/image'
+import Script from 'next/script';
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import styles from 'styles/Product.module.css'
 
-function Product({ product }) {
+import ProductGallery from '../../components/Product/ProductGallery'
+import ProductInfo from '../../components/Product/ProductInfo'
+import ProductSections from '../../components/Product/ProductSections'
+import ProductReviews from '../../components/Product/ProductReviews'
+
+
+function Product({ product, page }) {
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-  const [selectedOptions, setSelectedOptions] = useState(
-    selectedVariant.content.selectedOptions
-  )
+  const [selectedOptions, setSelectedOptions] = useState( selectedVariant.content.selectedOptions)
   const [quantity, setQuantity] = useState(1)
 
   let options = null
@@ -27,6 +32,7 @@ function Product({ product }) {
 
   const handleOptionChange = (event, option) => {
     const newOption = { name: option.name, value: event.target.value }
+    console.log(newOption)
     const optionIndex = selectedOptions.findIndex((selectedOption) => {
       return selectedOption.name === newOption.name
     })
@@ -65,68 +71,21 @@ function Product({ product }) {
 
   return (
     product && (
-      <div className={styles.product}>
-        {product.content.featuredMedia && (
-          <div className={styles.media}>
-            <Image
-              src={product.content.featuredMedia.src}
-              alt={product.content.featuredMedia.altText}
-              width={530}
-              height={350}
-              className={styles.image}
-            />
-          </div>
-        )}
-        <div className={styles.main}>
-          {product.content.title && <h1>{product.content.title}</h1>}
-          <div className={styles.prices}>
-            {selectedVariant.compareAtPrice && (
-              <div className={styles.compare}>
-                ${selectedVariant.compareAtPrice}
-              </div>
-            )}
-            <div>${selectedVariant.price}</div>
-          </div>
-          {options &&
-            options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <label htmlFor={`select-${oIndex}-${product.id}`}>
-                  {option.name}
-                </label>
-                <select
-                  id={`select-${oIndex}-${product.id}`}
-                  onChange={($event) => handleOptionChange($event, option)}
-                >
-                  {option.values.map((value, vIndex) => (
-                    <option key={vIndex} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ))}
-          {product.content.description && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.content.description }}
-            />
-          )}
-          <div>
-            <label htmlFor={`quantity-${product.nacelleEntryId}`}>
-              Quantity:
-            </label>
-            <input
-              id={`quantity-${product.nacelleEntryId}`}
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
-          </div>
-          <button type="button" onClick={handleAddItem}>
-            {buttonText}
-          </button>
+      <section className="product-main">
+          {/* <Script
+              src="https://scripts.juniphq.com/v1/junip_shopify.js"
+              strategy="lazyOnload"
+              onLoad={() =>
+                  console.log(`junip`)
+              }
+        /> */}
+        <div className="product-main__container container">
+            <ProductGallery product={product} page={page} />
+            <ProductInfo product={product} page={page} />
         </div>
-      </div>
+        <ProductSections content={page} />
+        <ProductReviews product={product} />
+      </section>
     )
   )
 }
@@ -158,15 +117,36 @@ export async function getStaticProps({ params }) {
     variables: { handle: params.handle },
   })
 
+  const pages = await nacelleClient.content({
+    handles: [params.handle]
+  })
+
+  console.log(pages, "pages", params.handle)
+
+  let pageData = pages[0]
+
   if (!products.length) {
     return {
       notFound: true,
     }
   }
 
+  if(!pages.length) {
+      pageData = [
+        {
+          "content": {
+            "fields": {
+              "sections": []
+            }
+          }
+        }
+      ]
+  }
+
   return {
     props: {
       product: products[0],
+      page: pageData
     },
   }
 }
@@ -203,6 +183,12 @@ const PAGE_QUERY = `
           thumbnailSrc
           altText
         }
+        media {
+          id
+          src
+          thumbnailSrc
+          altText
+        }
 			}
       tags
       variants{
@@ -212,6 +198,11 @@ const PAGE_QUERY = `
         availableForSale
         price
         compareAtPrice
+        metafields {
+          namespace
+          value
+          key
+        }
         content{
           title
           selectedOptions{

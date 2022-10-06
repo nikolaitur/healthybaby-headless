@@ -25,8 +25,12 @@ const ContentBanner = ({ content }) => {
                     />
                 </div>
                 <div className="content-banner__content">
-                    <div className="content-banner__header">{ header }</div>
-                    <div className="content-banner__subheader">{ subheader }</div>
+                    {content.fields?.header ? (
+                        <div className="content-banner__header">{ content.fields.header }</div>
+                    ) : ""}
+                    {content.fields?.subheader ? (
+                        <div className="content-banner__subheader">{ content.fields.subheader }</div>
+                    ) : ""}
                 </div>
                 <div className="content-banner__cta">
                     <Link href={ctaUrl}>

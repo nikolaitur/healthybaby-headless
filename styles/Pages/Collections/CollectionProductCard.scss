@@ -36,7 +36,6 @@
         line-height: 19px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin-bottom: 5px;
 
         @include breakpoint-up('md') {
             font-size: 26px;
@@ -52,7 +51,7 @@
         line-height: 17px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin-bottom: 15px;
+        margin-top: 5px;
 
         @include breakpoint-up('md') {
             font-size: 22px;
@@ -72,6 +71,50 @@
             height: 80px;
             top: 15px;
             right: 15px;
+        }
+    }
+
+    &__reviews {
+        margin-top: 10px;
+
+        .junip-product-summary-star-ratings-container {
+            align-items: flex-start;
+            display: flex;
+            margin-left: -1px;
+            justify-content: flex-start;
+        }
+
+        .junip-product-summary-review-count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            letter-spacing: -0.01em;;
+            color: $primaryGreen;
+            margin-left: 6px;
+            padding-top: 2px;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 25px;
+            }
+        }
+
+        .junip-product-summary-star {
+            svg {
+                width: 12px;
+                height: 12px;
+
+                @include breakpoint-up('md') {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                path {
+                    fill: $primaryGreen;
+                }
+            }
         }
     }
 
@@ -143,6 +186,10 @@
             // min-height: auto!important;
             // max-height: auto!important;
         }
+    }
+
+    &__cta {
+        margin-top: 10px;
     }
 
     &__slider {

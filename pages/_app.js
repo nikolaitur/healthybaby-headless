@@ -45,13 +45,13 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings'],
   })
 
-  const headerSettings = contentEntry.filter((content) => {
-    return content.fields.handle == 'header-settings'
-  })[0]
-
-  const footerSettings = contentEntry.filter((content) => {
-    return content.fields.handle == 'footer-settings'
-  })[0]
+  const headerSettings = contentEntry.filter(content => {
+    return content.fields.handle == "header-settings";
+  })[0];
+  
+  const footerSettings = contentEntry.filter(content => {
+    return content.fields.handle == "footer-settings";
+  })[0];
 
   const appProps = await App.getInitialProps(appContext)
 

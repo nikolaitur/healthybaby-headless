@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import cartClient from 'services/nacelleClientCart'
+import { NacelleCartInput, CartResponse } from '@nacelle/shopify-cart';
+
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+
+import * as Cookies from 'es-cookie'
 
 import LineItem from './LineItem'
 import Upsell from './Upsell'
@@ -17,7 +22,13 @@ const CartDrawer = ({ content }) => {
     const [
         { cart },
         { incrementItem, decrementItem, removeFromCart, clearCart, addToCart },
-      ] = useCart()
+        ] = useCart()
+
+    // The `processCheckout` method, which allows for cart data
+    // to be passed to the checkout client, is provided by the
+    // `useCheckout` hook from `@nacelle/react-hooks`.
+    // (https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks)
+    const [, { processCheckout }] = useCheckout()
     
     const [drawerContent, setDrawerContent] = useState(false)
     const [upsells, setUpsells] = useState(false)
@@ -26,11 +37,18 @@ const CartDrawer = ({ content }) => {
     const cartDrawerContent = cartDrawerContext.content[0]
 
     const cartSubtotal = cart.reduce((sum, lineItem) => {
-        return sum + lineItem.variant.price * lineItem.quantity
+        if(lineItem.sellingPlan) {            
+            const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+            return sum + sellingPlanPriceValue[0].priceAdjustments[0].price.amount * lineItem.quantity
+        } else {
+            return sum + lineItem.variant.price * lineItem.quantity
+        }
     }, 0)
 
     const cartItemTotal = cart.reduce((sum, lineItem) => {
         return sum + lineItem.quantity
+        // return 0
     }, 0)
 
     let freeShipping = false
@@ -40,6 +58,31 @@ const CartDrawer = ({ content }) => {
     if(cartSubtotal > freeShippingLimit) {
         freeShipping = true
     }
+
+    useEffect(() => {
+        // const getCartClient = async () => {
+        //     // console.log(cart, "getcartclient", cartClient)
+
+        //     if(cartClient) {
+        //         const shopifyCart = await cartClient.cartCreate({
+        //             lines: [
+        //                 {
+        //                     merchandiseId: "gid://shopify/ProductVariant/43184331784432",
+        //                     quantity: 1
+        //                 }
+        //             ],
+        //             attributes: [{ key: 'gift_options', value: 'in box with bow' }],
+        //             note: 'Please use a red ribbon for the bow, if possible :)'
+        //         });
+
+        //        console.log(shopifyCart)
+        //        console.log(cartClient)
+        //     }
+        // }
+
+        // getCartClient()
+       // console.log(cartDrawerContext, "cartdrawer")
+    }, [])
 
     useEffect(() => {
         setDrawerContent(content)
@@ -72,27 +115,54 @@ const CartDrawer = ({ content }) => {
     }
 
     const handleProcessCheckout = async () => {
-        // Maps the cart line items into a new array with Shopify
-        // required properties: `variantId` and `quantity`.
-        const cartItems = cart.map((lineItem) => ({
-          variantId: lineItem.variant.id,
-          quantity: lineItem.quantity,
-        }))
-    
         // `processCheckout` utilizes the Shopify Checkout client to create 
         // a checkout using the provided `cartItems` array. If successful,
         // a URL and completed state are returned, which can then be used to
         // redirect the user to the Shopify checkout.
         // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
-        await processCheckout({ cartItems })
-          .then(({ url, completed }) => {
-            if (url && !completed) {
-              window.location = url
+        // await processCheckout({ cartItems })
+        //   .then(({ url, completed }) => {
+        //     if (url && !completed) {
+        //       window.location = url
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     console.error(err)
+        //   })
+
+        // clearCart()
+        // return
+
+        const cartItems = cart.map((lineItem) => {
+            const returnItem = {
+                merchandiseId: lineItem.nacelleEntryId,
+                nacelleEntryId: lineItem.nacelleEntryId,
+                quantity: lineItem.quantity,
             }
-          })
-          .catch((err) => {
-            console.error(err)
-          })
+
+            if (lineItem.subscription) {
+                const sellingPlanAllocationsValue = JSON.parse(lineItem.sellingPlan.value)
+                const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+                returnItem.sellingPlanId = sellingPlanId
+                // returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
+            }
+
+            return returnItem
+        })
+
+        const lines = cartItems
+        
+        const shopifyCart = await cartClient.cartCreate({
+            lines,
+            // attributes: [{ key: 'gift_options', value: 'in box with bow' }],
+            // note: 'Please use a red ribbon for the bow, if possible :)'
+        }).then(response => {
+            console.log(response)
+            if (response.cart?.checkoutUrl) {
+                window.location.href = response.cart.checkoutUrl;
+            }
+        });  
     }
 
     return (
