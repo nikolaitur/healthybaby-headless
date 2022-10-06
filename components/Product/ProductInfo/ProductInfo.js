@@ -31,6 +31,8 @@ const ProductInfo = ( props ) => {
     const [isSubscription, setIsSubscription] = useState(false)
     const [subscriptionPrice, setSubscriptionPrice] = useState(false)
     const [purchaseSubscription, setPurchaseSubscription] = useState(false)
+    const [isCheckedOneTime, setIsCheckedOneTime] = useState(true)
+    const [isCheckedSubscription, setIsCheckedSubscription] = useState(false)
     const [activeOption, setActiveOption] = useState(0)
     const [activeTab, setActiveTab] = useState(0);
     const [quantity, setQuantity] = useState(1)
@@ -118,6 +120,14 @@ const ProductInfo = ( props ) => {
         const value = event.target.value
 
         setPurchaseSubscription(value)
+
+        if(value === "Subscription") {
+            setIsCheckedOneTime(false)
+            setIsCheckedSubscription(true)
+        } else {
+            setIsCheckedOneTime(true)
+            setIsCheckedSubscription(false)
+        }
     }
 
     const handleSubscriptionPrice = (newVariant = selectedVariant) => {
@@ -333,13 +343,13 @@ const ProductInfo = ( props ) => {
 
                         {isSubscription ? (
                             <div className="product-form__subscription" onChange={(event) => handleSubscriptionChange(event)}>
-                                <div className="product-form__input-wrapper active">
-                                    <input type="radio" id="html" name="subscription" value="One Time" />
-                                    <label htmlFor="html">Buy One Time</label>
+                                <div className={`product-form__input-wrapper ${isCheckedOneTime ? "active" : ""}`}>
+                                    <input type="radio" id="html" name="subscription" value="One Time" checked={isCheckedOneTime} />
+                                    <label htmlFor="html">Buy One Time <span className="price">${selectedVariant.price.toFixed(2)}</span></label>
                                 </div>
-                                <div className="product-form__input-wrapper">
-                                    <input type="radio" id="html" name="subscription" value="Subscription" />
-                                    <label htmlFor="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span></label>
+                                <div className={`product-form__input-wrapper ${isCheckedSubscription ? "active" : ""}`}>
+                                    <input type="radio" id="html" name="subscription" value="Subscription" checked={isCheckedSubscription} />
+                                    <label htmlFor="html">Monthly Auto-Ship  <br/><span>Update sizing or cancel anytime</span><span className="price">${Number(subscriptionPrice).toFixed(2)}</span></label>
                                 </div>
                             </div>
                         ): ""}
@@ -356,12 +366,12 @@ const ProductInfo = ( props ) => {
                                     <Plus />
                                 </button>
                             </div> 
+
                             {selectedVariant.availableForSale ? (
                                 <button className="product-form__submit btn secondary full-width" onClick={() => handleAddItem()}>Add To Cart</button>
                             ) : (
-                                <button className="product-form__submit btn secondary full-width disabled" onClick={() => handleAddItem()}>Out of Stock</button>
+                                <button className="product-form__submit btn secondary full-width disabled">Out of Stock</button>
                             )}
-                            
                         </div>
 
                         <div className="product-status">
@@ -386,7 +396,7 @@ const ProductInfo = ( props ) => {
                             </div>
                         ) : ""}
                         
-                        {page.fields?.productDetailTabTitle1 ? (
+                        {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (
                             <div className='product-tabs'>
                                 <div className="product-tabs__nav">
                                     {page.fields?.productDetailTabTitle1 && page.fields?.productDetailTabContent1 ? (<div className={`product-tabs__title ${activeTab == 0 ? "active" : ""}`} onClick={() => setActiveTab(0)}>{page.fields.productDetailTabTitle1}</div>) : ""}
