@@ -68,7 +68,10 @@ const ArticleHeroEverGreen = ({ content }) => {
         </div>
         <h3 className="article-hero__title">{content.fields.title}</h3>
         <div className="article-hero__pub">
-          <span>{getDateFormat(content.fields.publishDate)} • 4 min read</span>
+          <span>
+            {getDateFormat(content.fields.publishDate)} •{' '}
+            {content.fields.readLength} read
+          </span>
         </div>
         <div className="article-hero__content">
           <div className="article-hero__written">
@@ -110,7 +113,7 @@ const ArticleHeroEverGreen = ({ content }) => {
             <div className="article-hero__image--desktop">
               <Image
                 className=""
-                src={`https://${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+                src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"
@@ -121,7 +124,7 @@ const ArticleHeroEverGreen = ({ content }) => {
             <div className="article-hero__image--mobile">
               <Image
                 className=""
-                src={`https://${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
+                src={`https:${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"
