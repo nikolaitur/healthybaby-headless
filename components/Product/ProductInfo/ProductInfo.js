@@ -22,7 +22,7 @@ import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 
 const ProductInfo = ( props ) => {
-    const { product, page } = props
+    const { product, page } = {...props}
 
     const [, { addToCart }] = useCart()
     const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -35,10 +35,8 @@ const ProductInfo = ( props ) => {
     const [activeTab, setActiveTab] = useState(0);
     const [quantity, setQuantity] = useState(1)
     const [diaperAmount, setDiaperAmount] = useState(false)
-    const [review, setReview] = useState(false)
 
     const cartDrawerContext =  useCartDrawerContext()
-    const diaperCalculatorContext = useDiaperCalculatorContext()
 
     // console.log(product, "info", selectedVariant, page)
 
@@ -74,16 +72,19 @@ const ProductInfo = ( props ) => {
         })
 
         const newSelectedOptions = [...selectedOptions]
+
         if (optionIndex > -1) {
             newSelectedOptions.splice(optionIndex, 1, newOption)
             setSelectedOptions([...newSelectedOptions])
         } else {
             setSelectedOptions([...newSelectedOptions, newOption])
         }
+
         const variant = getSelectedVariant({
             product,
             options: newSelectedOptions,
         })
+
         setSelectedVariant(variant ? { ...variant } : null)
 
         if(variant){
@@ -91,13 +92,18 @@ const ProductInfo = ( props ) => {
                 return option.name == "Size"
             })
 
-            let regExp = /\(([^)]+)\)/;
-            let match = regExp.exec(sizeOption[0].value);
-
-            if(match[1].includes('diapers')) {
-                setDiaperAmount(match[1].replace(' diapers', ''))
+            if(sizeOption.length > 0) {
+                let regExp = /\(([^)]+)\)/;
+                let match = regExp.exec(sizeOption[0].value);
+    
+                if(match[1].includes('diapers')) {
+                    setDiaperAmount(match[1].replace(' diapers', ''))
+                }
             }
         }
+
+        handleSubscriptionPrice(variant)
+
     }
 
     const handleCheckBoxChange = (option) => { 
@@ -108,13 +114,21 @@ const ProductInfo = ( props ) => {
         handleOptionChange(option.name, optionValue)
     }; 
 
-    // To Do Confgiure Recharge
     const handleSubscriptionChange = (event) => {
         const value = event.target.value
 
         setPurchaseSubscription(value)
+    }
 
-        console.log(purchaseSubscription, value)
+    const handleSubscriptionPrice = (newVariant = selectedVariant) => {
+        let sellingPlan = newVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+
+        if(sellingPlan) {
+            const sellingPlanPriceValue = JSON.parse(sellingPlan.value)
+            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+
+            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
+        }
     }
 
     const handleDecrementChange = () => {
@@ -235,48 +249,48 @@ const ProductInfo = ( props ) => {
         if(sellingPlanAllocations) {
             setIsSubscription(sellingPlanAllocations)
 
-            let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
-            
-            const sellingPlanPriceValue = JSON.parse(sellingPlan.value)
-            const sellingPlanPrice = sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-
-            setSubscriptionPrice(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
+            handleSubscriptionPrice()
         }
 
-        if(selectedVariant) {
-            const variant = getCartVariant({
-                product,
-                variant: selectedVariant,
-            })
-    
-            if(variant){
-                let sizeOption = variant.selectedOptions.filter(option => {
-                    return option.name == "Size"
+        const getDiaperCount = () => {
+            if(selectedVariant) {
+                const variant = getCartVariant({
+                    product,
+                    variant: selectedVariant,
                 })
-    
-                let regExp = /\(([^)]+)\)/;
-                let match = regExp.exec(sizeOption[0].value);
-    
-                if(match[1].includes('diapers')) {
-                    setDiaperAmount(match[1].replace(' diapers', ''))
+        
+                if(variant){
+                    let sizeOption = variant.selectedOptions.filter(option => {
+                        return option.name == "Size"
+                    })
+                    
+                    if(sizeOption.length > 0) {
+                        let regExp = /\(([^)]+)\)/;
+                        let match = regExp.exec(sizeOption[0].value);
+            
+                        if(match[1].includes('diapers')) {
+                            setDiaperAmount(match[1].replace(' diapers', ''))
+                        }
+                    }   
                 }
             }
         }
+
+        getDiaperCount()
+
     }, [])
  
     return (
         product ? (
             <div className="product-info">
                 <div className="product-info__sticky">
-                    {review ? (
-                        <div className="product-info__reviews">
-                            <>
-                                <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
-                                <span className="junip-product-summary" data-product-id="4522469523505"></span>
-                                {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
-                            </>
-                        </div>
-                    ) : ""}
+                    <div className="product-info__reviews">
+                        <>
+                            <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                            <span className="junip-product-summary" data-product-id="4522469523505"></span>
+                            {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
+                        </>
+                    </div>
 
                     {product.content?.title && <h1 className="product-info__title h3">{product.content.title}</h1>}
                     {page.fields?.productDescription ? (
