@@ -2,7 +2,7 @@ import AccountMainPage from "@/components/Account/AccountMainPage"
 import { useCustomerContext } from "@/context/CustomerContext"
 import { nacelleClient } from "services"
 
-export default function AccountPage({page}) {
+export default function AccountTab({page}) {
 
   const { customer, customerLoading } = useCustomerContext()
 

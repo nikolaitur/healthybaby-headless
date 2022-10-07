@@ -2,14 +2,16 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-const AccountTabs = ({tabs}) => {
+const AccountTabs = ({tabs, selected, onSelected}) => {
   const { customer, logout } = useCustomerContext()
   const router = useRouter()
   return (
     <div className="account-navigation">
       <ul className="account-tabs">
-        {tabs.map(tab => {
-          return <li className="account-tab">{tab}</li>
+        {Object.keys(tabs).map(tab => {
+          return <li className={`account-tab ${selected === tab ? 'link-is-active' : ''}`}>
+            <button onClick={() => onSelected(tabs[tab])}>{tabs[tab]}</button>
+          </li>
         })}
         {customer?.shopify_login_redirect_url && customer.tags.includes('Active Subscriber') &&
           <li className="account-tab">

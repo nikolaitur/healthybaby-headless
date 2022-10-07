@@ -1,7 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import AccountHeader from '../AccountHeader'
 import AccountTabs from '../AccountTabs'
+import OrderHistory from '../OrderHistory'
+import MyInfo from '../MyInfo'
 import { useCustomerContext } from '@/context/CustomerContext'
 
 const AccountMainPage = ({page}) => {
@@ -11,9 +13,8 @@ const AccountMainPage = ({page}) => {
   console.log("page:", page)
   const router = useRouter()
   const { customer } = useCustomerContext()
-  const [selectedTab, setSelectedTab] = useState()
 
-
+  const { tab } = router.query
   const tabs = useMemo(
     () => ({
       'order-history': 'Order History',
@@ -21,6 +22,11 @@ const AccountMainPage = ({page}) => {
     }),
     [],
   )
+
+  const getTabKey = (tabValue) =>
+    Object.keys(tabs).find((key) => tabs[key] === tabValue)
+
+  const [selectedTab, setSelectedTab] = useState(tab)
 
   const onTabSelected = (tab) => {
     const tabKey = getTabKey(tab)
@@ -35,12 +41,28 @@ const AccountMainPage = ({page}) => {
     )
   }
 
+  const renderBody = (pickedTab) => {
+    switch(pickedTab) {
+      case 'my-info':
+        return (<MyInfo />)
+      case 'order-history':
+        return (<OrderHistory />)
+    }
+  }
+
+  // If tab doesn't exist, default to My Info
+  useEffect(() => {
+    if (!tabs[selectedTab]) {
+      onTabSelected('My Info')
+    }
+  }, [])
+
   return (
     <div className="account-main">
       <AccountHeader headerDesktopImage={headerDesktopImage} headerMobileImage={headerMobileImage} />
-      <AccountTabs tabs={Object.values(tabs)} />
+      <AccountTabs tabs={tabs} selected={selectedTab} onSelected={onTabSelected} />
       {/* Body Content */}
-      <div></div>
+      <div>{renderBody(tab)}</div>
     </div>
   )
 }

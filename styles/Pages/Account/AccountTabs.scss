@@ -5,6 +5,7 @@
 
 .account-tabs {
   display: flex;
+  align-items: center;
   list-style: none;
   padding: 35px 0 18px;
   border-bottom: 1px solid #D5D5D3;
@@ -28,6 +29,13 @@
     margin: 0 18px;
     padding: 0 15px;
   }
+  &:before {
+    content: '';
+    display: block;
+    width: calc(100% + 30px);
+    height: 2px;
+    border-bottom: 2px solid transparent;
+  }
   &.link-is-active {
     &:before {
       content: '';
@@ -35,11 +43,11 @@
       width: calc(100% + 30px);
       height: 2px;
       position: relative;
-      bottom: -47px;
+      bottom: -44px;
       left: -15px;
       border-bottom: 2px solid $primaryGreen;
     }
-    a {
+    a, button {
       color: $primaryGreen;
     }
   }
@@ -55,6 +63,7 @@
     &:before {
       content: '';
       left: 0px;
+      width: calc(100% + 15px);
     }
   }
   &:last-child {
