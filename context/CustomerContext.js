@@ -15,12 +15,14 @@ export function useCustomerContext() {
 export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
-  const [customerLoading, setCustomerLoading] = useState(false)
+  const [customerLoading, setCustomerLoading] = useState(true)
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
     if (customerAccessToken) {
       getCustomer({ accessToken: customerAccessToken })
+    } else {
+      setCustomerLoading(false)
     }
   }, [])
 
@@ -85,6 +87,20 @@ export function CustomerProvider({ children }) {
       accessToken: customerAccessToken.accessToken,
       expiresAt: customerAccessToken.expiresAt
     })
+  }
+
+  async function logout() {
+    const customerAccessToken = Cookies.get('customerAccessToken')
+    const response = await accountClientPost({
+      query: CUSTOMER_ACCESS_TOKEN_DELETE,
+      variables: { customerAccessToken: customerAccessToken }
+    })
+    const { deletedAccessToken, userErrors } = {...response.data.customerAccessTokenDelete}
+    if (deletedAccessToken) {
+      setCustomer(null)
+      Cookies.remove('customerAccessToken')
+    }
+    return { deletedAccessToken, errors: userErrors }
   }
 
   async function register({ firstName, lastName, email, password }) {

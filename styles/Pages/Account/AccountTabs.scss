@@ -1,0 +1,64 @@
+.account-navigation {
+  width: calc(100% - 140px);
+  margin: 0 auto;
+}
+
+.account-tabs {
+  display: flex;
+  list-style: none;
+  padding: 35px 0 18px;
+  border-bottom: 1px solid #D5D5D3;
+}
+
+.account-tab button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.account-tab,
+.account-tab button {
+  font-family: $NeutraTextDemi;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 0 7.5px;
+  padding: 0 7.5px;
+  @media only screen and (min-width: 1200px) {
+    margin: 0 18px;
+    padding: 0 15px;
+  }
+  &.link-is-active {
+    &:before {
+      content: '';
+      display: block;
+      width: calc(100% + 30px);
+      height: 2px;
+      position: relative;
+      bottom: -47px;
+      left: -15px;
+      border-bottom: 2px solid $primaryGreen;
+    }
+    a {
+      color: $primaryGreen;
+    }
+  }
+  a, button {
+    transition: 0.3s ease-in-out color;
+    &:hover {
+      color: $primaryGreen;
+    }
+  }
+  &:first-child {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    &:before {
+      content: '';
+      left: 0px;
+    }
+  }
+  &:last-child {
+    margin: 0 0 0 auto !important;
+    padding: 0 !important;
+  }
+}
