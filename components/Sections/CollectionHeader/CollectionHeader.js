@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
+
+    // console.log(content, "HEADER")
 
     return (
         <section className="collection-header">
@@ -28,52 +31,42 @@ const CollectionHeader = ({ content }) => {
                         <h1 className="collection-header__title h2">{ content.title }</h1>
                     : ""}
 
+                    {content?.description ?
+                        <p className="collection-header__description">{ content.description }</p>
+                    : ""}   
+
                     {content.fields?.description ?
                         <p className="collection-header__description">{ content.fields.description }</p>
                     : ""}
 
-                    {content?.description ?
-                        <p className="collection-header__description">{ content.description }</p>
-                    : ""}
-
-                    <div className="collection-header__links">
-                        <Link href={"/shop-all"}>
-                            <div className={`collection-header__link ${router.pathname == `/shop-all` ? "active" : ""}`}>
-                                <span className="image"></span>
-                                <span>Shop All</span>
-                            </div>
-                        </Link>
-                        <Link href={"/collections/diapers-wipes"}>
-                            <div className={`collection-header__link ${router.asPath == `/collections/diapers-wipes` ? "active" : ""}`}>
-                                <span className="image"></span>
-                                <span>Diapers</span>
-                            </div>
-                        </Link>
-                        <Link href={"/collections/skin-care"}>
-                            <div className={`collection-header__link ${router.asPath == `/collections/skin-care` ? "active" : ""}`}>
-                                <span className="image"></span> 
-                                <span>Skin Care</span>
-                            </div>
-                        </Link>
-                        <Link href={`/collections/home-cleaning`}>
-                            <div className={`collection-header__link ${router.asPath == `/collections/home-cleaning` ? "active" : ""}`}>
-                                <span className="image"></span>
-                                <span>Cleaning</span>
-                            </div>
-                        </Link>
-                        <Link href={"/collections/prenatals"}>
-                            <div className={`collection-header__link ${router.asPath == `/collections/prenatals` ? "active" : ""}`}>
-                                <span className="image"></span>
-                                <span>Prenatals</span>
-                            </div>
-                        </Link>
-                        <Link href={"/collections/gifts"}>
-                            <div className={`collection-header__link ${router.asPath == `/collections/gifts` ? "active" : ""}`}>
-                                <span className="image"></span>
-                                <span>Gifts</span>
-                            </div>
-                        </Link>
-                    </div>
+                    {content.fields?.menu ? (
+                        <div className="collection-header__links">
+                            {content.fields.menu.fields?.sections ? (
+                                content.fields.menu.fields.sections.map((item, index) => {
+                                    return (
+                                        <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
+                                            <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
+                                                {item.fields?.image ? (
+                                                    <span className="image">
+                                                        <Image
+                                                            className="featured"
+                                                            src={`https:${item.fields.image.fields.file.url}`}
+                                                            alt={item.fields.image.fields.title}
+                                                            layout="responsive"
+                                                            objectFit="cover"
+                                                            height="84"
+                                                            width="84"
+                                                        />
+                                                    </span>
+                                                ) : <span className="image"></span>}
+                                                <span>{item.fields?.title ? item.fields.title : ""}</span>
+                                            </div>
+                                        </Link>
+                                    )
+                                })
+                            ) : ""}
+                        </div>
+                    ) : ""}
                 </div>
             </div>
         </section>

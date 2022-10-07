@@ -34,7 +34,7 @@ const MainNavigation = ({props}) => {
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
     const cartDrawerContext =  useCartDrawerContext()
 
-    console.log('Cust', customerContext.customer)
+    // console.log('Cust', customerContext.customer)
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);

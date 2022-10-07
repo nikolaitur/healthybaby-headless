@@ -1,0 +1,45 @@
+.product-quickview {
+    display: flex;
+    background: #F5F2F2;
+    max-height: 735px;
+    overflow-y: scroll;
+    padding: 0 30px;
+
+    @extend .container;
+
+    .product-gallery {
+        display: block;
+        margin-right: 30px;
+        width: 50%;
+    }
+
+    .product-info {
+        width: 50%;
+    }
+
+    .product-info__title {
+        padding: 20px 0 0;
+        font-size: 28px;
+ 
+        @include breakpoint-up('md') {
+             font-size: 42px;
+        }
+     }
+
+    .product-info__description {
+        font-size: 22px;
+        line-height: 31px;
+        padding: 10px 0 0;
+    }
+
+    .product-info__price {
+        font-size: 26px;
+        line-height: 29px;
+        padding: 10px 0 0;
+    }
+
+    .product-message,
+    .product-tabs {
+        display: none;
+    }
+}

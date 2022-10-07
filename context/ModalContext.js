@@ -24,7 +24,7 @@ export function ModalProvider({ children }) {
   }, [isOpen])
 
   return (
-    <ModalContext.Provider value={{ isOpen, setIsOpen, modalType, setModalType }}>
+    <ModalContext.Provider value={{ isOpen, setIsOpen, modalType, setModalType, setContent }}>
       {isOpen &&
         <Modal children={content} />
       }
