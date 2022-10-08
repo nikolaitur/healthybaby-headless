@@ -8,15 +8,15 @@ const AccountTabs = ({tabs, selected, onSelected}) => {
   return (
     <div className="account-navigation">
       <ul className="account-tabs">
-        {Object.keys(tabs).map(tab => {
-          return <li className={`account-tab ${selected === tab ? 'link-is-active' : ''}`}>
+        {Object.keys(tabs).map((tab, index) => {
+          return <li key={index} className={`account-tab ${selected === tab ? 'link-is-active' : ''}`}>
             <button onClick={() => onSelected(tabs[tab])}>{tabs[tab]}</button>
           </li>
         })}
         {customer?.shopify_login_redirect_url && customer.tags.includes('Active Subscriber') &&
           <li className="account-tab">
             <Link href={customer.shopify_login_redirect_url}>
-              <a>Check Subscriptions</a>
+              <a>Subscriptions</a>
             </Link>
           </li>
         }

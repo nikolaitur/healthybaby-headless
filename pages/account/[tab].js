@@ -6,14 +6,6 @@ export default function AccountTab({page}) {
 
   const { customer, customerLoading } = useCustomerContext()
 
-  // return (
-  //   <div className="account-page">
-  //     <h1>Account Page</h1>
-  //     {customer?.shopify_login_redirect_url && <a href={customer.shopify_login_redirect_url}>Check Subscriptions</a>}
-  //   </div>
-  // )
-
-
   if (customerLoading) {
     return <div>Loading...</div>
   }

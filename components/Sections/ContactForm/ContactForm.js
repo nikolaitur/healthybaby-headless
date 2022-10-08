@@ -28,14 +28,14 @@ const ContactForm = ({content}) => {
       return
     } else {}
 
-    const data = {};
+    const data = {}
 
     for (const keyName of Object.keys(formRef.current)) {
       const value = formRef.current[keyName].current.value
       data[keyName] = value
     }
 
-    data['subject'] = requestType.value;
+    data['subject'] = requestType.value
 
     const response = await fetch('/api/zendesk/create-ticket', {
       method: 'POST',
@@ -60,8 +60,8 @@ const ContactForm = ({content}) => {
           <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
         </components.DropdownIndicator>
       )
-    );
-  };
+    )
+  }
 
   const colourStyles = {
     option: (provided, state) => ({
@@ -69,7 +69,7 @@ const ContactForm = ({content}) => {
       backgroundColor: state.isSelected || state.isFocused ? '#00B188' : '#fff',
       color: state.isSelected || state.isFocused ? '#fff' : '#3D3331',
     }),
-  };
+  }
 
 
   const options = [
@@ -113,7 +113,7 @@ const ContactForm = ({content}) => {
                 placeholder="Phone Number (optional)"
                 onKeyPress={(event) => {
                   if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault();
+                    event.preventDefault()
                   }
                 }}
                 ref={formRef.current.phone_number}

@@ -22,7 +22,7 @@ const AccountHeader = ({headerDesktopImage, headerMobileImage}) => {
         <h2>
           Welcome back,
           <br/>
-          Shazi
+          <span className="account-header__customer-name">{customer?.firstName.toLowerCase()}</span>
         </h2>
       </div>
     </div>

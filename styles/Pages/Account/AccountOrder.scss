@@ -1,0 +1,144 @@
+.account-order__back-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  h6 {
+    font-family: $NeutraTextDemi;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    margin: 0 0 0 10px;
+  }
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.account-order__header {
+  padding-bottom: 70px;
+  border-bottom: 1px solid #D9D5D5;
+  h3 {
+    margin-bottom: 15px;
+  }
+  h4 {
+    margin-bottom: 20px;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    li {
+      font-size: 32px;
+      margin-right: 60px;
+      &:last-child {
+        margin-right: 0;
+      }
+      h4 {
+        text-transform: capitalize;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.account-order__details {
+  padding-top: 80px;
+  h5 {
+    margin-bottom: 40px;
+  }
+}
+
+.account-order__details-header,
+.account-order__line-item,
+.account-order__summary-line-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  > div {
+    width: 20%;
+    &:first-child {
+      width: 40%;
+    }
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
+
+.account-order__details-header {
+  padding-bottom: 40px;
+  border-bottom: 1px solid #D9D5D5;
+}
+
+.account-order__line-items {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  border-bottom: 1px solid #D9D5D5;
+}
+
+.account-order__line-item {
+  margin-bottom: 36px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  > div:first-child {
+    display: flex;
+    align-items: center;
+  }
+  .account-order__line-item-metadata {
+    padding: 0 35px;
+    flex: 1;
+  }
+  h3 {
+    font-family: $NeutraTextDemi;
+    font-size: 26px;
+    line-height: 28px;
+    margin-bottom: 35px;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.account-order__summary-line-item {
+  padding-bottom: 36px;
+  &:first-child {
+    padding-top: 36px;
+  }
+  div:nth-child(2) {
+    h3 {
+      font-family: $NeutraText;
+      font-size: 26px;
+      line-height: 28px;
+      margin-bottom: 0;
+    }
+  }
+  div:nth-child(4) {
+    h3 {
+      font-family: $NeutraTextDemi;
+      font-size: 26px;
+      line-height: 28px;
+      margin-bottom: 0;
+    }
+  }
+  &.account-order__summary-line-item--total-order {
+    padding-top: 36px;
+    border-top: 1px solid #D9D5D5;
+    div:nth-child(2) {
+      h3 {
+        font-family: $NeutraText;
+        font-size: 38px;
+        line-height: 42px;
+        margin-bottom: 0;
+      }
+    }
+    div:nth-child(4) {
+      h3 {
+        font-family: $NeutraTextDemi;
+        font-size: 48px;
+        line-height: 52px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

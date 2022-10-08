@@ -3,10 +3,11 @@ import { useRouter } from 'next/router'
 import AccountHeader from '../AccountHeader'
 import AccountTabs from '../AccountTabs'
 import OrderHistory from '../OrderHistory'
+import Order from '../Order'
 import MyInfo from '../MyInfo'
 import { useCustomerContext } from '@/context/CustomerContext'
 
-const AccountMainPage = ({page}) => {
+const AccountMainPage = ({page, orderId}) => {
 
   const {headerDesktopImage, headerMobileImage } = {...page.fields}
 
@@ -28,23 +29,24 @@ const AccountMainPage = ({page}) => {
 
   const [selectedTab, setSelectedTab] = useState(tab)
 
-  const onTabSelected = (tab) => {
+  const onTabSelected = (tab, updateUrl = true) => {
     const tabKey = getTabKey(tab)
     setSelectedTab(tabKey)
 
-    router.push(
-      {
-        pathname: `/account/${tabKey}`,
-      },
-      undefined,
-      { shallow: true },
-    )
+    if (updateUrl) {
+      router.push({pathname: `/account/${tabKey}`}, undefined, { shallow: true })
+    }
   }
 
   const renderBody = (pickedTab) => {
+
+    if (router.pathname === '/account/orders/[id]') {
+      return <Order orderId={orderId} />
+    }
+
     switch(pickedTab) {
       case 'my-info':
-        return (<MyInfo />)
+        return (<MyInfo page={page} />)
       case 'order-history':
         return (<OrderHistory />)
     }
@@ -52,8 +54,10 @@ const AccountMainPage = ({page}) => {
 
   // If tab doesn't exist, default to My Info
   useEffect(() => {
-    if (!tabs[selectedTab]) {
+    if (!tabs[selectedTab] && router.pathname !== '/account/orders/[id]') {
       onTabSelected('My Info')
+    } else if (router.pathname === '/account/orders/[id]') {
+      onTabSelected('Order History', false)
     }
   }, [])
 
@@ -62,7 +66,7 @@ const AccountMainPage = ({page}) => {
       <AccountHeader headerDesktopImage={headerDesktopImage} headerMobileImage={headerMobileImage} />
       <AccountTabs tabs={tabs} selected={selectedTab} onSelected={onTabSelected} />
       {/* Body Content */}
-      <div>{renderBody(tab)}</div>
+      <div className="account-body">{renderBody(tab)}</div>
     </div>
   )
 }

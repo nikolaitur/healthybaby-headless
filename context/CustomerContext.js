@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '../gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrder, transformOrders } from '../gql/index.js'
 import { Multipass } from "multipass-js"
 
 const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
@@ -52,7 +52,7 @@ export function CustomerProvider({ children }) {
       }
     })
     const { data, errors } = response
-    setCustomerLoading(false)
+
     if (errors && errors.length) {
       return { errors: errors }
     }
@@ -68,6 +68,13 @@ export function CustomerProvider({ children }) {
       customer.addresses = transformEdges(customer.addresses)
       customer.shopify_login_redirect_url = multipassRedirectURL
     }
+
+    const orders = await getCustomerOrders({accessToken})
+
+    if (!orders.errors?.length) {
+      customer.orders = orders
+    }
+    setCustomerLoading(false)
 
     setCustomer(customer)
     console.log("customer:", customer)
@@ -123,8 +130,24 @@ export function CustomerProvider({ children }) {
     return { data, errors: customerUserErrors }
   }
 
+  async function getCustomerOrders({accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: GET_CUSTOMER_ORDERS,
+      variables: {
+        customerAccessToken: accessToken
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const orders = transformOrders(data.customer.orders)
+    // TODO: check if customer without orders returns error
+    return orders
+  }
+
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, getCustomerOrders }}>
       {children}
     </CustomerContext.Provider>
   )

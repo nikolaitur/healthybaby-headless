@@ -10,6 +10,26 @@ export const transformEdges = (object, field) => {
   }
 }
 
+export const transformOrder = (order) => {
+  const { discountApplications, lineItems, ...rest } = order
+  const transformedOrder = {
+    discountApplications: discountApplications
+      ? transformEdges(discountApplications)
+      : [],
+    lineItems: lineItems ? transformEdges(lineItems) : [],
+    ...rest
+  }
+
+  return transformedOrder
+}
+
+export const transformOrders = (orders) => {
+  const edges = transformEdges(orders)
+  const transformedOrders = edges.map(transformOrder)
+
+  return transformedOrders
+}
+
 export const CUSTOMER_ACCESS_TOKEN_CREATE = `mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
   customerAccessTokenCreate(input: $input) {
     userErrors {
@@ -207,3 +227,188 @@ export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
     }
   }
 }`;
+
+export const GET_CUSTOMER_ORDERS = `query getCustomer($customerAccessToken: String!) {
+  customer(customerAccessToken: $customerAccessToken) {
+    orders (first: 25) {
+      edges {
+        node {
+          discountApplications (first: 25) {
+            edges {
+              node {
+                allocationMethod
+                value {
+                  __typename
+                }
+                targetType
+                targetSelection
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+          }
+          lineItems (first: 25) {
+            edges {
+              node {
+                customAttributes {
+                  key
+                  value
+                }
+                discountAllocations {
+                  allocatedAmount {
+                    amount
+                    currencyCode
+                  }
+                  discountApplication {
+                    allocationMethod
+                    targetSelection
+                    targetType
+                  }
+                }
+                discountedTotalPrice {
+                  amount
+                  currencyCode
+                }
+                originalTotalPrice {
+                  amount
+                  currencyCode
+                }
+                variant {
+                  availableForSale
+                  compareAtPriceV2 {
+                    amount
+                    currencyCode
+                  }
+                  id
+                  image {
+                    altText
+                    id
+                    originalSrc
+                    transformedSrc
+                  }
+                  priceV2 {
+                    amount
+                    currencyCode
+                  }
+                  product {
+                    id
+                    title
+                  }
+                  requiresShipping
+                  selectedOptions {
+                    name
+                    value
+                  }
+                  sku
+                  title
+                  weight
+                  weightUnit
+                }
+                quantity
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+          }
+          currencyCode
+          customerLocale
+          customerUrl
+          email
+          id
+          name
+          orderNumber
+          phone
+          canceledAt
+          processedAt
+          fulfillmentStatus
+          financialStatus
+          shippingAddress {
+            address1
+            address2
+            city
+            company
+            country
+            countryCodeV2
+            firstName
+            formatted
+            formattedArea
+            id
+            lastName
+            latitude
+            longitude
+            name
+            phone
+            province
+            provinceCode
+            zip
+          }
+          shippingDiscountAllocations {
+            allocatedAmount {
+              amount
+              currencyCode
+            }
+            discountApplication {
+              allocationMethod
+              targetSelection
+              targetType
+              value {
+                __typename
+              }
+            }
+          }
+          statusUrl
+          subtotalPriceV2 {
+            amount
+            currencyCode
+            __typename
+          }
+          successfulFulfillments {
+            fulfillmentLineItems (first: 25) {
+              edges {
+                node {
+                  lineItem {
+                    customAttributes {
+                      key
+                      value
+                    }
+                    variant {
+                      id
+                    }
+                  }
+                  quantity
+                }
+                cursor
+              }
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+              }
+            }
+          }
+          totalPriceV2 {
+            amount
+            currencyCode
+          }
+          totalRefundedV2 {
+            amount
+            currencyCode
+          }
+          totalShippingPriceV2 {
+            amount
+            currencyCode
+          }
+          totalTaxV2 {
+            amount
+            currencyCode
+          }
+        }
+      }
+    }
+  }
+}`

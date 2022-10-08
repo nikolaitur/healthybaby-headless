@@ -17,6 +17,9 @@
   h2 {
     padding-bottom: 75px;
   }
+  .account-header__customer-name {
+    text-transform: capitalize;
+  }
 }
 
 .account-header__image {
