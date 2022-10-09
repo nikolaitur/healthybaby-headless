@@ -111,6 +111,90 @@ export const GET_CUSTOMER = `query getCustomer($customerAccessToken: String!) {
   }
 }`
 
+export const CUSTOMER_ADDRESS_CREATE = `mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
+  customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+    customerAddress {
+      address1
+      address2
+      city
+      company
+      country
+      countryCodeV2
+      firstName
+      formatted
+      formattedArea
+      id
+      lastName
+      latitude
+      longitude
+      name
+      phone
+      province
+      provinceCode
+      zip
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`
+
+export const CUSTOMER_ADDRESS_UPDATE = `mutation customerAddressUpdate($customerAccessToken: String!, $id: ID!, $address: MailingAddressInput!) {
+  customerAddressUpdate(customerAccessToken: $customerAccessToken, id: $id, address: $address) {
+    customerAddress {
+      address1
+      address2
+      city
+      company
+      country
+      countryCodeV2
+      firstName
+      formatted
+      formattedArea
+      id
+      lastName
+      latitude
+      longitude
+      name
+      phone
+      province
+      provinceCode
+      zip
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`
+
+export const CUSTOMER_ADDRESS_DELETE = `mutation customerAddressDelete($id: ID!, $customerAccessToken: String!) {
+  customerAddressDelete(id: $id, customerAccessToken: $customerAccessToken) {
+    customerUserErrors {
+      code
+      field
+      message
+    }
+    deletedCustomerAddressId
+  }
+}`
+
+export const CUSTOMER_DEFAULT_ADDRESS_UPDATE = `mutation customerDefaultAddressUpdate($customerAccessToken: String!, $addressId: ID!) {
+  customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
+    customer {
+      id
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`
+
 export const CUSTOMER_CREATE = `mutation customerCreate($input: CustomerCreateInput!) {
   customerCreate(input: $input) {
     customer {
@@ -369,6 +453,10 @@ export const GET_CUSTOMER_ORDERS = `query getCustomer($customerAccessToken: Stri
             __typename
           }
           successfulFulfillments {
+            trackingInfo {
+              number
+              url
+            }
             fulfillmentLineItems (first: 25) {
               edges {
                 node {

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrder, transformOrders } from '../gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrder, transformOrders } from '../gql/index.js'
 import { Multipass } from "multipass-js"
 
 const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
@@ -147,7 +147,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, getCustomerOrders }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, getCustomerOrders }}>
       {children}
     </CustomerContext.Provider>
   )

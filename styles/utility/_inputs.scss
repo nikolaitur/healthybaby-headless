@@ -70,8 +70,10 @@
 			padding-top: 15px;
 		}
 		~ label {
-			opacity: 1;
-			top: 16px;
+			@include breakpoint-up('sm') {
+				opacity: 1;
+				top: 16px;
+			}
 		}
 	}
 }
@@ -97,11 +99,24 @@
 **/
 
 .select-dropdown-selector {
+	&:not(:placeholder-shown) {
+		.react-select__single-value {
+			@include breakpoint-up('sm') {
+				padding-top: 15px;
+			}
+		}
+		~ label {
+			@include breakpoint-up('sm') {
+				opacity: 1;
+				top: 16px;
+			}
+		}
+	}
 	* {
 		font-size: 16px !important;
-		font-family: $NeutraText !important;
+		font-family: $NeutraTextDemi !important;
 		@include breakpoint-up('sm') {
-			font-size: 18px;
+			font-size: 18px !important;
 		}
 	}
   svg {
@@ -115,7 +130,7 @@
     box-shadow: none !important;
     height: 48px;
     @include breakpoint-up('sm') {
-      height: 60px;
+      height: 72px;
     }
   }
   .react-select__value-container {

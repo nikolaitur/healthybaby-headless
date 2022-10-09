@@ -39,11 +39,11 @@ const MyInfo = ({page}) => {
             return <AccountAddress address={address} isDefaultAddress={isDefaultAddress} />
           })}
         </ul>}
-        <button onClick={() => toggleExpand()} class="account-panel-cta-btn btn secondary">Add New Address</button>
+        <button onClick={() => toggleExpand()} className="account-panel-cta-btn btn secondary">Add New Address</button>
+        <Expand open={height !== 0} duration={300}>
+          <AccountAddressForm type={'new'} />
+        </Expand>
       </div>
-      <Expand open={height !== 0} duration={300}>
-        <AccountAddressForm />
-      </Expand>
     </div>
   )
 }

@@ -1,9 +1,17 @@
-import { useRef, createRef } from 'react'
+import { useState, useEffect, useRef, createRef } from 'react'
 import Select, { components } from 'react-select'
+import IconCaretTop from '@/svgs/caret-top.svg'
 
-const AccountAddressForm = ({address}) => {
+const AccountAddressForm = ({address, type}) => {
 
-  const refs = ['address1', 'address2', 'city', 'company', 'country', 'firstName', 'lastName', 'phone', 'province', 'zip']
+  console.log("address:", address)
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [countryList, setCountryList] = useState([])
+  const [countrySelected, setCountrySelected] = useState('')
+  const [stateSelected, setStateSelected] = useState('')
+
+  const refs = ['address1', 'address2', 'city', 'company', 'firstName', 'lastName', 'phone', 'zip']
 
   const formRef = useRef(refs.reduce((carry, ref) => {
     return {
@@ -21,7 +29,6 @@ const AccountAddressForm = ({address}) => {
       )
     )
   }
-
   const colourStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -30,9 +37,47 @@ const AccountAddressForm = ({address}) => {
     }),
   }
 
+  useEffect(() => {
+    const getCountries = async () => {
+      const response = await fetch('/api/shopify/get-countries').then(res => res.json())
+      if (response.message === 'success') {
+        let countryList = response.data.filter(country => country.code !== '*')
+        countryList = countryList.map(country => {
+          return {
+            ...country,
+            label: country.name,
+            value: country.code,
+            provinces: country.provinces.map(province => {
+              return {
+                ...province,
+                label: province.name,
+                value: province.code
+              }
+            })
+          }
+        })
+        setCountryList(countryList)
+        if (address) {
+          const country = countryList.find(country => country.code === address.countryCodeV2)
+          const state = country?.provinces.find(province => province.code === address.provinceCode)
+          if (country && state) {
+            setCountrySelected(country)
+            setStateSelected(state)
+          }
+        }
+        setIsLoading(false)
+      }
+    }
+    getCountries()
+  }, [])
+
+  if (isLoading) {
+    return <></>
+  }
+
   return (
     <form className="account-address-form">
-    <h5>Edit Address</h5>
+    <h5>{type === 'new' ? 'Add' : 'Edit' } Address</h5>
     {/* first and last name */}
     <div className="input-group--wrapper">
       <div className="input-group">
@@ -84,14 +129,33 @@ const AccountAddressForm = ({address}) => {
         <label className="label">City</label>
       </div>
       <div className="input-group">
-        <input className="input" type="text" placeholder="Country *" ref={formRef.current.country} value={address?.country} required />
+        <Select
+          className={`select-dropdown-selector`}
+          classNamePrefix="react-select"
+          options={countryList}
+          value={countrySelected}
+          components={{ DropdownIndicator }}
+          placeholder={"Country *"}
+          styles={colourStyles}
+          onChange={(e) => setCountrySelected(e)}
+        />
         <label className="label">Country</label>
       </div>
     </div>
     {/* state and zip code */}
     <div className="input-group--wrapper">
       <div className="input-group">
-        <input className="input" type="text" placeholder="State *" ref={formRef.current.province} value={address?.province} required />
+        <Select
+          className={`select-dropdown-selector`}
+          classNamePrefix="react-select"
+          options={countrySelected ? countrySelected.provinces : []}
+          value={stateSelected}
+          components={{ DropdownIndicator }}
+          placeholder={"State *"}
+          styles={colourStyles}
+          isDisabled={countrySelected === ''}
+          onChange={(e) => setStateSelected(e)}
+        />
         <label className="label">State</label>
       </div>
       <div className="input-group">
