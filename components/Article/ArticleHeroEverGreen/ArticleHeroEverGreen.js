@@ -156,7 +156,7 @@ const ArticleHeroEverGreen = ({ content }) => {
               <div className="article-video__video">
                 {hasWindow && (
                   <ReactPlayer
-                    url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                    url={content.fields.articleHero.fields.videoLink}
                     playing={isPlaying}
                     controls={true}
                     className="article-video__video-player"
