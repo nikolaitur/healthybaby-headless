@@ -1,7 +1,8 @@
 .modal {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 999;
 
     &__overlay {
@@ -17,6 +18,11 @@
         transition: 0.3s;
         opacity: 0.3;
         z-index: 998;
+
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 
     &__container {
@@ -46,6 +52,27 @@
 
         @include breakpoint-up('md') {
             right: 10px;
+        }
+    }
+}
+
+.modal.quickview {
+    .modal__content {
+        max-width: 90%;
+        max-width: 1235px;
+        width: 100vw;
+        padding: 0 10px;
+
+        @include breakpoint-up('md') {
+            padding: 0 30px;
+        }
+    }
+
+    .modal__close {
+        right: 20px;
+        
+        @include breakpoint-up('md') {
+            right: 40px;
         }
     }
 }

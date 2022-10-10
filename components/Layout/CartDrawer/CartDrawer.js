@@ -130,8 +130,8 @@ const CartDrawer = ({ content }) => {
         //     console.error(err)
         //   })
 
-        // clearCart()
-        // return
+        clearCart()
+        return
 
         const cartItems = cart.map((lineItem) => {
             const returnItem = {
@@ -200,7 +200,7 @@ const CartDrawer = ({ content }) => {
                         <>
                             <div className="cart-drawer__items">
                                 {cart.map((lineItem, index) => (
-                                    <LineItem item={lineItem} key={index} />
+                                   <LineItem item={lineItem} key={index} />
                                 ))}
                             </div>
                             {drawerContent[0] ? (
