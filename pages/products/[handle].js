@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import styles from 'styles/Product.module.css'
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 function Product({ product }) {
   const [, { addToCart }] = useCart()
@@ -13,6 +14,10 @@ function Product({ product }) {
     selectedVariant.content.selectedOptions
   )
   const [quantity, setQuantity] = useState(1)
+
+  useEffect(() => {
+    dataLayerViewProduct({ product })
+  }, [])
 
   let options = null
   if (product?.content?.options?.some((option) => option.values.length > 1)) {

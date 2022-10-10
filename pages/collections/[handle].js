@@ -1,21 +1,33 @@
 import { nacelleClient } from 'services'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 import CollectionHeader from '../../components/Sections/CollectionHeader'
 import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
 
+import { dataLayerViewProductList } from '@/utils/dataLayer'
+
 function Collection(props) {
+  const router = useRouter()
   const { collection } = props
 
   console.log(collection)
 
+  useEffect(() => {
+    dataLayerViewProductList({
+      products: collection.products,
+      url: router.asPath,
+    })
+  })
+
   return (
-      <>
-        <CollectionHeader content={collection} />
-        <CollectionGrid content={collection} />
-        <CollectionSections content={collection} />
-      </>
-    )
+    <>
+      <CollectionHeader content={collection} />
+      <CollectionGrid content={collection} />
+      <CollectionSections content={collection} />
+    </>
+  )
 }
 
 export default Collection
@@ -44,7 +56,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      collection: collection[0]
+      collection: collection[0],
     },
   }
 }

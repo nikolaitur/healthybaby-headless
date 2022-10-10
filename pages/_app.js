@@ -2,8 +2,10 @@ import App from 'next/app'
 import { nacelleClient } from 'services'
 import { CartProvider, CheckoutProvider } from '@nacelle/react-hooks'
 import createShopifyCheckoutClient from '@nacelle/shopify-checkout'
+import { useEffect } from 'react'
 import Layout from 'components/Layout'
 import '../styles/globals.scss'
+import TagManager from 'react-gtm-module'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)
@@ -27,6 +29,12 @@ function AppContainer({
     storefrontCheckoutToken:
       process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_CHECKOUT_TOKEN,
     storefrontApiVersion: process.env.NEXT_PUBLIC_STOREFRONT_API_VERSION,
+  })
+
+  useEffect(() => {
+    TagManager.initialize({
+      gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
+    })
   })
 
   return (
