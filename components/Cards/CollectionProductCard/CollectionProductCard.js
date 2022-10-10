@@ -242,9 +242,9 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
                 </div>
                 <div className="collection-product-card__cta">
                     {product && product.variants.length > 1 ? (
-                        <button className="btn secondary" onClick={() => openQuickView()}><span>{getCtaText()}</span>{productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>
+                        <button className="btn secondary" onClick={() => openQuickView()}>{getCtaText()} {productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>
                     ): (
-                        <button className="btn secondary" onClick={() => handleAddItem()}><span>{getCtaText()}</span>{productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>    
+                        <button className="btn secondary" onClick={() => handleAddItem()}>{getCtaText()} {productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>    
                     )}
                 </div>
             </div>
