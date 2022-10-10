@@ -41,6 +41,7 @@ const ProductInfo = ( props ) => {
     const cartDrawerContext =  useCartDrawerContext()
 
     // console.log(product, "info", selectedVariant, page)
+    console.log(page)
 
     const richTextRenderOptions = {
         renderNode: {
