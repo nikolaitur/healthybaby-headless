@@ -59,7 +59,7 @@
 .modal.quickview {
     .modal__content {
         max-width: 90%;
-        max-width: 100vw;
+        max-width: 1235px;
         width: 100vw;
         padding: 0 10px;
 
@@ -72,7 +72,7 @@
         right: 20px;
         
         @include breakpoint-up('md') {
-            right: 70px;
+            right: 40px;
         }
     }
 }
