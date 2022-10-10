@@ -6,8 +6,7 @@ import DoubleWave from '../../../svgs/DoubleWave.js'
 import DoubleWaveMobile from 'svgs/DoubleWaveMobile'
 
 const ArticleHeroEverGreen = ({ content }) => {
-  // const { ctaText, ctaUrl } = content.fields
-  // const backgroundImage = content.fields.image.fields.file.url
+  const { articleHero, title, publishDate, author, doctor } = {...content.fields};
 
   const getDateFormat = (date) => {
     const monthNames = [
@@ -33,19 +32,19 @@ const ArticleHeroEverGreen = ({ content }) => {
     <div
       className="article-hero"
       style={{
-        background: `linear-gradient(180deg, ${content.fields.articleHero.fields.backgroundColor} 0%, rgba(199, 224, 229, 0) 100%)`,
+        background: `linear-gradient(180deg, ${articleHero.fields.backgroundColor} 0%, rgba(199, 224, 229, 0) 100%)`,
       }}
     >
-      {content.fields.articleHero.fields.showWave ? (
+      {articleHero.fields.showWave ? (
         <div className="article-hero__wave">
           <span className="svg-wrap article-hero__wave--desktop">
             <DoubleWave
-              fillColor={content.fields.articleHero.fields.waveColor}
+              fillColor={articleHero.fields.waveColor}
             />
           </span>
           <span className="svg-wrap article-hero__wave--mobile">
             <DoubleWaveMobile
-              fillColor={content.fields.articleHero.fields.waveColor}
+              fillColor={articleHero.fields.waveColor}
             />
           </span>
         </div>
@@ -66,31 +65,31 @@ const ArticleHeroEverGreen = ({ content }) => {
             </div>
           </Link>
         </div>
-        <h3 className="article-hero__title">{content.fields.title}</h3>
+        <h3 className="article-hero__title">{title}</h3>
         <div className="article-hero__pub">
-          <span>{getDateFormat(content.fields.publishDate)} • 4 min read</span>
+          <span>{getDateFormat(publishDate)} • 4 min read</span>
         </div>
         <div className="article-hero__content">
           <div className="article-hero__written">
             <div className="article-hero__written--author">
               <div className="article-hero__author-image">
-                <Image
+                {author.fields.photo && <Image
                   className=""
                   src={
                     'https:' +
-                    content.fields.author.fields.photo.fields.file.url
+                    author.fields.photo.fields.file.url
                   }
                   alt={`image`}
                   layout="responsive"
                   objectFit="cover"
                   height="50"
                   width="50"
-                />
+                />}
               </div>
               <div className="article-hero__author-name">
                 Written by{' '}
                 <span className="name">
-                  {content.fields.author.fields.name}
+                  {author.fields.name}
                 </span>
               </div>
             </div>
@@ -101,36 +100,36 @@ const ArticleHeroEverGreen = ({ content }) => {
               <div className="article-hero__author-name">
                 Medically Reviewed by{' '}
                 <span className="name">
-                  {content.fields.doctor.fields.name}
+                  {doctor.fields.name}
                 </span>
               </div>
             </div>
           </div>
           <div className="article-hero__image">
             <div className="article-hero__image--desktop">
-              <Image
+              {articleHero.fields?.featuredMedia && <Image
                 className=""
-                src={`https://${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+                src={`https://${articleHero.fields.featuredMedia.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"
                 height="700"
                 width="650"
-              />
+              />}
             </div>
             <div className="article-hero__image--mobile">
-              <Image
+              {articleHero.fields.featuredMediaMobile && <Image
                 className=""
-                src={`https://${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
+                src={`https://${articleHero.fields.featuredMediaMobile.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"
                 height="700"
                 width="650"
-              />
+              />}
             </div>
             <div className="article-hero__image--credit">
-              {content.fields.articleHero.fields.photoCredit}
+              {articleHero.fields.photoCredit}
             </div>
           </div>
         </div>
