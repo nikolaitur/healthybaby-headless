@@ -233,6 +233,9 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
                 {content.fields?.subtitle ? (
                     <p className="collection-product-card__subtitle">{ content.fields.subtitle }</p>
                 ) : ""}
+                {/* {product.content?.description ? (
+                    <p className="collection-product-card__subtitle">{ product.content.description  }</p>
+                ) : ""} */}
                 <div className="collection-product-card__reviews">
                     <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
                     <span className="junip-product-summary" data-product-id="4522469523505"></span>

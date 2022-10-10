@@ -6,8 +6,6 @@ import Image from 'next/image';
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
 
-    // console.log(content, "HEADER")
-
     return (
         <section className="collection-header">
             <div className="collection-header__container container">
