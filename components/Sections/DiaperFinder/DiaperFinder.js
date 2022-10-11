@@ -1,9 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Select, { components } from "react-select";
-import Link from 'next/link';
+import { nacelleClient } from 'services'
+import cartClient from '../../../services/nacelleClientCart'
+import { useCart } from '@nacelle/react-hooks'
+import { getCartVariant } from 'utils/getCartVariant'
 import Image from 'next/image';
 import DatePicker from "react-datepicker";
+
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -22,16 +27,23 @@ const DiaperFinder = ({ content }) => {
     let intialValues = {
         name: "/",
         gender: genderOptions[0],
-        birthday: "07/01/2022",
+        birthday: null,
         weight: "1.1"
     }
 
+    const [, { addToCart }] = useCart()
     const [isActive, setIsActive] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
+    const [weight, setWeight] = useState(1.1)
+    const [product, setProduct] = useState(null)
+    const [selectedVariant, setSelectedVariant] = useState(false);
+
+    const cartDrawerContext =  useCartDrawerContext()
 
     const showDiaperResults = () => {
         setIsActive(true)
+        getProductRecommendation()
     }
 
     const clearDiaperResults = () => {
@@ -89,12 +101,15 @@ const DiaperFinder = ({ content }) => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
+        setWeight(Number(value))
+
+        console.log(value)
+
         setDiaperFinderData(diaperFinderData => ({
             ...diaperFinderData,
             [name]: value,
-
         }))
-      };
+    };
 
     const onSelectChange = (selectedOption) => {
         let gender = selectedOption.value
@@ -102,6 +117,134 @@ const DiaperFinder = ({ content }) => {
             ...diaperFinderData,
             gender: gender
         }))
+    }
+
+
+    const getMonthDifference = (startDate, endDate) => {
+        return (
+          endDate.getMonth() -
+          startDate.getMonth() +
+          12 * (endDate.getFullYear() - startDate.getFullYear())
+        );
+    }
+
+    const getProductRecommendation = () => {
+        let today = new Date()
+        let babyMonth = getMonthDifference(startDate, today)
+        console.log(getMonthDifference(startDate, today))
+
+        if(babyMonth < 0) {
+            return "Prenantal Logic"
+        }
+        
+        if(weight < 6) {
+            if(babyMonth > 0) {
+                console.log("Contact Customer Service")
+                return "Contact Customer Service"
+            } 
+        } else if(weight > 6 && weight < 11) {
+            if(babyMonth < 2 && babyMonth > 0) {
+                getProduct("our-newborn-gift-bundle")
+            } else if(babyMonth > 2) {
+                console.log("Monthly Diaper Bundle with wipes- size 1")
+            }
+        } else if(weight > 12 && weight < 14) {
+            if(babyMonth < 29 && babyMonth > 0) {
+                console.log("Monthly Diaper Bundle with wipes- size 2")
+            } else if(babyMonth > 29) {
+                console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 3	")
+            }
+        } else if(weight > 15 && weight < 16) {
+            console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 3	")
+        } else if(weight > 17 && weight < 19) {
+            if(babyMonth < 29 && babyMonth > 0) {
+                console.log("Monthly Diaper Bundle with wipes- size 3")
+            } else if(babyMonth > 29) {
+                console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 4")
+            }
+        } else if(weight > 20 && weight < 24) {
+            if(babyMonth < 29 && babyMonth > 0) {
+                console.log("Monthly Diaper Bundle with wipes- size 4")
+            } else if(babyMonth > 29) {
+                console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 4")
+            }
+        } else if(weight > 25 && weight < 30) {
+            if(babyMonth < 29 && babyMonth > 0) {
+                console.log("Monthly Diaper Bundle with wipes- size 5")
+            } else if(babyMonth > 29) {
+                console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 5	")
+            }
+        } else if(weight > 31 && weight < 36) {
+            if(babyMonth < 29 && babyMonth > 0) {
+                console.log("Monthly Diaper Bundle with wipes- size 6")
+            } else if(babyMonth > 29) {
+                console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 5")
+            }
+        } else if(weight > 37) {
+            console.log("Monthly Pull-Up Style Diaper Bundle with wipes- size 6")
+        }
+    }
+
+    const getProduct = async (handle, size = 1) => {
+        await nacelleClient.products({
+            handles: [handle]
+        }).then(response => {
+            if(response && handle == "our-newborn-gift-bundle") {
+                setProduct(response[0])
+                setSelectedVariant(response[0].variants[0])
+                console.log(product, selectedVariant)
+            } else if (response) {
+                setProduct(response[0])
+            }
+        });
+    }
+
+    const handleAddItem = async () => {
+        console.log(product, selectedVariant, "ADDED")
+        if(product && selectedVariant) {
+            
+            const variant = getCartVariant({
+                product,
+                variant: selectedVariant,
+            })
+            
+            let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+    
+            if(!sellingPlan) {
+                sellingPlan = false
+            } 
+    
+            addToCart({
+                product,
+                variant,
+                quantity: 1,
+                sellingPlan,
+                subscription: false,
+                nacelleEntryId: selectedVariant.nacelleEntryId,
+                selectedVariant
+            })
+    
+            console.log(cartDrawerContext.shopifyCartId)
+    
+            await cartClient.cartLinesAdd({
+                cartId: cartDrawerContext.shopifyCartId,
+                lines: [
+                  {
+                    merchandiseId: selectedVariant.nacelleEntryId,
+                    nacelleEntryId: selectedVariant.nacelleEntryId,
+                    quantity: 1,
+                  }
+                ]
+              })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.error(err, "Error")
+              })
+            
+              cartDrawerContext.setIsOpen(true)
+        }
     }
 
     return (
@@ -132,7 +275,7 @@ const DiaperFinder = ({ content }) => {
                         <span className="weight">
                             <span>& weigh</span>
                             <div className="input-wrapper">
-                                <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperFinderData.weight}></input>
+                                <input name="weight" label="Weight" onChange={(e) => handleInputChange(e)}  value={weight}></input>
                                 <span className="suffix">lbs</span>
                             </div>
                         </span>
@@ -181,18 +324,16 @@ const DiaperFinder = ({ content }) => {
                             </div>
                         </div>
                         <div className="diaper-finder__product--cta">
-                            <Link href="/">
-                                <>
-                                    <span>Customize Asha’s Bundle</span>
-                                    <span><LongArrowRight /></span>
-                                </>
-                            </Link>
+                            <button className="btn" onClick={() => handleAddItem()}>
+                                <span>Customize Asha’s Bundle</span>
+                                <span><LongArrowRight /></span>
+                            </button>
                         </div>
                         <div className="diaper-finder__product--delivery">
                             <span>COMPLIMENTARY DELIVERY</span><span className="bullet">•</span><span>CANCEL ANY TIME</span>  
                         </div>
                     </div>
-                    <div className="diaper-finder__article">
+                    {/* <div className="diaper-finder__article">
                         <div className="diaper-finder__title">
                             Build Asha’s Essentials Box
                         </div>
@@ -207,8 +348,8 @@ const DiaperFinder = ({ content }) => {
                                 </>
                             </Link>
                         </div>
-                    </div>
-                    <div className="diaper-finder__article">
+                    </div> */}
+                    {/* <div className="diaper-finder__article">
                         <div className="diaper-finder__title">
                             Build Asha’s Essentials Box
                         </div>
@@ -223,7 +364,7 @@ const DiaperFinder = ({ content }) => {
                                 </>
                             </Link>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="diaper-finder__detail">

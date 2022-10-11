@@ -132,7 +132,7 @@
             @include breakpoint-up('md') {
                 font-size: 52px;
                 line-height: 52px;
-                transform: translate(-80px, 11px);
+                transform: translate(-80px, 1px);
             }
 
             @include breakpoint-up('xl') {
@@ -408,21 +408,21 @@
         }
 
         &--cta {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.02em;
-            color: #fff;
-            background: #00B188;
-            padding: 19px 0px;
-            border-radius: 60px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
+            // font-family: $NeutraText;
+            // font-style: normal;
+            // font-weight: 500;
+            // font-size: 18px;
+            // line-height: 22px;
+            // display: flex;
+            // align-items: center;
+            // letter-spacing: 0.02em;
+            // color: #fff;
+            // background: #00B188;
+            // padding: 19px 0px;
+            // border-radius: 60px;
+            // width: 100%;
+            // display: flex;
+            // justify-content: center;
             margin-top: 30px;
 
             span:last-child {
