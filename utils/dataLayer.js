@@ -9,7 +9,7 @@ function buildProductData(products, type, url) {
     const data = {
       id: firstVariant.sku, // SKU
       name: product.content.title, // Product title
-      brand: 'Sitka Salmon Shares',
+      brand: 'Healthy Baby',
       category: '',
       variant: firstVariant.content.title,
       price: firstVariant.price.toString(),
@@ -38,7 +38,7 @@ function buildProductDataFromBold(lineItems) {
     return {
       id: item.sku, // SKU
       name: item.product_title, // Product title
-      brand: 'Sitka Salmon Shares',
+      brand: 'Healthy Baby',
       category: '',
       variant: item.title,
       price: formatPrice(item.price).toString(),
