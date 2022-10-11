@@ -1,190 +1,198 @@
 .stories-slider {
-    padding: 100px 0;
+  padding: 100px 0;
 
-    .swiper-slide {
-        opacity: 0!important;
+  .swiper-slide {
+    opacity: 0 !important;
 
-        &.swiper-slide-active {
-            opacity: 1!important;
-        }
+    &.swiper-slide-active {
+      opacity: 1 !important;
     }
+  }
 
-    &__container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        @include breakpoint-up('md') {
-            flex-direction: row;
-        }
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include breakpoint-up('md') {
+      flex-direction: row;
     }
+  }
 
-    &__subheader {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: $primaryBrown;
-        margin-bottom: 30px;
-    }
+  &__subheader {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
+    margin-bottom: 30px;
+  }
 
-    &__slider {
-        overflow: hidden;
-    }
+  &__slider {
+    overflow: hidden;
+  }
 }
 
 .stories-slide {
-    &__container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        @include breakpoint-up('md') {
-            flex-direction: row;
-        }
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include breakpoint-up('md') {
+      flex-direction: row;
+    }
+  }
+
+  &__content {
+    order: 1;
+
+    @include breakpoint-up('md') {
+      order: 0;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 0px;
+    }
+  }
+
+  &__image {
+    order: 0;
+    margin-bottom: 40px;
+
+    @include breakpoint-up('md') {
+      padding-left: 100px;
+      width: 50%;
+      margin: 0;
     }
 
-    &__content {
-        order: 1;
+    img {
+      height: 350px;
+      object-fit: cover;
 
-        @include breakpoint-up('md') {
-            order: 0;
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-right: 0px;
-        }
+      @include breakpoint-up('md') {
+        height: 970px !important;
+      }
+    }
+  }
+
+  &__title {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
+    color: $primaryBrown;
+    margin-bottom: 40px;
+
+    &.bold {
+      font-weight: bold;
     }
 
-    &__image {
-        order: 0;
-        margin-bottom: 40px;
-
-        @include breakpoint-up('md') {
-            padding-left: 100px;
-            width: 50%;
-            margin: 0;
-        }
-
-        img {
-            height: 350px;
-            object-fit: cover;
-
-            @include breakpoint-up('md') {
-                height: 970px!important;
-            }
-        }
+    &.italic {
+      font-style: italic;
     }
 
-    &__title {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
-        color: $primaryBrown;
-        margin-bottom: 40px;
+    @include breakpoint-up('md') {
+      font-size: 62px;
+      line-height: 62px;
+      margin-bottom: 60px;
+    }
+  }
 
-        @include breakpoint-up('md') {
-            font-size: 62px;
-            line-height: 62px;
-            margin-bottom: 60px;
-        }
+  &__subtitle {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
+    margin-bottom: 30px;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
+
+  &__copy {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-bottom: 40px;
+
+    @include breakpoint-up('md') {
+      font-size: 32px;
+      line-height: 34px;
+      margin-bottom: 70px;
+    }
+  }
+
+  &__author {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-bottom: 20px;
+
+    @include breakpoint-up('md') {
+      font-size: 26px;
+      line-height: 29px;
+    }
+  }
+
+  &__age,
+  &__activity {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+      line-height: 31px;
     }
 
-    &__subtitle {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 16px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: $primaryBrown;
-        margin-bottom: 30px;
+    span {
+      color: #00b188;
+    }
+  }
 
-        @include breakpoint-up('md') {
-            font-size: 18px;
-            line-height: 18px;
-        }
+  &__pagination {
+    display: flex;
+    position: relative;
+  }
+
+  &__indicator {
+    width: 135px;
+    height: 4px;
+    background: #d0d8e9;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-right: 12px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
     }
 
-    &__copy {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 22px;
-        line-height: 24px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-bottom: 40px;
-
-        @include breakpoint-up('md') {
-            font-size: 32px;
-            line-height: 34px;
-            margin-bottom: 70px;
-        }
+    &.active {
+      background: #5975b1;
     }
-
-    &__author {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 22px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-bottom: 20px;
-
-        @include breakpoint-up('md') {
-            font-size: 26px;
-            line-height: 29px;
-        }
-    }
-
-    &__age,
-    &__activity {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 25px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-
-        @include breakpoint-up('md') {
-            font-size: 22px;
-            line-height: 31px;
-        }
-
-        span {
-            color: #00B188;
-        }
-    }
-
-    &__pagination {
-        display: flex;
-        position: relative;
-    }
-
-    &__indicator {
-        width: 135px;
-        height: 4px;
-        background: #D0D8E9;
-        border-radius: 4px;
-        margin-top: 20px;
-        margin-right: 12px;
-        transition: 0.3s;
-        cursor: pointer;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        &.active {
-            background: #5975B1;
-        }
-    }
+  }
 }

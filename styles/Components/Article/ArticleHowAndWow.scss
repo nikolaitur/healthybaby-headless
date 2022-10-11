@@ -1,0 +1,37 @@
+.article-howandwow {
+  margin: 30px 0;
+  padding: 28px 0;
+  text-align: center;
+
+  @include breakpoint-up('md') {
+    margin: 60px 0;
+  }
+
+  &__title {
+    position: relative;
+    font-family: $DomaineText;
+    font-size: 42px;
+    font-weight: 500;
+    color: $primaryBrown;
+    width: fit-content;
+    margin: auto;
+
+    @include breakpoint-up('md') {
+      font-size: 76px;
+    }
+
+    .star svg {
+      position: absolute;
+      width: 40px;
+      height: auto;
+      right: -35px;
+      top: -10px;
+
+      @include breakpoint-up('md') {
+        width: 80px;
+        top: -20px;
+        right: -50px;
+      }
+    }
+  }
+}

@@ -9,7 +9,27 @@ import ArticleSectionsContent from '../../../components/Article/ArticleSectionsC
 function Article({ article }) {
   console.log(article)
 
-  return <></>
+  return (
+    <article className="article">
+      {article.fields.articleHero ? (
+        <ArticleHeroEverGreen content={article} />
+      ) : (
+        <></>
+      )}
+      <div className="article__container">
+        {article.fields.articleSections ? (
+          <ArticleSectionsContent sections={article.fields.articleSections} />
+        ) : (
+          <></>
+        )}
+        {article.fields.articleSocial ? (
+          <ArticleSocial content={article.fields.articleSocial} key="social" />
+        ) : (
+          <></>
+        )}
+      </div>
+    </article>
+  )
 }
 
 export default Article

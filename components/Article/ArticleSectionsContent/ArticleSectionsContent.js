@@ -9,6 +9,8 @@ import ArticlePullQuote from '../../../components/Article/ArticlePullQuote'
 import ArticleBanner1 from '../../../components/Article/ArticleBanner1'
 import ArticleBanner2 from '../../../components/Article/ArticleBanner2'
 import ArticleAuthorSpotlight from '../../../components/Article/ArticleAuthorSpotlight'
+import ArticleHowAndWow from '../../../components/Article/ArticleHowAndWow'
+import ArticleActivityHeader from '../../../components/Article/ArticleActivityHeader'
 
 const ArticleSectionsContent = ({ sections }) => {
   // const { ctaText, ctaUrl } = content.fields
@@ -35,6 +37,11 @@ const ArticleSectionsContent = ({ sections }) => {
             return <ArticleBanner2 content={section} key={index} />
           case 'authorSpotlight':
             return <ArticleAuthorSpotlight content={section} key={index} />
+          case 'articleHowAndWow':
+            return <ArticleHowAndWow content={section} key={index} />
+          case 'articleActivityHeader':
+            return <ArticleActivityHeader content={section} key={index} />
+
           case 'sectionBreak':
             return (
               <div
