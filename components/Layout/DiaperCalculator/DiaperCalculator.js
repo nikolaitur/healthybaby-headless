@@ -73,7 +73,7 @@ const DiaperCalculator = ({props, children}) => {
                 } else if(weight > 18 && weight < 22) {
                     // console.log("size 4")
                     setDiaperSize(4)
-                } else if(weight > 22 && weight < 27) {
+                } else if(weight > 22 && weight < 37) {
                     // console.log("size 5")
                     setDiaperSize(5)
                 } else {
