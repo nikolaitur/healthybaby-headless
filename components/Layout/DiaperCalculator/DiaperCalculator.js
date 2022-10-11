@@ -43,13 +43,6 @@ const DiaperCalculator = ({props, children}) => {
                 handles: ["our-monthly-diaper-bundle"]
             }).then(response => {
                 setProduct(response[0])
-                // const noWipes = response[0].variants.filter(obj => {
-                //     return obj.content.title.includes("No Wipes");
-                // });
-
-                setProduct(response[0])
-
-                console.log(response[0], "product")
             });
         }
     
@@ -59,8 +52,6 @@ const DiaperCalculator = ({props, children}) => {
     useEffect(() => {
         const recommendProduct = () => {
             if(diaperCalculatorContext.isOpen) {
-                // console.log(diaperCalculatorContext)
-                // setWeight()
                 if(weight < 10) {
                     // console.log("size 1")
                     setDiaperSize(1)
@@ -80,8 +71,6 @@ const DiaperCalculator = ({props, children}) => {
                     // console.log("size 6")
                     setDiaperSize(6)
                 }
-        
-                // console.log(weight, "weight", diaperCalculatorContext.diaperCalculatorData)
 
                 let data = {
                     birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
