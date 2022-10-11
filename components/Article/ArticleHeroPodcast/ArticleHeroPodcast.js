@@ -44,9 +44,18 @@ const ArticleHeroPodcast = ({ content }) => {
           <h3 className="podcast-hero__title">{content.fields.title}</h3>
           <div className="podcast-hero__written">
             With{' '}
-            <span className="name">{content.fields.author.fields.name} +</span>
+            <span className="name">
+              {content.fields.author.fields.name
+                ? content.fields.author.fields.name
+                : ''}{' '}
+              +
+            </span>
             &nbsp;&nbsp;
-            <span className="name">{content.fields.doctor.fields.name}</span>
+            <span className="name">
+              {content.fields.doctor.fields.name
+                ? content.fields.doctor.fields.name
+                : ''}
+            </span>
           </div>
           <div className="podcast-hero__image">
             <div className="podcast-hero__image--mobile">
