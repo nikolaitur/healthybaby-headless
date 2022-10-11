@@ -32,13 +32,19 @@ const Experts = ({ content }) => {
                                         />
                                     </div>
                                 ) : ""}
-                                <div className="experts__name">{ item.fields.name }</div>
-                                <p className="experts__description">{ item.fields.description }</p>
-                                <div className="experts__cta">
-                                    <Link href={item.fields.ctaUrl}>
-                                        <button className="link">{ item.fields.ctaText }</button>
-                                    </Link>
-                                </div>      
+                                {item.fields?.name ? (
+                                    <div className="experts__name">{ item.fields.name }</div>
+                                ) : ""}
+                                {item.fields?.description ? (
+                                    <p className="experts__description">{ item.fields.description }</p>
+                                ) : ""}
+                                {item.fields?.ctaUrl && item.fields?.ctaText ? (
+                                    <div className="experts__cta">
+                                        <Link href={item.fields.ctaUrl}>
+                                            <button className="link">{ item.fields.ctaText }</button>
+                                        </Link>
+                                    </div>     
+                                 ) : ""} 
                             </div>
                         ))}                    
                     </div>
