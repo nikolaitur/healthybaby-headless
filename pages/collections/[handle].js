@@ -1,11 +1,23 @@
 import { nacelleClient } from 'services'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 import CollectionHeader from '../../components/Sections/CollectionHeader'
 import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
 
+import { dataLayerViewProductList } from '@/utils/dataLayer'
+
 function Collection(props) {
+  const router = useRouter()
   const { collection, products, productBadges } = {...props}
+
+  useEffect(() => {
+    dataLayerViewProductList({
+      products: collection.products,
+      url: router.asPath,
+    })
+  })
 
   return (
       <>

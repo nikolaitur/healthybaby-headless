@@ -8,15 +8,19 @@ const ArticleShop = ({ content }) => {
   return (
     <div className="article-shop">
       <div className="article-shop__image">
-        <Image
-          className=""
-          src={`https:${content.fields.image.fields.file.url}`}
-          alt={`image`}
-          layout="responsive"
-          objectFit="cover"
-          height={content.fields.image.fields.file.details.image.height}
-          width={content.fields.image.fields.file.details.image.width}
-        />
+        {content.fields.image ? (
+          <Image
+            className=""
+            src={`https:${content.fields.image.fields.file.url}`}
+            alt={`image`}
+            layout="responsive"
+            objectFit="cover"
+            height={content.fields.image.fields.file.details.image.height}
+            width={content.fields.image.fields.file.details.image.width}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="article-shop__info">
         <div className="article-shop__info-eyebrow">

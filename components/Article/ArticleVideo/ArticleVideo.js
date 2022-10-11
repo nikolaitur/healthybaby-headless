@@ -23,38 +23,85 @@ const ArticleVideo = ({ content }) => {
   }
 
   return (
-    <div className="article-video">
-      <div
-        className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
-        onClick={() => playVideo()}
-      >
-        <PlayIcon />
-      </div>
-      <div
-        className={`article-video__image ${isPlaying ? 'hide' : ''}`}
-        onClick={() => playVideo()}
-      >
-        <Image
-          className=""
-          src={`https:${content.fields.coverImage.fields.file.url}`}
-          alt={`video`}
-          layout="responsive"
-          objectFit="cover"
-          height={content.fields.coverImage.fields.file.details.image.height}
-          width={content.fields.coverImage.fields.file.details.image.width}
-        />
-      </div>
-      <div className="article-video__video">
-        {hasWindow && (
-          <ReactPlayer
-            url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-            playing={isPlaying}
-            controls={true}
-            className=""
-          />
-        )}
-      </div>
-    </div>
+    <>
+      {content.fields.videoLink ? (
+        <div className="article-video">
+          <div
+            className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
+            onClick={() => playVideo()}
+          >
+            <PlayIcon />
+          </div>
+          <div
+            className={`article-video__image ${isPlaying ? 'hide' : ''}`}
+            onClick={() => playVideo()}
+          >
+            {content.fields.coverImage ? (
+              <Image
+                className=""
+                src={`https:${content.fields.coverImage.fields.file.url}`}
+                alt={`video`}
+                layout="responsive"
+                objectFit="cover"
+                height={
+                  content.fields.coverImage.fields.file.details.image.height
+                }
+                width={
+                  content.fields.coverImage.fields.file.details.image.width
+                }
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="article-video__video">
+            {hasWindow && (
+              <ReactPlayer
+                url={content.fields.videoLink}
+                playing={isPlaying}
+                controls={true}
+                className="article-video__video-player"
+                width="100%"
+                height="100%"
+              />
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="article-hero__image">
+          <div className="article-hero__image--desktop">
+            {content.fields.coverImage ? (
+              <Image
+                className=""
+                src={`https:${content.fields.coverImage.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="article-hero__image--mobile">
+            {content.fields.coverImage ? (
+              <Image
+                className=""
+                src={`https:${content.fields.coverImage.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

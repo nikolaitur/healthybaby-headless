@@ -32,7 +32,7 @@
     }
   }
 
-  blockquote {
+  blockquote * {
     font-family: $NeutraTextDemi;
     font-style: normal;
     font-weight: 500;
@@ -73,7 +73,7 @@
     color: $primaryBrown;
     margin-bottom: 10px;
 
-    strong {
+    b {
       color: $primaryGreen;
     }
 

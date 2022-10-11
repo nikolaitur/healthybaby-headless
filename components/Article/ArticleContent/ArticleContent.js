@@ -1,14 +1,24 @@
 import React from 'react'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { useState, useEffect } from 'react'
 
 const ArticleContent = ({ content }) => {
-  // const { ctaText, ctaUrl } = content.fields
-  // const backgroundImage = content.fields.image.fields.file.url
+  const [articleContent, setArticleContent] = useState(false)
+
+  useEffect(() => {
+    const getRichTextToHtml = () => {
+      if (content.fields?.richContent) {
+        setArticleContent(documentToHtmlString(content.fields.richContent))
+      }
+    }
+    getRichTextToHtml()
+  })
   return (
     <div className="article-content">
       {content ? (
         <div
           dangerouslySetInnerHTML={{
-            __html: content.fields.richContent.content[0].content[0].value,
+            __html: articleContent,
           }}
         ></div>
       ) : (

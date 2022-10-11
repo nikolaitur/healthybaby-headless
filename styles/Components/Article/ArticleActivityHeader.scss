@@ -1,0 +1,57 @@
+.article-activityheader {
+  margin: 26px 0;
+  padding: 0 28px;
+  text-align: center;
+
+  @include breakpoint-up('md') {
+    margin: 40px 0;
+  }
+
+  &__eyebrow {
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
+    font-weight: 500;
+    font-family: $NeutraText;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+    }
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 500;
+    font-family: $DomaineText;
+    color: $primaryBrown;
+    margin: 12px auto 15px;
+
+    @include breakpoint-up('md') {
+      font-size: 48px;
+      margin: 26px auto 43px;
+    }
+  }
+
+  &__image {
+    width: 50px;
+    margin: auto;
+
+    @include breakpoint-up('md') {
+      width: 70px;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 16px;
+    font-family: $NeutraText;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    @include breakpoint-up('md') {
+      margin-top: 26px;
+      font-size: 18px;
+    }
+  }
+}
