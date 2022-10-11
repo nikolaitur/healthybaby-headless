@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, createRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import IconCaretTop from '@/svgs/caret-top.svg'
 
-const MyBabyForm = ({baby, type}) => {
-
+const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, setHeight}) => {
+  const {name, birthday} = {...baby}
   const [monthSelected, setMonthSelected] = useState(null)
   const [daySelected, setDaySelected] = useState(null)
   const [yearSelected, setYearSelected] = useState(null)
@@ -27,15 +27,15 @@ const MyBabyForm = ({baby, type}) => {
   }
 
   const months = [
-    {value: '1', label: 'January'},
-    {value: '2', label: 'February'},
-    {value: '3', label: 'March'},
-    {value: '4', label: 'April'},
-    {value: '5', label: 'May'},
-    {value: '6', label: 'June'},
-    {value: '7', label: 'July'},
-    {value: '8', label: 'August'},
-    {value: '9', label: 'September'},
+    {value: '01', label: 'January'},
+    {value: '02', label: 'February'},
+    {value: '03', label: 'March'},
+    {value: '04', label: 'April'},
+    {value: '05', label: 'May'},
+    {value: '06', label: 'June'},
+    {value: '07', label: 'July'},
+    {value: '08', label: 'August'},
+    {value: '09', label: 'September'},
     {value: '10', label: 'October'},
     {value: '11', label: 'November'},
     {value: '12', label: 'December'}
@@ -43,29 +43,41 @@ const MyBabyForm = ({baby, type}) => {
 
   const days = [...Array.from({length: 31}, (_, i) => i + 1)].map(day => {
     return {
-      value: day,
-      label: day,
+      value: (day).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}),
+      label: day.toString(),
     }
   })
 
   const currentYear = (new Date()).getFullYear();
-  const years = Array.from({ length: (currentYear + 1 - 2015) / 1 + 1}, (_, i) => 1990 + (i * 1)).map(year => {
+  const years = Array.from({ length: (currentYear + 1 - 2015) / 1 + 1}, (_, i) => 2015 + (i * 1)).map(year => {
     return {
-      value: year,
-      label: year,
+      value: year.toString(),
+      label: year.toString(),
     }
   })
+
+  useEffect(() => {
+    if (name) {
+      nameRef.current.value = name
+    }
+    if (birthday) {
+      const birthdateSplit = birthday.split('/')
+      setMonthSelected(months.find(month => month.value === birthdateSplit[0]))
+      setDaySelected(days.find(day => day.value === birthdateSplit[1]))
+      setYearSelected(years.find(year => year.value === birthdateSplit[2]))
+    }
+  }, [])
 
   return (
     <form className="account-baby-form">
       <h5>{type === 'new' ? 'Add' : 'Edit' } Baby</h5>
       <div className="input-group">
-        <input className="input" type="text" placeholder="Baby's Name *" ref={nameRef} value={baby?.name} required />
+        <input className="input" type="text" placeholder="Baby's Name *" ref={nameRef} required />
         <label className="label">Baby's Name</label>
       </div>
       {/* city and country */}
       <div className="input-group--wrapper">
-        <div className="input-group">
+        <div className="input-group input-group--thirds">
           <Select
             className={`select-dropdown-selector`}
             classNamePrefix="react-select"
@@ -78,7 +90,7 @@ const MyBabyForm = ({baby, type}) => {
           />
           <label className="label">Month</label>
         </div>
-        <div className="input-group">
+        <div className="input-group input-group--thirds">
           <Select
             className={`select-dropdown-selector`}
             classNamePrefix="react-select"
@@ -91,7 +103,7 @@ const MyBabyForm = ({baby, type}) => {
           />
           <label className="label">Day</label>
         </div>
-        <div className="input-group">
+        <div className="input-group input-group--thirds">
           <Select
             className={`select-dropdown-selector`}
             classNamePrefix="react-select"
@@ -102,8 +114,38 @@ const MyBabyForm = ({baby, type}) => {
             styles={colourStyles}
             onChange={(e) => setYearSelected(e)}
           />
-          <label className="label">Month</label>
+          <label className="label">Year</label>
         </div>
+      </div>
+      <div className="account-panel-ctas-wrapper">
+        {type === 'new' ? (
+          <button className="account-panel-cta-btn btn secondary">Add Baby</button>
+        ):(
+          <>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                const baby = {
+                  name: nameRef.current.value,
+                  birthday: `${monthSelected.value}/${daySelected.value}/${yearSelected.value}`
+                }
+                onUpdateBabyInfo({baby, method: 'update', index})
+              }}
+              className={`account-panel-cta-btn btn secondary ${monthSelected && daySelected && yearSelected ? '' : 'disabled' }`}>Save Baby</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                onUpdateBabyInfo({baby, method: 'remove', index})
+              }}
+              className="account-panel-cta-btn btn account-remove-btn">Remove Baby</button>
+          </>
+        )}
+        <button
+          onClick={(e) => {
+            e.preventDefault()
+            setHeight(0)
+          }}
+          className="account-panel-cta-btn">Cancel</button>
       </div>
     </form>
   );

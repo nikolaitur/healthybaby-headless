@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_UPDATE_BABY_INFO, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrder, transformOrders } from '../gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_UPDATE_BABY_INFO, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrder, transformOrders } from '../gql/index.js'
 import { Multipass } from "multipass-js"
 
 const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
@@ -79,6 +79,8 @@ export function CustomerProvider({ children }) {
 
     if (customer?.metafields.edges.length > 0) {
       customer.metafields = transformEdges(customer.metafields)
+    } else {
+      customer.metafields = []
     }
 
     if (enableLoadingState) {
@@ -162,20 +164,7 @@ export function CustomerProvider({ children }) {
         variables: {
           input: {
             id: customer.id,
-            metafields: [
-              {
-                id: 'gid://shopify/Metafield/23281844322544',
-                namespace: 'baby',
-                key: 'birthday',
-                value: '["10/10/2023","01/03/2023"]'
-              },
-              {
-                id: 'gid://shopify/Metafield/23281796120816',
-                namespace: 'baby',
-                key: 'name',
-                value: '["Adrian Nuyda","Test Order"]'
-              }
-            ]
+            metafields
           }
         }
       })

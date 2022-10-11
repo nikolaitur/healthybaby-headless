@@ -1,3 +1,23 @@
+.account-main {
+  .account-panel-ctas-wrapper {
+    display: flex;
+    margin-bottom: 36px;
+    .btn {
+      margin: 0 20px 0 0;
+    }
+  }
+  .account-remove-btn {
+    background-color: #fff;
+    color: $primaryGreen;
+    border: 2px solid $primaryGreen;
+    &:hover {
+      color: $primaryBrown;
+      background-color: transparent;
+      border: 2px solid $primaryBrown;
+    }
+  }
+}
+
 .account-body {
   width: 100%;
   max-width: 1620px;

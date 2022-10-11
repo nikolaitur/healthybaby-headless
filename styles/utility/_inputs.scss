@@ -91,7 +91,12 @@
 		@include breakpoint-up('md') {
 			width: calc(50% - 18px);
 		}
-	}
+		&.input-group--thirds {
+			@include breakpoint-up('md') {
+				width: calc(33% - 18px);
+			}
+		}
+ 	}
 }
 
 /**
