@@ -45,14 +45,14 @@ const ArticleHeroPodcast = ({ content }) => {
           <div className="podcast-hero__written">
             With{' '}
             <span className="name">
-              {content.fields.author.fields.name
+              {content.fields.author?.fields.name
                 ? content.fields.author.fields.name
                 : ''}{' '}
               +
             </span>
             &nbsp;&nbsp;
             <span className="name">
-              {content.fields.doctor.fields.name
+              {content.fields.doctor?.fields.name
                 ? content.fields.doctor.fields.name
                 : ''}
             </span>
