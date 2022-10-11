@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import cartClient from '../../../services/nacelleClientCart'
 import { useCart } from '@nacelle/react-hooks'
+import { getCartVariant } from 'utils/getCartVariant'
+
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
+
 import IconClose from '../../../svgs/close-icon.svg'
 
 import DatePicker from "react-datepicker";
@@ -19,15 +24,43 @@ const DiaperCalculator = ({props, children}) => {
     const [product, setProduct] = useState(null)
     const [birthday, setBirthday] = useState(null);
     const [diaperSize, setDiaperSize] = useState(1);
+    // const [weight, setWeight] = useState(Number(diaperCalculatorContext.diaperCalculatorData.weight))
+    const [weight, setWeight] = useState(0)
     const [measurement, setMeasurement] = useState("lbs");
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
+    const [selectedVariant, setSelectedVariant] = useState(false);
     
+    const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext =  useDiaperCalculatorContext()
-    const weight = diaperCalculatorContext.diaperCalculatorData.weight
+
+    useEffect(() => {
+        if(diaperCalculatorContext.isOpen) {
+            setWeight(Number(diaperCalculatorContext.diaperCalculatorData.weight))
+        }
+
+        const getProduct = async () => {
+            await nacelleClient.products({
+                handles: ["our-monthly-diaper-bundle"]
+            }).then(response => {
+                setProduct(response[0])
+                // const noWipes = response[0].variants.filter(obj => {
+                //     return obj.content.title.includes("No Wipes");
+                // });
+
+                setProduct(response[0])
+
+                console.log(response[0], "product")
+            });
+        }
+    
+        getProduct()
+    }, [])
 
     useEffect(() => {
         const recommendProduct = () => {
             if(diaperCalculatorContext.isOpen) {
+                // console.log(diaperCalculatorContext)
+                // setWeight()
                 if(weight < 10) {
                     // console.log("size 1")
                     setDiaperSize(1)
@@ -48,27 +81,19 @@ const DiaperCalculator = ({props, children}) => {
                     setDiaperSize(6)
                 }
         
-                console.log(weight)
+                // console.log(weight, "weight", diaperCalculatorContext.diaperCalculatorData)
+
+                let data = {
+                    birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
+                    weight
+                }
+
+                diaperCalculatorContext.setDiaperCalculatorData(data)
             }
     
         }
     
         recommendProduct()
-        if(diaperCalculatorContext.isOpen) {
-            const getProduct = async () => {
-                await nacelleClient.products({
-                    handles: ["our-diaper-1-pack"]
-                }).then(response => {
-                    console.log(response[0])
-                    setProduct(response[0])
-                    const noWipes = response[0].variants.filter(obj => {
-                        return obj.content.title.includes("No Wipes");
-                    });
-                });
-            }
-        
-            getProduct()
-        }
 
     }, [weight, diaperSize])
 
@@ -111,14 +136,26 @@ const DiaperCalculator = ({props, children}) => {
         }
     ]
 
+    const handleDateChange = (date) => {
+        let data = {
+            birthday: date,
+            weight: diaperCalculatorContext.diaperCalculatorData.weight
+        }
+
+        diaperCalculatorContext.setDiaperCalculatorData(data)
+    }
+
     const handleInputChange = (e) => {
-    const { name, value } = e.target;
+        const { name, value } = e.target;
 
-        // setDiaperFinderData(diaperFinderData => ({
-        //     ...diaperFinderData,
-        //     [name]: value,
+        setWeight(Number(value))
 
-        // }))
+        let data = {
+            birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
+            weight: value
+        }
+
+        diaperCalculatorContext.setDiaperCalculatorData(data)
     };
 
     const toggleMeasurement = (e) => {
@@ -129,16 +166,71 @@ const DiaperCalculator = ({props, children}) => {
         diaperCalculatorContext.setIsOpen(false)
     }
 
-    const handleAddItem = () => {
-        // const variant = getCartVariant({
-        //   product,
-        //   variant: selectedVariant,
-        // })
-        // addToCart({
-        //   variant,
-        //   quantity,
-        // })
-      }
+    const handleAddItem = async () => {
+
+        const noWipes = product.variants.filter(obj => {
+            return obj.content.title.includes("No Wipes");
+        });
+
+        const selectedVariant = noWipes.filter(obj => {
+            return obj.content.selectedOptions[0].value.includes(`Size ${diaperSize}`);
+        });
+
+        console.log(product, selectedVariant)
+
+        const variant = getCartVariant({
+            product,
+            variant: selectedVariant[0],
+        })
+
+        let sellingPlan = selectedVariant[0].metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
+
+        let lineItem = {
+            merchandiseId: selectedVariant[0].nacelleEntryId,
+            nacelleEntryId: selectedVariant[0].nacelleEntryId,
+            quantity: 1,
+        }
+
+        if(!sellingPlan) {
+            sellingPlan = false
+        } else {
+            const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+            const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+            lineItem = {
+                merchandiseId: selectedVariant[0].nacelleEntryId,
+                nacelleEntryId: selectedVariant[0].nacelleEntryId,
+                quantity: 1,
+                sellingPlanId,
+                attributes: [{ key: 'subscription', value: sellingPlanId }]
+            }
+        }
+
+        addToCart({
+            product,
+            variant,
+            quantity: 1,
+            sellingPlan,
+            subscription: true,
+            nacelleEntryId: selectedVariant[0].nacelleEntryId,
+            selectedVariant: selectedVariant[0]
+        })
+
+        await cartClient.cartLinesAdd({
+                cartId: cartDrawerContext.shopifyCartId,
+                lines: [
+                    lineItem    
+                ]
+            })
+            .then((data) => {
+                console.log(data, "Cart data")
+            })
+            .catch((err) => {
+                console.error(err, "Error")
+            })
+        
+        cartDrawerContext.setIsOpen(true)
+    }
 
     return (
         <div className={`diaper-calculator ${diaperCalculatorContext.isOpen ? "active" : ""}`}>
@@ -153,11 +245,11 @@ const DiaperCalculator = ({props, children}) => {
                     <div className="diaper-calculator__form">
                         <div className="input-wrapper">
                             <span>{`Baby’s birthday`}</span>
-                            <DatePicker closeOnScroll={true}  onChange={(date) => setBirthday(date)} selected={diaperCalculatorContext.diaperCalculatorData.birthday} />
+                            <DatePicker closeOnScroll={true}  onChange={(date) => handleDateChange(date)} selected={diaperCalculatorContext.diaperCalculatorData.birthday} />
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
-                            <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
+                            <input name="weight" label="Weight" onChange={(e) => handleInputChange(e)} defaultValue={weight} value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>
                         <p className="diaper-calculator__copy">
@@ -175,7 +267,7 @@ const DiaperCalculator = ({props, children}) => {
                         </div>
                     </div>
                     <div className="diaper-calculator__select">
-                        <span className="title">Size: </span>
+                        <span className="title">Size Guide: </span>
                         <div className="toggle">
                             <span className={`${measurement == "lbs" ? "active" : ""}`} onClick={() => toggleMeasurement("lbs")}>lbs</span>
                             <span className={`${measurement == "kgs" ? "active" : ""}`} onClick={() => toggleMeasurement("kgs")}>kgs</span>
