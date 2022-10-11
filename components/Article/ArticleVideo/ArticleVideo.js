@@ -36,17 +36,23 @@ const ArticleVideo = ({ content }) => {
             className={`article-video__image ${isPlaying ? 'hide' : ''}`}
             onClick={() => playVideo()}
           >
-            <Image
-              className=""
-              src={`https:${content.fields.coverImage.fields.file.url}`}
-              alt={`video`}
-              layout="responsive"
-              objectFit="cover"
-              height={
-                content.fields.coverImage.fields.file.details.image.height
-              }
-              width={content.fields.coverImage.fields.file.details.image.width}
-            />
+            {content.fields.coverImage ? (
+              <Image
+                className=""
+                src={`https:${content.fields.coverImage.fields.file.url}`}
+                alt={`video`}
+                layout="responsive"
+                objectFit="cover"
+                height={
+                  content.fields.coverImage.fields.file.details.image.height
+                }
+                width={
+                  content.fields.coverImage.fields.file.details.image.width
+                }
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <div className="article-video__video">
             {hasWindow && (
@@ -64,26 +70,34 @@ const ArticleVideo = ({ content }) => {
       ) : (
         <div className="article-hero__image">
           <div className="article-hero__image--desktop">
-            <Image
-              className=""
-              src={`https:${content.fields.coverImage.fields.file.url}`}
-              alt={`image`}
-              layout="responsive"
-              objectFit="cover"
-              height="700"
-              width="650"
-            />
+            {content.fields.coverImage ? (
+              <Image
+                className=""
+                src={`https:${content.fields.coverImage.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <div className="article-hero__image--mobile">
-            <Image
-              className=""
-              src={`https:${content.fields.coverImage.fields.file.url}`}
-              alt={`image`}
-              layout="responsive"
-              objectFit="cover"
-              height="700"
-              width="650"
-            />
+            {content.fields.coverImage ? (
+              <Image
+                className=""
+                src={`https:${content.fields.coverImage.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       )}

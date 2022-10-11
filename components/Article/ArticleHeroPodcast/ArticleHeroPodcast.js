@@ -13,15 +13,19 @@ const ArticleHeroPodcast = ({ content }) => {
       <div className="container podcast-hero__content">
         <div className="podcast-hero__image">
           <div className="podcast-hero__image--desktop">
-            <Image
-              className=""
-              src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
-              alt={`image`}
-              layout="responsive"
-              objectFit="cover"
-              height="700"
-              width="650"
-            />
+            {content.fields.articleHero.fields.featuredMedia ? (
+              <Image
+                className=""
+                src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+                alt={`image`}
+                layout="responsive"
+                objectFit="cover"
+                height="700"
+                width="650"
+              />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="podcast-hero__info">
@@ -46,15 +50,19 @@ const ArticleHeroPodcast = ({ content }) => {
           </div>
           <div className="podcast-hero__image">
             <div className="podcast-hero__image--mobile">
-              <Image
-                className=""
-                src={`https:${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
-                alt={`image`}
-                layout="responsive"
-                objectFit="cover"
-                height="700"
-                width="650"
-              />
+              {content.fields.articleHero.fields.featuredMediaMobile ? (
+                <Image
+                  className=""
+                  src={`https:${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
+                  alt={`image`}
+                  layout="responsive"
+                  objectFit="cover"
+                  height="700"
+                  width="650"
+                />
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <div

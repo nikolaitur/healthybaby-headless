@@ -70,18 +70,6 @@ const ArticleHeroEverGreen = ({ content }) => {
       )}
 
       <div className="article__container">
-        <div className="article-hero__breadcrumbs">
-          <Link href="/">
-            <div className="article-hero__breadcrumb">
-              <span>Home /{`\u00A0`}</span>
-            </div>
-          </Link>
-          <Link href="/">
-            <div className="article-hero__breadcrumb">
-              <span> Breadcrumb</span>
-            </div>
-          </Link>
-        </div>
         <h3 className="article-hero__title">{content.fields.title}</h3>
         <div className="article-hero__pub">
           <span>
@@ -93,18 +81,22 @@ const ArticleHeroEverGreen = ({ content }) => {
           <div className="article-hero__written">
             <div className="article-hero__written--author">
               <div className="article-hero__author-image">
-                <Image
-                  className=""
-                  src={
-                    'https:' +
-                    content.fields.author.fields.photo.fields.file.url
-                  }
-                  alt={`image`}
-                  layout="responsive"
-                  objectFit="cover"
-                  height="50"
-                  width="50"
-                />
+                {content.fields.articleHero.fields.featuredMedia ? (
+                  <Image
+                    className=""
+                    src={
+                      'https:' +
+                      content.fields.author.fields.photo.fields.file.url
+                    }
+                    alt={`image`}
+                    layout="responsive"
+                    objectFit="cover"
+                    height="50"
+                    width="50"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="article-hero__author-name">
                 Written by{' '}
@@ -137,21 +129,25 @@ const ArticleHeroEverGreen = ({ content }) => {
                 className={`article-video__image ${isPlaying ? 'hide' : ''}`}
                 onClick={() => playVideo()}
               >
-                <Image
-                  className=""
-                  src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
-                  alt={`video`}
-                  layout="responsive"
-                  objectFit="cover"
-                  height={
-                    content.fields.articleHero.fields.featuredMedia.fields.file
-                      .details.image.height
-                  }
-                  width={
-                    content.fields.articleHero.fields.featuredMedia.fields.file
-                      .details.image.width
-                  }
-                />
+                {content.fields.articleHero.fields.featuredMedia ? (
+                  <Image
+                    className=""
+                    src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+                    alt={`video`}
+                    layout="responsive"
+                    objectFit="cover"
+                    height={
+                      content.fields.articleHero.fields.featuredMedia.fields
+                        .file.details.image.height
+                    }
+                    width={
+                      content.fields.articleHero.fields.featuredMedia.fields
+                        .file.details.image.width
+                    }
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="article-video__video">
                 {hasWindow && (
@@ -169,26 +165,34 @@ const ArticleHeroEverGreen = ({ content }) => {
           ) : (
             <div className="article-hero__image">
               <div className="article-hero__image--desktop">
-                <Image
-                  className=""
-                  src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
-                  alt={`image`}
-                  layout="responsive"
-                  objectFit="cover"
-                  height="700"
-                  width="650"
-                />
+                {content.fields.articleHero.fields.featuredMedia ? (
+                  <Image
+                    className=""
+                    src={`https:${content.fields.articleHero.fields.featuredMedia.fields.file.url}`}
+                    alt={`image`}
+                    layout="responsive"
+                    objectFit="cover"
+                    height="700"
+                    width="650"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="article-hero__image--mobile">
-                <Image
-                  className=""
-                  src={`https:${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
-                  alt={`image`}
-                  layout="responsive"
-                  objectFit="cover"
-                  height="700"
-                  width="650"
-                />
+                {content.fields.articleHero.fields.featuredMediaMobile ? (
+                  <Image
+                    className=""
+                    src={`https:${content.fields.articleHero.fields.featuredMediaMobile.fields.file.url}`}
+                    alt={`image`}
+                    layout="responsive"
+                    objectFit="cover"
+                    height="700"
+                    width="650"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="article-hero__image--credit">
                 {content.fields.articleHero.fields.photoCredit}

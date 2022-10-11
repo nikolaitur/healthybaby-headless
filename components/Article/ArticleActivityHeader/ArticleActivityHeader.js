@@ -13,15 +13,19 @@ const ArticleActivityHeader = ({ content }) => {
         {content.fields.title}
       </div>
       <div className="article-activityheader__image">
-        <Image
-          className=""
-          src={'https:' + content.fields.logo.fields.file.url}
-          alt={`image`}
-          layout="responsive"
-          objectFit="cover"
-          height={content.fields.logo.fields.file.details.image.height}
-          width={content.fields.logo.fields.file.details.image.width}
-        />
+        {content.fields.logo ? (
+          <Image
+            className=""
+            src={'https:' + content.fields.logo.fields.file.url}
+            alt={`image`}
+            layout="responsive"
+            objectFit="cover"
+            height={content.fields.logo.fields.file.details.image.height}
+            width={content.fields.logo.fields.file.details.image.width}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="article-activityheader__subtitle">
         {content.fields.subtitle}
