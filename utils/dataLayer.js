@@ -85,8 +85,6 @@ export const dataLayerATC = ({ item }) => {
       },
     },
   })
-
-  trackEvent('add_to_cart', item)
 }
 
 /*
