@@ -121,7 +121,7 @@ export function CustomerProvider({ children }) {
     return { deletedAccessToken, errors: userErrors }
   }
 
-  async function register({ firstName, lastName, email, password }) {
+  async function register({ firstName, lastName, email, password}) {
     const response = await accountClientPost({
       query: CUSTOMER_CREATE,
       variables: {
