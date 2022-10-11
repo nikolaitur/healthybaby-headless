@@ -72,9 +72,6 @@ function Product({ product }) {
       quantity,
     })
   }
-}
-
-function Product({ product, page }) {
   return (
     product && (
       <section className="product-main">
