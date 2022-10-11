@@ -108,6 +108,16 @@ export const GET_CUSTOMER = `query getCustomer($customerAccessToken: String!) {
         }
       }
     }
+    metafields (first: 25) {
+      edges {
+        node {
+          id
+          value
+          namespace
+          key
+        }
+      }
+    }
   }
 }`
 
@@ -500,3 +510,20 @@ export const GET_CUSTOMER_ORDERS = `query getCustomer($customerAccessToken: Stri
     }
   }
 }`
+
+export const CUSTOMER_UPDATE_BABY_INFO = `mutation($input: CustomerInput!) {
+  customerUpdate(input: $input) {
+    customer {
+      metafields(namespace: "baby", first: 6) {
+        edges {
+          node {
+            id
+            namespace
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+}`;

@@ -67,7 +67,7 @@
   }
 	&:not(:placeholder-shown) {
 		@include breakpoint-up('sm') {
-			padding-top: 15px;
+			padding-top: 20px;
 		}
 		~ label {
 			@include breakpoint-up('sm') {
@@ -102,7 +102,7 @@
 	&:not(:placeholder-shown) {
 		.react-select__single-value {
 			@include breakpoint-up('sm') {
-				padding-top: 15px;
+				padding-top: 20px;
 			}
 		}
 		~ label {
@@ -140,6 +140,7 @@
 	.react-select__placeholder {
 		color: rgba(61, 51, 49, 0.8) !important;
 		font-family: $NeutraText !important;
+		padding-top: 20px;
 	}
 
   .react-select__placeholder,

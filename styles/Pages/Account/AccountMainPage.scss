@@ -41,10 +41,6 @@
     p {
       font-size: 22px;
     }
-    margin-bottom: 0;
-  }
-  &:last-child {
-    margin-bottom: 0;
   }
   &.account-order-card {
     > * {
@@ -109,8 +105,9 @@
   margin-top: 48px;
 }
 
-.account-address-form {
-  margin-top: 70px;
+.account-address-form,
+.account-baby-form {
+  padding-top: 35px;
   h5 {
     margin-bottom: 48px;
   }
