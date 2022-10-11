@@ -19,7 +19,11 @@ export default async function handler(req, res) {
   })
   .then(response => response.json())
   .then(response => {
-    res.status(201).json({ message: 'success', data: response });
+    if (response.errors?.length) {
+      res.status(400).json({ message: 'error', data: response });
+    } else {
+      res.status(201).json({ message: 'success', data: response });
+    }
   })
   .catch(err => {
     res.status(400).json({ message: 'error', data: err });

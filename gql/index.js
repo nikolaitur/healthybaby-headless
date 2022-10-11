@@ -527,3 +527,18 @@ export const CUSTOMER_UPDATE_BABY_INFO = `mutation($input: CustomerInput!) {
     }
   }
 }`;
+
+export const CUSTOMER_CREATE_BABY_METAFIELDS = `mutation MetafieldsSet($metafields: [MetafieldsSetInput!]!) {
+  metafieldsSet(metafields: $metafields) {
+    metafields {
+      key
+      namespace
+      value
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}`

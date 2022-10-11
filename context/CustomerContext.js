@@ -158,7 +158,7 @@ export function CustomerProvider({ children }) {
   }
 
   async function updateBabyInformation({customer, metafields, accessToken = Cookies.get('customerAccessToken')}) {
-    const response = await fetch('/api/shopify/update-customer', {
+    const response = await fetch('/api/shopify/update-baby-info', {
       method: 'POST',
       body: JSON.stringify({
         variables: {
@@ -170,20 +170,44 @@ export function CustomerProvider({ children }) {
       })
     })
     .then(response => response.json())
-
+    if (response && response.message === 'error') {
+      console.log("response:", response)
+      return response.data.errors
+    }
     if (response && response.message === 'success') {
       return getCustomer({
         accessToken: accessToken,
         enableLoadingState: false
       })
     }
-
     return response
+  }
 
+  async function createBabyMetafields({metafields, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await fetch('/api/shopify/create-baby-metafields', {
+      method: 'POST',
+      body: JSON.stringify({
+        variables: {
+          metafields
+        }
+      })
+    })
+    .then(response => response.json())
+    if (response && response.message === 'error') {
+      console.log("response:", response)
+      return response.data.errors
+    }
+    if (response && response.message === 'success') {
+      return getCustomer({
+        accessToken: accessToken,
+        enableLoadingState: false
+      })
+    }
+    return response
   }
 
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, getCustomerOrders, updateBabyInformation }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, getCustomerOrders, createBabyMetafields, updateBabyInformation }}>
       {children}
     </CustomerContext.Provider>
   )

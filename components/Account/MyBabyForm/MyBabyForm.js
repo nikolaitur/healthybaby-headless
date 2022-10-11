@@ -119,7 +119,20 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, setHeight}) => {
       </div>
       <div className="account-panel-ctas-wrapper">
         {type === 'new' ? (
-          <button className="account-panel-cta-btn btn secondary">Add Baby</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              const baby = {
+                name: nameRef.current.value,
+                birthday: `${monthSelected.value}/${daySelected.value}/${yearSelected.value}`
+              }
+              onUpdateBabyInfo({baby, method: 'add'})
+              setMonthSelected(null)
+              setDaySelected(null)
+              setYearSelected(null)
+              nameRef.current.value = ''
+            }}
+            className="account-panel-cta-btn btn secondary">Add Baby</button>
         ):(
           <>
             <button

@@ -9,11 +9,12 @@ import { getMetafield } from '@/utils/getMetafield'
 import LoadingState from '@/components/LoadingState'
 
 const MyInfo = ({page}) => {
-  const { customer, updateBabyInformation } = useCustomerContext()
+  const { customer, createBabyMetafields, updateBabyInformation } = useCustomerContext()
   const { myBabyHeader, myBabyDescription} = {...page.fields}
 
   const [newBabyFormHeight, setNewBabyFormHeight] = useState(0)
   const [newAddressFormHeight, setNewAddressFormHeight] = useState(0)
+  const [activeEditForms, setActiveEditForms] = useState([])
   const [loadingBabies, setLoadingBabies] = useState(false)
 
   const toggleBabyFormExpand = () => {
@@ -26,28 +27,46 @@ const MyInfo = ({page}) => {
 
   const onUpdateBabyInfo = async ({baby, method, index}) => {
     setLoadingBabies(true)
-
+    setNewBabyFormHeight(0)
+    setActiveEditForms([])
 
     let metafields = customer.metafields.filter(metafield => metafield.namespace === 'baby')
 
-
-
-    // const metafields = [
-    //   {
-    //     id: 'gid://shopify/Metafield/23281844322544',
-    //     namespace: 'baby',
-    //     key: 'birthday',
-    //     value: '["10/10/2023","01/03/2023"]'
-    //   },
-    //   {
-    //     id: 'gid://shopify/Metafield/23281796120816',
-    //     namespace: 'baby',
-    //     key: 'name',
-    //     value: '["Adrian Nuyda","Test Order"]'
-    //   }
-    // ]
-
     // if add - append new values for each metafield
+      // if metafield already exist, add value for each metafield
+      // if metafield doesn't, create a new metafield for each
+    if (method === 'add') {
+      if (metafields.length === 0) {
+        method = 'create'
+        metafields = [
+          {
+            ownerId: customer.id,
+            namespace: 'baby',
+            key: 'birthday',
+            type: 'json',
+            value: JSON.stringify([baby.birthday])
+          },
+          {
+            ownerId: customer.id,
+            namespace: 'baby',
+            key: 'name',
+            type: 'json',
+            value: JSON.stringify([baby.name])
+          }
+        ]
+      } else {
+        metafields = metafields.map((metafield) => {
+          const newMetafieldValue = JSON.parse(metafield.value)
+          if (metafield.key === 'name') newMetafieldValue.push(baby.name)
+          if (metafield.key === 'birthday') newMetafieldValue.push(baby.birthday)
+          return {
+            ...metafield,
+            value: JSON.stringify(newMetafieldValue)
+          }
+        })
+      }
+    }
+
     // if update - find index to update value for each metafield
 
     if (method === 'update') {
@@ -74,10 +93,13 @@ const MyInfo = ({page}) => {
       })
     }
 
-    console.log("metafields:", metafields)
-    const response = await updateBabyInformation({customer, metafields})
+    if (method === 'create') {
+      await createBabyMetafields({metafields})
+    } else {
+      await updateBabyInformation({customer, metafields})
+    }
+
     setLoadingBabies(false)
-    console.log("response:", response)
   }
 
   let babyNames = getMetafield({metafields: customer.metafields, namespace: 'baby', key: 'name', returnValue: true})
@@ -95,29 +117,23 @@ const MyInfo = ({page}) => {
       <div className="account-panel account-panel--my-baby">
         <h3>{myBabyHeader}</h3>
         <h4>{myBabyDescription}</h4>
-        {babies?.length > 0 &&
-          <>
-            {loadingBabies ? (
-              <LoadingState />
-            ):(
-              <ul>
-                {babies.map((baby, index) => {
-                  return <MyBaby baby={baby} key={index} index={index} onUpdateBabyInfo={onUpdateBabyInfo} newBabyFormHeight={newBabyFormHeight} />
-                })}
-              </ul>
-            )}
-          </>
-        }
-        {loadingBabies ? (
-          <LoadingState />
-        ):(
-          <>
-            {!newBabyFormHeight && <button onClick={() => toggleBabyFormExpand()} className="account-panel-cta-btn btn secondary">Add New Baby</button>}
-            <Expand open={newBabyFormHeight !== 0} duration={300}>
-              <MyBabyForm type={'new'} setHeight={setNewBabyFormHeight} />
-            </Expand>
-          </>
-        )}
+          {loadingBabies ? (
+            <LoadingState />
+          ):(
+            <>
+              {babies?.length > 0 &&
+                <ul>
+                  {babies.map((baby, index) => {
+                    return <MyBaby baby={baby} key={index} index={index} onUpdateBabyInfo={onUpdateBabyInfo} newBabyFormHeight={newBabyFormHeight} setNewBabyFormHeight={setNewBabyFormHeight} activeEditForms={activeEditForms} setActiveEditForms={setActiveEditForms} />
+                  })}
+                </ul>
+              }
+            </>
+          )}
+        {(!loadingBabies && !newBabyFormHeight && activeEditForms.length === 0) && <button onClick={() => toggleBabyFormExpand()} className="account-panel-cta-btn btn secondary">Add New Baby</button>}
+        <Expand open={newBabyFormHeight !== 0} duration={300}>
+          <MyBabyForm type={'new'} setHeight={setNewBabyFormHeight} onUpdateBabyInfo={onUpdateBabyInfo} />
+        </Expand>
       </div>
       <div className="account-panel">
         <h3>My Info</h3>
