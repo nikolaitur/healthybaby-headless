@@ -165,6 +165,9 @@ const ArticleHeroEverGreen = ({ content }) => {
                   />
                 )}
               </div>
+              <div className="article-hero__image--credit">
+                {content.fields.articleHero.fields.photoCredit}
+              </div>
             </div>
           ) : (
             <div className="article-hero__image">
