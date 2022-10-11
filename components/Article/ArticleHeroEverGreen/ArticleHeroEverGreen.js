@@ -81,7 +81,7 @@ const ArticleHeroEverGreen = ({ content }) => {
           <div className="article-hero__written">
             <div className="article-hero__written--author">
               <div className="article-hero__author-image">
-                {content.fields.articleHero.fields.featuredMedia ? (
+                {content.fields.author.fields.photo ? (
                   <Image
                     className=""
                     src={
