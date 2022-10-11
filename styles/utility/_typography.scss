@@ -117,6 +117,10 @@ h3,
   @include breakpoint-up('xl') {
     font-size: fontsize(62px);
   }
+
+  @include breakpoint-up('xl') {
+      font-size: fontsize(62px);
+  }
 }
 
 h4,
@@ -162,15 +166,15 @@ h5,
 
 h6,
 .h6 {
-  font-family: $NeutraText;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: $primaryBrown;
-  margin-bottom: 30px;
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
+    margin-bottom: 15px;
 
   @include breakpoint-up('md') {
     font-size: 18px;

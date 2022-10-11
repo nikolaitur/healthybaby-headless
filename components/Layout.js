@@ -2,6 +2,8 @@ import { nacelleClient } from 'services'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useEffect } from 'react'
 
+import { CustomerProvider } from '../context/CustomerContext';
+import { ModalProvider } from '../context/ModalContext';
 import { CartDrawerProvider } from '../context/CartDrawerContext';
 import { HeaderProvider } from '../context/HeaderContext';
 import { DiaperCalculatorProvider } from '../context/DiaperCalculatorContext';
@@ -25,17 +27,20 @@ function Layout({ children, headerSettings, footerSettings }) {
 
   return (
     <>
-      <CartDrawerProvider>      
-        <DiaperCalculatorProvider >
-          <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-              <main>{children}</main>
-              <Footer content={footerSettings} />
-          </HeaderProvider>    
-        </DiaperCalculatorProvider> 
+      <CartDrawerProvider>
+        <CustomerProvider>
+          <DiaperCalculatorProvider>
+              <ModalProvider>
+                <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                    <main>{children}</main>
+                    <Footer content={footerSettings} />
+                </HeaderProvider>
+              </ModalProvider>
+          </DiaperCalculatorProvider>
+        </CustomerProvider>
       </CartDrawerProvider>
     </>
   )
-        
 }
 
 export default Layout

@@ -1,0 +1,126 @@
+.product-main {
+    
+    @include breakpoint-up('md') {
+        padding: 100px 0 0px;
+    }
+
+    &__container {
+        //padding: 0 0 70px;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            padding: 0 0 100px;
+        }
+    }
+
+    .value-props {
+
+        .value-props__wrapper {
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .value-props__item {
+            width: 25%;
+
+            @include breakpoint-up('md') {
+                width: calc(25% - 60px)
+            }
+
+            &:nth-child(1),
+            &:nth-child(2) {
+                margin-bottom: 30px;
+
+                @include breakpoint-up('md') {
+                    margin-bottom: 00px;
+                }
+    
+            }
+        }
+    }
+
+    .product-detail-tabs {
+        background: #F4EAEB;
+        padding: 70px 0 70px;
+
+        @include breakpoint-up('md') {
+            padding: 140px 0 140px;
+        }
+    }
+
+    .content-banner {
+        @include breakpoint-down('md') {
+            text-align: center;
+            max-width: calc(100% - 60px);
+            margin: 36px auto 0;
+        }
+
+        &__container {
+            @include breakpoint-down('md') {
+                padding: 30px 16px;
+            }
+        }
+
+        &__content {
+            @include breakpoint-up('md') {
+                padding: 30px 30px 30px 0px;
+            }
+        }
+
+        &__cta {
+            @include breakpoint-down('md') {
+                .btn {
+                    padding: 19px 30px;
+                }
+            }
+        }
+
+        &__image {
+    
+            display: none;
+
+            @include breakpoint-up('md') {
+                max-width: 170px;
+                display: block;
+                width: 100%;
+                max-height: 100%;
+            }
+    
+            &--desktop {
+                display: none;
+    
+                @include breakpoint-up('md') {
+                    display: block;
+                }
+            }
+    
+            &--mobile {
+                display: block;
+    
+                @include breakpoint-up('md') {
+                    display: none;
+                }
+            }
+    
+            img {
+                height: 350px;
+                object-fit: cover;
+    
+                @include breakpoint-up('md') {
+                    height: 750px!important;
+                }
+            }
+        }
+    }
+}
+
+@import './ProductGallery.scss';
+@import './ProductInfo.scss';
+@import './ProductTechnologyCallout.scss';
+@import './ProductAbout.scss';
+@import './ProductIngredients.scss';
+@import './ProductFiftyFifty.scss';
+@import './ProductCrossSells.scss';
+@import './ProductReviews.scss';
+@import './ProductQuickview.scss';

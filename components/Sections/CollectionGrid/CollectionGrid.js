@@ -5,7 +5,7 @@ import CollectionProductCard from '../../Cards/CollectionProductCard'
 import DiaperFinderCard from '../../Cards/DiaperFinderCard'
 import VitaminFinder from '../../Cards/VitaminFinder'
 
-const CollectionGrid = ({ content }) => {
+const CollectionGrid = ({ content, products, productBadges }) => {
     const sectionItems = content.fields.sections
     const {header, subheader } = content.fields
 
@@ -24,7 +24,7 @@ const CollectionGrid = ({ content }) => {
 
                         switch (type) {
                             case 'collectionProductCard':
-                                return <CollectionProductCard content={item} key={index} />
+                                return <CollectionProductCard content={item} products={products} productBadges={productBadges} key={index} />
                             case 'collectionCallout':
                                 return <CollectionCallout content={item} key={index} />
                             case 'diaperCalculator':

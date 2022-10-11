@@ -1,0 +1,518 @@
+.product-info {
+    
+    @include breakpoint-up('md') {
+        width: 40%;
+        padding: 40px 0 0px;
+    }
+
+    &__reviews {
+        display: flex;
+        align-items: center;
+
+        &--count,
+        .junip-product-summary-review-count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            letter-spacing: -0.01em;;
+            color: $primaryGreen;
+            margin-left: 6px;
+            padding-top: 2px;
+
+            @include breakpoint-up('md') {
+                margin-left: 15px;
+                padding-top: 0px;
+                font-size: 18px;
+                line-height: 25px;
+            }
+        }
+
+        .junip-product-summary-star {
+            svg {
+                path {
+                    fill: $primaryGreen;
+                }
+            }
+        }
+    }
+
+    &__title {
+       padding: 20px 0 0;
+       font-size: 28px;
+
+       @include breakpoint-up('md') {
+            font-size: 62px;
+       }
+    }
+
+    &__description {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 22px;
+        letter-spacing: -0.01em;;
+        color: $primaryBrown;
+        padding: 20px 0 0;
+
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 29px;
+       }
+    }
+
+    &__price {
+        padding: 20px 0 0;
+    }
+}
+
+.product-form {
+    padding: 20px 0 0px;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+    margin-top: 20px;
+
+    @include breakpoint-up('md') {
+        padding: 30px 0 30px;
+        margin-top: 30px;
+    }
+
+    &__label {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;;
+        color: $primaryBrown;
+        margin: 0 0 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include breakpoint-up('md') {
+            margin: 0 0 20px;
+            font-size: 22px;
+            line-height: 31px;
+        }
+
+        span:last-child:not(:only-of-type) {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: $primaryGreen;
+            text-decoration: underline;
+            cursor: pointer;
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 25px;
+            }
+        }   
+    }
+
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin: 0 0 25px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr 1fr;
+        gap: 10px 10px;
+    }
+
+    &__option {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.01em;;
+        color: $primaryBrown;
+        flex: 0 0 33.333333%;
+        background: #fff;
+        border: 1px solid rgb(0 0 0 / 10%);
+        padding: 18px 10px;
+        cursor: pointer;
+
+        &.active {
+            background: $primaryGreen;
+            color: #fff;
+        }
+    }
+
+    &__count {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 31px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        padding: 0 0 30px;
+        border-bottom: 1px solid rgb(0 0 0 / 10%);
+        margin-bottom: 30px;
+    }
+
+    &__add-on {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 6px 15px 6px 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input {
+            cursor: pointer;
+        }
+
+        &--image {
+            width: 72px;
+            height: 72px;
+            background: rgba(217, 217, 217, 1);
+        }
+
+        &--content {
+            width: calc(100% - 85px);
+            padding: 0 10px;
+        }
+
+        &--title {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 25px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 22px;
+                line-height: 31px;
+            }
+        }
+
+        &--price {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 22px;
+                line-height: 31px;
+            }
+        }
+    }
+
+    &__submit {
+        &.btn {
+            padding: 19px 30px;
+        }
+    }
+
+    &__subscription {
+        margin: 30px 0 0;
+    }
+
+    &__input-wrapper {
+        padding: 12px 12px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
+
+        &.active {
+            background: #fff;
+
+            label {
+                font-family: $NeutraTextDemi;
+            }
+        }
+
+        input {
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        input[type='radio']:after {
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+            top: -3px;
+            left: -2px;
+            position: relative;
+            background-color: #F5F2F2;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid $primaryBrown;
+        }
+    
+        input[type='radio']:checked:after {
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+            top: -3px;
+            left: -2px;
+            position: relative;
+            background-color: $primaryGreen;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid $primaryGreen;
+        }
+
+        label {
+            font-family: $NeutraText;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: -0.01em;
+            color: $primaryBrown;
+
+            @include breakpoint-up('md') {
+                font-size: 22px;
+            }
+
+            @media only screen and (min-width: 1535px) {
+                br {
+                    display: none;
+                }
+            }
+
+            span {
+                font-size: 12px;
+                line-height: 12px;
+                padding-left: 27px;
+
+                @include breakpoint-up('md') {
+                    font-size: 18px;
+                    line-height: 18px;
+                    padding-left: 0px;
+                }
+            }
+
+            .price {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    &__add-to-cart {
+        margin: 30px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__quantity {
+        // position: absolute;
+        right: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        min-width: 85px;
+        background: #fff;
+        padding: 13px 5px;
+        max-width: 85px;
+        margin-right: 15px;
+
+        @include breakpoint-up('md') {
+            padding: 19px 5px;
+            min-width: 170px;
+            max-width: 170px;
+        }
+
+        &--decrement, 
+        &--increment {
+            border: none;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        &--count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            letter-spacing: 0.02em;
+            color: $primaryBrown;
+            margin: 0 5px;
+        }
+    }
+
+    
+
+
+}
+
+.product-status {
+    margin-top: 30px;
+    text-align: center;
+
+    @include breakpoint-up('md') {
+        text-align: left;
+    }
+
+    p {
+        span {
+            font-family: $NeutraTextDemi;
+            color: $primaryGreen
+        }
+    }
+
+    p + p {
+        margin-top: 10px;
+    }
+}
+
+.product-message {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+    position: relative;
+
+    &__wrapper {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid rgb(0 0 0 / 10%);
+        display: flex;
+        align-items: center;
+    }
+
+    &__image {
+        width: 72px;
+        height: 72px;
+        background: #D9D9D9;
+    }
+
+    &__text {
+        margin-left: 10px;
+        width: calc(100% - 180px);
+
+        p {
+            font-family: $NeutraTextDemi;
+        }
+    }
+
+    &__link {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryGreen;
+        cursor: pointer;
+        text-decoration: underline;
+        position: absolute;
+        right: 15px;
+    }
+}
+
+.product-tabs {
+    padding: 40px 0 0;
+
+    &__nav {
+        display: flex;
+        position: relative;
+        border-bottom: 1px solid rgb(0 0 0 / 10%);
+    }
+
+    &__title {
+        font-family: $NeutraTextDemi;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
+        color: $primaryBrown;
+        cursor: pointer;
+        padding: 10px 0;
+        position: relative;
+
+        @include breakpoint-up('md') {
+            font-size: 26px;
+            line-height: 36px;
+        }
+
+        &:nth-child(2) {
+            padding: 10px 38px;
+        }
+
+        &.active {
+            color: $primaryGreen;
+
+            &:before {
+                content: "";
+                position: absolute;
+                background: $primaryGreen;
+                width: 100%;
+                height: 1px;
+                bottom: -1px;
+                left: 0;
+            }
+        }
+    }
+
+    &__tab {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 31px;
+        color: $primaryBrown;
+        display: none;
+        position: relative;
+        padding: 30px 0 0;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    p, li {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: fontsize(18px);
+        line-height: 140%;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+    
+        @include breakpoint-up('md') {
+            font-size: fontsize(20px);
+        }
+    
+        @include breakpoint-up('xl') {
+            font-size: fontsize(22px);
+        }
+    }
+
+    ul {
+        // padding-top: 20px;
+        padding-left: 15px;
+
+        li {
+            // display: block;
+            list-style: disc;
+
+            &:not(last-child) {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    img {
+        margin-top: 30px;
+        width: 100%;
+    }
+}
