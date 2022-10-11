@@ -103,8 +103,6 @@ export const dataLayerRFC = ({ item }) => {
       },
     },
   })
-
-  trackEvent('remove_from_cart', item)
 }
 
 export const dataLayerViewProductList = ({ products, url }) => {
@@ -119,8 +117,6 @@ export const dataLayerViewProductList = ({ products, url }) => {
     },
   })
   // console.log('view product lists',products);
-
-  trackEvent('view_item_list', products, url)
 }
 
 export const dataLayerViewSearchResults = ({ products }) => {
@@ -252,8 +248,6 @@ export const dataLayerViewProduct = ({ product }) => {
     },
   })
   // console.log('view product',product);
-
-  trackEvent('view_product', product)
 }
 
 export const dataLayerRouteChange = ({ url }) => {
