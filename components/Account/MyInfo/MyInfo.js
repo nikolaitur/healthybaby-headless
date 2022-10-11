@@ -7,6 +7,7 @@ import MyBaby from '../MyBaby'
 import MyBabyForm from '../MyBabyForm'
 import { getMetafield } from '@/utils/getMetafield'
 import LoadingState from '@/components/LoadingState'
+import { set } from 'es-cookie'
 
 const MyInfo = ({page}) => {
   const { customer, createBabyMetafields, updateBabyInformation } = useCustomerContext()
@@ -14,21 +15,32 @@ const MyInfo = ({page}) => {
 
   const [newBabyFormHeight, setNewBabyFormHeight] = useState(0)
   const [newAddressFormHeight, setNewAddressFormHeight] = useState(0)
-  const [activeEditForms, setActiveEditForms] = useState([])
+  const [activeBabyEditForms, setActiveBabyEditForms] = useState([])
+  const [activeAddressEditForms, setActiveAddressEditForms] = useState([])
   const [loadingBabies, setLoadingBabies] = useState(false)
 
   const toggleBabyFormExpand = () => {
-    newBabyFormHeight === 0 ? setNewBabyFormHeight('auto') : setNewBabyFormHeight(0)
+    if (newBabyFormHeight === 0) {
+      setNewBabyFormHeight('auto')
+    } else {
+      setNewBabyFormHeight(0)
+    }
+    setActiveBabyEditForms([])
   }
 
   const toggleAddressFormExpand = () => {
-    newAddressFormHeight === 0 ? setNewAddressFormHeight('auto') : setNewAddressFormHeight(0)
+    if (newAddressFormHeight === 0) {
+      setNewAddressFormHeight('auto')
+    } else {
+      setNewAddressFormHeight(0)
+    }
+    setActiveAddressEditForms([])
   }
 
   const onUpdateBabyInfo = async ({baby, method, index}) => {
     setLoadingBabies(true)
     setNewBabyFormHeight(0)
-    setActiveEditForms([])
+    setActiveBabyEditForms([])
 
     let metafields = customer.metafields.filter(metafield => metafield.namespace === 'baby')
 
@@ -124,15 +136,15 @@ const MyInfo = ({page}) => {
               {babies?.length > 0 &&
                 <ul>
                   {babies.map((baby, index) => {
-                    return <MyBaby baby={baby} key={index} index={index} onUpdateBabyInfo={onUpdateBabyInfo} newBabyFormHeight={newBabyFormHeight} setNewBabyFormHeight={setNewBabyFormHeight} activeEditForms={activeEditForms} setActiveEditForms={setActiveEditForms} />
+                    return <MyBaby baby={baby} key={index} index={index} onUpdateBabyInfo={onUpdateBabyInfo} newBabyFormHeight={newBabyFormHeight} setNewBabyFormHeight={setNewBabyFormHeight} activeBabyEditForms={activeBabyEditForms} setActiveBabyEditForms={setActiveBabyEditForms} />
                   })}
                 </ul>
               }
             </>
           )}
-        {(!loadingBabies && !newBabyFormHeight && activeEditForms.length === 0) && <button onClick={() => toggleBabyFormExpand()} className="account-panel-cta-btn btn secondary">Add New Baby</button>}
+        {(!loadingBabies && !newBabyFormHeight && activeBabyEditForms.length === 0) && <button onClick={() => toggleBabyFormExpand()} className="account-panel-cta-btn btn secondary">Add New Baby</button>}
         <Expand open={newBabyFormHeight !== 0} duration={300}>
-          <MyBabyForm type={'new'} setHeight={setNewBabyFormHeight} onUpdateBabyInfo={onUpdateBabyInfo} />
+          <MyBabyForm type={'new'} toggleExpand={toggleBabyFormExpand} onUpdateBabyInfo={onUpdateBabyInfo} />
         </Expand>
       </div>
       <div className="account-panel">
@@ -140,21 +152,21 @@ const MyInfo = ({page}) => {
         <div className="account-card">
           <div>
             <div className="account-card-label">Email</div>
-            <p>{customer.displayName}</p>
+            <p>{customer.email}</p>
           </div>
         </div>
       </div>
       <div className="account-panel">
         <h3>My Addresses</h3>
         {customer.addresses.length > 0 && <ul>
-          {customer.addresses.map(address => {
+          {customer.addresses.map((address, index) => {
             const isDefaultAddress = address.id === customer.defaultAddress.id
-            return <AccountAddress key={address.id} address={address} isDefaultAddress={isDefaultAddress} />
+            return <AccountAddress key={address.id} address={address} index={index} isDefaultAddress={isDefaultAddress} newAddressFormHeight={newAddressFormHeight} setNewAddressFormHeight={setNewAddressFormHeight} activeAddressEditForms={activeAddressEditForms} setActiveAddressEditForms={setActiveAddressEditForms} />
           })}
         </ul>}
-        <button onClick={() => toggleAddressFormExpand()} className="account-panel-cta-btn btn secondary">Add New Address</button>
+        {(!newAddressFormHeight && activeAddressEditForms.length === 0) && <button onClick={() => toggleAddressFormExpand()} className="account-panel-cta-btn btn secondary">Add New Address</button>}
         <Expand open={newAddressFormHeight !== 0} duration={300}>
-          <AccountAddressForm type={'new'} />
+          <AccountAddressForm type={'new'} toggleExpand={toggleAddressFormExpand} />
         </Expand>
       </div>
     </div>

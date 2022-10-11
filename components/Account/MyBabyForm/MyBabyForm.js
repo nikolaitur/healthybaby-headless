@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import IconCaretTop from '@/svgs/caret-top.svg'
 
-const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, setHeight}) => {
+const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
   const {name, birthday} = {...baby}
   const [monthSelected, setMonthSelected] = useState(null)
   const [daySelected, setDaySelected] = useState(null)
@@ -156,7 +156,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, setHeight}) => {
         <button
           onClick={(e) => {
             e.preventDefault()
-            setHeight(0)
+            toggleExpand()
           }}
           className="account-panel-cta-btn">Cancel</button>
       </div>

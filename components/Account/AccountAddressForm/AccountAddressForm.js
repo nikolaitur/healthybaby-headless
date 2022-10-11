@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, createRef } from 'react'
 import Select, { components } from 'react-select'
 import IconCaretTop from '@/svgs/caret-top.svg'
 
-const AccountAddressForm = ({address, type}) => {
+const AccountAddressForm = ({address, type, toggleExpand}) => {
 
   // console.log("address:", address)
 
@@ -162,6 +162,34 @@ const AccountAddressForm = ({address, type}) => {
           <input className="input" type="text" placeholder="Zip *" ref={formRef.current.zip} value={address?.zip} required />
           <label className="label">Zip</label>
         </div>
+      </div>
+      <div className="account-panel-ctas-wrapper">
+        {type === 'new' ? (
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+            }}
+            className="account-panel-cta-btn btn secondary">Add Address</button>
+        ):(
+          <>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+              }}
+              className={`account-panel-cta-btn btn secondary`}>Save Address</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+              }}
+              className="account-panel-cta-btn btn account-remove-btn">Remove Address</button>
+          </>
+        )}
+        <button
+          onClick={(e) => {
+            e.preventDefault()
+            toggleExpand()
+          }}
+          className="account-panel-cta-btn">Cancel</button>
       </div>
     </form>
   )

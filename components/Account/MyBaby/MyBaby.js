@@ -2,19 +2,18 @@ import { useState } from 'react'
 import Expand from 'react-expand-animated'
 import MyBabyForm from '../MyBabyForm';
 
-const MyBaby = ({baby, index, onUpdateBabyInfo, newBabyFormHeight, activeEditForms, setActiveEditForms, setNewBabyFormHeight}) => {
+const MyBaby = ({baby, index, onUpdateBabyInfo, newBabyFormHeight, activeBabyEditForms, setActiveBabyEditForms, setNewBabyFormHeight}) => {
 
   const [height, setHeight] = useState(0)
 
   const toggleExpand = () => {
-
     if (height === 0) {
       setHeight('auto')
       setNewBabyFormHeight(0)
-      setActiveEditForms([...activeEditForms, index])
+      setActiveBabyEditForms([...activeBabyEditForms, index])
     } else {
       setHeight(0)
-      setActiveEditForms([...activeEditForms].filter(formIndex => formIndex !== index))
+      setActiveBabyEditForms([...activeBabyEditForms].filter(formIndex => formIndex !== index))
     }
   }
 
@@ -31,7 +30,7 @@ const MyBaby = ({baby, index, onUpdateBabyInfo, newBabyFormHeight, activeEditFor
       </li>
       {!newBabyFormHeight &&
         <Expand open={height !== 0} duration={300}>
-          <MyBabyForm baby={baby} index={index} onUpdateBabyInfo={onUpdateBabyInfo} setHeight={setHeight} />
+          <MyBabyForm baby={baby} index={index} onUpdateBabyInfo={onUpdateBabyInfo} toggleExpand={toggleExpand} />
         </Expand>
       }
     </>
