@@ -101,7 +101,9 @@ const ArticleHeroEverGreen = ({ content }) => {
               <div className="article-hero__author-name">
                 Written by{' '}
                 <span className="name">
-                  {content.fields.author.fields.name}
+                  {content.fields.author.fields.name
+                    ? content.fields.author.fields.name
+                    : ''}
                 </span>
               </div>
             </div>
@@ -112,7 +114,9 @@ const ArticleHeroEverGreen = ({ content }) => {
               <div className="article-hero__author-name">
                 Medically Reviewed by{' '}
                 <span className="name">
-                  {content.fields.doctor.fields.name}
+                  {content.fields.doctor.fields.name
+                    ? content.fields.doctor.fields.name
+                    : ''}
                 </span>
               </div>
             </div>
