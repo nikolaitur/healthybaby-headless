@@ -17,22 +17,22 @@ const LoginAccountForm = ({ redirect }) => {
   const emailRef = useRef()
   const passwordRef = useRef()
 
-  const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async (e) => {
       e.preventDefault()
-
+      setIsLoading(true)
       const formData = {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       }
 
       const response = await customerContext.login(formData)
+      setIsLoading(false)
 
       if (response.errors?.length) {
           console.log(response)
-          // setError(response.errors[0].field[1])
           setErrorMessage(response.errors[0].message)
       } else {
           modalContext.setIsOpen(false)
@@ -71,10 +71,10 @@ const LoginAccountForm = ({ redirect }) => {
           <div className="account-form__group">
             <input type="password" className="input" placeholder="password" ref={passwordRef} />
           </div>
-            <button className="account-form__submit" type="submit">Login</button>
+            <button className="account-form__submit" type="submit" disabled={isLoading}>Login</button>
         </form>
         <div className="account-form__links">
-            <button className="account-form__link" onClick={() => modalContext.setModalType('reset')}>
+            <button className="account-form__link" onClick={() => modalContext.setModalType('forgot_password')}>
                 Forgot Password
             </button>
             <button className="account-form__link" onClick={() => modalContext.setModalType('create')}>

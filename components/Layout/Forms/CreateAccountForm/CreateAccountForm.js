@@ -2,6 +2,8 @@ import { useRef, useState, useEffect } from 'react'
 import { useModalContext } from '../../../../context/ModalContext'
 import { useCustomerContext } from '../../../../context/CustomerContext'
 import DatePicker from "react-datepicker";
+import { useRouter } from 'next/router'
+import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -15,21 +17,20 @@ const CreateAccountForm = () => {
 
     const modalContext = useModalContext()
     const customerContext = useCustomerContext()
+    const router = useRouter()
     const firstNameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
     const babyName1Ref = useRef()
     const babyName2Ref = useRef()
     const babyName3Ref = useRef()
-    const babyBirthday1Ref = useRef()
-    const babyBirthday2Ref = useRef()
-    const babyBirthday3Ref = useRef()
     const emailMarketingConsentRef = useRef()
 
-    const [babyBirthday1, setbabyBirthday1] = useState(false);
-    const [babyBirthday2, setbabyBirthday2] = useState(false);
-    const [babyBirthday3, setbabyBirthday3] = useState(false);
-    
+    const [babyBirthday1, setbabyBirthday1] = useState(null);
+    const [babyBirthday2, setbabyBirthday2] = useState(null);
+    const [babyBirthday3, setbabyBirthday3] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(false)
     const [checked, setChecked] = useState(false)
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState(false)
@@ -50,20 +51,30 @@ const CreateAccountForm = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         const formData = {
             firstName: firstNameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
-            babyName1: babyName1Ref.current.value,
-            babyBirthday1: babyBirthday1,
-            babyName2: babyName2Ref.current.value,
-            babyBirthday2: babyBirthday2,
-            babyName3: babyName3Ref.current.value,
-            babyBirthday3: babyBirthday3,
             emailMarketingConsent: checked
         }
 
-        console.log(formData)
+        let babyData = [
+            {
+                name: babyName1Ref.current.value,
+                birthday: babyBirthday1,
+            },
+            {
+                name: babyName2Ref.current.value,
+                birthday: babyBirthday2,
+            },
+            {
+                name: babyName3Ref.current.value,
+                birthday: babyBirthday3,
+            }
+        ]
+
+        babyData = babyData.filter(baby => baby.name)
 
         const response = await customerContext.register(formData)
 
@@ -78,14 +89,28 @@ const CreateAccountForm = () => {
             })
 
             if (response) {
-                firstNameRef.current.value = ""
-                emailRef.current.value = ""
-                passwordRef.current.value = ""
-                babyName1Ref.current.value = ""
-                babyName2Ref.current.value = ""
-                babyName3Ref.current.value = ""
-                setChecked(!checked)
+                if (babyData.length) {
+                    const metafields = [
+                        {
+                          ownerId: response.data.customer.id,
+                          namespace: 'baby',
+                          key: 'birthday',
+                          type: 'json',
+                          value: JSON.stringify([...babyData.map(baby => baby.birthday)])
+                        },
+                        {
+                          ownerId: response.data.customer.id,
+                          namespace: 'baby',
+                          key: 'name',
+                          type: 'json',
+                          value: JSON.stringify([...babyData.map(baby => baby.name)])
+                        }
+                    ]
+                    await customerContext.createBabyMetafields({metafields})
+                }
+                setIsLoading(false)
                 modalContext.setIsOpen(false)
+                router.push('/account')
             }
         }
     }
@@ -128,16 +153,14 @@ const CreateAccountForm = () => {
                     <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName1Ref} />
                 </div>
                 <div className="account-form__group">
-                    {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday1Ref} /> */}
-                <DatePicker closeOnScroll={true}  onChange={(date) => setbabyBirthday1(date)} placeholderText="Baby’s birth / due date  (optional)" />
+                <DatePicker closeOnScroll={true}  onChange={(date) => setbabyBirthday1(moment(date).format('MM/DD/YYYY'))} placeholderText="Baby’s birth / due date  (optional)" value={babyBirthday1} />
                 </div>
                 <div className={`extra-baby ${extraBaby >= 1 ? "show" : ""}`}>
                     <div className="account-form__group">
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName2Ref} />
                     </div>
                     <div className="account-form__group">
-                        {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday2Ref} /> */}
-                        <DatePicker closeOnScroll={true} onChange={(date) => setbabyBirthday2(date)} placeholderText="Baby’s birth / due date  (optional)" />
+                        <DatePicker closeOnScroll={true} onChange={(date) => setbabyBirthday2(moment(date).format('MM/DD/YYYY'))} placeholderText="Baby’s birth / due date  (optional)" value={babyBirthday2} />
                     </div>
                 </div>
                 <div className={`extra-baby ${extraBaby >= 2 ? "show" : ""}`}>
@@ -145,8 +168,7 @@ const CreateAccountForm = () => {
                         <input type="text" className="input" placeholder="Your baby's first name (optional)" ref={babyName3Ref} />
                     </div>
                     <div className="account-form__group">
-                        {/* <input type="text" className="input" placeholder="Baby’s birth / due date  (optional)" ref={babyBirthday3Ref} /> */}
-                        <DatePicker closeOnScroll={true} onChange={(date) => setbabyBirthday3(date)} placeholderText="Baby’s birth / due date  (optional)" />
+                        <DatePicker closeOnScroll={true} onChange={(date) => setbabyBirthday3(moment(date).format('MM/DD/YYYY'))} placeholderText="Baby’s birth / due date  (optional)" value={babyBirthday3} />
                     </div>
                 </div>
                 <div className={`account-form__add ${extraBaby >= 2 ? "hide" : ""}`} onClick={() => addBaby()}>
@@ -155,11 +177,11 @@ const CreateAccountForm = () => {
                     </span>
                     <span>Add Another Baby</span>
                 </div>
-                <button className="account-form__submit" type="submit">Create Account</button>
+                <button className="account-form__submit" type="submit" disabled={isLoading}>Create Account</button>
                 <div className="account-form__group">
                     <label>
                         <input type="checkbox" checked={checked} onChange={handleChange} ref={emailMarketingConsentRef}/>
-                        Yes Please!  I’d like expert insights, developmental activities, community events & personalized support delivered to my inbox weekly 
+                        Yes Please!  I’d like expert insights, developmental activities, community events & personalized support delivered to my inbox weekly
                     </label>
                 </div>
             </form>

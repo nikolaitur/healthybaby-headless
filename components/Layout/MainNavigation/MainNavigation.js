@@ -52,7 +52,7 @@ const MainNavigation = ({props}) => {
 
     const openAccountModal = () => {
         modalContext.setIsOpen(false)
-        modalContext.setModalType('create')
+        modalContext.setModalType('login')
         modalContext.setIsOpen(true)
     }
 
@@ -149,9 +149,19 @@ const MainNavigation = ({props}) => {
                 <div className={`main-nav__item ${isSearchOpen ? "active" : ""}`} onClick={() => toggleSearch()}>
                     <Search/>
                 </div>
-                <div className="main-nav__item" onClick={() => openAccountModal()}>
-                    <Baby/>
-                </div>
+                {customerContext.customer ? (
+                    <div className="main-nav__item">
+                        <Link href="/account/my-info">
+                            <a>
+                                <Baby/>
+                            </a>
+                        </Link>
+                    </div>
+                ):(
+                    <div className="main-nav__item" onClick={() => openAccountModal()}>
+                        <Baby/>
+                    </div>
+                )}
                 <div className="main-nav__item" onClick={() => openCartDrawer()}>
                     <Cart />
                 </div>
