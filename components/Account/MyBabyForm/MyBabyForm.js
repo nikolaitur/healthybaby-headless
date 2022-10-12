@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
-import IconCaretTop from '@/svgs/caret-top.svg'
+import IconSelector from '@/svgs/selector.svg'
 
 const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
   const {name, birthday} = {...baby}
@@ -13,7 +13,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
     return (
       components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
+          <div className="dropdown-selector__arrow-open"><IconSelector /></div>
         </components.DropdownIndicator>
       )
     )

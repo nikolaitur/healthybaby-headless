@@ -230,3 +230,45 @@
     }
   }
 }
+
+/*
+	react-custom-checkbox
+*/
+
+.react-custom-checkbox {
+  border: 2px solid $primaryBrown !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 0 !important;
+	cursor: pointer;
+  svg {
+    width: 14px;
+    height: 14px;
+    * {
+      fill: #fff;
+    }
+  }
+  .checkbox--checked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: $primaryGreen;
+    border-radius: 0;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.react-custom-checkbox-label {
+	font-family: $NeutraText;
+	font-size: 16px;
+	margin: 4px 0 0 10px !important;
+	cursor: pointer;
+	@include breakpoint-up('sm') {
+		font-size: 18px;
+	}
+}

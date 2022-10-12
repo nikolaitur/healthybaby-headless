@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef, createRef } from 'react'
 import Select, { components } from 'react-select'
-import IconCaretTop from '@/svgs/caret-top.svg'
+import IconSelector from '@/svgs/selector.svg'
+import IconCheckmark from '@/svgs/checkmark.svg'
+import Checkbox from 'react-custom-checkbox'
 
 const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggleExpand}) => {
 
   const [countrySelected, setCountrySelected] = useState('')
   const [stateSelected, setStateSelected] = useState('')
+  const [defaultAddressIsChecked, setDefaultAddressIsChecked] = useState(false)
   const checkboxRef = useRef()
 
   const refs = ['address1', 'address2', 'city', 'company', 'firstName', 'lastName', 'phone', 'zip']
@@ -22,7 +25,7 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
     return (
       components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
+          <div className="dropdown-selector__arrow-open"><IconSelector /></div>
         </components.DropdownIndicator>
       )
     )
@@ -47,7 +50,7 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
     data['country'] = countrySelected.label
     data['province'] = stateSelected.label
 
-    await onUpdateAddress({address: data, addressId: (type === 'new' ? undefined : address.id), method, defaultAddressIsChecked: checkboxRef.current.checked})
+    await onUpdateAddress({address: data, addressId: (type === 'new' ? undefined : address.id), method, defaultAddressIsChecked})
 
     if (type === 'new') {
       setCountrySelected('')
@@ -171,8 +174,16 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
         </div>
       </div>
       <div className="input-group input-group--checkbox">
-        <input className="checkbox" type="checkbox" id={`set_as_default_address-${address ? address.id : 'new'}`} ref={checkboxRef} />
-        <label className="label" htmlFor={`set_as_default_address-${address ? address.id : 'new'}`}>Set as default address</label>
+        <Checkbox
+          className="react-custom-checkbox"
+          icon={<div className="checkbox--checked"><IconCheckmark /></div>}
+          label={`Set as default address`}
+          labelClassName={'react-custom-checkbox-label'}
+          checked={defaultAddressIsChecked}
+          onChange={() => {
+            setDefaultAddressIsChecked(!defaultAddressIsChecked)
+          }}
+        />
       </div>
       <div className="account-panel-ctas-wrapper">
         {type === 'new' ? (
