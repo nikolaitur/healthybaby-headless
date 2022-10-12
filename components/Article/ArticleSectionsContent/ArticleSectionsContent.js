@@ -56,7 +56,7 @@ const ArticleSectionsContent = ({ sections }) => {
           case 'cta':
             return (
               <div
-                className={`article-cta ${section.fields.alignment}`}
+                className={`article-cta ${section.fields.alignment.toLowerCase()}`}
                 key={index}
               >
                 <a href={section.fields.buttonLink} className="btn secondary">

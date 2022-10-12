@@ -9,6 +9,8 @@ const ArticleContent = ({ content }) => {
     const getRichTextToHtml = () => {
       if (content.fields?.richContent) {
         setArticleContent(documentToHtmlString(content.fields.richContent))
+      } else {
+        setArticleContent('')
       }
     }
     getRichTextToHtml()

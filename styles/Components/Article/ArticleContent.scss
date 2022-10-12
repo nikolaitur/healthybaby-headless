@@ -2,6 +2,8 @@
   &__container {
     max-width: 1175px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -19,7 +21,7 @@
     font-family: $NeutraTextDemi;
     font-style: normal;
     font-weight: 500;
-    font-size: 26px;
+    font-size: 22px;
     line-height: 31px;
     letter-spacing: -0.01em;
     color: $primaryBrown;
@@ -32,23 +34,25 @@
     }
   }
 
-  blockquote * {
-    font-family: $NeutraTextDemi;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 110%;
-    letter-spacing: -0.01em;
-    color: $primaryBrown;
+  blockquote {
+    position: relative;
     margin-top: 20px;
     margin-bottom: 40px;
-    position: relative;
     margin-left: 30px;
+    * {
+      font-family: $NeutraTextDemi;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 110%;
+      letter-spacing: -0.01em;
+      color: $primaryBrown;
 
-    @include breakpoint-up('md') {
-      font-size: 26px;
-      line-height: 31px;
-      margin-left: 0;
+      @include breakpoint-up('md') {
+        font-size: 26px;
+        line-height: 31px;
+        margin-left: 0;
+      }
     }
 
     &:before {
@@ -74,6 +78,10 @@
     margin-bottom: 10px;
 
     b {
+      font-weight: bold;
+    }
+
+    a {
       color: $primaryGreen;
     }
 
