@@ -8,6 +8,26 @@
 	&.input-group--checkbox {
 		display: flex;
 		align-items: center;
+		.label {
+			opacity: 1;
+			position: static;
+		}
+	}
+}
+
+.checkbox {
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	cursor: pointer;
+	~ .label {
+		margin: 2px 0 0 10px;
+		font-size: 16px;
+		color: $primaryBrown;
+		cursor: pointer;
+		@include breakpoint-up('sm') {
+			font-size: 18px;
+		}
 	}
 }
 

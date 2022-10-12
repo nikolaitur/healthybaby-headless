@@ -1,6 +1,7 @@
 .account-main {
   .account-panel-ctas-wrapper {
     display: flex;
+    align-items: center;
     margin-bottom: 36px;
     .btn {
       margin: 0 20px 0 0;
@@ -122,7 +123,29 @@
   text-align: center;
   justify-content: center;
   margin-top: 48px;
+  &.account-form-cancel-btn {
+    font-size: 18px;
+    font-family: $NeutraTextDemi;
+    letter-spacing: 0.02em;
+    width: auto;
+    height: 22px;
+    margin: -10px 0 0;
+    background-color: transparent;
+    border: none;
+    color: $primaryGreen;
+    cursor: pointer;
+    &:before {
+      content: '';
+      display: block;
+      position: relative;
+      bottom: -30px;
+      width: 100%;
+      height: 2px;
+      background-color: $primaryGreen;
+    }
+  }
 }
+
 
 .account-address-form,
 .account-baby-form {

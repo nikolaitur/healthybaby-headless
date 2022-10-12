@@ -56,6 +56,27 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
     }
   })
 
+  const onFormSubmission = async (e) => {
+    e.preventDefault()
+    if (type === 'new') {
+      const baby = {
+        name: nameRef.current.value,
+        birthday: `${monthSelected.value}/${daySelected.value}/${yearSelected.value}`
+      }
+      await onUpdateBabyInfo({baby, method: 'add'})
+      setMonthSelected(null)
+      setDaySelected(null)
+      setYearSelected(null)
+      nameRef.current.value = ''
+    } else {
+      const baby = {
+        name: nameRef.current.value,
+        birthday: `${monthSelected.value}/${daySelected.value}/${yearSelected.value}`
+      }
+      await onUpdateBabyInfo({baby, method: 'update', index})
+    }
+  }
+
   useEffect(() => {
     if (name) {
       nameRef.current.value = name
@@ -69,7 +90,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
   }, [])
 
   return (
-    <form className="account-baby-form">
+    <form onSubmit={(e) => onFormSubmission(e)} className="account-baby-form">
       <h5>{type === 'new' ? 'Add' : 'Edit' } Baby</h5>
       <div className="input-group">
         <input className="input" type="text" placeholder="Baby's Name *" ref={nameRef} required />
@@ -119,32 +140,10 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
       </div>
       <div className="account-panel-ctas-wrapper">
         {type === 'new' ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              const baby = {
-                name: nameRef.current.value,
-                birthday: `${monthSelected.value}/${daySelected.value}/${yearSelected.value}`
-              }
-              onUpdateBabyInfo({baby, method: 'add'})
-              setMonthSelected(null)
-              setDaySelected(null)
-              setYearSelected(null)
-              nameRef.current.value = ''
-            }}
-            className="account-panel-cta-btn btn secondary">Add Baby</button>
+          <button className="account-panel-cta-btn btn secondary" disabled={!monthSelected || !daySelected || !yearSelected}>Add Baby</button>
         ):(
           <>
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                const baby = {
-                  name: nameRef.current.value,
-                  birthday: `${monthSelected.value}/${daySelected.value}/${yearSelected.value}`
-                }
-                onUpdateBabyInfo({baby, method: 'update', index})
-              }}
-              className={`account-panel-cta-btn btn secondary ${monthSelected && daySelected && yearSelected ? '' : 'disabled' }`}>Save Baby</button>
+            <button className="account-panel-cta-btn btn secondary" disabled={!monthSelected || !daySelected || !yearSelected}>Save Baby</button>
             <button
               onClick={(e) => {
                 e.preventDefault()
@@ -158,7 +157,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
             e.preventDefault()
             toggleExpand()
           }}
-          className="account-panel-cta-btn">Cancel</button>
+          className="account-panel-cta-btn account-form-cancel-btn">Cancel</button>
       </div>
     </form>
   );

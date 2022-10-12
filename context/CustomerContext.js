@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_UPDATE_BABY_INFO, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrder, transformOrders } from '../gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrders } from '../gql/index.js'
 import { Multipass } from "multipass-js"
 
 const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
@@ -206,8 +206,103 @@ export function CustomerProvider({ children }) {
     return response
   }
 
+  async function addAddress({address, defaultAddressIsChecked, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ADDRESS_CREATE,
+      variables: {
+        customerAccessToken: accessToken,
+        address
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+
+    if (defaultAddressIsChecked) {
+      console.log("setting as default:", data.customerAddressCreate.customerAddress.id)
+      await setAsDefaultAddress({
+        accessToken,
+        addressId: data.customerAddressCreate.customerAddress.id
+      })
+    }
+
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
+  async function updateAddress({address, addressId, defaultAddressIsChecked, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ADDRESS_UPDATE,
+      variables: {
+        customerAccessToken: accessToken,
+        address,
+        id: addressId
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+
+
+    console.log("setting as default:", addressId)
+    if (defaultAddressIsChecked) {
+      await setAsDefaultAddress({
+        accessToken,
+        addressId
+      })
+    }
+
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
+  async function deleteAddress({addressId, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ADDRESS_DELETE,
+      variables: {
+        customerAccessToken: accessToken,
+        id: addressId
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
+  async function setAsDefaultAddress({addressId, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_DEFAULT_ADDRESS_UPDATE,
+      variables: {
+        customerAccessToken: accessToken,
+        addressId
+      }
+    })
+    const { data, errors } = response
+
+    console.log(data, errors)
+
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, getCustomerOrders, createBabyMetafields, updateBabyInformation }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, getCustomerOrders, createBabyMetafields, updateBabyInformation, addAddress, updateAddress, deleteAddress, setAsDefaultAddress }}>
       {children}
     </CustomerContext.Provider>
   )

@@ -2,14 +2,11 @@ import { useState, useEffect, useRef, createRef } from 'react'
 import Select, { components } from 'react-select'
 import IconCaretTop from '@/svgs/caret-top.svg'
 
-const AccountAddressForm = ({address, type, toggleExpand}) => {
+const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggleExpand}) => {
 
-  // console.log("address:", address)
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [countryList, setCountryList] = useState([])
   const [countrySelected, setCountrySelected] = useState('')
   const [stateSelected, setStateSelected] = useState('')
+  const checkboxRef = useRef()
 
   const refs = ['address1', 'address2', 'city', 'company', 'firstName', 'lastName', 'phone', 'zip']
 
@@ -19,6 +16,7 @@ const AccountAddressForm = ({address, type, toggleExpand}) => {
       [ref]: createRef()
     }
   }, {}))
+
 
   const DropdownIndicator = props => {
     return (
@@ -37,62 +35,72 @@ const AccountAddressForm = ({address, type, toggleExpand}) => {
     }),
   }
 
-  useEffect(() => {
-    const getCountries = async () => {
-      const response = await fetch('/api/shopify/get-countries').then(res => res.json())
-      if (response.message === 'success') {
-        let countryList = response.data.filter(country => country.code !== '*')
-        countryList = countryList.map(country => {
-          return {
-            ...country,
-            label: country.name,
-            value: country.code,
-            provinces: country.provinces.map(province => {
-              return {
-                ...province,
-                label: province.name,
-                value: province.code
-              }
-            })
-          }
-        })
-        setCountryList(countryList)
-        if (address) {
-          const country = countryList.find(country => country.code === address.countryCodeV2)
-          const state = country?.provinces.find(province => province.code === address.provinceCode)
-          if (country && state) {
-            setCountrySelected(country)
-            setStateSelected(state)
-          }
-        }
-        setIsLoading(false)
-      }
-    }
-    getCountries()
-  }, [])
+  const onAddressFormSubmission = async (e, method) => {
+    e.preventDefault()
+    const data = {}
 
-  if (isLoading) {
-    return <></>
+    for (const keyName of Object.keys(formRef.current)) {
+      const value = formRef.current[keyName].current.value
+      data[keyName] = value
+    }
+
+    data['country'] = countrySelected.label
+    data['province'] = stateSelected.label
+
+    await onUpdateAddress({address: data, addressId: (type === 'new' ? undefined : address.id), method, defaultAddressIsChecked: checkboxRef.current.checked})
+
+    if (type === 'new') {
+      setCountrySelected('')
+      setStateSelected('')
+      refs.forEach(ref => {
+        formRef.current[ref].current.value = ''
+      })
+      checkboxRef.current.checked = false
+    }
   }
 
+  useEffect(() => {
+    if (address) {
+      const country = countryList.find(country => country.code === address.countryCodeV2)
+      const state = country?.provinces.find(province => province.code === address.provinceCode)
+      if (country && state) {
+        setCountrySelected(country)
+        setStateSelected(state)
+      }
+    }
+    refs.forEach(ref => {
+      if (address && address[ref]) {
+        formRef.current[ref].current.value = address[ref]
+      }
+    })
+  }, [countryList])
+
   return (
-    <form className="account-address-form">
+    <form
+      onSubmit={(e) => {
+        if (type === 'new') {
+          onAddressFormSubmission(e, 'add')
+        } else {
+          onAddressFormSubmission(e, 'update')
+        }
+      }}
+      className="account-address-form">
       <h5>{type === 'new' ? 'Add' : 'Edit' } Address</h5>
       {/* first and last name */}
       <div className="input-group--wrapper">
         <div className="input-group">
-          <input className="input" type="text" placeholder="First Name *" ref={formRef.current.firstName} value={address?.firstName} required />
+          <input className="input" type="text" placeholder="First Name *" ref={formRef.current.firstName} required />
           <label className="label">First Name</label>
         </div>
         <div className="input-group">
-          <input className="input" type="text" placeholder="Last Name *" ref={formRef.current.lastName} value={address?.lastName} required />
+          <input className="input" type="text" placeholder="Last Name *" ref={formRef.current.lastName} required />
           <label className="label">Last Name</label>
         </div>
       </div>
       {/* company and phone number */}
       <div className="input-group--wrapper">
         <div className="input-group">
-          <input className="input" type="text" placeholder="Company" ref={formRef.current.company} value={address?.company} />
+          <input className="input" type="text" placeholder="Company" ref={formRef.current.company} />
           <label className="label">Company</label>
         </div>
         <div className="input-group">
@@ -114,18 +122,18 @@ const AccountAddressForm = ({address, type, toggleExpand}) => {
       {/* address 1 and 2 */}
       <div className="input-group--wrapper">
         <div className="input-group">
-          <input className="input" type="text" placeholder="Address 1 *" ref={formRef.current.address1} value={address?.address1} required />
+          <input className="input" type="text" placeholder="Address 1 *" ref={formRef.current.address1} required />
           <label className="label">Address 1</label>
         </div>
         <div className="input-group">
-          <input className="input" type="text" placeholder="Address 2 (Apt. Suite, etc) *" ref={formRef.current.address2} value={address?.address2} required />
+          <input className="input" type="text" placeholder="Address 2 (Apt. Suite, etc) *" ref={formRef.current.address2} required />
           <label className="label">Address 2</label>
         </div>
       </div>
       {/* city and country */}
       <div className="input-group--wrapper">
         <div className="input-group">
-          <input className="input" type="text" placeholder="City *" ref={formRef.current.city} value={address?.city} required />
+          <input className="input" type="text" placeholder="City *" ref={formRef.current.city} required />
           <label className="label">City</label>
         </div>
         <div className="input-group">
@@ -159,28 +167,22 @@ const AccountAddressForm = ({address, type, toggleExpand}) => {
           <label className="label">State</label>
         </div>
         <div className="input-group">
-          <input className="input" type="text" placeholder="Zip *" ref={formRef.current.zip} value={address?.zip} required />
+          <input className="input" type="text" placeholder="Zip *" ref={formRef.current.zip} required />
           <label className="label">Zip</label>
         </div>
       </div>
+      <div className="input-group input-group--checkbox">
+        <input className="checkbox" type="checkbox" id={`set_as_default_address-${address ? address.id : 'new'}`} ref={checkboxRef} />
+        <label className="label" for={`set_as_default_address-${address ? address.id : 'new'}`}>Set as default address</label>
+      </div>
       <div className="account-panel-ctas-wrapper">
         {type === 'new' ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-            }}
-            className="account-panel-cta-btn btn secondary">Add Address</button>
+          <button className="account-panel-cta-btn btn secondary" disabled={!countrySelected || !stateSelected}>Add Address</button>
         ):(
           <>
+            <button className={`account-panel-cta-btn btn secondary`} disabled={!countrySelected || !stateSelected}>Save Address</button>
             <button
-              onClick={(e) => {
-                e.preventDefault()
-              }}
-              className={`account-panel-cta-btn btn secondary`}>Save Address</button>
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-              }}
+              onClick={(e) => {onAddressFormSubmission(e, 'remove')}}
               className="account-panel-cta-btn btn account-remove-btn">Remove Address</button>
           </>
         )}
@@ -189,7 +191,7 @@ const AccountAddressForm = ({address, type, toggleExpand}) => {
             e.preventDefault()
             toggleExpand()
           }}
-          className="account-panel-cta-btn">Cancel</button>
+          className="account-panel-cta-btn account-form-cancel-btn">Cancel</button>
       </div>
     </form>
   )

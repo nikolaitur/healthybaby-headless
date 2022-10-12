@@ -135,8 +135,6 @@ export const CUSTOMER_ADDRESS_CREATE = `mutation customerAddressCreate($customer
       formattedArea
       id
       lastName
-      latitude
-      longitude
       name
       phone
       province
@@ -165,8 +163,6 @@ export const CUSTOMER_ADDRESS_UPDATE = `mutation customerAddressUpdate($customer
       formattedArea
       id
       lastName
-      latitude
-      longitude
       name
       phone
       province
