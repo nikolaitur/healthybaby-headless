@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 
 import Header from '../components/Layout/Header'
 
@@ -14,9 +14,7 @@ export function HeaderProvider({ children, content, pageHandle }) {
   const [megaMenu, setMegaMenu] = useState(false)
   const [megaMenuFeaturedProducts, setMegaMenuFeaturedProducts] = useState([])
 
-  const headerRef = useRef()
-
-  useEffect(() => {        
+  useEffect(() => {
       if(megaMenuIsOpen) {
         document.body.classList.add("no-scroll")
       } else {
@@ -26,7 +24,7 @@ export function HeaderProvider({ children, content, pageHandle }) {
 
   return (
     <HeaderContext.Provider value={{ megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu, megaMenuFeaturedProducts, setMegaMenuFeaturedProducts}}>
-      <Header ref={headerRef} content={content} pageHandle={pageHandle} />
+      <Header content={content} pageHandle={pageHandle} />
       {children}
     </HeaderContext.Provider>
   )
