@@ -84,7 +84,7 @@ const MainNavigation = ({props}) => {
                 document.documentElement.style.setProperty('--menuBackground',  menu.fields.backgroundColor);
                 document.documentElement.style.setProperty('--menuItemHover',  menu.fields.hoverColor);
                 document.documentElement.style.setProperty('--megaMenuLinkBackground',  menu.fields.backgroundHoverColor);
-            }     
+            }
         }
 
         setMobileMenuSlideOpen(!isMobileMenuSlideOpen)
@@ -115,14 +115,16 @@ const MainNavigation = ({props}) => {
       setQuery(event.target.value);
       // console.log('value is:', event.target.value);
     };
-    
+
     return (
     <>
         <div className="main-nav">
             <div className="main-nav__left">
                 <div className="main-nav__item" onMouseEnter={onMenuMouseEnter}>
                     <Link href="/">
-                        Build a Box
+                        <a>
+                            Build a Box
+                        </a>
                     </Link>
                 </div>
                 {props?.mainNavigation ? (
@@ -133,7 +135,9 @@ const MainNavigation = ({props}) => {
             </div>
             <div className="main-nav__logo">
                 <Link href="/">
-                    <Logo />
+                    <a>
+                        <Logo />
+                    </a>
                 </Link>
             </div>
             <div className="main-nav__right">
@@ -154,7 +158,7 @@ const MainNavigation = ({props}) => {
                 <div className={`main-nav__search ${isSearchOpen ? "active" : ""}`}>
                     <input type="text" className="input" placeholder="search products, articles, events, etc..." onChange={handleSearchChange} />
                 </div>
-            </div> 
+            </div>
             <MegaMenu menu={megaMenu} />
             <SearchMenu query={query} toggleSearch={toggleSearch} />
         </div>
@@ -206,7 +210,9 @@ const MainNavigation = ({props}) => {
             </div>
             <div className="mobile-menu__sign-in">
                 <Link href="/sign-in">
-                    Sign In
+                    <a>
+                        Sign In
+                    </a>
                 </Link>
             </div>
             <div className={`mobile-menu__slide ${isMobileMenuSlideOpen ? "is-open" : ""} ${isSecondarySlideOpen ? "secondary" : ""}`}>
@@ -231,5 +237,5 @@ const MainNavigation = ({props}) => {
       </>
     )
   }
-  
+
   export default MainNavigation
