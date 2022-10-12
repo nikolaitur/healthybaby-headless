@@ -1,13 +1,14 @@
 import AccountMainPage from "@/components/Account/AccountMainPage"
 import { useCustomerContext } from "@/context/CustomerContext"
 import { nacelleClient } from "services"
+import LoadingState from "@/components/LoadingState"
 
 export default function AccountTab({page}) {
 
   const { customer, customerLoading } = useCustomerContext()
 
   if (customerLoading) {
-    return <div>Loading...</div>
+    return <LoadingState />
   }
 
   if (!customerLoading && customer) {
@@ -16,7 +17,7 @@ export default function AccountTab({page}) {
     )
   }
 
-  return <div>Please Log in to continue</div>
+  return <></>
 }
 
 export async function getServerSideProps() {

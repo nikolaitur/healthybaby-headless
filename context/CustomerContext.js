@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
 import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrders } from '../gql/index.js'
 import { Multipass } from "multipass-js"
+import { encode } from 'js-base64'
 
 const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
 import * as Cookies from 'es-cookie'
@@ -138,6 +139,41 @@ export function CustomerProvider({ children }) {
       return { errors: errors }
     }
     const { customerUserErrors } = data.customerCreate
+    return { data, errors: customerUserErrors }
+  }
+
+  async function recover({ email }) {
+    const response = await accountClientPost({
+      query: CUSTOMER_RECOVER,
+      variables: {
+        email
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerRecover
+    return { data, errors: customerUserErrors }
+  }
+
+  async function reset({ password, customerId, resetToken }) {
+    const id = encode(`gid://shopify/Customer/${customerId}`)
+    const response = await accountClientPost({
+      query: CUSTOMER_RESET,
+      variables: {
+        id,
+        input: {
+          password,
+          resetToken
+        }
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerReset
     return { data, errors: customerUserErrors }
   }
 
@@ -302,7 +338,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, getCustomerOrders, createBabyMetafields, updateBabyInformation, addAddress, updateAddress, deleteAddress, setAsDefaultAddress }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, recover, reset, getCustomerOrders, createBabyMetafields, updateBabyInformation, addAddress, updateAddress, deleteAddress, setAsDefaultAddress }}>
       {children}
     </CustomerContext.Provider>
   )

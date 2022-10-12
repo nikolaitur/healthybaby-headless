@@ -7,7 +7,7 @@ export default function Order({page, orderId}) {
   const { customer, customerLoading } = useCustomerContext()
 
   if (customerLoading) {
-    return <div>Loading...</div>
+    return <LoadingState />
   }
 
   if (!customerLoading && customer) {
@@ -16,7 +16,7 @@ export default function Order({page, orderId}) {
     )
   }
 
-  return <div>Please Log in to continue</div>
+  return <></>
 }
 
 export async function getServerSideProps({params}) {
