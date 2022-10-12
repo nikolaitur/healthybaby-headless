@@ -13,9 +13,11 @@
 
   &__wave {
     position: absolute;
-    bottom: 115px;
+    bottom: auto;
+    top: 55px;
 
     @include breakpoint-up('md') {
+      bottom: auto;
       bottom: 70px;
     }
 
@@ -116,14 +118,14 @@
 
   &__pub {
     margin-top: 16px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 500;
     font-family: $NeutraText;
     text-align: center;
     color: #3d3331;
 
     @include breakpoint-up('md') {
-      margin-top: 12px;
+      margin-top: 16px;
     }
   }
 

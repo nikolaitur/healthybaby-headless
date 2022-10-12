@@ -1,12 +1,12 @@
 .article-banner2 {
   margin: 30px 28px;
-  padding: 58px 10px;
+  padding: 52px 10px;
 
   text-align: center;
 
   @include breakpoint-up('md') {
-    padding: 40px;
-    margin: 40px 0;
+    padding: 34px;
+    margin: 40px 28px;
   }
 
   &__eyebrow {

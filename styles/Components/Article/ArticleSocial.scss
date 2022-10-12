@@ -1,3 +1,20 @@
+.article-social-wrap {
+  @include breakpoint-up('md') {
+    position: sticky;
+    top: 50px;
+    left: -30px;
+    align-self: flex-start;
+
+    transform: translateX(-80px);
+  }
+}
+
+.article-sectionsContent {
+  @include breakpoint-up('md') {
+    margin-left: -80px;
+  }
+}
+
 .article-social {
   display: flex;
   flex-direction: row;
@@ -15,11 +32,7 @@
     gap: 36px;
     padding: 30px 0;
     width: 80px;
-    position: fixed;
-    top: 50%;
-    left: 30px;
     flex-direction: column;
-    transform: translateY(-50%);
   }
 
   &__share {

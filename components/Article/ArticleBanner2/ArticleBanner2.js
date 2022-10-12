@@ -1,21 +1,28 @@
 import React from 'react'
 
 const ArticleBanner2 = ({ content }) => {
+  const {
+    backgroundColor,
+    backgroundImage,
+    eyebrowText,
+    title,
+    subtitle,
+    linkUrl,
+    linkText,
+  } = { ...content.fields }
   return (
     <div
       className="article-banner2"
       style={{
-        backgroundColor: content.fields.backgroundColor,
-        backgroundImage: `url(${content.fields.backgroundImage.fields.file.url})`,
+        backgroundColor: backgroundColor,
+        backgroundImage: `url(${backgroundImage.fields.file.url})`,
       }}
     >
-      <div className="article-banner2__eyebrow">
-        {content.fields.eyebrowText}
-      </div>
-      <div className="article-banner2__title">{content.fields.title}</div>
-      <div className="article-banner2__subtitle">{content.fields.subtitle}</div>
-      <a href={content.fields.linkUrl} className="article-banner2__link">
-        {content.fields.linkText}
+      <div className="article-banner2__eyebrow">{eyebrowText}</div>
+      <div className="article-banner2__title">{title}</div>
+      <div className="article-banner2__subtitle">{subtitle}</div>
+      <a href={linkUrl} className="article-banner2__link">
+        {linkText}
       </a>
     </div>
   )
