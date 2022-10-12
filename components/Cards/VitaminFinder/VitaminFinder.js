@@ -18,7 +18,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const VitaminFinder = ({ content }) => {
-    const { header, subheader, description, ctaText1, ctaText2, ctaText3, recommendationsText, addToCartText, backgroundImage } = {...content.fields}
+    const { header, subheader, description, ctaText1, ctaText2, ctaText3, recommendationsText, addToCartText, backgroundImage, backgroundImageMobile } = {...content.fields}
 
     let intialValues = {
         lifeStage: "conceive",
@@ -128,11 +128,20 @@ const VitaminFinder = ({ content }) => {
     return (
         <div className="vitamin-finder item">
             <div className="vitamin-finder__background">
-                <Image
-                    src={`https:${backgroundImage.fields.file.url}`}
-                    alt={header}
-                    layout="fill"
-                />
+                <div className="vitamin-finder__background--desktop">
+                    <Image
+                        src={`https:${backgroundImage.fields.file.url}`}
+                        alt={header}
+                        layout="fill"
+                    />
+                </div>
+                <div className="vitamin-finder__background--mobile">
+                    <Image
+                        src={`https:${backgroundImageMobile.fields.file.url}`}
+                        alt={header}
+                        layout="fill"
+                    />
+                </div>
             </div>
             <div className="vitamin-finder__content">
                 <div className={`vitamin-finder__stage vitamin-finder__stage--1 ${stage === 1 ? "active" : ""}`}>
