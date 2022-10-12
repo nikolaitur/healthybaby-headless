@@ -52,10 +52,10 @@ export function CartDrawerProvider({ children }) {
           })
           .then((response) => {
             console.log(response, 'response')
-            // if (response.cart.length) {
-            //     setShopifyCartCartClient(response.cart)
-            //     setShopifyCartId(response.cart.id)
-            // }
+            if (response.cart.length) {
+              setShopifyCartCartClient(response.cart)
+              setShopifyCartId(response.cart.id)
+            }
           })
       } else {
         const shopifyCart = await cartClient
