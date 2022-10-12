@@ -2,10 +2,12 @@ import AccountMainPage from "@/components/Account/AccountMainPage"
 import { useCustomerContext } from "@/context/CustomerContext"
 import { nacelleClient } from "services"
 import LoadingState from "@/components/LoadingState"
+import { useRouter } from 'next/router'
 
-export default function AccountTab({page}) {
+export default function AccountPage({page}) {
 
   const { customer, customerLoading } = useCustomerContext()
+  const router = useRouter()
 
   if (customerLoading) {
     return <LoadingState />
@@ -16,6 +18,8 @@ export default function AccountTab({page}) {
       <AccountMainPage page={page} />
     )
   }
+
+  router.push('/')
 
   return <></>
 }

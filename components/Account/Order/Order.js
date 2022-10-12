@@ -8,6 +8,9 @@ import Link from 'next/link'
 const Order = ({orderId}) => {
   const { customer } = useCustomerContext()
   const order = customer.orders.find(order => order.customerUrl.includes(orderId))
+
+  const tracking = order.successfulFulfillments.find(fulfillment => fulfillment.trackingInfo.hasOwnProperty('number') && fulfillment.trackingInfo.hasOwnProperty('url'))
+
   return (
     <div className="account-order">
       <Link href="/account/order-history">
@@ -27,7 +30,19 @@ const Order = ({orderId}) => {
         <ul>
           {order.financialStatus && <li><h4>Payment Status: <b className="bold-text">{order.financialStatus.toLowerCase()}</b></h4></li>}
           {order.fulfillmentStatus && <li><h4>Shipment Status: <b className="bold-text">{order.fulfillmentStatus.toLowerCase()}</b></h4></li>}
-          <li><h4>Tracking: <b className="bold-text"></b></h4></li>
+          {tracking?.url && tracking?.number ? (
+            <li>
+              <h4>{`Tracking: `}
+                <b className="bold-text">
+                  <a className="account-order__tracking-number-link" href={tracking.url} target="_blank" rel="noopener noreferrer">
+                    {tracking.number}
+                  </a>
+                </b>
+              </h4>
+            </li>
+          ):(
+            <li><h4>Tracking: <b className="bold-text">Not available</b></h4></li>
+          )}
           {order.totalPriceV2?.amount && <li><h4>Total: <b className="bold-text">${parseFloat(order.totalPriceV2.amount).toFixed(2)}</b></h4></li>}
         </ul>
       </div>
