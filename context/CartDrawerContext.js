@@ -14,69 +14,84 @@ export function useCartDrawerContext() {
 }
 
 export function CartDrawerProvider({ children }) {
-    const [ { cart } ] = useCart()
+  const [{ cart }] = useCart()
 
-    const [isOpen, setIsOpen] = useState(false)
-    const [content, setContent] = useState('')
-    const [shopifyCartClient, setShopifyCartCartClient] = useState('')
-    const [shopifyCartId, setShopifyCartId] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [content, setContent] = useState('')
+  const [shopifyCartClient, setShopifyCartCartClient] = useState('')
+  const [shopifyCartId, setShopifyCartId] = useState(false)
 
-    useEffect(() => {
-        const getCartDrawerContent = async () => {
-            await nacelleClient.content({
-                handles: ['cart-drawer']
-            }).then(response => {
-                setContent(response)
-            })            
-        }
-        getCartDrawerContent()
-    }, [])
+  useEffect(() => {
+    const getCartDrawerContent = async () => {
+      await nacelleClient
+        .content({
+          handles: ['cart-drawer'],
+        })
+        .then((response) => {
+          setContent(response)
+        })
+    }
+    getCartDrawerContent()
+  }, [])
 
-    useEffect(() => {
-        const getCartClient = async () => {
+  useEffect(() => {
+    const getCartClient = async () => {
+      const cartItems = cart.map((lineItem) => ({
+        merchandiseId: lineItem.nacelleEntryId,
+        nacelleEntryId: lineItem.nacelleEntryId,
+        quantity: lineItem.quantity,
+      }))
 
-            const cartItems = cart.map((lineItem) => ({
-                merchandiseId: lineItem.nacelleEntryId,
-                nacelleEntryId: lineItem.nacelleEntryId,
-                quantity: lineItem.quantity,
-            }))
+      const lines = cartItems
 
-            const lines = cartItems
-
-            if(!Cookies.get('shopifyCartId')) {
-                console.log(shopifyCartId, "ID")
-                cartClient.cart({
-                    cartId: Cookies.get('shopifyCartId')
-                }).then(response => {
-                    console.log(response, "response")
-                    if (response.cart.length) {
-                        setShopifyCartCartClient(response.cart)
-                        setShopifyCartId(response.cart.id)
-                    }
-                })
-            } else {
-                const shopifyCart = await cartClient.cartCreate({
-                    lines,
-                    attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-                    note: 'Please use a red ribbon for the bow, if possible :)'
-                }).then(response => {
-                    console.log(response)
-                    if (response) {
-                        setShopifyCartCartClient(response.cart)
-                        setShopifyCartId(response.cart.id)
-                        Cookies.set('shopifyCartId', response.cart.id)
-                    }
-                });                
+      if (!Cookies.get('shopifyCartId')) {
+        console.log(shopifyCartId, 'ID')
+        cartClient
+          .cart({
+            cartId: Cookies.get('shopifyCartId'),
+          })
+          .then((response) => {
+            console.log(response, 'response')
+            if (response.cart.length) {
+              setShopifyCartCartClient(response.cart)
+              setShopifyCartId(response.cart.id)
             }
-        }
+          })
+      } else {
+        const shopifyCart = await cartClient
+          .cartCreate({
+            lines,
+            attributes: [{ key: 'gift_options', value: 'in box with bow' }],
+            note: 'Please use a red ribbon for the bow, if possible :)',
+          })
+          .then((response) => {
+            console.log(response)
+            if (response) {
+              setShopifyCartCartClient(response.cart)
+              setShopifyCartId(response.cart.id)
+              Cookies.set('shopifyCartId', response.cart.id)
+            }
+          })
+      }
+    }
 
-        getCartClient()
-    }, [])
+    getCartClient()
+  }, [])
 
-    return (
-        <CartDrawerContext.Provider value={{ isOpen, setIsOpen, content, shopifyCartClient, setShopifyCartCartClient,  shopifyCartId, setShopifyCartId }}>
-            {children}
-            <CartDrawer content={content} />
-        </CartDrawerContext.Provider>
-    )
+  return (
+    <CartDrawerContext.Provider
+      value={{
+        isOpen,
+        setIsOpen,
+        content,
+        shopifyCartClient,
+        setShopifyCartCartClient,
+        shopifyCartId,
+        setShopifyCartId,
+      }}
+    >
+      {children}
+      <CartDrawer content={content} />
+    </CartDrawerContext.Provider>
+  )
 }

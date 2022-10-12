@@ -6,8 +6,9 @@ import Image from 'next/image'
 import PlayIcon from '../../../svgs/play-icon.svg'
 
 const ArticleVideo = ({ content }) => {
-  // const { ctaText, ctaUrl } = content.fields
-  // const backgroundImage = content.fields.image.fields.file.url
+  const { videoLink, coverImage, coverImageMobile, verticalVideo } = {
+    ...content.fields,
+  }
 
   const [hasWindow, setHasWindow] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -24,8 +25,8 @@ const ArticleVideo = ({ content }) => {
 
   return (
     <>
-      {content.fields.videoLink ? (
-        <div className="article-video">
+      {videoLink ? (
+        <div className={`article-video ${verticalVideo ? 'vertical' : ''}`}>
           <div
             className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
             onClick={() => playVideo()}
@@ -36,19 +37,15 @@ const ArticleVideo = ({ content }) => {
             className={`article-video__image ${isPlaying ? 'hide' : ''}`}
             onClick={() => playVideo()}
           >
-            {content.fields.coverImage ? (
+            {coverImage ? (
               <Image
                 className=""
-                src={`https:${content.fields.coverImage.fields.file.url}`}
+                src={`https:${coverImage.fields.file.url}`}
                 alt={`video`}
                 layout="responsive"
                 objectFit="cover"
-                height={
-                  content.fields.coverImage.fields.file.details.image.height
-                }
-                width={
-                  content.fields.coverImage.fields.file.details.image.width
-                }
+                height={coverImage.fields.file.details.image.height}
+                width={coverImage.fields.file.details.image.width}
               />
             ) : (
               <></>
@@ -57,7 +54,7 @@ const ArticleVideo = ({ content }) => {
           <div className="article-video__video">
             {hasWindow && (
               <ReactPlayer
-                url={content.fields.videoLink}
+                url={videoLink}
                 playing={isPlaying}
                 controls={true}
                 className="article-video__video-player"
@@ -70,10 +67,10 @@ const ArticleVideo = ({ content }) => {
       ) : (
         <div className="article-hero__image">
           <div className="article-hero__image--desktop">
-            {content.fields.coverImage ? (
+            {coverImage.fields?.file ? (
               <Image
                 className=""
-                src={`https:${content.fields.coverImage.fields.file.url}`}
+                src={`https:${coverImage.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"
@@ -85,10 +82,10 @@ const ArticleVideo = ({ content }) => {
             )}
           </div>
           <div className="article-hero__image--mobile">
-            {content.fields.coverImage ? (
+            {coverImageMobile.fields?.file ? (
               <Image
                 className=""
-                src={`https:${content.fields.coverImage.fields.file.url}`}
+                src={`https:${coverImageMobile.fields.file.url}`}
                 alt={`image`}
                 layout="responsive"
                 objectFit="cover"

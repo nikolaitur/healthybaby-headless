@@ -5,6 +5,9 @@ import ChevronUp from '../../../svgs/chevron-up.svg'
 
 const ArticleSources = ({ content }) => {
   const [contentOpen, setContentOpen] = useState(true)
+  const { title, articleSources } = {
+    ...content.fields,
+  }
 
   const toggleContentOpen = () => {
     setContentOpen(!contentOpen)
@@ -13,13 +16,13 @@ const ArticleSources = ({ content }) => {
   return (
     <div className="article-sources">
       <div className="article-sources__title" onClick={toggleContentOpen}>
-        <span>{content.fields.title}</span>
+        <span>{title}</span>
         <span className={`arrow ${contentOpen ? 'opened' : ''}`}>
           <ChevronUp />
         </span>
       </div>
       <div className={`article-sources__items ${contentOpen ? 'opened' : ''}`}>
-        {content.fields.articleSources.map((articleSourceItem, index) => {
+        {articleSources.map((articleSourceItem, index) => {
           return (
             <a
               href={articleSourceItem.fields.articleSourceItem}

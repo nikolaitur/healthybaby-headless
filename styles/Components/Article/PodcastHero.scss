@@ -24,6 +24,15 @@
   &__title {
     margin: 0 auto;
     text-align: left;
+    font-size: 34px;
+
+    @include breakpoint-up('md') {
+      font-size: 45px;
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: 62px;
+    }
   }
 
   &__breadcrumbs {
@@ -118,7 +127,15 @@
 
   &__iheart {
     margin-top: 20px;
-    max-width: 600px;
+    max-width: 750px;
+
+    iframe {
+      height: 102px;
+
+      @include breakpoint-up('md') {
+        height: 150px;
+      }
+    }
 
     @include breakpoint-up('md') {
       margin-top: 24px;
