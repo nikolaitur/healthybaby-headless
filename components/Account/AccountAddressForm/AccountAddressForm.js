@@ -114,7 +114,6 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
               }
             }}
             ref={formRef.current.phone}
-            value={address?.phone}
           />
           <label className="label">Phone Number</label>
         </div>
