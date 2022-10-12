@@ -173,7 +173,7 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
       </div>
       <div className="input-group input-group--checkbox">
         <input className="checkbox" type="checkbox" id={`set_as_default_address-${address ? address.id : 'new'}`} ref={checkboxRef} />
-        <label className="label" for={`set_as_default_address-${address ? address.id : 'new'}`}>Set as default address</label>
+        <label className="label" htmlFor={`set_as_default_address-${address ? address.id : 'new'}`}>Set as default address</label>
       </div>
       <div className="account-panel-ctas-wrapper">
         {type === 'new' ? (

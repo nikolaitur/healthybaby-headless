@@ -32,7 +32,7 @@ const OrderHistory = () => {
   return (
     <div className="account-panel">
       <h3>Order History</h3>
-      <h4>You don't have any orders yet.</h4>
+      <h4>{`You don't have any orders yet.`}</h4>
     </div>
   )
 

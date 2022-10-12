@@ -94,7 +94,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
       <h5>{type === 'new' ? 'Add' : 'Edit' } Baby</h5>
       <div className="input-group">
         <input className="input" type="text" placeholder="Baby's Name *" ref={nameRef} required />
-        <label className="label">Baby's Name</label>
+        <label className="label">{`Baby's Name`}</label>
       </div>
       {/* city and country */}
       <div className="input-group--wrapper">
