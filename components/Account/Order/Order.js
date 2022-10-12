@@ -1,6 +1,7 @@
 import { useCustomerContext } from '@/context/CustomerContext'
 import moment from 'moment'
 import Image from 'next/image'
+import MobileArrowSvg from '@/svgs/arrow-left-mobile.svg'
 import LongArrowSvg from '@/svgs/long-arrow-right.svg'
 import Link from 'next/link'
 
@@ -10,7 +11,15 @@ const Order = ({orderId}) => {
   return (
     <div className="account-order">
       <Link href="/account/order-history">
-        <a className="account-order__back-link"><LongArrowSvg /><h6>Back To Order History</h6></a>
+        <a className="account-order__back-link">
+          <span className="account-order__back-link-icon-desktop">
+            <LongArrowSvg />
+          </span>
+          <span className="account-order__back-link-icon-mobile">
+            <MobileArrowSvg />
+          </span>
+          <h6>Back To Order History</h6>
+        </a>
       </Link>
       <div className="account-order__header">
         <h3>Order {order.name}</h3>
@@ -22,7 +31,38 @@ const Order = ({orderId}) => {
           {order.totalPriceV2?.amount && <li><h4>Total: <b className="bold-text">${parseFloat(order.totalPriceV2.amount).toFixed(2)}</b></h4></li>}
         </ul>
       </div>
-      <div className="account-order__details">
+
+
+      <div className="account-order__details account-order__details-mobile">
+        <ul className="account-order__line-items">
+          {order.lineItems.map((item, index) => {
+            const image = item.variant.image
+            return <li className="account-order__line-item" key={`${item.id}-${index}`}>
+              <div className="account-order__line-item-image">
+                <Image
+                  src={image.originalSrc}
+                  alt={image.altText || item.variant.title}
+                  width={266}
+                  height={322}
+                  objectFit="contain"
+                  layout="fill"
+                />
+              </div>
+              <div className="account-order__line-item-details">
+                <div className="account-order__line-item-metadata">
+                  <h3 className="account-order__line-item-title">{item.variant.product.title}</h3>
+                  {item.variant.title !== 'Default Title' && <p className="large">{item.variant.title}</p>}
+                </div>
+                <h3>Qty: {item.quantity}</h3>
+                {item.variant.priceV2?.amount && <h3>Price: ${parseFloat(item.variant.priceV2.amount).toFixed(2)}</h3>}
+              </div>
+            </li>
+          })}
+        </ul>
+      </div>
+
+
+      <div className="account-order__details account-order__details-desktop">
         <h5>Order Details</h5>
         <div className="account-order__details-header">
           <div data-column-1><h4>Item</h4></div>
@@ -45,7 +85,7 @@ const Order = ({orderId}) => {
                   />
                 </div>
                 <div className="account-order__line-item-metadata">
-                  <h3>{item.variant.product.title}</h3>
+                  <h3 className="account-order__line-item-title">{item.variant.product.title}</h3>
                   <p className="large">{item.variant.title}</p>
                 </div>
               </div>

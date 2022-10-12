@@ -1,10 +1,21 @@
+import { useEffect, useState } from 'react'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useRouter } from 'next/router'
+import { useMediaQuery } from 'react-responsive'
 import Link from 'next/link'
 
 const AccountTabs = ({tabs, selected, onSelected}) => {
+  const isDesktop = useMediaQuery(
+    { minWidth: 1074 }
+  )
   const { customer, logout } = useCustomerContext()
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="account-navigation">
       <ul className="account-tabs">
@@ -14,15 +25,15 @@ const AccountTabs = ({tabs, selected, onSelected}) => {
           </li>
         })}
         {customer?.shopify_login_redirect_url && customer.tags.includes('Active Subscriber') &&
-          <li className="account-tab">
+          <li className="account-tab account-tab--subscriptions">
             <Link href={customer.shopify_login_redirect_url}>
-              <a>Subscriptions</a>
+              <button>Subscriptions</button>
             </Link>
           </li>
         }
-        <li className="account-tab">
+        {mounted && isDesktop && <li className="account-tab">
           <button onClick={() => logout().then(() => router.push('/'))}>Log Out</button>
-        </li>
+        </li>}
       </ul>
     </div>
   )

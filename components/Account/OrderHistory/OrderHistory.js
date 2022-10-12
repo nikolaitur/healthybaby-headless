@@ -15,7 +15,7 @@ const OrderHistory = () => {
             return <li className="account-card account-order-card" key={order.id}>
                 <h3 className="account-order-name">Order {order.name}</h3>
                 <p>{moment(order.processedAt).format('MMMM DD, YYYY')}</p>
-                {order.fulfillmentStatus && <p><b>{order.fulfillmentStatus.toLowerCase()}</b></p>}
+                {order.fulfillmentStatus && <p className="capitalize"><b>{order.fulfillmentStatus.toLowerCase()}</b></p>}
                 <div className="account-card-actions">
                   {order.totalPriceV2?.amount && <span>${parseFloat(order.totalPriceV2.amount).toFixed(2)}</span>}
                   <Link href={orderIdUrl}>

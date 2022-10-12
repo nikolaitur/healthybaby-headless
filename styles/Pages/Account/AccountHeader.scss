@@ -20,6 +20,21 @@
   .account-header__customer-name {
     text-transform: capitalize;
   }
+  .account-header__log-out-btn {
+    margin-top: 10px;
+    button {
+      font-size: 18px;
+      font-family: $NeutraTextDemi;
+      text-decoration: underline;
+      letter-spacing: 0.02em;
+      width: auto;
+      height: 22px;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+      color: $primaryBrown;
+    }
+  }
 }
 
 .account-header__image {
