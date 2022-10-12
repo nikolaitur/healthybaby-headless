@@ -25,7 +25,7 @@ const AccountTabs = ({tabs, selected, onSelected}) => {
           </li>
         })}
         {customer?.shopify_login_redirect_url && customer.tags.includes('Active Subscriber') &&
-          <li className="account-tab account-tab--subscriptions">
+          <li className="account-tab">
             <Link href={customer.shopify_login_redirect_url}>
               <button>Subscriptions</button>
             </Link>

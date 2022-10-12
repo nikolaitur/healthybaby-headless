@@ -17,16 +17,16 @@ const AccountHeader = ({headerDesktopImage, headerMobileImage}) => {
   return (
     <div className="account-header">
       <div className="account-header__image">
-        {headerDesktopImage?.fields?.file?.url && <Image
+        {mounted && isDesktop && headerDesktopImage?.fields?.file?.url && <Image
           src={`https://${headerDesktopImage.fields.file.url}`}
           alt={headerDesktopImage.fields.title}
           layout="fill"
         />}
-        {/* {headerMobileImage?.fields?.file?.url && <Image
+        {mounted && !isDesktop && headerMobileImage?.fields?.file?.url && <Image
           src={`https://${headerMobileImage.fields.file.url}`}
           alt={headerMobileImage.fields.title}
           layout="fill"
-        />} */}
+        />}
       </div>
       <div className="account-header__content">
         <h2>

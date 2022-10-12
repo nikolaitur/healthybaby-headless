@@ -89,8 +89,34 @@
     }
   }
   &.account-order-card {
+    @include breakpoint-down('sm') {
+      display: block;
+    }
     > * {
-      width: 25%;
+      @include breakpoint-up('sm') {
+        width: 25%;
+      }
+    }
+    p {
+      @include breakpoint-down('xs') {
+        margin: 20px 0;
+      }
+    }
+    .account-card-actions {
+      @include breakpoint-down('xs') {
+        display: block;
+        margin: 0;
+        > * {
+          display: block;
+          margin: 0 0 20px;
+          &:first-child {
+            margin: 0 0 20px;
+          }
+        }
+        > a {
+          display: inline-block;
+        }
+      }
     }
   }
   .account-card-label {
@@ -101,10 +127,45 @@
     margin-bottom: 18px;
   }
   .account-order-name {
-    font-family: $DomaineText;
-    font-size: 36px;
-    font-weight: 500;
+    display: flex;
+    position: relative;
+    width: 100%;
     margin: 0;
+    @include breakpoint-up('sm') {
+      width: 25%;
+    }
+    button {
+      font-family: $DomaineText;
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+      @include breakpoint-up('sm') {
+        font-size: 36px;
+        pointer-events: none;
+      }
+    }
+    &.is-active {
+      svg {
+        transform: rotate(0);
+      }
+    }
+    svg {
+      width: 14px;
+      transform: rotate(180deg);
+      position: absolute;
+      right: 0;
+      top: 5px;
+      transition: 0.3s ease-in-out transform;
+      @include breakpoint-up('sm') {
+        display: none;
+      }
+    }
   }
   p {
     font-size: 18px;
