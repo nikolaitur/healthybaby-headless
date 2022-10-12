@@ -54,13 +54,13 @@ const ArticleHeroEverGreen = ({ content }) => {
       className="article-hero"
       style={{
         background: `linear-gradient(180deg, ${
-          articleHero.fields.backgroundColor
+          articleHero.fields?.backgroundColor
             ? articleHero.fields.backgroundColor
             : '#C7E0E5 '
         } 0%, rgba(199, 224, 229, 0) 100%)`,
       }}
     >
-      {articleHero.fields.showWave ? (
+      {articleHero.fields?.showWave ? (
         <div className="article-hero__wave">
           <span className="svg-wrap article-hero__wave--desktop">
             <DoubleWave fillColor={articleHero.fields.waveColor} />
@@ -85,7 +85,7 @@ const ArticleHeroEverGreen = ({ content }) => {
             {author ? (
               <div className="article-hero__written--author">
                 <div className="article-hero__author-image">
-                  {author.fields.photo ? (
+                  {author.fields?.photo ? (
                     <Image
                       className=""
                       src={'https:' + author.fields.photo.fields.file.url}
@@ -117,7 +117,7 @@ const ArticleHeroEverGreen = ({ content }) => {
                 <div className="article-hero__author-name">
                   Medically Reviewed by{' '}
                   <span className="name">
-                    {doctor.fields.name ? doctor.fields.name : ''}
+                    {doctor.fields?.name ? doctor.fields.name : ''}
                   </span>
                 </div>
               </div>
@@ -125,7 +125,7 @@ const ArticleHeroEverGreen = ({ content }) => {
               <></>
             )}
           </div>
-          {articleHero.fields.videoLink ? (
+          {articleHero.fields?.videoLink ? (
             <div className="article-video">
               <div
                 className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
@@ -137,10 +137,10 @@ const ArticleHeroEverGreen = ({ content }) => {
                 className={`article-video__image ${isPlaying ? 'hide' : ''}`}
                 onClick={() => playVideo()}
               >
-                {articleHero.fields.featuredMedia ? (
+                {articleHero.fields?.featuredMedia.fields.file ? (
                   <Image
                     className=""
-                    src={`https:${articleHero.fields.featuredMedia.fields.file.url}`}
+                    src={`https:${articleHero.fields?.featuredMedia.fields.file.url}`}
                     alt={`video`}
                     layout="responsive"
                     objectFit="cover"
@@ -170,13 +170,13 @@ const ArticleHeroEverGreen = ({ content }) => {
                 )}
               </div>
               <div className="article-hero__image--credit">
-                {articleHero.fields.photoCredit}
+                {articleHero.fields?.photoCredit}
               </div>
             </div>
           ) : (
             <div className="article-hero__image">
               <div className="article-hero__image--desktop">
-                {articleHero.fields.featuredMedia ? (
+                {articleHero.fields?.featuredMedia ? (
                   <Image
                     className=""
                     src={`https:${articleHero.fields.featuredMedia.fields.file.url}`}
@@ -191,7 +191,7 @@ const ArticleHeroEverGreen = ({ content }) => {
                 )}
               </div>
               <div className="article-hero__image--mobile">
-                {articleHero.fields.featuredMediaMobile ? (
+                {articleHero.fields?.featuredMediaMobile ? (
                   <Image
                     className=""
                     src={`https:${articleHero.fields.featuredMediaMobile.fields.file.url}`}

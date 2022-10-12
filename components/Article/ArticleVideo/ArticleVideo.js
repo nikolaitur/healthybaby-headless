@@ -67,7 +67,7 @@ const ArticleVideo = ({ content }) => {
       ) : (
         <div className="article-hero__image">
           <div className="article-hero__image--desktop">
-            {coverImage ? (
+            {coverImage.fields?.file ? (
               <Image
                 className=""
                 src={`https:${coverImage.fields.file.url}`}
@@ -82,7 +82,7 @@ const ArticleVideo = ({ content }) => {
             )}
           </div>
           <div className="article-hero__image--mobile">
-            {coverImageMobile ? (
+            {coverImageMobile.fields?.file ? (
               <Image
                 className=""
                 src={`https:${coverImageMobile.fields.file.url}`}
