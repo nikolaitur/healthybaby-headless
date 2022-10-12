@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCustomerContext } from '@/context/CustomerContext'
 import Expand from 'react-expand-animated'
 import MyBabyCard from '../MyBabyCard'
 import MyBabyForm from '../MyBabyForm'
 import { getMetafield } from '@/utils/getMetafield'
 import LoadingState from '@/components/LoadingState'
+import { animateScroll as scroll } from 'react-scroll'
 
 const MyBaby = ({page}) => {
 
@@ -15,6 +16,7 @@ const MyBaby = ({page}) => {
   const [newBabyFormHeight, setNewBabyFormHeight] = useState(0)
   const [activeBabyEditForms, setActiveBabyEditForms] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const myBabyPanelRef = useRef()
 
   const toggleBabyFormExpand = () => {
     if (newBabyFormHeight === 0) {
@@ -112,8 +114,17 @@ const MyBaby = ({page}) => {
     }
   })
 
+  useEffect(() => {
+    if (isLoading) {
+      const value = myBabyPanelRef.current.getBoundingClientRect().top + window.scrollY - 150
+      scroll.scrollTo(value, {
+        duration: 300,
+      })
+    }
+  }, [isLoading])
+
   return (
-    <div className="account-panel account-panel--my-baby">
+    <div className="account-panel account-panel--my-baby" ref={myBabyPanelRef}>
       <h3>{myBabyHeader}</h3>
       <h4>{myBabyDescription}</h4>
         {isLoading ? (

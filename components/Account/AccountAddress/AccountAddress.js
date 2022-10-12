@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCustomerContext } from '@/context/CustomerContext'
 import Expand from 'react-expand-animated'
 import AccountAddressCard from '../AccountAddressCard'
 import AccountAddressForm from '../AccountAddressForm'
 import LoadingState from '@/components/LoadingState'
+import { animateScroll as scroll } from 'react-scroll'
 
 const AccountAddress = () => {
 
@@ -12,6 +13,7 @@ const AccountAddress = () => {
   const [activeAddressEditForms, setActiveAddressEditForms] = useState([])
   const [countryList, setCountryList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const addressPanelRef = useRef()
 
   const toggleAddressFormExpand = () => {
     if (newAddressFormHeight === 0) {
@@ -65,8 +67,17 @@ const AccountAddress = () => {
     getCountries()
   }, [])
 
+  useEffect(() => {
+    if (isLoading) {
+      const value = addressPanelRef.current.getBoundingClientRect().top + window.scrollY - 150
+      scroll.scrollTo(value, {
+        duration: 300,
+      })
+    }
+  }, [isLoading])
+
   return (
-    <div className="account-panel">
+    <div className="account-panel" ref={addressPanelRef}>
       <h3>My Addresses</h3>
       {customer.addresses.length > 0 && <ul>
         {isLoading ? (
