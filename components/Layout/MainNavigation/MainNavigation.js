@@ -1,5 +1,5 @@
 // import classes from './MainNavigation.scss'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -22,7 +22,7 @@ import Cart from '../../../svgs/cart.svg'
 import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
-const MainNavigation = ({props, announcementBarRef}) => {
+const MainNavigation = forwardRef(({props}, announcementBarRef) => {
     // const primaryNavigation = props.mainNavigation
     // const secondaryNavigation = props.secondaryNavigation
     // const searchIcon = props.searchIcon.fields.file.url
@@ -253,6 +253,6 @@ const MainNavigation = ({props, announcementBarRef}) => {
         </div>
       </>
     )
-  }
+  })
 
   export default MainNavigation
