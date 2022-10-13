@@ -39,7 +39,7 @@ const MainNavigation = ({props, announcementBarRef}) => {
     const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false)
     const [query, setQuery] = useState('');
-    const [announcementBarHeight, setAnnoucementBarHeight] = useState(announcementBarRef?.current.offsetHeight ? announcementBarRef?.current.offsetHeight : 0)
+    const [announcementBarHeight, setAnnoucementBarHeight] = useState(announcementBarRef?.current?.offsetHeight ? announcementBarRef.current.offsetHeight : 0)
 
     useEffect(() => {
         if(isSearchOpen) {
