@@ -3,12 +3,12 @@
 .hero {
     width: 100%;
     background: lightblue;
-    height: calc(100vh - 115px);
+    height: calc(100vh - 63px);
     overflow: hidden;
     position: relative;
 
     @include breakpoint-up('md') {
-        height: calc(100vh - 155px);
+        height: calc(100vh - 96px);
     }
 
     @media screen and (min-width: 1074px) and  (max-height:900px) {
@@ -124,6 +124,9 @@
     &__header {
         color: #FFFFFF;
         margin-bottom: 60px;
+        &--italicized {
+            font-style: italic;
+        }
     }
 
     &__button {
