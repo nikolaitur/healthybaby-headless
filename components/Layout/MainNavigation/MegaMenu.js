@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
-import { nacelleClient } from 'services'
+import { useEffect } from 'react'
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { useHeaderContext } from '../../../context/HeaderContext'
 

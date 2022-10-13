@@ -1,20 +1,20 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { useRef } from 'react'
 
 import AnnouncementBar from '../AnnouncementBar'
 import MainNavigation from '../MainNavigation'
-import MobileNavigation from '../MobileNavigation'
 
 export function Header({ content }) {
+
+  const announcementBarRef = useRef()
+
   return (
       <>
         <header>
-            {content.fields?.announcementBar.fields.enable == "Yes" &&
-                <AnnouncementBar props={content.fields.announcementBar} />
+            {content.fields?.announcementBar.fields.enable &&
+                <AnnouncementBar ref={announcementBarRef} props={content.fields.announcementBar} />
             }
-            <nav className='nav' id="SiteNav">
-                <MainNavigation props={content.fields} />
-                <MobileNavigation props={content.fields}/>
+            <nav className={`nav ${content.fields?.announcementBar.fields.enable ? 'annoucement-bar-is-enabled' : ''}`} id="SiteNav">
+                <MainNavigation announcementBarRef={announcementBarRef} props={content.fields} />
             </nav>
         </header>
       </>

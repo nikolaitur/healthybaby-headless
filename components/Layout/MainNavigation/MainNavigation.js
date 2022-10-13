@@ -22,7 +22,7 @@ import Cart from '../../../svgs/cart.svg'
 import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
-const MainNavigation = ({props}) => {
+const MainNavigation = ({props, announcementBarRef}) => {
     // const primaryNavigation = props.mainNavigation
     // const secondaryNavigation = props.secondaryNavigation
     // const searchIcon = props.searchIcon.fields.file.url
@@ -39,6 +39,7 @@ const MainNavigation = ({props}) => {
     const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false)
     const [query, setQuery] = useState('');
+    const [announcementBarHeight, setAnnoucementBarHeight] = useState(announcementBarRef?.current.offsetHeight ? announcementBarRef?.current.offsetHeight : 0)
 
     useEffect(() => {
         if(isSearchOpen) {
@@ -47,6 +48,17 @@ const MainNavigation = ({props}) => {
             document.body.classList.remove("no-scroll")
         }
     }, [isSearchOpen])
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setAnnoucementBarHeight(announcementBarRef?.current.offsetHeight ? announcementBarRef?.current.offsetHeight : 0)
+        }
+        window.addEventListener("resize", handleResize);
+        return () => {
+          window.removeEventListener("resize", handleResize);
+        };
+    }, [])
 
     const openAccountModal = () => {
         modalContext.setIsOpen(false)
@@ -93,9 +105,6 @@ const MainNavigation = ({props}) => {
 
     const closeMobileMegaMenuSlide = () => {
         setMobileMenuSlideOpen(!isMobileMenuSlideOpen)
-        setmegaMenuIsOpen(false);
-        setMegaMenu(false)
-
         document.documentElement.style.setProperty("--menuBackground",  "#D0D8E9");
         document.documentElement.style.setProperty("--menuItemHover",  "#D0D8E9");
         document.documentElement.style.setProperty("--megaMenuLinkBackground",  "#D0D8E9");
@@ -191,13 +200,13 @@ const MainNavigation = ({props}) => {
                 </div>
             </div>
         </div>
-        <div className={`mobile-menu ${isMobileMenuOpen ? "is-open" : ""}`}>
+        <div className={`mobile-menu ${isMobileMenuOpen ? "is-open" : ""}`} style={{'top': announcementBarHeight}}>
             <div className="mobile-menu__close" onClick={() => closeMobileMenu()}>
                 <CloseIcon />
             </div>
             <div className="mobile-menu__primary">
                 {/* <div className="mobile-menu__item">Build a Box</div> */}
-                {props?.primaryNavigation ?  (
+                {props?.mainNavigation ?  (
                     props.mainNavigation.map((item, index) => (
                         <div className="mobile-menu__item" key={index} onClick={() => openMobileMegaMenuSlide(item)}>
                             <span>{item.fields.title}</span>
@@ -228,7 +237,7 @@ const MainNavigation = ({props}) => {
                     <span><CaretRight /></span>
                     <span>Back</span>
                 </div>
-                <MegaMenu menu={megaMenu}/>
+                <MegaMenu menu={megaMenu} />
             </div>
         </div>
 

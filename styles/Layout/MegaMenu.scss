@@ -12,7 +12,7 @@
 
     @include breakpoint-up('md') {
         width: 568px;
-        padding: 110px 0px 60px;
+        padding: 150px 0px 60px;
     }
 
     &.show {
@@ -25,7 +25,7 @@
         height: calc(100vh - 90px);
         width: 100%;
         @include breakpoint-up('md') {
-            height: calc(100vh - 110px);
+            height: calc(100vh - 150px);
         }
     }
 
@@ -54,7 +54,9 @@
     }
 
     &__primary-nav {
-        padding: 0 24px;
+        @include breakpoint-up('md') {
+            padding: 0 24px;
+        }
     }
 
     &__primary-nav,
@@ -173,6 +175,15 @@
 
             @include breakpoint-up('md') {
                 padding: 60px 72px 10px;
+            }
+        }
+
+        .mega-menu__title {
+            font-size: 18px;
+            line-height: 22px;
+            @include breakpoint-up('md') {
+                font-size: 32px;
+                line-height:38px;
             }
         }
     }
