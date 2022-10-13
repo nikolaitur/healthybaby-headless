@@ -77,30 +77,34 @@ const MegaMenu = ({ menu, menuColors }) => {
             {menu.fields?.featuredProductsList?.length > 0 ?
                 <div className="mega-menu__featured-products">
                     <div className="mega-menu__sub-header">Featured Products</div>
-                    { menu.fields.featuredProductsList.map((product, index) => (
-                        <div key={index} className="mega-menu__featured-product">
-                            <div className="mega-menu__image">
-                                {product.content.featuredMedia ?
-                                    <Image
-                                        src={product.content.featuredMedia.src}
-                                        alt={product.content.title}
-                                        layout="fill"
-                                    />
-                                :
-                                    <Image
-                                        src="https://placeimg.com/150/120/people"
-                                        alt={product.content.title}
-                                        layout="fill"
-                                    />
-                                }
+                    {menu.fields.featuredProductsList.map((product, index) => {
+                        const firstVariant = product.variants[0]
+                        return (
+                            <div key={index} className="mega-menu__featured-product">
+                                <div className="mega-menu__image">
+                                    {product.content.featuredMedia ?
+                                        <Image
+                                            src={product.content.featuredMedia.src}
+                                            alt={product.content.title}
+                                            width={115}
+                                            height={148}
+                                        />
+                                    :
+                                        <Image
+                                            src="https://placeimg.com/150/120/people"
+                                            alt={product.content.title}
+                                            layout="fill"
+                                        />
+                                    }
+                                </div>
+                                <div className="mega-menu__content">
+                                    <div className="mega-menu__eyebrow">{product.content.title}</div>
+                                    {firstVariant.content.title && firstVariant.content.title !== 'Default Title' && <div className="mega-menu__subtitle">{firstVariant.content.title}</div>}
+                                    <div className="mega-menu__price">${product.variants[0].price}.00</div>
+                                </div>
                             </div>
-                            <div className="mega-menu__content">
-                                <div className="mega-menu__eyebrow">{product.content.title}</div>
-                                <div className="mega-menu__subtitle"></div>
-                                <div className="mega-menu__price">${product.variants[0].price}.00</div>
-                            </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
             : ""}
         </div>

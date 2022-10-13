@@ -46,6 +46,10 @@
         }
     }
 
+    &__primary-nav {
+        padding: 0 24px;
+    }
+
     &__primary-nav,
     &__secondary-nav,
     &__featured-articles,
@@ -62,8 +66,8 @@
             position: absolute;
 
             @include breakpoint-up('md') {
-                left: 50px;
-                width: calc(100% - 100px);
+                left: 72px;
+                width: calc(100% - 144px);
             }
         }
     }
@@ -80,7 +84,7 @@
         padding: 60px 28px 40px;
 
         @include breakpoint-up('md') {
-            padding: 60px 50px 40px;
+            padding: 60px 72px 40px;
         }
     }
 
@@ -89,7 +93,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 25px;  
+        padding: 19px 25px;
         cursor: pointer;
         font-family: $NeutraText;
         font-style: normal;
@@ -126,7 +130,7 @@
         cursor: pointer;
 
         &:not(:first-child) {
-            margin-top: 40px;
+            margin-top: 28px;
         }
     }
 
@@ -154,14 +158,14 @@
         transition: 0.3s;
 
         @include breakpoint-up('md') {
-            padding: 10px 50px 10px;
+            padding: 10px 72px 10px;
         }
 
         &:first-of-type {
             padding: 60px 28px 10px;
 
             @include breakpoint-up('md') {
-                padding: 60px 50px 10px;
+                padding: 60px 72px 10px;
             }
         }
     }
@@ -199,7 +203,7 @@
         font-size: 14px;
         line-height: 17px;
         letter-spacing: -0.01em;
-
+        margin-bottom: 15px;
         @include breakpoint-up('md') {
             font-size: 18px;
             line-height: 25px;
@@ -213,7 +217,7 @@
         font-size: 24px;
         line-height: 24px;
         color: #3D3331;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 
     &__price {
@@ -224,19 +228,20 @@
         line-height: 22px;
         letter-spacing: -0.01em;
         color: #3D3331;
+        margin-top: 15px;
     }
 
     &__image {
-        max-width: 150px;
-        height: 120px!important;
+        max-width: 115px;
+        height: 148px!important;
         width: 100%;
         position: relative;
 
         img {
-            max-height: 120px!important;
-            height: 120px!important;
+            max-width: 115px;
+            height: 148px!important;
             width: 100%!important;
-            object-fit: cover!important;
+            object-fit: contain!important;
         }
     }
 }
