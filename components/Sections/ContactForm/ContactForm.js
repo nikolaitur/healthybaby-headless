@@ -3,6 +3,7 @@ import parse from 'html-react-parser'
 import Image from 'next/image'
 import Select, { components } from 'react-select'
 import IconSelector from '@/svgs/selector.svg'
+import { animateScroll as scroll } from 'react-scroll'
 
 const ContactForm = ({content}) => {
 
@@ -12,6 +13,7 @@ const ContactForm = ({content}) => {
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const refs = ['name', 'email', 'phone_number', 'order_number', 'message']
+  const contactFormRef = useRef()
 
   const formRef = useRef(refs.reduce((carry, ref) => {
     return {
@@ -48,6 +50,11 @@ const ContactForm = ({content}) => {
     if (response && response.message === 'success') {
       setFormSubmitted(true)
       setShowErrorMessage(false)
+      const value = contactFormRef.current.getBoundingClientRect().top + window.scrollY - 150
+      scroll.scrollTo(value, {
+        duration: 300,
+      })
+
     } else {
       setShowErrorMessage(true)
     }
@@ -88,7 +95,7 @@ const ContactForm = ({content}) => {
   ]
 
   return (
-    <div className="contact-form-section container">
+    <div ref={contactFormRef} className="contact-form-section container">
       {formSubmitted ? (
         <div className="contact-form">
           <h4 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h4>
