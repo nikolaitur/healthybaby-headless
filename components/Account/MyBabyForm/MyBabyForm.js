@@ -100,7 +100,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
       <div className="input-group--wrapper">
         <div className="input-group input-group--thirds">
           <Select
-            className={`select-dropdown-selector`}
+            className={`select-dropdown-selector select-dropdown-selector--has-label`}
             classNamePrefix="react-select"
             options={months}
             value={monthSelected}
@@ -113,7 +113,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
         </div>
         <div className="input-group input-group--thirds">
           <Select
-            className={`select-dropdown-selector`}
+            className={`select-dropdown-selector select-dropdown-selector--has-label`}
             classNamePrefix="react-select"
             options={days}
             value={daySelected}
@@ -126,7 +126,7 @@ const MyBabyForm = ({baby, index, type, onUpdateBabyInfo, toggleExpand}) => {
         </div>
         <div className="input-group input-group--thirds">
           <Select
-            className={`select-dropdown-selector`}
+            className={`select-dropdown-selector select-dropdown-selector--has-label`}
             classNamePrefix="react-select"
             options={years}
             value={yearSelected}

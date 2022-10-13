@@ -140,7 +140,7 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
         </div>
         <div className="input-group">
           <Select
-            className={`select-dropdown-selector`}
+            className={`select-dropdown-selector select-dropdown-selector--has-label`}
             classNamePrefix="react-select"
             options={countryList}
             value={countrySelected}
@@ -156,7 +156,7 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
       <div className="input-group--wrapper">
         <div className="input-group">
           <Select
-            className={`select-dropdown-selector`}
+            className={`select-dropdown-selector select-dropdown-selector--has-label`}
             classNamePrefix="react-select"
             options={countrySelected ? countrySelected.provinces : []}
             value={stateSelected}

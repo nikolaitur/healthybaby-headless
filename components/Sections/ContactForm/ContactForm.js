@@ -2,7 +2,7 @@ import { useState, useRef, createRef } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Select, { components } from 'react-select'
-import IconCaretTop from '@/svgs/caret-top.svg'
+import IconSelector from '@/svgs/selector.svg'
 
 const ContactForm = ({content}) => {
 
@@ -57,7 +57,7 @@ const ContactForm = ({content}) => {
     return (
       components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
+          <div className="dropdown-selector__arrow-open"><IconSelector /></div>
         </components.DropdownIndicator>
       )
     )
@@ -121,7 +121,16 @@ const ContactForm = ({content}) => {
               <label className="label">Phone Number</label>
             </div>
             <div className="input-group">
-              <input className="input" type="text" placeholder="Order Number (optional)" ref={formRef.current.order_number} />
+              <input
+                className="input"
+                type="text"
+                placeholder="Order Number (optional)"
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault()
+                  }
+                }}
+                ref={formRef.current.order_number} />
               <label className="label">Order Number</label>
             </div>
           </div>

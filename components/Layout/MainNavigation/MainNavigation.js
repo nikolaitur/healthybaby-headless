@@ -34,8 +34,6 @@ const MainNavigation = ({props}) => {
     const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
     const cartDrawerContext =  useCartDrawerContext()
 
-    // console.log('Cust', customerContext.customer)
-
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false);
     const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false);
@@ -120,13 +118,13 @@ const MainNavigation = ({props}) => {
     <>
         <div className="main-nav">
             <div className="main-nav__left">
-                <div className="main-nav__item" onMouseEnter={onMenuMouseEnter}>
+                {/* <div className="main-nav__item" onMouseEnter={onMenuMouseEnter}>
                     <Link href="/">
                         <a>
                             Build a Box
                         </a>
                     </Link>
-                </div>
+                </div> */}
                 {props?.mainNavigation ? (
                     props.mainNavigation.map((item, index) => (
                         <MegaMenuItem key={index} menu={item}/>
@@ -198,7 +196,7 @@ const MainNavigation = ({props}) => {
                 <CloseIcon />
             </div>
             <div className="mobile-menu__primary">
-                <div className="mobile-menu__item">Build a Box</div>
+                {/* <div className="mobile-menu__item">Build a Box</div> */}
                 {props?.primaryNavigation ?  (
                     props.mainNavigation.map((item, index) => (
                         <div className="mobile-menu__item" key={index} onClick={() => openMobileMegaMenuSlide(item)}>

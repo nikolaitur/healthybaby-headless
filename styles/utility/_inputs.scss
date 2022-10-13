@@ -126,6 +126,13 @@
 **/
 
 .select-dropdown-selector {
+	&.select-dropdown-selector--has-label {
+		.react-select__placeholder {
+			@include breakpoint-up('sm') {
+				padding-top: 20px;
+			}
+		}
+	}
 	&:not(:placeholder-shown) {
 		.react-select__single-value {
 			@include breakpoint-up('sm') {
@@ -169,7 +176,6 @@
 	.react-select__placeholder {
 		color: rgba(61, 51, 49, 0.8) !important;
 		font-family: $NeutraText !important;
-		padding-top: 20px;
 	}
 
   .react-select__placeholder,

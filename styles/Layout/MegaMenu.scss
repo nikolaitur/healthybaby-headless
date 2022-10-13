@@ -1,7 +1,6 @@
 .mega-menu {
     padding: 90px 0px 60px;
     position: fixed;
-    height: 100vh;
     width: 100%;
     background: #fff;
     z-index: 10;
@@ -10,16 +9,24 @@
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
-    overflow: scroll;
 
     @include breakpoint-up('md') {
         width: 568px;
-        padding: 150px 0px 60px;
+        padding: 110px 0px 60px;
     }
 
     &.show {
         opacity: 1;
         pointer-events: initial;
+    }
+
+    &__scrollable {
+        overflow: auto;
+        height: calc(100vh - 90px);
+        width: 100%;
+        @include breakpoint-up('md') {
+            height: calc(100vh - 110px);
+        }
     }
 
     &__overlay {
