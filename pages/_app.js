@@ -59,15 +59,18 @@ AppContainer.getInitialProps = async (appContext) => {
 
   if (headerSettings.fields.mainNavigation?.length > 0) {
     headerSettings.fields.mainNavigation.map(async mainNavigation => {
-      const productList = mainNavigation.fields.featuredProductsList.split(',')
-      const products = await nacelleClient.products({
-        handles: productList
-      })
-      const updatedMainNavigation = {
-        ...mainNavigation
+      if (mainNavigation.fields?.featuredProductsList) {
+        const productList = mainNavigation.fields.featuredProductsList.split(',')
+        const products = await nacelleClient.products({
+          handles: productList
+        })
+        const updatedMainNavigation = {
+          ...mainNavigation
+        }
+        updatedMainNavigation.fields.featuredProductsList = products
+        return updatedMainNavigation
       }
-      updatedMainNavigation.fields.featuredProductsList = products
-      return updatedMainNavigation
+      return mainNavigation
     })
   }
 
