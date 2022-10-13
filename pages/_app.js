@@ -53,10 +53,24 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings'],
   })
 
-  const headerSettings = contentEntry.filter(content => {
+  let headerSettings = contentEntry.filter(content => {
     return content.fields.handle == "header-settings";
   })[0];
-  
+
+  if (headerSettings.fields.mainNavigation?.length > 0) {
+    headerSettings.fields.mainNavigation.map(async mainNavigation => {
+      const productList = mainNavigation.fields.featuredProductsList.split(',')
+      const products = await nacelleClient.products({
+        handles: productList
+      })
+      const updatedMainNavigation = {
+        ...mainNavigation
+      }
+      updatedMainNavigation.fields.featuredProductsList = products
+      return updatedMainNavigation
+    })
+  }
+
   const footerSettings = contentEntry.filter(content => {
     return content.fields.handle == "footer-settings";
   })[0];
