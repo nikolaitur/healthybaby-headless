@@ -1,6 +1,9 @@
 .collection-cards {
-    padding: 100px 0;
+    padding: 40px 0;
 
+    @include breakpoint-up('md') {
+        padding: 100px 0;
+    }
     &__header {
         margin-bottom: 30px;
 
@@ -10,7 +13,7 @@
     }
 
     &__wrapper {
-        
+
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;

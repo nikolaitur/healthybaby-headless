@@ -1,6 +1,9 @@
 .stories-slider {
-  padding: 100px 0;
+  padding: 40px 0;
 
+  @include breakpoint-up('md') {
+      padding: 100px 0;
+  }
   .swiper-slide {
     opacity: 0 !important;
 
