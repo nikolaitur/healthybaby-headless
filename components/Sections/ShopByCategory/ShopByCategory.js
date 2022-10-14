@@ -35,8 +35,8 @@ const ShopByCategory = ({ content }) => {
                     <Swiper
                         className="shop-by-category__slider--desktop desktop"
                         modules={[Lazy, Navigation]}
-                        spaceBetween={20}
-                        slidesPerView={3}
+                        spaceBetween={32}
+                        slidesPerView={3.4}
                         lazy={true}
                         navigation={true}
                         style={{
@@ -56,7 +56,7 @@ const ShopByCategory = ({ content }) => {
                         className="shop-by-category__slider--mobile mobile"
                         modules={[Lazy, Navigation]}
                         spaceBetween={20}
-                        slidesPerView={1}
+                        slidesPerView={1.125}
                         lazy={true}
                         navigation={true}
                         style={{

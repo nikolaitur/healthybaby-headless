@@ -48,7 +48,7 @@ const BestSellers = ({ content }) => {
                         </Link>
                     </div>
                 </div>
-                {bestSellers.length > 1 ? (
+                {bestSellers.length > 0 ? (
                     <div className="best-sellers__slider">
                         <Swiper
                             className="best-sellers__slider--desktop"
