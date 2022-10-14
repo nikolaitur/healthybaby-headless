@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '../utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '../gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_ADDRESS_CREATE, CUSTOMER_ADDRESS_UPDATE, CUSTOMER_ADDRESS_DELETE, CUSTOMER_DEFAULT_ADDRESS_UPDATE, CUSTOMER_RECOVER, CUSTOMER_RESET, GET_CUSTOMER_ORDERS, transformEdges, transformOrders } from '../gql/index.js'
 import { Multipass } from "multipass-js"
+import { encode } from 'js-base64'
 
 const multipass = new Multipass(process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET)
 import * as Cookies from 'es-cookie'
@@ -15,12 +16,14 @@ export function useCustomerContext() {
 export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
-  const [customerLoading, setCustomerLoading] = useState(false)
+  const [customerLoading, setCustomerLoading] = useState(true)
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
     if (customerAccessToken) {
       getCustomer({ accessToken: customerAccessToken })
+    } else {
+      setCustomerLoading(false)
     }
   }, [])
 
@@ -41,8 +44,10 @@ export function CustomerProvider({ children }) {
     return { customerAccessTokenCreate: data.customerAccessTokenCreate }
   }
 
-  async function getCustomer({accessToken, expiresAt}) {
-    setCustomerLoading(true)
+  async function getCustomer({accessToken, expiresAt, enableLoadingState = true}) {
+    if (enableLoadingState) {
+      setCustomerLoading(true)
+    }
     const response = await accountClientPost({
       query: GET_CUSTOMER,
       variables: {
@@ -50,7 +55,7 @@ export function CustomerProvider({ children }) {
       }
     })
     const { data, errors } = response
-    setCustomerLoading(false)
+
     if (errors && errors.length) {
       return { errors: errors }
     }
@@ -65,6 +70,22 @@ export function CustomerProvider({ children }) {
     if (customer?.addresses?.edges.length > 0) {
       customer.addresses = transformEdges(customer.addresses)
       customer.shopify_login_redirect_url = multipassRedirectURL
+    }
+
+    const orders = await getCustomerOrders({accessToken})
+
+    if (!orders.errors?.length) {
+      customer.orders = orders
+    }
+
+    if (customer?.metafields.edges.length > 0) {
+      customer.metafields = transformEdges(customer.metafields)
+    } else {
+      customer.metafields = []
+    }
+
+    if (enableLoadingState) {
+      setCustomerLoading(false)
     }
 
     setCustomer(customer)
@@ -87,7 +108,21 @@ export function CustomerProvider({ children }) {
     })
   }
 
-  async function register({ firstName, lastName, email, password }) {
+  async function logout() {
+    const customerAccessToken = Cookies.get('customerAccessToken')
+    const response = await accountClientPost({
+      query: CUSTOMER_ACCESS_TOKEN_DELETE,
+      variables: { customerAccessToken: customerAccessToken }
+    })
+    const { deletedAccessToken, userErrors } = {...response.data.customerAccessTokenDelete}
+    if (deletedAccessToken) {
+      setCustomer(null)
+      Cookies.remove('customerAccessToken')
+    }
+    return { deletedAccessToken, errors: userErrors }
+  }
+
+  async function register({ firstName, lastName, email, password}) {
     const response = await accountClientPost({
       query: CUSTOMER_CREATE,
       variables: {
@@ -107,8 +142,203 @@ export function CustomerProvider({ children }) {
     return { data, errors: customerUserErrors }
   }
 
+  async function recover({ email }) {
+    const response = await accountClientPost({
+      query: CUSTOMER_RECOVER,
+      variables: {
+        email
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerRecover
+    return { data, errors: customerUserErrors }
+  }
+
+  async function reset({ password, customerId, resetToken }) {
+    const id = encode(`gid://shopify/Customer/${customerId}`)
+    const response = await accountClientPost({
+      query: CUSTOMER_RESET,
+      variables: {
+        id,
+        input: {
+          password,
+          resetToken
+        }
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerReset
+    return { data, errors: customerUserErrors }
+  }
+
+  async function getCustomerOrders({accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: GET_CUSTOMER_ORDERS,
+      variables: {
+        customerAccessToken: accessToken
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const orders = transformOrders(data.customer.orders)
+    // TODO: check if customer without orders returns error
+    return orders
+  }
+
+  async function updateBabyInformation({customer, metafields, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await fetch('/api/shopify/update-baby-info', {
+      method: 'POST',
+      body: JSON.stringify({
+        variables: {
+          input: {
+            id: customer.id,
+            metafields
+          }
+        }
+      })
+    })
+    .then(response => response.json())
+    if (response && response.message === 'error') {
+      console.log("response:", response)
+      return response.data.errors
+    }
+    if (response && response.message === 'success') {
+      return getCustomer({
+        accessToken: accessToken,
+        enableLoadingState: false
+      })
+    }
+    return response
+  }
+
+  async function createBabyMetafields({metafields, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await fetch('/api/shopify/create-baby-metafields', {
+      method: 'POST',
+      body: JSON.stringify({
+        variables: {
+          metafields
+        }
+      })
+    })
+    .then(response => response.json())
+    if (response && response.message === 'error') {
+      console.log("response:", response)
+      return response.data.errors
+    }
+    if (response && response.message === 'success') {
+      return getCustomer({
+        accessToken: accessToken,
+        enableLoadingState: false
+      })
+    }
+    return response
+  }
+
+  async function addAddress({address, defaultAddressIsChecked, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ADDRESS_CREATE,
+      variables: {
+        customerAccessToken: accessToken,
+        address
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+
+    if (defaultAddressIsChecked) {
+      console.log("setting as default:", data.customerAddressCreate.customerAddress.id)
+      await setAsDefaultAddress({
+        accessToken,
+        addressId: data.customerAddressCreate.customerAddress.id
+      })
+    }
+
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
+  async function updateAddress({address, addressId, defaultAddressIsChecked, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ADDRESS_UPDATE,
+      variables: {
+        customerAccessToken: accessToken,
+        address,
+        id: addressId
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+
+
+    console.log("setting as default:", addressId)
+    if (defaultAddressIsChecked) {
+      await setAsDefaultAddress({
+        accessToken,
+        addressId
+      })
+    }
+
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
+  async function deleteAddress({addressId, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_ADDRESS_DELETE,
+      variables: {
+        customerAccessToken: accessToken,
+        id: addressId
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
+  async function setAsDefaultAddress({addressId, accessToken = Cookies.get('customerAccessToken')}) {
+    const response = await accountClientPost({
+      query: CUSTOMER_DEFAULT_ADDRESS_UPDATE,
+      variables: {
+        customerAccessToken: accessToken,
+        addressId
+      }
+    })
+    const { data, errors } = response
+
+    console.log(data, errors)
+
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    return getCustomer({
+      accessToken: accessToken,
+      enableLoadingState: false
+    })
+  }
+
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login }}>
+    <CustomerContext.Provider value={{ customer, setCustomer, customerLoading, register, login, logout, recover, reset, getCustomerOrders, createBabyMetafields, updateBabyInformation, addAddress, updateAddress, deleteAddress, setAsDefaultAddress }}>
       {children}
     </CustomerContext.Provider>
   )

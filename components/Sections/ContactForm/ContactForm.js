@@ -2,7 +2,8 @@ import { useState, useRef, createRef } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Select, { components } from 'react-select'
-import IconCaretTop from '@/svgs/caret-top.svg'
+import IconSelector from '@/svgs/selector.svg'
+import { animateScroll as scroll } from 'react-scroll'
 
 const ContactForm = ({content}) => {
 
@@ -12,6 +13,7 @@ const ContactForm = ({content}) => {
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const refs = ['name', 'email', 'phone_number', 'order_number', 'message']
+  const contactFormRef = useRef()
 
   const formRef = useRef(refs.reduce((carry, ref) => {
     return {
@@ -28,14 +30,14 @@ const ContactForm = ({content}) => {
       return
     } else {}
 
-    const data = {};
+    const data = {}
 
     for (const keyName of Object.keys(formRef.current)) {
       const value = formRef.current[keyName].current.value
       data[keyName] = value
     }
 
-    data['subject'] = requestType.value;
+    data['subject'] = requestType.value
 
     const response = await fetch('/api/zendesk/create-ticket', {
       method: 'POST',
@@ -48,6 +50,11 @@ const ContactForm = ({content}) => {
     if (response && response.message === 'success') {
       setFormSubmitted(true)
       setShowErrorMessage(false)
+      const value = contactFormRef.current.getBoundingClientRect().top + window.scrollY - 150
+      scroll.scrollTo(value, {
+        duration: 300,
+      })
+
     } else {
       setShowErrorMessage(true)
     }
@@ -57,11 +64,11 @@ const ContactForm = ({content}) => {
     return (
       components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
+          <div className="dropdown-selector__arrow-open"><IconSelector /></div>
         </components.DropdownIndicator>
       )
-    );
-  };
+    )
+  }
 
   const colourStyles = {
     option: (provided, state) => ({
@@ -69,7 +76,7 @@ const ContactForm = ({content}) => {
       backgroundColor: state.isSelected || state.isFocused ? '#00B188' : '#fff',
       color: state.isSelected || state.isFocused ? '#fff' : '#3D3331',
     }),
-  };
+  }
 
 
   const options = [
@@ -88,7 +95,7 @@ const ContactForm = ({content}) => {
   ]
 
   return (
-    <div className="contact-form-section container">
+    <div ref={contactFormRef} className="contact-form-section container">
       {formSubmitted ? (
         <div className="contact-form">
           <h4 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h4>
@@ -113,7 +120,7 @@ const ContactForm = ({content}) => {
                 placeholder="Phone Number (optional)"
                 onKeyPress={(event) => {
                   if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault();
+                    event.preventDefault()
                   }
                 }}
                 ref={formRef.current.phone_number}
@@ -121,7 +128,16 @@ const ContactForm = ({content}) => {
               <label className="label">Phone Number</label>
             </div>
             <div className="input-group">
-              <input className="input" type="text" placeholder="Order Number (optional)" ref={formRef.current.order_number} />
+              <input
+                className="input"
+                type="text"
+                placeholder="Order Number (optional)"
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault()
+                  }
+                }}
+                ref={formRef.current.order_number} />
               <label className="label">Order Number</label>
             </div>
           </div>
