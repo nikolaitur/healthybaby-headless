@@ -14,7 +14,7 @@ export function Header({ content }) {
                 <AnnouncementBar ref={announcementBarRef} props={content.fields.announcementBar} />
             }
             <nav className={`nav ${content.fields?.announcementBar.fields.enable ? 'annoucement-bar-is-enabled' : ''}`} id="SiteNav">
-                <MainNavigation announcementBarRef={announcementBarRef} props={content.fields} />
+                <MainNavigation ref={announcementBarRef} props={content.fields} />
             </nav>
         </header>
       </>

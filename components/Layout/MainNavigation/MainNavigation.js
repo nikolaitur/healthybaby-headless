@@ -22,7 +22,7 @@ import Cart from '../../../svgs/cart.svg'
 import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
-const MainNavigation = forwardRef(({props}, announcementBarRef) => {
+const MainNavigation = forwardRef(({props}, ref) => {
     // const primaryNavigation = props.mainNavigation
     // const secondaryNavigation = props.secondaryNavigation
     // const searchIcon = props.searchIcon.fields.file.url
@@ -39,7 +39,7 @@ const MainNavigation = forwardRef(({props}, announcementBarRef) => {
     const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false)
     const [query, setQuery] = useState('');
-    const [announcementBarHeight, setAnnoucementBarHeight] = useState(announcementBarRef?.current?.offsetHeight ? announcementBarRef.current.offsetHeight : 0)
+    const [announcementBarHeight, setAnnoucementBarHeight] = useState()
 
     useEffect(() => {
         if(isSearchOpen) {
@@ -52,8 +52,9 @@ const MainNavigation = forwardRef(({props}, announcementBarRef) => {
 
     useEffect(() => {
         const handleResize = () => {
-            setAnnoucementBarHeight(announcementBarRef?.current.offsetHeight ? announcementBarRef?.current.offsetHeight : 0)
+            setAnnoucementBarHeight(ref?.current.offsetHeight ? ref?.current.offsetHeight : 0)
         }
+        handleResize()
         window.addEventListener("resize", handleResize);
         return () => {
           window.removeEventListener("resize", handleResize);
@@ -72,6 +73,7 @@ const MainNavigation = forwardRef(({props}, announcementBarRef) => {
     };
 
     const openMobileMenu = () => {
+        if (window) window.scrollTo(0,0)
         setMobileMenuOpen(!isMobileMenuOpen)
         setmegaMenuIsOpen(true)
     }
