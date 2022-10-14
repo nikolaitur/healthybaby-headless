@@ -5,6 +5,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import styles from './ProductCard.module.css'
+import { dataLayerATC } from '@/utils/dataLayer'
 
 function ProductCard({ product }) {
   const [, { addToCart }] = useCart()
@@ -52,6 +53,16 @@ function ProductCard({ product }) {
       product,
       variant: selectedVariant,
     })
+
+    const newItem = {
+      product,
+      variant,
+      variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
+      quantity: 1,
+    }
+
+    dataLayerATC({ item: newItem })
+
     addToCart({
       variant,
       quantity: 1,

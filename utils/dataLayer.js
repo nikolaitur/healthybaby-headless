@@ -32,27 +32,6 @@ function buildProductData(products, type, url) {
   })
 }
 
-function buildProductDataFromBold(lineItems) {
-  return lineItems.map((item) => {
-    item = item.product_data
-    return {
-      id: item.sku, // SKU
-      name: item.product_title, // Product title
-      brand: 'Healthy Baby',
-      category: '',
-      variant: item.title,
-      price: formatPrice(item.price).toString(),
-      quantity: item.quantity.toString(),
-      product_id: item.product_id, // The product_id
-      variant_id: item.variant_id, // id or variant_id
-      compare_at_price: item.compare_at_price
-        ? formatPrice(item.compare_at_price).toString()
-        : '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
-      image: item.image_url || '', // If available, otherwise use an empty string
-    }
-  })
-}
-
 /*
   item must be unique custom object from HeadlessCheckoutContext.js
 */
@@ -67,7 +46,7 @@ export const dataLayerATC = ({ item }) => {
             {
               id: item.variant.sku, // SKU
               name: item.variant.productTitle, // Product title
-              brand: 'Sitka Salmon Shares',
+              brand: 'Healthy Baby',
               category: '',
               variant: item.variant.title,
               price: item.variant.price.toString(),
@@ -92,13 +71,14 @@ export const dataLayerATC = ({ item }) => {
   - this is for removing from cart
 */
 export const dataLayerRFC = ({ item }) => {
+  console.log(item)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_remove_from_cart',
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
         remove: {
-          products: buildProductDataFromBold([item]),
+          products: [item.product],
         },
       },
     },
@@ -133,7 +113,7 @@ export const dataLayerViewSearchResults = ({ products }) => {
           return {
             id: item.sku, // SKU
             name: item.title, // Product title
-            brand: 'Sitka Salmon Shares',
+            brand: 'Healthy Baby',
             category: '',
             variant: item.variant_title,
             price: formatPrice(item.price).toString(),
