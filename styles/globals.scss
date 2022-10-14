@@ -41,6 +41,7 @@
 // ===========================================================================
 @import './Pages/ShopAll.scss';
 @import './Pages/Collections/Collection.scss';
+@import './Pages/Account/Account.scss';
 
 // ===========================================================================
 // *** Sections
@@ -77,3 +78,4 @@
 @import './Components/Cards/DiaperFinderCard.scss';
 @import './Components/Cards/VitaminFinder.scss';
 @import './Components/Product/Product.scss';
+@import './Components/LoadingState.scss';

@@ -53,10 +53,28 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings'],
   })
 
-  const headerSettings = contentEntry.filter(content => {
+  let headerSettings = contentEntry.filter(content => {
     return content.fields.handle == "header-settings";
   })[0];
-  
+
+  // client request to remove the featured products section in megamenu
+  // if (headerSettings.fields.mainNavigation?.length > 0) {
+  //   headerSettings.fields.mainNavigation.map(async mainNavigation => {
+  //     if (mainNavigation.fields?.featuredProductsList) {
+  //       const productList = mainNavigation.fields.featuredProductsList.split(',')
+  //       const products = await nacelleClient.products({
+  //         handles: productList
+  //       })
+  //       const updatedMainNavigation = {
+  //         ...mainNavigation
+  //       }
+  //       updatedMainNavigation.fields.featuredProductsList = products
+  //       return updatedMainNavigation
+  //     }
+  //     return mainNavigation
+  //   })
+  // }
+
   const footerSettings = contentEntry.filter(content => {
     return content.fields.handle == "footer-settings";
   })[0];

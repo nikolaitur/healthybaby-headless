@@ -51,7 +51,7 @@ body.no-scroll {
 body {
 	background: #F5F2F2;
 	transition: 1s ease;
-	
+
 	&.color-blue {
 		background: #D0D8E9;
 	}
@@ -69,10 +69,14 @@ body {
 	}
 }
 main {
-	
+
 }
 a {
 	text-decoration: none;
+	color: inherit;
+	&:visited {
+		color: inherit;
+	}
 }
 ol, ul {
 	list-style-position: inside;

@@ -1,3 +1,14 @@
+.account-form-page {
+    padding: 100px 0;
+    background: #EDF6FC;
+}
+
+.account-form-page__form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .account-form {
     background: #EDF6FC;
     width: 100%;
@@ -24,6 +35,11 @@
             font-size: 36px;
             line-height: 43px;
         }
+    }
+
+    &__subheader {
+        max-width: 350px;
+        margin: -20px auto 20px;
     }
 
     &__icons {
@@ -178,16 +194,20 @@
             font-size: 18px;
             line-height: 22px;
         }
-        
+
     }
 
     &__error {
+        color: red;
+    }
+
+    &__error,
+    &__success {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
         line-height: 20px;
-        color: red;
         margin: 0 0 30px;
     }
 
