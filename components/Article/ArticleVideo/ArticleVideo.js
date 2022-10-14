@@ -66,36 +66,18 @@ const ArticleVideo = ({ content }) => {
         </div>
       ) : (
         <div className="article-hero__image">
-          <div className="article-hero__image--desktop">
-            {coverImage.fields?.file ? (
-              <Image
-                className=""
-                src={`https:${coverImage.fields.file.url}`}
-                alt={`image`}
-                layout="responsive"
-                objectFit="cover"
-                height="700"
-                width="650"
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-          <div className="article-hero__image--mobile">
-            {coverImageMobile.fields?.file ? (
-              <Image
-                className=""
-                src={`https:${coverImageMobile.fields.file.url}`}
-                alt={`image`}
-                layout="responsive"
-                objectFit="cover"
-                height="700"
-                width="650"
-              />
-            ) : (
-              <></>
-            )}
-          </div>
+          <div
+            className="article-hero__image--desktop"
+            style={{
+              backgroundImage: `url(https:${coverImage.fields?.file.url})`,
+            }}
+          ></div>
+          <div
+            className="article-hero__image--mobile"
+            style={{
+              backgroundImage: `url(https:${coverImageMobile.fields?.file.url})`,
+            }}
+          ></div>
         </div>
       )}
     </>
