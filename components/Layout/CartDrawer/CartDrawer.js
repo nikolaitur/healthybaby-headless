@@ -130,9 +130,6 @@ const CartDrawer = ({ content }) => {
         //     console.error(err)
         //   })
 
-        clearCart()
-        return
-
         const cartItems = cart.map((lineItem) => {
             const returnItem = {
                 merchandiseId: lineItem.nacelleEntryId,
