@@ -32,9 +32,6 @@ function buildProductData(products, type, url) {
   })
 }
 
-/*
-  item must be unique custom object from HeadlessCheckoutContext.js
-*/
 export const dataLayerATC = ({ item }) => {
   TagManager.dataLayer({
     dataLayer: {
@@ -67,7 +64,6 @@ export const dataLayerATC = ({ item }) => {
 }
 
 /*
-  item must be unique custom object from HeadlessCheckoutContext.js
   - this is for removing from cart
 */
 export const dataLayerRFC = ({ item }) => {
