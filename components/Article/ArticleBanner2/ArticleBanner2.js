@@ -1,4 +1,5 @@
 import React from 'react'
+import parse from 'html-react-parser'
 
 const ArticleBanner2 = ({ content }) => {
   const {
@@ -19,7 +20,7 @@ const ArticleBanner2 = ({ content }) => {
       }}
     >
       <div className="article-banner2__eyebrow">{eyebrowText}</div>
-      <div className="article-banner2__title">{title}</div>
+      <div className="article-banner2__title">{parse(title)}</div>
       <div className="article-banner2__subtitle">{subtitle}</div>
       <a href={linkUrl} className="article-banner2__link">
         {linkText}

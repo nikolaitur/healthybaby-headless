@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import parse from 'html-react-parser'
+
 const articleHeroPodcast = ({ content }) => {
   const { articleHero, title, articleType } = { ...content.fields }
   return (
@@ -34,7 +36,7 @@ const articleHeroPodcast = ({ content }) => {
         </div>
         <div className="podcast-hero__info">
           <div className="podcast-hero__type">{articleType}</div>
-          <h3 className="podcast-hero__title">{title}</h3>
+          <h3 className="podcast-hero__title">{parse(title)}</h3>
           <div className="podcast-hero__written">
             {articleHero?.fields?.podcastAuthors ? (
               <>

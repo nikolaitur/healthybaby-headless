@@ -1,13 +1,14 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 const WowAndHow = ({ content }) => {
-    const { header, subheader, copy, babyStage, ctaText, ctaUrl, showStars, backgroundColor } = content.fields
-    const imageGrid1 = content.fields.imageGrid1.fields.file.url    
-    const imageGrid2 = content.fields.imageGrid2.fields.file.url  
-    const imageGrid3 = content.fields.imageGrid3.fields.file.url 
-    const imageGrid4 = content.fields.imageGrid4.fields.file.url 
+    const { header, subheader, copy, babyStage, ctaText, ctaUrl, showStars, backgroundColor } = {...content.fields}
+    const imageGrid1 = content.fields.imageGrid1.fields.file.url
+    const imageGrid2 = content.fields.imageGrid2.fields.file.url
+    const imageGrid3 = content.fields.imageGrid3.fields.file.url
+    const imageGrid4 = content.fields.imageGrid4.fields.file.url
 
     // if(backgroundColor.indexOf('#') !== 0) {
     //     backgroundColor = "#C7E0E5"
@@ -46,7 +47,7 @@ const WowAndHow = ({ content }) => {
                 </div>
                 <div className="wow-and-how__content">
                     <h6 className="wow-and-how__subheader">{ subheader }</h6>
-                    <h4 className="wow-and-how__header">{ header }</h4>
+                    {header && <h4 className="wow-and-how__header">{ parse(header) }</h4>}
                     <h5 className="wow-and-how__copy">{ copy }</h5>
                     <div className="wow-and-how__cta">
                         <Link href={ctaUrl}>
@@ -65,7 +66,7 @@ const WowAndHow = ({ content }) => {
                     </div>
                     <div className="wow-and-how__subheader">BROWSE BY STAGE</div>
                     <div className="wow-and-how__stages">
-                        {babyStage.map((stage, index) => (                        
+                        {babyStage.map((stage, index) => (
                             <div className="wow-and-how__stage" key={index}>
                                 <Link href={stage.fields.ctaUrl}>{ stage.fields.ctaText }</Link>
                             </div>

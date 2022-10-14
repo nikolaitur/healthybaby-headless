@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
 
@@ -16,7 +17,7 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
     activity,
     boldTitle,
     italicTitle,
-  } = content.fields
+  } = {...content.fields}
   const image = content.fields.image.fields.file.url
 
   return (
@@ -29,7 +30,7 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
               italicTitle ? 'italic' : ''
             }`}
           >
-            {title}
+            {parse(title)}
           </h3>
           <h5 className="stories-slide__copy">{copy}</h5>
           <div className="stories-slide__author">{author}</div>

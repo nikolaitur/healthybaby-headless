@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 const ContentTimeline = ({ content }) => {
    console.log(content, "TIMELINE")
@@ -34,7 +35,7 @@ const ContentTimeline = ({ content }) => {
                 } else {
                     scrollProgress.style.height = `${((scrollTop / document.getElementById('content-timeline__items').offsetHeight)) * 100}%`;
                 }
-            }            
+            }
         });
     }
 
@@ -63,7 +64,7 @@ const ContentTimeline = ({ content }) => {
     const contentTimelineBlock = (item, index) => {
         return (
             <div className="content-timeline__item" key={index}>
-                <div className="content-timeline__title">{ item.fields.header }</div>
+                {item?.fields?.header && <div className="content-timeline__title">{ parse(item.fields.header) }</div>}
                 <p className="content-timeline__copy large">{ item.fields.description }</p>
             </div>
         )
@@ -86,7 +87,7 @@ const ContentTimeline = ({ content }) => {
                             />
                         </div>
                     ) : ""}
-                    
+
                     {content.fields?.mobileImage ? (
                         <div className="content-timeline__image content-timeline__image--mobile">
                             <Image
@@ -120,7 +121,7 @@ const ContentTimeline = ({ content }) => {
                         </div>
                     ) : ""}
                 </div>
-            </div>   
+            </div>
         </section>
     )
 }

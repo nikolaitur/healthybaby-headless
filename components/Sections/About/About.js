@@ -1,12 +1,13 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const About = ({ content }) => {
     const { header, subheader, copy, links, imageTitle, imageSubtitle } = content.fields
-    const image = content.fields.image.fields.file.url  
+    const image = content.fields.image.fields.file.url
 
     return (
         <section className="about">
@@ -14,7 +15,7 @@ const About = ({ content }) => {
                 <div className="about__content">
                     <h6 className="about__subheader">{ subheader }</h6>
                     <h3 className="about__header">
-                        { header }
+                        { parse(header) }
                     </h3>
                     <div className="about__image about__image--mobile">
                         <Image

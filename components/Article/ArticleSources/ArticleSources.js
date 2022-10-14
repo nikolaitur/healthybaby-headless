@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import ChevronUp from '../../../svgs/chevron-up.svg'
+import parse from 'html-react-parser'
 
 const ArticleSources = ({ content }) => {
   const [contentOpen, setContentOpen] = useState(true)
@@ -16,7 +17,7 @@ const ArticleSources = ({ content }) => {
   return (
     <div className="article-sources">
       <div className="article-sources__title" onClick={toggleContentOpen}>
-        <span>{title}</span>
+        <span>{parse(title)}</span>
         <span className={`arrow ${contentOpen ? 'opened' : ''}`}>
           <ChevronUp />
         </span>
