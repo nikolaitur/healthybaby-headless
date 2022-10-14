@@ -29,7 +29,7 @@ const findProductBadge = ({content, products, productBadges}) => {
     return null
 }
 
-const CollectionProductCard = ({ content, products, productBadges }) => {
+const CollectionProductCard = ({ content, products, productBadges, crossSell }) => {
 
     const [, { addToCart }] = useCart()
     const [isloading, setIsLoading] = useState(false)
@@ -38,11 +38,13 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
     const [productPrice, setProductPrice] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false)
     const { title, cardWidth } = content.fields
+    const isCrossSell = {...crossSell}
 
     const cartDrawerContext =  useCartDrawerContext()
     const modalContext = useModalContext()
 
     const badge = findProductBadge({content, products, productBadges})
+    console.log(content)
 
     useEffect(() => {
         if (content.fields?.productHandle && products) {
@@ -241,9 +243,11 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
                     <span className="junip-product-summary" data-product-id="4522469523505"></span>
                 </div>
                 <div className="collection-product-card__cta">
-                    {product && product.variants.length > 1 ? (
+                    {isCrossSell ? (
+                        <button className="btn secondary" onClick={() => openQuickView()}><span>Quick View -</span>{productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>
+                    ): product && product.variants.length > 1 ? (
                         <button className="btn secondary" onClick={() => openQuickView()}><span>{getCtaText()}</span>{productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>
-                    ): (
+                    ) : (
                         <button className="btn secondary" onClick={() => handleAddItem()}><span>{getCtaText()}</span>{productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>    
                     )}
                 </div>

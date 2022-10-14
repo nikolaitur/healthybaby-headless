@@ -11,6 +11,10 @@
         flex-direction: column;
         @include breakpoint-up('md') {
             flex-direction: row;
+
+            &.flipped {
+                flex-direction: row-reverse;
+            }
         }
     }
 
