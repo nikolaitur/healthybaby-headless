@@ -12,7 +12,15 @@ const ArticleHeroEverGreen = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
   // const backgroundImage = image.fields.file.url
 
-  const { articleHero, title, publishDate, readLength, author, doctor } = {
+  const {
+    articleHero,
+    title,
+    publishDate,
+    readLength,
+    author,
+    doctor,
+    articleType,
+  } = {
     ...content.fields,
   }
 
@@ -74,6 +82,7 @@ const ArticleHeroEverGreen = ({ content }) => {
       )}
 
       <div className="article__container">
+        <div className="article-hero__type">{articleType}</div>
         <h3 className="article-hero__title">{title}</h3>
         <div className="article-hero__pub">
           <span>
@@ -115,10 +124,7 @@ const ArticleHeroEverGreen = ({ content }) => {
                   <ShieldPlus />
                 </div>
                 <div className="article-hero__author-name">
-                  Medically Reviewed by{' '}
-                  <span className="name">
-                    {doctor.fields?.name ? doctor.fields.name : ''}
-                  </span>
+                  Medically Reviewed by <span className="name">{doctor}</span>
                 </div>
               </div>
             ) : (
@@ -136,18 +142,18 @@ const ArticleHeroEverGreen = ({ content }) => {
               <div
                 className={`article-video__image ${isPlaying ? 'hide' : ''}`}
                 onClick={() => playVideo()}
+                style={{
+                  backgroundImage: `url(https:${articleHero.fields?.featuredMedia.fields?.file.url})`,
+                }}
               >
-                {articleHero.fields?.featuredMedia.fields.file ? (
+                {/* {articleHero.fields?.featuredMedia.fields.file ? (
                   <Image
                     className=""
                     src={`https:${articleHero.fields?.featuredMedia.fields.file.url}`}
                     alt={`video`}
                     layout="responsive"
                     objectFit="cover"
-                    height={
-                      articleHero.fields.featuredMedia.fields.file.details.image
-                        .height
-                    }
+                    height={250}
                     width={
                       articleHero.fields.featuredMedia.fields.file.details.image
                         .width
@@ -155,7 +161,7 @@ const ArticleHeroEverGreen = ({ content }) => {
                   />
                 ) : (
                   <></>
-                )}
+                )} */}
               </div>
               <div className="article-video__video">
                 {hasWindow && (
@@ -175,36 +181,18 @@ const ArticleHeroEverGreen = ({ content }) => {
             </div>
           ) : (
             <div className="article-hero__image">
-              <div className="article-hero__image--desktop">
-                {articleHero.fields?.featuredMedia ? (
-                  <Image
-                    className=""
-                    src={`https:${articleHero.fields.featuredMedia.fields.file.url}`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="700"
-                    width="650"
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="article-hero__image--mobile">
-                {articleHero.fields?.featuredMediaMobile ? (
-                  <Image
-                    className=""
-                    src={`https:${articleHero.fields.featuredMediaMobile.fields.file.url}`}
-                    alt={`image`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height="700"
-                    width="650"
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
+              <div
+                className="article-hero__image--desktop"
+                style={{
+                  backgroundImage: `url(https:${articleHero?.fields?.featuredMedia?.fields?.file.url})`,
+                }}
+              ></div>
+              <div
+                className="article-hero__image--mobile"
+                style={{
+                  backgroundImage: `url(https:${articleHero?.fields?.featuredMediaMobile?.fields?.file.url})`,
+                }}
+              ></div>
               <div className="article-hero__image--credit">
                 {articleHero.fields.photoCredit}
               </div>

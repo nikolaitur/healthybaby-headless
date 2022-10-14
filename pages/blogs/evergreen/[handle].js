@@ -18,11 +18,7 @@ function Article({ article }) {
         <></>
       )}
       <div className="article__container article-content__container">
-        {article.fields.articleSocial ? (
-          <ArticleSocial content={article.fields.articleSocial} key="social" />
-        ) : (
-          <></>
-        )}
+        <ArticleSocial key="social" />
         <div>
           {article.fields.articleSections ? (
             <ArticleSectionsContent sections={article.fields.articleSections} />

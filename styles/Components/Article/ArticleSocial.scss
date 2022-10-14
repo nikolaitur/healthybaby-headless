@@ -2,10 +2,10 @@
   @include breakpoint-up('md') {
     position: sticky;
     top: 50px;
-    left: -30px;
+    left: 0px;
     align-self: flex-start;
 
-    transform: translateX(-80px);
+    transform: translateX(-100px);
   }
 }
 
@@ -33,6 +33,12 @@
     padding: 30px 0;
     width: 80px;
     flex-direction: column;
+  }
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
   }
 
   &__share {
