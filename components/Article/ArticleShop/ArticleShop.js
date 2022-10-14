@@ -28,7 +28,7 @@ const ArticleShop = ({ content }) => {
         <div className="article-shop__info-title">{title}</div>
         <div className="article-shop__info-subtitle">{subtitle}</div>
         <div className="article-shop__info-cta">
-          <Link href={buttonLink}>
+          <Link href={buttonLink || ''}>
             <div className="btn secondary">{buttonText}</div>
           </Link>
         </div>

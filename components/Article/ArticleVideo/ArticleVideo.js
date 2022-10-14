@@ -44,8 +44,8 @@ const ArticleVideo = ({ content }) => {
                 alt={`video`}
                 layout="responsive"
                 objectFit="cover"
-                height={coverImage.fields.file.details.image.height}
-                width={coverImage.fields.file.details.image.width}
+                height={coverImage.fields?.file?.details.image.height}
+                width={coverImage.fields?.file?.details.image.width}
               />
             ) : (
               <></>
@@ -69,13 +69,13 @@ const ArticleVideo = ({ content }) => {
           <div
             className="article-hero__image--desktop"
             style={{
-              backgroundImage: `url(https:${coverImage.fields?.file.url})`,
+              backgroundImage: `url(https:${coverImage?.fields?.file.url})`,
             }}
           ></div>
           <div
             className="article-hero__image--mobile"
             style={{
-              backgroundImage: `url(https:${coverImageMobile.fields?.file.url})`,
+              backgroundImage: `url(https:${coverImageMobile?.fields?.file.url})`,
             }}
           ></div>
         </div>

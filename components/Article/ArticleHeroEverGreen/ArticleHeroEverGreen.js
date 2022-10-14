@@ -184,13 +184,13 @@ const ArticleHeroEverGreen = ({ content }) => {
               <div
                 className="article-hero__image--desktop"
                 style={{
-                  backgroundImage: `url(https:${articleHero.fields.featuredMedia.fields.file.url})`,
+                  backgroundImage: `url(https:${articleHero?.fields?.featuredMedia?.fields?.file.url})`,
                 }}
               ></div>
               <div
                 className="article-hero__image--mobile"
                 style={{
-                  backgroundImage: `url(https:${articleHero.fields.featuredMediaMobile.fields.file.url})`,
+                  backgroundImage: `url(https:${articleHero?.fields?.featuredMediaMobile?.fields?.file.url})`,
                 }}
               ></div>
               <div className="article-hero__image--credit">
