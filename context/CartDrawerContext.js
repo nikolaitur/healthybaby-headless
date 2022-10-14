@@ -51,11 +51,11 @@ export function CartDrawerProvider({ children }) {
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            console.log(response, 'response')
-            if (response.cart.length) {
-              setShopifyCartCartClient(response.cart)
-              setShopifyCartId(response.cart.id)
-            }
+            // console.log(response, 'response')
+            // if (response.cart.length) {
+            //   setShopifyCartCartClient(response.cart)
+            //   setShopifyCartId(response.cart.id)
+            // }
           })
       } else {
         const shopifyCart = await cartClient
