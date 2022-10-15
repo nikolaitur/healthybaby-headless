@@ -110,13 +110,18 @@
         }
     }
 
+    &__main {
+        @include breakpoint-up('md') {
+            margin: 0 -18px;
+        }
+    }
+
     &__wrapper {
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;
-            width: calc(100% + 40px);
+            width: 100%;
             position: relative;
-            left: -20px;
         }
     }
 
@@ -131,10 +136,10 @@
     }
 
     .content-card__image {
-        img {
-            @include breakpoint-up('md') {
-                height: 405px!important;
-            }
-        }
+        // img {
+        //     @include breakpoint-up('md') {
+        //         height: 405px!important;
+        //     }
+        // }
     }
 }

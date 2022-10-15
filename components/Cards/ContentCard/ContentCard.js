@@ -12,8 +12,8 @@ const ContentCard = ({ content }) => {
                     <Image
                         src={`https:${image}`}
                         alt={``}
-                        width="570"
-                        height="405"
+                        sizes="(min-width: 1080px) 33vw"
+                        layout="fill"
                     />
                 </Link>
             </div>

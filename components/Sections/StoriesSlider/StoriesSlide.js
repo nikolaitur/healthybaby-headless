@@ -50,8 +50,15 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
             ))}
           </div>
         </div>
-        <div className="stories-slide__image">
-          <Image src={`https:${image}`} alt={``} width="785" height="970" />
+        <div className="stories-slide__image-container">
+          <div className="stories-slide__image">
+            <Image
+              src={`https:${image}`}
+              alt={title}
+              sizes="(min-width: 1400px) 1400px"
+              layout="fill"
+            />
+          </div>
         </div>
       </div>
     </div>

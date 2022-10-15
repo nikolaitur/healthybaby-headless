@@ -1,3 +1,39 @@
+.stories-slider__image-top-stars {
+  position: absolute;
+  top: 30px;
+  left: -25px;
+  z-index: 2;
+  @include breakpoint-up('md') {
+    top: -30px;
+    left: auto;
+    right: calc(46% - 210px);
+  }
+  @include breakpoint-up('xl') {
+    right: calc(46% - 310px);
+  }
+}
+
+.stories-slider__image-bottom-stars {
+  position: absolute;
+  top: 40vw;
+  right: -40px;
+  z-index: 2;
+  @include breakpoint-up('md') {
+    top: auto;
+    bottom: 200px;
+    right: -60px;
+  }
+}
+
+.stories-slider__image-three-stars {
+  svg {
+    width: 96px;
+    @include breakpoint-up('md') {
+      width: 257px;
+    }
+  }
+}
+
 .stories-slider {
   padding: 40px 0;
 
@@ -34,7 +70,7 @@
   }
 
   &__slider {
-    overflow: hidden;
+    width: 100%;
   }
 }
 
@@ -53,31 +89,37 @@
 
     @include breakpoint-up('md') {
       order: 0;
-      width: 50%;
+      width: 54%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-right: 0px;
+      padding-right: 90px;
     }
   }
 
-  &__image {
+  &__image-container {
+    position: relative;
     order: 0;
     margin-bottom: 40px;
 
     @include breakpoint-up('md') {
-      padding-left: 100px;
-      width: 50%;
+      width: 46%;
       margin: 0;
     }
+    @include breakpoint-up('xl') {
+      padding: 0 40px 0 120px;
+    }
+  }
 
+  &__image {
+    height: 96vw;
+    position: relative;
+    @include breakpoint-up('md') {
+      height: auto;
+      min-height: 865px;
+    }
     img {
-      height: 350px;
       object-fit: cover;
-
-      @include breakpoint-up('md') {
-        height: 970px !important;
-      }
     }
   }
 

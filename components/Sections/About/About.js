@@ -1,14 +1,14 @@
-import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import parse from 'html-react-parser'
+import ThreeStarsIcon from '@/svgs/three-stars.svg'
+import OneStarIcon from '@/svgs/one-star.svg'
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const About = ({ content }) => {
-    const { header, subheader, copy, links, imageTitle, imageSubtitle } = content.fields
+    const { header, subheader, copy, links, imageTitle, imageSubtitle, displayStars } = {...content.fields}
     const image = content.fields.image.fields.file.url
-
     return (
         <section className="about">
             <div className="about__container container">
@@ -17,13 +17,28 @@ const About = ({ content }) => {
                     <h3 className="about__header">
                         { parse(header) }
                     </h3>
-                    <div className="about__image about__image--mobile">
-                        <Image
-                            src={`https:${image}`}
-                            alt={subheader}
-                            width="785"
-                            height="750"
-                        />
+                    <div className="about__image-container about__image-container--mobile">
+                        <div className="about__image">
+                            {displayStars && <div className="about__image-top-stars">
+                                <div className="about__image-three-stars">
+                                    <ThreeStarsIcon />
+                                </div>
+                            </div>}
+                            <Image
+                                src={`https:${image}`}
+                                alt={subheader}
+                                sizes="(min-width: 1080px) 75vw, (min-width: 1400px) 1200px"
+                                layout="fill"
+                            />
+                            {displayStars && <div className="about__image-bottom-stars">
+                                <div className="about__image-one-star">
+                                    <OneStarIcon />
+                                </div>
+                                <div className="about__image-three-stars">
+                                    <ThreeStarsIcon />
+                                </div>
+                            </div>}
+                        </div>
                     </div>
                     <h5 className="about__copy">
                         { copy }
@@ -43,13 +58,28 @@ const About = ({ content }) => {
                         })}
                     </div>
                 </div>
-                <div className="about__image about__image--desktop">
-                    <Image
-                        src={`https:${image}`}
-                        alt={subheader}
-                        width="785"
-                        height="750"
-                    />
+                <div className="about__image-container about__image-container--desktop">
+                    <div className="about__image">
+                        {displayStars && <div className="about__image-top-stars">
+                            <div className="about__image-three-stars">
+                                <ThreeStarsIcon />
+                            </div>
+                        </div>}
+                        <Image
+                            src={`https:${image}`}
+                            alt={subheader}
+                            sizes="(min-width: 1080px) 75vw, (min-width: 1400px) 1200px"
+                            layout="fill"
+                        />
+                        {displayStars && <div className="about__image-bottom-stars">
+                            <div className="about__image-one-star">
+                                <OneStarIcon />
+                            </div>
+                            <div className="about__image-three-stars">
+                                <ThreeStarsIcon />
+                            </div>
+                        </div>}
+                    </div>
                     <div className="about__title">
                         {imageTitle}
                     </div>
