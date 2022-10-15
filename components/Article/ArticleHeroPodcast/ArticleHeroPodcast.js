@@ -1,8 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { useState, useEffect } from 'react'
+import TranscriptDrawer from './TranscriptDrawer'
 const articleHeroPodcast = ({ content }) => {
   const { articleHero, title, articleType } = { ...content.fields }
+
   return (
     <div
       className="podcast-hero"
@@ -73,12 +77,23 @@ const articleHeroPodcast = ({ content }) => {
             </div>
           </div>
           {articleHero?.fields?.podcastEmbed ? (
-            <div
-              className="podcast-hero__iheart"
-              dangerouslySetInnerHTML={{
-                __html: articleHero.fields.podcastEmbed,
-              }}
-            ></div>
+            <>
+              <div
+                className="podcast-hero__iheart"
+                dangerouslySetInnerHTML={{
+                  __html: articleHero.fields.podcastEmbed,
+                }}
+              ></div>
+
+              {articleHero?.fields?.podcastTranscript ? (
+                <TranscriptDrawer
+                  title={title}
+                  content={articleHero.fields.podcastTranscript}
+                />
+              ) : (
+                <></>
+              )}
+            </>
           ) : (
             <></>
           )}
