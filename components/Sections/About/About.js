@@ -4,7 +4,8 @@ import parse from 'html-react-parser'
 import ThreeStarsIcon from '@/svgs/three-stars.svg'
 import OneStarIcon from '@/svgs/one-star.svg'
 
-import LongArrowRight from '../../../svgs/long-arrow-right.svg'
+import LongArrowRight from '@/svgs/long-arrow-right.svg'
+import ArrowRightMobile from '@/svgs/arrow-right-mobile.svg'
 
 const About = ({ content }) => {
     const { header, subheader, copy, links, imageTitle, imageSubtitle, displayStars } = {...content.fields}
@@ -50,7 +51,8 @@ const About = ({ content }) => {
                                     <Link href={link.fields.url}>
                                         <div className="about__button">
                                             <span>{ link.fields.title }</span>
-                                            <span><LongArrowRight /></span>
+                                            <span className="about__button-icon about__button-icon--desktop"><LongArrowRight /></span>
+                                            <span className="about__button-icon about__button-icon--mobile"><ArrowRightMobile /></span>
                                         </div>
                                     </Link>
                                 </div>
