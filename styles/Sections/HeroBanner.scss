@@ -119,13 +119,25 @@
 
     &__subheader {
         color: #FFFFFF;
+        font-size: 24px;
+        line-height: 110%;
+        text-transform: none;
+        @include breakpoint-up('md') {
+            font-size: 38px;
+        }
     }
 
     &__header {
         color: #FFFFFF;
-        margin-bottom: 60px;
         &--italicized {
             font-style: italic;
+        }
+    }
+
+    &__content-header {
+        margin-bottom: 50px;
+        > * {
+            margin: 10px 0;
         }
     }
 

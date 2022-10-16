@@ -40,9 +40,11 @@ const HeroBanner = ({ content }) => {
             </div>
             <div className={`hero__container hero__container--vertical-${verticalAlignment} hero__container--horizontal-${alignment} container`}>
                 <div className="hero__content">
-                    {subtitleTruePosition === 'above title' && <h6 className="hero__subheader">{ subtitle }</h6>}
-                    <h1 className={`hero__header ${italicizeTitle ? 'hero__header--italicized' : ''}`}>{ parse(title) }</h1>
-                    {subtitleTruePosition === 'below title' && <h6 className="hero__subheader">{ subtitle }</h6>}
+                    <div className="hero__content-header">
+                        {subtitleTruePosition === 'above title' && <h4 className="hero__subheader">{ subtitle }</h4>}
+                        <h1 className={`hero__header ${italicizeTitle ? 'hero__header--italicized' : ''}`}>{ parse(title) }</h1>
+                        {subtitleTruePosition === 'below title' && <h4 className="hero__subheader">{ subtitle }</h4>}
+                    </div>
                     {hideCta === 'False' && <div className="hero__cta">
                         <Link href={ctaUrl || ''}>
                             <button className="hero__button btn">
