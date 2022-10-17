@@ -35,6 +35,22 @@
         height: 100%;
         width: 100%;
         z-index: 0;
+
+        &--desktop {
+            display: none;
+
+            @include breakpoint-up('md') {
+                display: block;
+            }
+        }
+
+        &--mobile {
+            display: block;
+
+            @include breakpoint-up('md') {
+                display: none;
+            }
+        }
     }
 
     &__stage {
