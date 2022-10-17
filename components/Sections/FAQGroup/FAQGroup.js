@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import FAQItem from "./FAQItem"
+import parse from 'html-react-parser'
 
 const FAQGroup = ({content}) => {
   const { faqItems, title } = {...content.fields}
@@ -13,7 +14,7 @@ const FAQGroup = ({content}) => {
 
   return (
     <div className="faq-group container">
-      <h3>{title}</h3>
+      <h3>{parse(title)}</h3>
       <ul className="faq-items">
         {visibleItems.map(item => {
           return <FAQItem props={item.fields} key={item.nacelleEntryId} />

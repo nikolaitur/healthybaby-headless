@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useRef, useEffect  } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 import NutritionChartDropdown from './NutritionChartDropdown';
 
@@ -29,7 +30,7 @@ const NutritionChart = ({ content }) => {
                         <h6 className="nutrition-chart__subheader">{ content.fields.subheader }</h6>
                     ) : ""}
                     {content.fields?.header ? (
-                        <h2 className="nutrition-chart__header">{ content.fields.header }</h2>
+                        <h2 className="nutrition-chart__header">{ parse(content.fields.header) }</h2>
                     ) : ""}
                 </div>
                 {content.fields?.sections ? (
@@ -76,7 +77,7 @@ const NutritionChart = ({ content }) => {
                                                 />
                                             </div>
                                         ) : ""}
-                                        
+
                                         {item.fields?.mobileImage ? (
                                             <div className="nutrition-chart__image nutrition-chart__image--mobile">
                                                 <Image
@@ -97,7 +98,7 @@ const NutritionChart = ({ content }) => {
                         </Swiper>
                     </>
                 ) : ""}
-            </div>   
+            </div>
         </section>
     )
 }

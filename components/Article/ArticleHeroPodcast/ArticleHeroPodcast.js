@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { useState, useEffect } from 'react'
 import TranscriptDrawer from './TranscriptDrawer'
+import parse from 'html-react-parser'
+
 const articleHeroPodcast = ({ content }) => {
   const { articleHero, title, articleType } = { ...content.fields }
 
@@ -38,7 +40,7 @@ const articleHeroPodcast = ({ content }) => {
         </div>
         <div className="podcast-hero__info">
           <div className="podcast-hero__type">{articleType}</div>
-          <h3 className="podcast-hero__title">{title}</h3>
+          <h3 className="podcast-hero__title">{parse(title)}</h3>
           <div className="podcast-hero__written">
             {articleHero?.fields?.podcastAuthors ? (
               <>

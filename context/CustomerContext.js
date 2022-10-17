@@ -65,7 +65,13 @@ export function CustomerProvider({ children }) {
     }
 
     const { customer } = data
-    const multipassRedirectURL = multipass.withCustomerData({email: customer.email}).withDomain('healthybaby-dev.myshopify.com').url();
+
+    if (customer === null) {
+      Cookies.remove('customerAccessToken')
+      return false
+    }
+
+    const multipassRedirectURL = multipass.withCustomerData({email: customer.email}).withDomain('healthybaby-dev.myshopify.com').url()
 
     if (customer?.addresses?.edges.length > 0) {
       customer.addresses = transformEdges(customer.addresses)

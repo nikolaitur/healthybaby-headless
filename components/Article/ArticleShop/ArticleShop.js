@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 const ArticleShop = ({ content }) => {
   const { image, eyebrowText, title, subtitle, buttonText, buttonLink } = {
@@ -25,7 +26,7 @@ const ArticleShop = ({ content }) => {
       </div>
       <div className="article-shop__info">
         <div className="article-shop__info-eyebrow">{eyebrowText}</div>
-        <div className="article-shop__info-title">{title}</div>
+        <div className="article-shop__info-title">{parse(title)}</div>
         <div className="article-shop__info-subtitle">{subtitle}</div>
         <div className="article-shop__info-cta">
           <Link href={buttonLink || ''}>

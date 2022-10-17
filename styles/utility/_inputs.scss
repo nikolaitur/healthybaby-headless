@@ -154,7 +154,11 @@
 		}
 	}
   svg {
-    width: 20px;
+    width: 15px;
+		transform: rotate(180deg);
+		@include breakpoint-up('sm') {
+			width: 20px;
+		}
   }
   .react-select__control {
     border-radius: 2px;
@@ -207,13 +211,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-			padding-right: 30px;
+			padding-right: 20px;
+			@include breakpoint-up('sm') {
+				padding-right: 30px;
+			}
     }
 		.dropdown-selector__arrow-open {
 			display: flex;
 			align-items: center;
 			position: relative;
-			right: -20px;
 		}
   }
   .react-select__menu {

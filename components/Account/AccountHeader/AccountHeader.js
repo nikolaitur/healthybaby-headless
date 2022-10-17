@@ -3,7 +3,10 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 
-const AccountHeader = ({headerDesktopImage, headerMobileImage}) => {
+const AccountHeader = ({props}) => {
+
+  const {headerDesktopImage, headerMobileImage, headerText } = {...props}
+
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
   )
@@ -18,19 +21,19 @@ const AccountHeader = ({headerDesktopImage, headerMobileImage}) => {
     <div className="account-header">
       <div className="account-header__image">
         {mounted && isDesktop && headerDesktopImage?.fields?.file?.url && <Image
-          src={`https://${headerDesktopImage.fields.file.url}`}
+          src={`https:${headerDesktopImage.fields.file.url}`}
           alt={headerDesktopImage.fields.title}
           layout="fill"
         />}
         {mounted && !isDesktop && headerMobileImage?.fields?.file?.url && <Image
-          src={`https://${headerMobileImage.fields.file.url}`}
+          src={`https:${headerMobileImage.fields.file.url}`}
           alt={headerMobileImage.fields.title}
           layout="fill"
         />}
       </div>
       <div className="account-header__content">
         <h2>
-          Welcome back,
+          {headerText}
           <br/>
           <span className="account-header__customer-name">{customer?.firstName.toLowerCase()}</span>
           {mounted && !isDesktop && <div className="account-header__log-out-btn">

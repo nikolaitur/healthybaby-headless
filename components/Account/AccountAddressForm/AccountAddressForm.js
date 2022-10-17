@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, createRef } from 'react'
 import Select, { components } from 'react-select'
-import IconSelector from '@/svgs/selector.svg'
+import IconCaretTop from '@/svgs/caret-top.svg'
 import IconCheckmark from '@/svgs/checkmark.svg'
 import Checkbox from 'react-custom-checkbox'
 
@@ -25,7 +25,7 @@ const AccountAddressForm = ({address, countryList, type, onUpdateAddress, toggle
     return (
       components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconSelector /></div>
+          <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
         </components.DropdownIndicator>
       )
     )
