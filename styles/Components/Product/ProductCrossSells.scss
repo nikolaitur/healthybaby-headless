@@ -64,4 +64,14 @@
         width: 100%;
         max-width: 100%;
     }
+    .collection-product-card__image {
+        @include breakpoint-down('md') {
+            // height: 710px;
+
+            // img {
+            //     height: 710px;
+            // }
+        }
+    }
+
 }

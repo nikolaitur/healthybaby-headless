@@ -58,7 +58,7 @@
             object-fit: cover;
 
             @include breakpoint-up('md') {
-                height: 750px!important;
+                height: 960px!important;
             }
         }
     }
