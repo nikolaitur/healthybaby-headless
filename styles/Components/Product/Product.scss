@@ -57,6 +57,8 @@
         }
 
         &__container {
+            background: #DBEDF8;
+            
             @include breakpoint-down('md') {
                 padding: 30px 16px;
             }
