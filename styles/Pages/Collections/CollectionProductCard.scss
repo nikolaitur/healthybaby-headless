@@ -24,6 +24,14 @@
         &.full-width {
             width: calc(50% - 30px);
             max-width: calc(50% - 30px);
+
+            .btn {
+                width: calc(100% - 200px);
+                max-width: 416px;
+                text-align: center;
+                justify-content: center;
+                
+            }
         }
 
     }
