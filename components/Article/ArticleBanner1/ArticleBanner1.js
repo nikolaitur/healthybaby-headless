@@ -1,4 +1,5 @@
 import React from 'react'
+import parse from 'html-react-parser'
 
 const ArticleBanner1 = ({ content }) => {
   const {
@@ -14,7 +15,7 @@ const ArticleBanner1 = ({ content }) => {
       style={{ backgroundColor: backgroundColor }}
     >
       <div className="article-banner1__content">
-        <div className="article-banner1__title">{articleTitle}</div>
+        <div className="article-banner1__title">{parse(articleTitle)}</div>
         <div className="article-banner1__subtitle">{articleSubtitle}</div>
       </div>
       <div className="article-banner1__cta">

@@ -1,14 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-const ArticleHeroPodcast = ({ content }) => {
-  const { articleHero, title } = { ...content.fields }
+import parse from 'html-react-parser'
+
+const articleHeroPodcast = ({ content }) => {
+  const { articleHero, title, articleType } = { ...content.fields }
   return (
     <div
       className="podcast-hero"
       style={{
         background: `linear-gradient(180deg, ${
-          articleHero.fields?.backgroundColor
+          articleHero?.fields?.backgroundColor
             ? articleHero.fields.backgroundColor
             : '#D6E9E5 '
         } 0%, rgba(240, 227, 229, 0) 100%)`,
@@ -17,7 +19,7 @@ const ArticleHeroPodcast = ({ content }) => {
       <div className="container podcast-hero__content">
         <div className="podcast-hero__image">
           <div className="podcast-hero__image--desktop">
-            {articleHero.fields?.featuredMedia ? (
+            {articleHero?.fields?.featuredMedia ? (
               <Image
                 className=""
                 src={`https:${articleHero.fields.featuredMedia.fields.file.url}`}
@@ -33,9 +35,10 @@ const ArticleHeroPodcast = ({ content }) => {
           </div>
         </div>
         <div className="podcast-hero__info">
-          <h3 className="podcast-hero__title">{title}</h3>
+          <div className="podcast-hero__type">{articleType}</div>
+          <h3 className="podcast-hero__title">{parse(title)}</h3>
           <div className="podcast-hero__written">
-            {articleHero.fields?.podcastAuthors ? (
+            {articleHero?.fields?.podcastAuthors ? (
               <>
                 With{' '}
                 {articleHero.fields.podcastAuthors.map((author, index, row) => {
@@ -56,7 +59,7 @@ const ArticleHeroPodcast = ({ content }) => {
           </div>
           <div className="podcast-hero__image">
             <div className="podcast-hero__image--mobile">
-              {articleHero.fields?.featuredMediaMobile ? (
+              {articleHero?.fields?.featuredMediaMobile ? (
                 <Image
                   className=""
                   src={`https:${articleHero.fields.featuredMediaMobile.fields.file.url}`}
@@ -71,12 +74,11 @@ const ArticleHeroPodcast = ({ content }) => {
               )}
             </div>
           </div>
-          {articleHero.fields?.podcastEmbed ? (
+          {articleHero?.fields?.podcastEmbed ? (
             <div
               className="podcast-hero__iheart"
               dangerouslySetInnerHTML={{
-                __html:
-                  articleHero.fields.podcastEmbed.content[0].content[0].value,
+                __html: articleHero.fields.podcastEmbed,
               }}
             ></div>
           ) : (
@@ -88,4 +90,4 @@ const ArticleHeroPodcast = ({ content }) => {
   )
 }
 
-export default ArticleHeroPodcast
+export default articleHeroPodcast

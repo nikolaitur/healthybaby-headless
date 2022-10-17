@@ -12,11 +12,7 @@ function Article({ article }) {
     <article className="article">
       <ArticleHeroPodcast content={article} />
       <div className="article__container article-content__container">
-        {article.fields.articleSocial ? (
-          <ArticleSocial content={article.fields.articleSocial} key="social" />
-        ) : (
-          <></>
-        )}
+        <ArticleSocial key="social" />
         <div className="article-sectionsContent">
           {article.fields.articleSections ? (
             <ArticleSectionsContent sections={article.fields.articleSections} />

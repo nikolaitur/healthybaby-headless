@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 const ArticleActivityHeader = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
@@ -8,7 +9,7 @@ const ArticleActivityHeader = ({ content }) => {
   return (
     <div className="article-activityheader">
       <div className="article-activityheader__eyebrow">{eyebrowText}</div>
-      <div className="article-activityheader__title">{title}</div>
+      <div className="article-activityheader__title">{parse(title)}</div>
       <div className="article-activityheader__image">
         {logo ? (
           <Image

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
@@ -33,7 +34,7 @@ const CollectionHeader = ({ content }) => {
 
                     {content?.description ?
                         <p className="collection-header__description">{ content.description }</p>
-                    : ""}   
+                    : ""}
 
                     {content.fields?.description ?
                         <p className="collection-header__description">{ content.fields.description }</p>

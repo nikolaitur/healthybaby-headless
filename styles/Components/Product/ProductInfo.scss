@@ -65,6 +65,10 @@
 
     &__price {
         padding: 20px 0 0;
+
+        @include breakpoint-up('md') {
+            font-size: 20px;
+        }
     }
 }
 
@@ -205,8 +209,8 @@
             color: $primaryBrown;
 
             @include breakpoint-up('md') {
-                font-size: 22px;
-                line-height: 31px;
+                font-size: 18px;
+                line-height: 24px;
             }
         }
     }
@@ -284,6 +288,11 @@
                 br {
                     display: none;
                 }
+
+                span {
+                    padding-top: 0!important;
+                    padding-left: 0!important;
+                }
             }
 
             span {
@@ -292,9 +301,10 @@
                 padding-left: 27px;
 
                 @include breakpoint-up('md') {
-                    font-size: 18px;
-                    line-height: 18px;
-                    padding-left: 0px;
+                    font-size: 16px;
+                    line-height: 16px;
+                    padding-top: 6px;
+                    padding-left: 30px;
                 }
             }
 
@@ -303,6 +313,10 @@
                 right: 10px;
                 top: 50%;
                 transform: translateY(-50%);
+
+                @include breakpoint-up('md') {
+                    font-size: 22px;
+                }
             }
         }
     }
@@ -361,6 +375,7 @@
 
     @include breakpoint-up('md') {
         text-align: left;
+        font-size: 16px;
     }
 
     p {

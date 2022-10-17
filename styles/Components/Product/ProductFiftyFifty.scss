@@ -11,6 +11,17 @@
         flex-direction: column;
         @include breakpoint-up('md') {
             flex-direction: row;
+
+            &.flipped {
+                flex-direction: row-reverse;
+
+                .product-fifty-fifty__content {
+                    @include breakpoint-up('md') {
+                        padding-left: 60px;
+                        padding-right: 0px;
+                    }
+                }
+            }
         }
     }
 
@@ -55,7 +66,7 @@
         }
 
         img {
-            height: 350px;
+            height: 400px!important;
             object-fit: cover;
 
             @include breakpoint-up('md') {
@@ -126,8 +137,8 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 16px;
+        line-height: 20px;
         letter-spacing: 0.02em;
         color: $primaryGreen;
         margin-top: 15px;
@@ -137,6 +148,8 @@
 
         @include breakpoint-up('md') {
             margin-top: 30px;
+            font-size: 18px;
+            line-height: 22px;
         }
     }
 

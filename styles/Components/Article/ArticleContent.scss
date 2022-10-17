@@ -1,9 +1,15 @@
 .article {
   &__container {
-    max-width: 1175px;
+    max-width: 1375px;
+
     margin: 0 auto;
     position: relative;
     z-index: 1;
+
+    @include breakpoint-up('md') {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
   }
 }
 
@@ -21,7 +27,7 @@
     font-family: $NeutraTextDemi;
     font-style: normal;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 31px;
     letter-spacing: -0.01em;
     color: $primaryBrown;

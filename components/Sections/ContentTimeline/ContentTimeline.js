@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 import Plus from '../../../svgs/plus.svg'
 
@@ -35,7 +36,7 @@ const ContentTimeline = ({ content }) => {
                 } else {
                     scrollProgress.style.height = `${((scrollTop / document.getElementById('content-timeline__items').offsetHeight)) * 100}%`;
                 }
-            }            
+            }
         });
     }
 
@@ -97,7 +98,7 @@ const ContentTimeline = ({ content }) => {
                             />
                         </div>
                     ) : ""}
-                    
+
                     {content.fields?.mobileImage ? (
                         <div className="content-timeline__image content-timeline__image--mobile">
                             <Image
@@ -131,7 +132,7 @@ const ContentTimeline = ({ content }) => {
                         </div>
                     ) : ""}
                 </div>
-            </div>   
+            </div>
         </section>
     )
 }

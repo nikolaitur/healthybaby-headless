@@ -1,7 +1,10 @@
 .wow-and-how {
-    padding: 100px 0 100px;
     // background:  #C7E0E5;
+    padding: 40px 0;
 
+    @include breakpoint-up('md') {
+        padding: 100px 0;
+    }
     &__container {
         position: relative;
         display: flex;
@@ -210,10 +213,13 @@
     &__stages {
         display: flex;
         flex-wrap: wrap;
-        
+
         @include breakpoint-up('md') {
-            max-width: 740px;
-        }   
+            max-width: 568px;
+        }
+        .select-dropdown-selector {
+            width: 100%;
+        }
     }
 
     &__stage {
