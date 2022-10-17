@@ -14,7 +14,7 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import HealthyBrain from '../../../svgs/healthy-brain.svg'
 
 const ShopByCategory = ({ content }) => {
-    const {header, headerFontStyle, subheader, collectionCards } = {...content.fields}
+    const {header, subheader, collectionCards } = {...content.fields}
 
     return (
         <section className="shop-by-category">
