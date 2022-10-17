@@ -137,6 +137,8 @@
             margin: 0;
             position: sticky;
             top: 100px;
+            max-width: 798px;
+            margin-left: auto;
         }
 
         @include breakpoint-up('lg') {
@@ -167,6 +169,10 @@
             width: 100% !important;
             position: relative !important;
             height: unset !important;
+
+            @include breakpoint-up('md') {
+                max-height: 998px!important;
+            }
         }
     }
 }
