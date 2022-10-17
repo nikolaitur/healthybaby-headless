@@ -108,6 +108,28 @@
         }
     }
 
+    &__link {
+        font-size: 18px;
+        line-height: 25px;
+        font-weight: 500;
+        color: $primaryGreen;
+        font-family: $NeutraTextDemi;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        span:first-child {
+            margin-right: 5px;
+
+            svg {
+                path {
+                    stroke: $primaryGreen;
+                }
+            }
+        }
+    }
+
     &__image {
         margin: 0 0 30px;
 

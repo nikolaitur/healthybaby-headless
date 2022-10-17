@@ -6,6 +6,8 @@ import parse from 'html-react-parser'
 
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
+    const { titleAlignmentDesktop, titleAlignmentMobile} = {...content.fields}
+    console.log(content)
 
     return (
         <section className="collection-header">
@@ -27,7 +29,7 @@ const CollectionHeader = ({ content }) => {
                     : "" }
 
                     {content?.title ?
-                        <h1 className="collection-header__title h2">{ parse(content.title) }</h1>
+                        <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ content.title }</h1>
                     : ""}
 
                     {content?.description ?

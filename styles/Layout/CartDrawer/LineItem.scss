@@ -65,6 +65,10 @@
         letter-spacing: -0.01em;
         color: $primaryBrown;
         margin-top: 10px;
+
+        .sale {
+            color: $primaryGreen;
+        }
     }
 
     &__quantity {
