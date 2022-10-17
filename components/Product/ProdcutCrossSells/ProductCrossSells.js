@@ -58,14 +58,13 @@ const ProductCrossSells = ({ content }) => {
                             spaceBetween={20}
                             slidesPerView={1}
                             lazy={true}
-                            
                             style={{
                                 "--swiper-navigation-color": "#fff",
                                 "--swiper-pagination-color": "#fff",
                             }}
                         >
                             {content.fields.sections.map((item, index) => (
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
                                 </SwiperSlide>
                             ))}
