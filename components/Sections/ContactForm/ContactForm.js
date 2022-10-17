@@ -2,7 +2,7 @@ import { useState, useRef, createRef } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Select, { components } from 'react-select'
-import IconSelector from '@/svgs/selector.svg'
+import IconCaretTop from '@/svgs/caret-top.svg'
 import { animateScroll as scroll } from 'react-scroll'
 
 const ContactForm = ({content}) => {
@@ -64,7 +64,7 @@ const ContactForm = ({content}) => {
     return (
       components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconSelector /></div>
+          <div className="dropdown-selector__arrow-open"><IconCaretTop /></div>
         </components.DropdownIndicator>
       )
     )

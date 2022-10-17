@@ -4,10 +4,11 @@ import CollectionCallout from '../../Sections/CollectionCallout'
 import CollectionProductCard from '../../Cards/CollectionProductCard'
 import DiaperFinderCard from '../../Cards/DiaperFinderCard'
 import VitaminFinder from '../../Cards/VitaminFinder'
+import parse from 'html-react-parser'
 
 const CollectionGrid = ({ content, products, productBadges }) => {
     const sectionItems = content.fields.sections
-    const {header, subheader } = content.fields
+    const {header, subheader } = {...content.fields}
 
     const router = useRouter()
 
@@ -15,7 +16,7 @@ const CollectionGrid = ({ content, products, productBadges }) => {
         <section className="collection-grid" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor : ""}>
             <div className="collection-grid__container container">
                 <div className={`collection-grid__content ${router.pathname !== `/shop-all` ? "hide" : ""}`}>
-                    <h5 className={`collection-grid__header`}>{ header }</h5>
+                    {header && <h5 className={`collection-grid__header`}>{ parse(header) }</h5>}
                     <p className="collection-grid__subheader large">{ subheader }</p>
                 </div>
                 <div className="collection-grid__wrapper">

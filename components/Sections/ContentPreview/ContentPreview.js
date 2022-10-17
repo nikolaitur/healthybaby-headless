@@ -33,7 +33,7 @@ const ContentPreview = ({ content }) => {
     }
 
     const [activeContent, setActiveContent] = useState(activeContentData);
-    
+
     const updateActiveContent = (contentName) => {
         switch (contentName) {
             case 'Guides':
@@ -56,8 +56,8 @@ const ContentPreview = ({ content }) => {
                     <div className="content-preview__subheader">{ subheader }</div>
                     <div className="content-preview__header">
                         <span className={activeContent.name == "Guides" ? "active" : ""} onClick={() => updateActiveContent("Guides")}>Guides</span>
-                        <span className={activeContent.name == "Activities" ? "active" : ""} onClick={() => updateActiveContent("Activities")}>Activities</span> 
-                        <span className={activeContent.name == "Advisors" ? "active" : ""} onClick={() => updateActiveContent("Advisors")}>Advisors</span> 
+                        <span className={activeContent.name == "Activities" ? "active" : ""} onClick={() => updateActiveContent("Activities")}>Activities</span>
+                        <span className={activeContent.name == "Advisors" ? "active" : ""} onClick={() => updateActiveContent("Advisors")}>Advisors</span>
                         <span className={activeContent.name == "Podcast" ? "active" : ""} onClick={() => updateActiveContent("Podcast")}>Podcast</span>
                     </div>
                     <div className="content-preview__link">
@@ -69,10 +69,12 @@ const ContentPreview = ({ content }) => {
                         </Link>
                     </div>
                 </div>
-                <div className="content-preview__wrapper">
-                    {activeContent.fields.map((content, index) => (   
-                        <ContentCard content={content} key={index} height={405} />                     
-                    ))}
+                <div className="content-preview__main">
+                    <div className="content-preview__wrapper">
+                        {activeContent.fields.map((content, index) => (
+                            <ContentCard content={content} key={index} height={405} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

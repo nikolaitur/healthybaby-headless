@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ValuePropSvg1 from '../../../svgs/value-prop-1.svg'
 import ValuePropSvg2 from '../../../svgs/value-prop-2.svg'
 import ValuePropSvg3 from '../../../svgs/value-prop-3.svg'
+import parse from 'html-react-parser'
 
 const ValueProps = ({ content }) => {
 
@@ -13,7 +14,7 @@ const ValueProps = ({ content }) => {
             <div className="value-props__container container">
                 {content.fields?.header ? (
                     <div className="value-props__header">
-                        { content.fields.header }
+                        { parse(content.fields.header) }
                     </div>
                 ) : ("")}
                 <div className="value-props__wrapper">
@@ -49,7 +50,7 @@ const ValueProps = ({ content }) => {
                     ) : ("")}
                 </div>
             </div>
-            
+
        </section>
     )
 }

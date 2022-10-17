@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 const ContentBanner = ({ content }) => {
     const { header, subheader, desktopImage, mobileImage, ctaText, ctaUrl } = content.fields
@@ -26,7 +27,7 @@ const ContentBanner = ({ content }) => {
                 </div>
                 <div className="content-banner__content">
                     {content.fields?.header ? (
-                        <div className="content-banner__header">{ content.fields.header }</div>
+                        <div className="content-banner__header">{ parse(content.fields.header) }</div>
                     ) : ""}
                     {content.fields?.subheader ? (
                         <div className="content-banner__subheader">{ content.fields.subheader }</div>
