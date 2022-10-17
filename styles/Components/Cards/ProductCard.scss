@@ -16,13 +16,13 @@
 
     &__image {
         margin: 0 0 25px;
-        
+
         img {
-            height: 350px;
-            object-fit: cover;
+            height: 320px !important;
+            object-fit: cover !important;
 
             @include breakpoint-up('md') {
-                height: 570px;
+                height: 450px !important;
             }
         }
     }

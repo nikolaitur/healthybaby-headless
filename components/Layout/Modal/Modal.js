@@ -34,20 +34,17 @@ const Modal = ({props, children}) => {
   }
 
   return (
-    <>
-      <div className={`modal ${className}`}>
-        <div className={`modal__container`}>
-            <div className="modal__content">
-              <div className="modal__close" onClick={() => closeModal()}>
-                  <IconClose />
-              </div>
-              {getContent(modalContext.modalType, children)}
-            </div>
+    <div className={`modal ${className}`}>
+      <div className="modal__content">
+        <div className="modal__content-container">
+          <div className="modal__close" onClick={() => closeModal()}>
+            <IconClose />
+          </div>
+          {getContent(modalContext.modalType, children)}
         </div>
       </div>
       <div className={`modal__overlay`} onClick={() => closeModal()}></div>
-    </>
-
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import BlinkingStar from '../../../svgs/blinking-star.svg'
+import parse from 'html-react-parser'
 
 const ArticleHowAndWow = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
@@ -8,7 +9,7 @@ const ArticleHowAndWow = ({ content }) => {
   return (
     <div className="article-howandwow">
       <div className="article-howandwow__title">
-        <span>{title}</span>
+        <span>{parse(title)}</span>
         <span className="star">
           <BlinkingStar />
         </span>

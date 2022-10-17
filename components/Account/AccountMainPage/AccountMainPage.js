@@ -5,15 +5,11 @@ import AccountTabs from '../AccountTabs'
 import OrderHistory from '../OrderHistory'
 import Order from '../Order'
 import MyInfo from '../MyInfo'
-import { useCustomerContext } from '@/context/CustomerContext'
 
 const AccountMainPage = ({page, orderId}) => {
 
-  const {headerDesktopImage, headerMobileImage } = {...page.fields}
-
   console.log("page:", page)
   const router = useRouter()
-  const { customer } = useCustomerContext()
 
   const { tab } = router.query
   const tabs = useMemo(
@@ -63,7 +59,7 @@ const AccountMainPage = ({page, orderId}) => {
 
   return (
     <div className="account-main">
-      <AccountHeader headerDesktopImage={headerDesktopImage} headerMobileImage={headerMobileImage} />
+      <AccountHeader props={page.fields} />
       <AccountTabs tabs={tabs} selected={selectedTab} onSelected={onTabSelected} />
       {/* Body Content */}
       <div className="account-body">{renderBody(tab)}</div>
