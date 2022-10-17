@@ -1,8 +1,11 @@
 .best-sellers {
-    padding: 100px 0;
     overflow: hidden;
     background: #F5F2F2;
+    padding: 40px 0;
 
+    @include breakpoint-up('md') {
+        padding: 100px 0;
+    }
     &__content {
         position: relative;
     }

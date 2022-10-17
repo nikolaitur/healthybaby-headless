@@ -217,3 +217,13 @@ p.large {
     font-size: fontsize(22px);
   }
 }
+
+b.bold-heading {
+  font-family: $DomaineText;
+  font-weight: 500;
+}
+
+b.bold-text {
+  font-family: $NeutraTextDemi;
+  font-weight: 500;
+}

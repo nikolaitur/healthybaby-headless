@@ -11,9 +11,15 @@ function Article({ article }) {
   return (
     <article className="article">
       <ArticleHeroPodcast content={article} />
-      <div className="article__container">
-        <ArticleSectionsContent sections={article.fields.articleSections} />
-        <ArticleSocial content={article.fields.articleSocial} key="social" />
+      <div className="article__container article-content__container">
+        <ArticleSocial key="social" />
+        <div className="article-sectionsContent">
+          {article.fields.articleSections ? (
+            <ArticleSectionsContent sections={article.fields.articleSections} />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </article>
   )

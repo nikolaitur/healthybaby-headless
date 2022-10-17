@@ -1,19 +1,35 @@
 import { nacelleClient } from 'services'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 import CollectionHeader from '../../components/Sections/CollectionHeader'
 import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
 
+import { dataLayerViewProductList } from '@/utils/dataLayer'
+
 function Collection(props) {
-  const { collection, products, productBadges } = {...props}
+  const router = useRouter()
+  const { collection, products, productBadges } = { ...props }
+
+  useEffect(() => {
+    dataLayerViewProductList({
+      products: products,
+      url: router.asPath,
+    })
+  })
 
   return (
-      <>
-        <CollectionHeader content={collection} />
-        <CollectionGrid content={collection} products={products} productBadges={productBadges} />
-        <CollectionSections content={collection} />
-      </>
-    )
+    <>
+      <CollectionHeader content={collection} />
+      <CollectionGrid
+        content={collection}
+        products={products}
+        productBadges={productBadges}
+      />
+      <CollectionSections content={collection} />
+    </>
+  )
 }
 
 export default Collection
@@ -41,16 +57,18 @@ export async function getStaticProps({ params }) {
   }
 
   if (collections[0].fields.sections) {
-    const productHandles = collections[0].fields.sections.filter(section => {
-      if (section.fields.productHandle) return section
-    }).map(section => section.fields.productHandle.replace('::en-US', ''))
+    const productHandles = collections[0].fields.sections
+      .filter((section) => {
+        if (section.fields.productHandle) return section
+      })
+      .map((section) => section.fields.productHandle.replace('::en-US', ''))
 
     const products = await nacelleClient.products({
-      handles: productHandles
+      handles: productHandles,
     })
 
     const productBadges = await nacelleClient.content({
-      type: 'productBadge'
+      type: 'productBadge',
     })
 
     if (products.length) {
@@ -58,16 +76,15 @@ export async function getStaticProps({ params }) {
         props: {
           collection: collections[0],
           products,
-          productBadges
+          productBadges,
         },
       }
     }
-
   }
 
   return {
     props: {
-      collection: collections[0]
+      collection: collections[0],
     },
   }
 }
