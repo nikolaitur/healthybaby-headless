@@ -14,7 +14,7 @@ const ProductAbout = ({ content }) => {
                 <div className="product-about__content">
 
                     {content.fields?.image.fields.file.url ? (
-                        <div className="product-about__image about__image--mobile">
+                        <div className="product-about__image product-about__image--mobile">
                             <Image
                                 src={`https:${content.fields.image.fields.file.url}`}
                                 alt=""
