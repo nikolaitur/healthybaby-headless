@@ -1,9 +1,22 @@
 .product-reviews {
     padding: 0 0 40px;
 
+
     .junip-product-review-container, 
     .junip-review-section-title {
         @extend .container;
+    }
+
+    .junip-product-review-summary-flex-wrapper {
+        @include breakpoint-down('md') {
+            display: block;
+        }
+    }
+
+    .junip-product-review-average-container .junip-star-ratings-container {
+        @include breakpoint-down('md') {
+            justify-content: center;
+        }
     }
 
     .junip-product-review-summary-container, 
@@ -111,6 +124,8 @@
         height: 36px;
         min-width: 36px;
         font-size: 1em;
+        background-color: #E4CED1!important;
+        color: $primaryBrown!important;
 
         @include breakpoint-up('md') {
             width: 120px;
@@ -179,12 +194,17 @@
         font-family: $NeutraTextDemi;
         font-style: normal;
         font-weight: 500;
-        font-size: fontsize(26px)!important;
-        line-height: 29px;
+        font-size: fontsize(22px)!important;
+        line-height: 26px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
         text-transform: none;
         opacity: 1;
+
+        @include breakpoint-up('md') {
+            font-size: fontsize(26px)!important;
+            line-height: 29px;
+        }
     }
 
     .junip-review-body {
@@ -218,6 +238,7 @@
         padding: 0;
     }
     
+    .junip-container-xs .junip-product-review-average-container,
     .junip-container-xs .junip-gallery-container,
     .junip-container-xs .junip-separator {
         margin: 0;
