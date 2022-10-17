@@ -41,6 +41,7 @@ const ProductInfo = (props) => {
   const [activeTab, setActiveTab] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [diaperAmount, setDiaperAmount] = useState(false)
+  const [messageProduct, setMessageProduct] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
 
@@ -325,7 +326,22 @@ const ProductInfo = (props) => {
       }
     }
 
+    const getMessageProduct = async () => {
+        if(page.fields?.messageProduct) {
+            const handle = page.fields.messageProduct.replace('::en-US', '')
+            const product = await nacelleClient.products({
+                handles: [handle]
+            })
+
+            setMessageProduct(product[0])
+
+            console.log(product[0], "Product")
+        }
+
+    }
+
     getDiaperCount()
+    getMessageProduct()
   }, [])
 
   return product ? (
@@ -496,24 +512,35 @@ const ProductInfo = (props) => {
             <p>Complimentary shipping over $100</p>
           </div>
 
-          {page.fields?.messageTitle &&
-          page.fields?.messageText &&
-          page.fields?.messageUrl ? (
+          {messageProduct ? (
             <div className="product-message">
-              <p className="product-message__title large">
-                {page.fields.messageTitle}
-              </p>
-              <div className="product-message__wrapper">
-                <div className="product-message__image"></div>
-                <p className="product-message__text large">
-                  {page.fields.messageText}
-                </p>
-                <Link href={page.fields.messageUrl}>
-                  <div className="product-message__link">
-                    <span>Shop Now</span>
-                  </div>
-                </Link>
-              </div>
+                {page.fields?.messageTitle ? (
+                    <p className="product-message__title large">
+                        {page.fields.messageTitle}
+                    </p>
+                ) : ""}
+                <div className="product-message__wrapper">
+                    <div className="product-message__image">
+                        {messageProduct ?
+                            <Image
+                                src={messageProduct.content.featuredMedia.src}
+                                alt={messageProduct.content.title}
+                                width={72}
+                                height={72}
+                            />
+                        : ""}
+                    </div>
+                    {page.fields?.messageText ? (
+                        <p className="product-message__text large">
+                        {page.fields.messageText}
+                        </p>
+                    ) : ""}
+                    <Link href={messageProduct.content.handle}>
+                    <div className="product-message__link">
+                        <span>Shop Now</span>
+                    </div>
+                    </Link>
+                </div>
             </div>
           ) : (
             ''

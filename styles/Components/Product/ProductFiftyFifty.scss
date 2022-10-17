@@ -14,6 +14,13 @@
 
             &.flipped {
                 flex-direction: row-reverse;
+
+                .product-fifty-fifty__content {
+                    @include breakpoint-up('md') {
+                        padding-left: 60px;
+                        padding-right: 0px;
+                    }
+                }
             }
         }
     }
