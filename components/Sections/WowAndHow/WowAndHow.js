@@ -45,53 +45,49 @@ const WowAndHow = ({ content }) => {
                 <div className="wow-and-how__grid">
                     <div className="wow-and-how__upper-grid">
                         <div className="wow-and-how__grid-image">
-                            <div className="wow-and-how__stars">
+                            {displayStars && <div className="wow-and-how__stars">
                                 <ThreeStarsReversesIcon />
-                            </div>
+                            </div>}
                             <Image
                                 src={`https:${imageGrid1}`}
                                 alt={``}
-                                // width="465"
-                                // height="370"
                                 layout="fill"
+                                sizes="60vw"
                             />
                         </div>
                         <div className="wow-and-how__grid-image">
-                            <div className="wow-and-how__stars">
+                            {displayStars && <div className="wow-and-how__stars">
                                 <TwoStarsIcon />
-                            </div>
+                            </div>}
                             <Image
                                 src={`https:${imageGrid2}`}
                                 alt={``}
-                                // width="215"
-                                // height="185"
                                 layout="fill"
+                                sizes="27vw"
                             />
                         </div>
                     </div>
                     <div className="wow-and-how__lower-grid">
                         <div className="wow-and-how__grid-image">
-                            <div className="wow-and-how__stars">
+                            {displayStars && <div className="wow-and-how__stars">
                                 <OneStarIcon />
-                            </div>
+                            </div>}
                             <Image
                                 src={`https:${imageGrid3}`}
                                 alt={``}
-                                // width="215"
-                                // height="215"
                                 layout="fill"
+                                sizes="27vw"
                             />
                         </div>
                         <div className="wow-and-how__grid-image">
-                            <div className="wow-and-how__stars">
+                            {displayStars && <div className="wow-and-how__stars">
                                 <ThreeStarsIcon />
-                            </div>
+                            </div>}
                             <Image
                                 src={`https:${imageGrid4}`}
                                 alt={``}
-                                // width="465"
-                                // height="370"
                                 layout="fill"
+                                sizes="60vw"
                             />
                         </div>
                     </div>
