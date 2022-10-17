@@ -24,9 +24,6 @@ const StoriesSlider = ({ content }) => {
 
     const displayStars = content.fields.displayStars
     const contentAlignment = content.fields.contentAlignment
-
-    console.log("content:", content)
-
     return (
         <section className="stories-slider">
             <div className="stories-slider__container container">
