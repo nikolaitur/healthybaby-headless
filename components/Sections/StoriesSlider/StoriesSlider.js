@@ -23,11 +23,14 @@ const StoriesSlider = ({ content }) => {
     const slides = content.fields.storiesSlides
 
     const displayStars = content.fields.displayStars
+    const contentAlignment = content.fields.contentAlignment
+
+    console.log("content:", content)
 
     return (
         <section className="stories-slider">
             <div className="stories-slider__container container">
-                <div className="stories-slider__slider">
+                <div className={`stories-slider__slider stories-slider__slider-content-alignment--${contentAlignment ? contentAlignment.toLowerCase() : 'left'}`}>
                     {displayStars && <div className="stories-slider__image-top-stars">
                         <div className="stories-slider__image-three-stars">
                             <ThreeStarsIcon />
