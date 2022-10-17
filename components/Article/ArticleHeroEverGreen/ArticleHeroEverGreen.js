@@ -7,6 +7,7 @@ import ShieldPlus from '../../../svgs/ShieldPlus.svg'
 import DoubleWave from '../../../svgs/DoubleWave.js'
 import DoubleWaveMobile from 'svgs/DoubleWaveMobile'
 import PlayIcon from '../../../svgs/play-icon.svg'
+import parse from 'html-react-parser'
 
 const ArticleHeroEverGreen = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
@@ -83,7 +84,7 @@ const ArticleHeroEverGreen = ({ content }) => {
 
       <div className="article__container">
         <div className="article-hero__type">{articleType}</div>
-        <h3 className="article-hero__title">{title}</h3>
+        <h3 className="article-hero__title">{parse(title)}</h3>
         <div className="article-hero__pub">
           <span>
             {getDateFormat(publishDate)} • {readLength} read

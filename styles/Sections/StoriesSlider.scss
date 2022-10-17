@@ -1,6 +1,47 @@
-.stories-slider {
-  padding: 100px 0;
+.stories-slider__image-top-stars {
+  position: absolute;
+  top: 30px;
+  left: -25px;
+  z-index: 2;
+  pointer-events: none;
+  @include breakpoint-up('md') {
+    top: -30px;
+    left: auto;
+    right: calc(46% - 210px);
+  }
+  @include breakpoint-up('xl') {
+    right: calc(46% - 310px);
+  }
+}
 
+.stories-slider__image-bottom-stars {
+  pointer-events: none;
+  position: absolute;
+  top: 40vw;
+  right: -40px;
+  z-index: 2;
+  @include breakpoint-up('md') {
+    top: auto;
+    bottom: 200px;
+    right: -60px;
+  }
+}
+
+.stories-slider__image-three-stars {
+  svg {
+    width: 96px;
+    @include breakpoint-up('md') {
+      width: 257px;
+    }
+  }
+}
+
+.stories-slider {
+  padding: 40px 0;
+
+  @include breakpoint-up('md') {
+      padding: 100px 0;
+  }
   .swiper-slide {
     opacity: 0 !important;
 
@@ -31,7 +72,31 @@
   }
 
   &__slider {
-    overflow: hidden;
+    width: 100%;
+    &.stories-slider__slider-content-alignment--right {
+      .stories-slide__image-container {
+        order: -1;
+        @include breakpoint-up('xl') {
+          padding: 0 120px 0 40px
+        }
+      }
+      .stories-slide__content {
+        @include breakpoint-up('md') {
+          padding: 0 0 0 90px;
+        }
+      }
+      .stories-slider__image-top-stars {
+        left: -25px;
+      }
+      .stories-slider__image-bottom-stars {
+        @include breakpoint-up('md') {
+          left: calc(46% - 160px);
+        }
+        @include breakpoint-up('xl') {
+          left: calc(46% - 275px);
+        }
+      }
+    }
   }
 }
 
@@ -50,31 +115,37 @@
 
     @include breakpoint-up('md') {
       order: 0;
-      width: 50%;
+      width: 54%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-right: 0px;
+      padding-right: 90px;
     }
   }
 
-  &__image {
+  &__image-container {
+    position: relative;
     order: 0;
     margin-bottom: 40px;
 
     @include breakpoint-up('md') {
-      padding-left: 100px;
-      width: 50%;
+      width: 46%;
       margin: 0;
     }
+    @include breakpoint-up('xl') {
+      padding: 0 40px 0 120px;
+    }
+  }
 
+  &__image {
+    height: 96vw;
+    position: relative;
+    @include breakpoint-up('md') {
+      height: auto;
+      min-height: 865px;
+    }
     img {
-      height: 350px;
       object-fit: cover;
-
-      @include breakpoint-up('md') {
-        height: 970px !important;
-      }
     }
   }
 

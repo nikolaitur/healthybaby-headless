@@ -1,8 +1,11 @@
 .shop-by-category {
-    padding: 100px 0;
     overflow: hidden;
     background: #F5F2F2;
-    
+    padding: 40px 0;
+
+    @include breakpoint-up('md') {
+        padding: 100px 0;
+    }
     &__content {
         position: relative;
     }
@@ -93,6 +96,7 @@
 
         @include breakpoint-up('md') {
             width: 100%;
+            margin: 0 -20px;
         }
 
         > div {
@@ -114,7 +118,7 @@
 
         .collection-card {
             height: 320px;
-            width: 290px;
+            width: auto;
 
             @include breakpoint-up('md') {
                 height: 700px;
@@ -147,7 +151,7 @@
         //         position: absolute;
         //         top: 50%;
         //         transform: translate(-50%, -50%);
-        //         left: 50%;   
+        //         left: 50%;
         //     }
         // }
 
@@ -162,7 +166,7 @@
         //         position: absolute;
         //         top: 50%;
         //         transform: translate(-50%, -50%) rotate(180deg);
-        //         left: 50%;   
+        //         left: 50%;
         //     }
         // }
     }

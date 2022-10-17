@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import Link from 'next/link'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -32,12 +33,12 @@ const BestSellers = ({ content }) => {
 
         getBestSellers()
     }, [products]);
-    
+
     return (
         <section className="best-sellers">
             <div className="best-sellers__container container">
                 <div className="best-sellers__content">
-                    <h2 className="best-sellers__header">{ header }</h2>
+                    <h2 className="best-sellers__header">{parse(header)}</h2>
                     <div className="best-sellers__link">
                         <Link href="/">
                             <div className="best-sellers__button">
@@ -47,7 +48,7 @@ const BestSellers = ({ content }) => {
                         </Link>
                     </div>
                 </div>
-                {bestSellers.length > 1 ? (
+                {bestSellers.length > 0 ? (
                     <div className="best-sellers__slider">
                         <Swiper
                             className="best-sellers__slider--desktop"
