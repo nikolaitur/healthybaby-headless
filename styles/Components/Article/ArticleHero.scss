@@ -13,9 +13,11 @@
 
   &__wave {
     position: absolute;
-    bottom: 115px;
+    bottom: auto;
+    top: 85px;
 
     @include breakpoint-up('md') {
+      top: unset;
       bottom: 70px;
     }
 
@@ -28,9 +30,28 @@
     }
 
     &--mobile {
+      svg {
+        width: 200% !important;
+        transform: translate(-21%) translateY(-45px);
+      }
       @include breakpoint-up('md') {
         display: none !important;
       }
+    }
+  }
+
+  &__type {
+    font-family: $NeutraText;
+    font-size: 14px;
+    font-weight: 500;
+    color: $primaryBrown;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    text-align: center;
+    text-transform: capitalize;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
     }
   }
 
@@ -67,12 +88,17 @@
 
       @include breakpoint-up('md') {
         display: block !important;
+        padding-bottom: 60%;
+        background-size: cover;
       }
     }
 
     &--mobile {
+      padding-bottom: 60%;
+      background-size: cover;
       @include breakpoint-up('md') {
         display: none !important;
+        padding: 0;
       }
     }
 
@@ -116,14 +142,14 @@
 
   &__pub {
     margin-top: 16px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 500;
     font-family: $NeutraText;
     text-align: center;
     color: #3d3331;
 
     @include breakpoint-up('md') {
-      margin-top: 12px;
+      margin-top: 16px;
     }
   }
 

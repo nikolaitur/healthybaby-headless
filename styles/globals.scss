@@ -39,8 +39,11 @@
 // ===========================================================================
 // *** Pages
 // ===========================================================================
+@import './Pages/Page.scss';
 @import './Pages/ShopAll.scss';
 @import './Pages/Collections/Collection.scss';
+@import './Pages/Account/Account.scss';
+@import './Pages/Page404.scss';
 
 // ===========================================================================
 // *** Sections
@@ -77,3 +80,4 @@
 @import './Components/Cards/DiaperFinderCard.scss';
 @import './Components/Cards/VitaminFinder.scss';
 @import './Components/Product/Product.scss';
+@import './Components/LoadingState.scss';

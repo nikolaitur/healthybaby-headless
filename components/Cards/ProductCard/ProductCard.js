@@ -15,21 +15,23 @@ const ProductCard = ({ content }) => {
         <div className="product-card">
             <div className="product-card__image">
                 <Link href="/">
-                    {image ? 
-                        <Image
-                            src={image}
-                            alt={title}
-                            width="570"
-                            height="455"
-                        />
-                    : 
-                        <Image
-                            src="https://placeimg.com/570/455/people"
-                            alt={title}
-                            width="570"
-                            height="455"
-                        />
-                    }
+                    <a>
+                        {image ?
+                            <Image
+                                src={image}
+                                alt={title}
+                                width="570"
+                                height="455"
+                            />
+                        :
+                            <Image
+                                src="https://placeimg.com/570/455/people"
+                                alt={title}
+                                width="570"
+                                height="455"
+                            />
+                        }
+                    </a>
                 </Link>
             </div>
             <div className="product-card__content">

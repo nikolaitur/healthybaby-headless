@@ -8,6 +8,26 @@
 	&.input-group--checkbox {
 		display: flex;
 		align-items: center;
+		.label {
+			opacity: 1;
+			position: static;
+		}
+	}
+}
+
+.checkbox {
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	cursor: pointer;
+	~ .label {
+		margin: 2px 0 0 10px;
+		font-size: 16px;
+		color: $primaryBrown;
+		cursor: pointer;
+		@include breakpoint-up('sm') {
+			font-size: 18px;
+		}
 	}
 }
 
@@ -32,11 +52,12 @@
   height: 325px;
   border: 1px solid rgba(61, 51, 49, 0.2);
   border-radius: 2px;
-	padding: 30px;
+	padding: 18px;
 	color: $primaryBrown;
 	font-family: $NeutraTextDemi;
 	@include breakpoint-up('sm') {
 		font-size: 18px;
+		padding: 30px;
 	}
 	&::placeholder {
     color: rgba(61, 51, 49, 0.8);
@@ -53,13 +74,14 @@
   height: 48px;
   border: 1px solid rgba(61, 51, 49, 0.2);
   border-radius: 2px;
-	padding: 0 30px;
+	padding: 2px 18px 0;
 	color: $primaryBrown;
 	font-family: $NeutraTextDemi;
 	letter-spacing: 0.02em;
 	@include breakpoint-up('sm') {
 		font-size: 18px;
 		height: 72px;
+		padding: 2px 30px 0;
 	}
   &::placeholder {
     color: rgba(61, 51, 49, 0.8);
@@ -67,11 +89,13 @@
   }
 	&:not(:placeholder-shown) {
 		@include breakpoint-up('sm') {
-			padding-top: 15px;
+			padding-top: 20px;
 		}
 		~ label {
-			opacity: 1;
-			top: 16px;
+			@include breakpoint-up('sm') {
+				opacity: 1;
+				top: 16px;
+			}
 		}
 	}
 }
@@ -89,7 +113,12 @@
 		@include breakpoint-up('md') {
 			width: calc(50% - 18px);
 		}
-	}
+		&.input-group--thirds {
+			@include breakpoint-up('md') {
+				width: calc(33% - 18px);
+			}
+		}
+ 	}
 }
 
 /**
@@ -97,16 +126,39 @@
 **/
 
 .select-dropdown-selector {
+	&.select-dropdown-selector--has-label {
+		.react-select__placeholder {
+			@include breakpoint-up('sm') {
+				padding-top: 20px;
+			}
+		}
+	}
+	&:not(:placeholder-shown) {
+		.react-select__single-value {
+			@include breakpoint-up('sm') {
+				padding-top: 20px;
+			}
+		}
+		~ label {
+			@include breakpoint-up('sm') {
+				opacity: 1;
+				top: 16px;
+			}
+		}
+	}
 	* {
 		font-size: 16px !important;
-		font-family: $NeutraText !important;
+		font-family: $NeutraTextDemi !important;
 		@include breakpoint-up('sm') {
-			font-size: 18px;
+			font-size: 18px !important;
 		}
 	}
   svg {
-    width: 20px;
+    width: 15px;
 		transform: rotate(180deg);
+		@include breakpoint-up('sm') {
+			width: 20px;
+		}
   }
   .react-select__control {
     border-radius: 2px;
@@ -115,11 +167,14 @@
     box-shadow: none !important;
     height: 48px;
     @include breakpoint-up('sm') {
-      height: 60px;
+      height: 72px;
     }
   }
   .react-select__value-container {
-    padding: 0 30px;
+    padding: 2px 18px 0;
+		@include breakpoint-up('sm') {
+			padding: 2px 30px 0;
+		}
   }
 
 	.react-select__placeholder {
@@ -156,11 +211,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-			padding-right: 30px;
+			padding-right: 20px;
+			@include breakpoint-up('sm') {
+				padding-right: 30px;
+			}
     }
 		.dropdown-selector__arrow-open {
 			display: flex;
 			align-items: center;
+			position: relative;
 		}
   }
   .react-select__menu {
@@ -188,4 +247,46 @@
       // color: #fff;
     }
   }
+}
+
+/*
+	react-custom-checkbox
+*/
+
+.react-custom-checkbox {
+  border: 2px solid $primaryBrown !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 0 !important;
+	cursor: pointer;
+  svg {
+    width: 14px;
+    height: 14px;
+    * {
+      fill: #fff;
+    }
+  }
+  .checkbox--checked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: $primaryGreen;
+    border-radius: 0;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.react-custom-checkbox-label {
+	font-family: $NeutraText;
+	font-size: 16px;
+	margin: 4px 0 0 10px !important;
+	cursor: pointer;
+	@include breakpoint-up('sm') {
+		font-size: 18px;
+	}
 }
