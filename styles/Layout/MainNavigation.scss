@@ -13,6 +13,10 @@
     z-index: 10;
     background: #fff;
 
+    * {
+        color: $primaryBrown;
+    }
+
     // display: none!important;
 
     @include breakpoint-up('md') {

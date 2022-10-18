@@ -1,12 +1,11 @@
 import React from 'react'
 
 const ArticlePullQuote = ({ content }) => {
-  // const { ctaText, ctaUrl } = content.fields
-  // const backgroundImage = content.fields.image.fields.file.url
+  const { quote, author } = { ...content.fields }
   return (
     <div className="article-quote">
-      <div className="article-quote__content">{content.fields.quote}</div>
-      <div className="article-quote__author">— {content.fields.author}</div>
+      <div className="article-quote__content">{quote}</div>
+      <div className="article-quote__author">— {author}</div>
     </div>
   )
 }

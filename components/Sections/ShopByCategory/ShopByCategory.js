@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
-import Image from 'next/image';
+import parse from 'html-react-parser'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Lazy, Navigation } from "swiper";
@@ -13,29 +13,29 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import HealthyBrain from '../../../svgs/healthy-brain.svg'
 
 const ShopByCategory = ({ content }) => {
-    const {header, headerFontStyle, subheader, collectionCards } = content.fields
+    const {header, subheader, collectionCards, ctaText, ctaUrl } = {...content.fields}
 
     return (
         <section className="shop-by-category">
             <div className="shop-by-category__container container">
                 <div className="shop-by-category__content">
                     <h6 className="shop-by-category__subheader">{ subheader }</h6>
-                    <h2 className="shop-by-category__header">{ header }</h2>
+                    {header && <h2 className="shop-by-category__header">{ parse(header) }</h2>}
                     <div className="shop-by-category__link">
-                        <Link href="/">
+                        {ctaText && ctaUrl && <Link href={ctaUrl || ''}>
                             <div className="shop-by-category__button">
-                                <span>Shop All</span>
+                                <span>{ctaText}</span>
                                 <span><LongArrowRight /></span>
                             </div>
-                        </Link>
+                        </Link>}
                     </div>
                 </div>
                 <div className="shop-by-category__slider">
                     <Swiper
                         className="shop-by-category__slider--desktop desktop"
                         modules={[Lazy, Navigation]}
-                        spaceBetween={20}
-                        slidesPerView={3}
+                        spaceBetween={32}
+                        slidesPerView={3.4}
                         lazy={true}
                         navigation={true}
                         style={{
@@ -55,7 +55,7 @@ const ShopByCategory = ({ content }) => {
                         className="shop-by-category__slider--mobile mobile"
                         modules={[Lazy, Navigation]}
                         spaceBetween={20}
-                        slidesPerView={1}
+                        slidesPerView={1.125}
                         lazy={true}
                         navigation={true}
                         style={{

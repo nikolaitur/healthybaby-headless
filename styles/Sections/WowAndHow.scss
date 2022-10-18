@@ -1,7 +1,12 @@
 .wow-and-how {
-    padding: 100px 0 100px;
-    // background:  #C7E0E5;
+    padding: 40px 0;
 
+    @include breakpoint-up('md') {
+        padding: 100px 0;
+    }
+    @include breakpoint-up('xl') {
+        padding: 144px 0;
+    }
     &__container {
         position: relative;
         display: flex;
@@ -13,109 +18,138 @@
 
     &__content {
         @include breakpoint-up('md') {
-            padding-right: 0px;
             width: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 0 50px 0 60px;
         }
     }
 
     &__image {
-        margin-bottom: 50px;
-
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 -60px 50px;
         @include breakpoint-up('md') {
-            padding-right: 100px;
             width: 50%;
-            margin-bottom: 0;
+            margin: 0 0 0;
+            padding: 0 60px 0 50px;
+        }
+        img {
+            object-fit: cover;
         }
 
         &--desktop {
             display: none;
-
             @include breakpoint-up('md') {
-                display: block;
-            }
-
-            span {
-                span {
-                    transform: none;
-                }
-            }
-
-            span:nth-child(1) {
-
-                transform: translateX(-110px);
-
-                @include breakpoint-up('lg') {
-                    transform: translateX(-110px);
-                }
-
-                @media screen and (min-width: 1700px) {
-                    transform: translateX(-65px);
-                }
-            }
-
-            span:nth-child(2) {
-                transform: translate(380px, -218px);
-
-                @media screen and (min-width: 1700px) {
-                    transform: translateX(-40px);
-                }
-            }
-
-            span:nth-child(3) {
-                transform: translate(-255px, 18px);
-
-                @media screen and (min-width: 1700px) {
-                    transform: translate(15px, -135px);
-                }
-            }
-
-            span:nth-child(4) {
-                transform: translate(200px, -200px);
-
-                @media screen and (min-width: 1700px) {
-                    transform: translate(40px, 20px);
-                }
+                display: flex;
             }
         }
 
         &--mobile {
-            display: block;
-
             @include breakpoint-up('md') {
-                display: none;
-            }
-        }
-
-        img {
-            // height: 350px;
-            object-fit: cover;
-
-            @include breakpoint-up('md') {
-                // height: 750px!important;
+                display: none
             }
         }
     }
 
     &__grid {
         @include breakpoint-up('md') {
-            position: absolute;
-            width: 50vw;
-            right: calc( 50% + 170px);
-            max-width: 660px;
-        }
-
-        @media screen and (min-width: 1250px) {
-            right: calc( 50% + 100px);
-        }
-
-        @media screen and (min-width: 1700px) {
+            display: flex;
+            flex-wrap: wrap;
             position: relative;
-            width: auto;
-            right: 0;
-            max-width: inherit;
+        }
+
+        .wow-and-how__upper-grid,
+        .wow-and-how__lower-grid {
+            display: flex;
+            width: 100%;
+        }
+
+        .wow-and-how__upper-grid {
+            .wow-and-how__grid-image:nth-child(1) {
+                width: 60%;
+                margin: 0 10px 7.5px 0;
+                @include breakpoint-up('md') {
+                    margin: 0 20px 15px 0;
+                }
+                .wow-and-how__stars {
+                    left: -8%;
+                    bottom: 5%;
+                    svg {
+                        width: 123px;
+                    }
+                }
+            }
+
+            .wow-and-how__grid-image:nth-child(2) {
+                width: 27%;
+                max-height: 23.5vw;
+                margin: auto 60px 7.5px 10px;
+                @include breakpoint-up('md') {
+                    margin: auto 60px 15px 20px;
+                    max-height: 9.5vw;
+                }
+                .wow-and-how__stars {
+                    left: -8%;
+                    top: 10%;
+                    svg {
+                        width: 44px;
+                    }
+                }
+            }
+        }
+
+        .wow-and-how__lower-grid {
+            .wow-and-how__grid-image:nth-child(1) {
+                width: 27%;
+                max-height: 26.5vw;
+                margin: 7.5px 20px auto 60px;
+                @include breakpoint-up('md') {
+                    max-height: 11.5vw;
+                    margin: 15px 40px auto 60px;
+                }
+                .wow-and-how__stars {
+                    left: 40%;
+                    top: -12.5%;
+                    svg {
+                        width: 54px;
+                    }
+                }
+            }
+
+            .wow-and-how__grid-image:nth-child(2) {
+                width: 60%;
+                margin: 7.5px 0 0 0;
+                @include breakpoint-up('md') {
+                    margin: 15px 0 0 0;
+                }
+                .wow-and-how__stars {
+                    left: 3%;
+                    top: -7%;
+                    svg {
+                        width: 123px;
+                    }
+                }
+            }
+        }
+
+        .wow-and-how__grid-image {
+            position: relative;
+            height: 48vw;
+            @include breakpoint-up('md') {
+                height: 20vw;
+            }
+        }
+
+        .wow-and-how__stars {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            @include breakpoint-up('md') {
+                display: block;
+            }
         }
     }
 
@@ -123,14 +157,10 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 34px;
-        line-height: 34px;
         color: $primaryBrown;
         margin-bottom: 40px;
 
         @include breakpoint-up('md') {
-            font-size: 62px;
-            line-height: 62px;
             margin-bottom: 60px;
         }
     }
@@ -210,10 +240,13 @@
     &__stages {
         display: flex;
         flex-wrap: wrap;
-        
+
         @include breakpoint-up('md') {
-            max-width: 740px;
-        }   
+            max-width: 568px;
+        }
+        .select-dropdown-selector {
+            width: 100%;
+        }
     }
 
     &__stage {

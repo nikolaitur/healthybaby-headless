@@ -1,0 +1,102 @@
+.account-navigation {
+  width: 100%;
+  margin: 0 auto;
+  @include breakpoint-up('md') {
+    width: calc(100% - 58px);
+  }
+  @media only screen and (min-width: 1200px) {
+    width: calc(100% - 144px);
+  }
+}
+
+.account-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 18px 0 20px;
+  border-bottom: 1px solid #D5D5D3;
+  @include breakpoint-up('md') {
+    justify-content: flex-start;
+    padding: 35px 0 18px;
+  }
+}
+
+.account-tab button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.account-tab {
+  margin: 0 12px;
+  @media only screen and (min-width: 1200px) {
+    margin: 0 18px;
+    padding: 0 15px;
+  }
+  &:before {
+    content: '';
+    display: block;
+    width: calc(100% + 30px);
+    height: 2px;
+    border-bottom: 2px solid transparent;
+  }
+  &.link-is-active {
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      position: relative;
+      bottom: -38px;
+      left: 0;
+      border-bottom: 2px solid $primaryGreen;
+      @include breakpoint-up('sm') {
+        bottom: -40px;
+        left: -15px;
+        width: calc(100% + 30px);
+      }
+      @include breakpoint-up('md') {
+        bottom: -38px;
+      }
+    }
+    a, button {
+      color: $primaryGreen;
+    }
+  }
+  a, button {
+    font-family: $NeutraTextDemi;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: 0.3s ease-in-out color;
+    padding: 0;
+    margin: 0 auto;
+    @include breakpoint-up('sm') {
+      font-size: 22px;
+    }
+    &:hover {
+      color: $primaryGreen;
+    }
+  }
+  &:first-child {
+    @include breakpoint-up('md') {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+    &:before {
+      content: '';
+      left: 0px;
+      width: 100%;
+      @include breakpoint-up('md') {
+        width: calc(100% + 15px);
+      }
+    }
+  }
+  &:last-child {
+    @include breakpoint-up('md') {
+      padding: 0;
+      margin: 0 0 0 auto;
+    }
+  }
+}

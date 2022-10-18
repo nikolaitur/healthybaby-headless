@@ -8,7 +8,7 @@
 
   &__video {
     width: 100% !important;
-    height: 200px !important;
+    height: 225px !important;
 
     @include breakpoint-up('md') {
       height: 650px !important;
@@ -21,13 +21,29 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    line-height: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    svg {
+      width: 43px;
+      height: 43px;
+
+      @include breakpoint-up('md') {
+        width: 69px;
+        height: 69px;
+      }
+    }
   }
 
   &__image {
     position: absolute;
     width: 100%;
-    height: 200px;
+    height: 225px;
     overflow: hidden;
+    background-size: cover;
 
     @include breakpoint-up('md') {
       height: 650px;
@@ -68,6 +84,17 @@
     &.hide {
       opacity: 0;
       pointer-events: none;
+    }
+  }
+}
+
+.article-video.vertical {
+  .article-video__video,
+  .article-video__image {
+    height: 400px !important;
+
+    @include breakpoint-up('md') {
+      height: 1100px !important;
     }
   }
 }

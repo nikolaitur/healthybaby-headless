@@ -1,8 +1,6 @@
-import { useState } from 'react'
-import { useCart } from '@nacelle/react-hooks'
+import { useEffect } from 'react'
 import { nacelleClient } from 'services'
-import { getSelectedVariant } from 'utils/getSelectedVariant'
-import { getCartVariant } from 'utils/getCartVariant'
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 import ProductGallery from '../../components/Product/ProductGallery'
 import ProductInfo from '../../components/Product/ProductInfo'
@@ -10,6 +8,9 @@ import ProductSections from '../../components/Product/ProductSections'
 import ProductReviews from '../../components/Product/ProductReviews'
 
 function Product({ product, page }) {
+  useEffect(() => {
+    dataLayerViewProduct({ product })
+  }, [])
   return (
     product && (
       <section className="product-main">

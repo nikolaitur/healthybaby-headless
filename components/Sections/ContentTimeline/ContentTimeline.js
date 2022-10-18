@@ -2,10 +2,12 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
+
+import Plus from '../../../svgs/plus.svg'
 
 const ContentTimeline = ({ content }) => {
-   console.log(content, "TIMELINE")
-
+    
     useEffect(function mount() {
         window.addEventListener("scroll", timeLineScroll);
         window.addEventListener("scroll", fadeIn);
@@ -34,7 +36,7 @@ const ContentTimeline = ({ content }) => {
                 } else {
                     scrollProgress.style.height = `${((scrollTop / document.getElementById('content-timeline__items').offsetHeight)) * 100}%`;
                 }
-            }            
+            }
         });
     }
 
@@ -61,10 +63,20 @@ const ContentTimeline = ({ content }) => {
     }
 
     const contentTimelineBlock = (item, index) => {
+        const { header, description, ctaText, ctaUrl } = {...item.fields}
+        // console.log(item, "item")
         return (
             <div className="content-timeline__item" key={index}>
-                <div className="content-timeline__title">{ item.fields.header }</div>
-                <p className="content-timeline__copy large">{ item.fields.description }</p>
+                <div className="content-timeline__title">{ header }</div>
+                <p className="content-timeline__copy large">{ description }</p>
+                {ctaText && ctaUrl ? (
+                    <Link href={ctaUrl}>
+                        <div className="content-timeline__link">
+                            <span><Plus /></span>  
+                            <span>{ctaText}</span>  
+                        </div>
+                    </Link>
+                ) : ""}
             </div>
         )
     }
@@ -86,7 +98,7 @@ const ContentTimeline = ({ content }) => {
                             />
                         </div>
                     ) : ""}
-                    
+
                     {content.fields?.mobileImage ? (
                         <div className="content-timeline__image content-timeline__image--mobile">
                             <Image
@@ -120,7 +132,7 @@ const ContentTimeline = ({ content }) => {
                         </div>
                     ) : ""}
                 </div>
-            </div>   
+            </div>
         </section>
     )
 }

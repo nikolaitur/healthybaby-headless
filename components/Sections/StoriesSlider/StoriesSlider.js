@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import ThreeStarsIcon from '@/svgs/three-stars.svg'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Lazy, EffectFade, Autoplay } from "swiper";
@@ -20,11 +21,18 @@ const StoriesSlider = ({ content }) => {
     // const swiper = useSwiper();
     // const slides = [1, 2, 3]
     const slides = content.fields.storiesSlides
-    
+
+    const displayStars = content.fields.displayStars
+    const contentAlignment = content.fields.contentAlignment
     return (
         <section className="stories-slider">
             <div className="stories-slider__container container">
-                <div className="stories-slider__slider">
+                <div className={`stories-slider__slider stories-slider__slider-content-alignment--${contentAlignment ? contentAlignment.toLowerCase() : 'left'}`}>
+                    {displayStars && <div className="stories-slider__image-top-stars">
+                        <div className="stories-slider__image-three-stars">
+                            <ThreeStarsIcon />
+                        </div>
+                    </div>}
                     <Swiper
                         modules={[Lazy, EffectFade, Autoplay]}
                         spaceBetween={20}
@@ -47,6 +55,11 @@ const StoriesSlider = ({ content }) => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
+                    {displayStars && <div className="stories-slider__image-bottom-stars">
+                        <div className="stories-slider__image-three-stars">
+                            <ThreeStarsIcon />
+                        </div>
+                    </div>}
                 </div>
             </div>
         </section>

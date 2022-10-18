@@ -1,3 +1,20 @@
+.article-social-wrap {
+  @include breakpoint-up('md') {
+    position: sticky;
+    top: 50px;
+    left: 0px;
+    align-self: flex-start;
+
+    transform: translateX(-100px);
+  }
+}
+
+.article-sectionsContent {
+  @include breakpoint-up('md') {
+    margin-left: -80px;
+  }
+}
+
 .article-social {
   display: flex;
   flex-direction: row;
@@ -7,6 +24,7 @@
   margin: 30px 0;
   padding: 20px 28px;
   gap: 22px;
+  z-index: 10;
 
   @include breakpoint-up('md') {
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -14,11 +32,13 @@
     gap: 36px;
     padding: 30px 0;
     width: 80px;
-    position: fixed;
-    top: 50%;
-    left: 30px;
     flex-direction: column;
-    transform: translateY(-50%);
+  }
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
   }
 
   &__share {

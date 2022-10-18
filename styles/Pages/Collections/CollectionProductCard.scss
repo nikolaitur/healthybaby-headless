@@ -24,6 +24,14 @@
         &.full-width {
             width: calc(50% - 30px);
             max-width: calc(50% - 30px);
+
+            .btn {
+                width: calc(100% - 200px);
+                max-width: 416px;
+                text-align: center;
+                justify-content: center;
+                
+            }
         }
 
     }
@@ -32,7 +40,7 @@
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 19px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
@@ -197,6 +205,12 @@
 
     &__cta {
         margin-top: 10px;
+
+        .btn {
+            @include breakpoint-up('md') {
+                padding: 19px 50px;
+            }
+        }
     }
 
     &__slider {

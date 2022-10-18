@@ -1,3 +1,23 @@
+.shop-by-category {
+    .collection-card {
+        @include breakpoint-up('md') {
+            height: 620px;
+        }
+        &__cta {
+            max-width: 232px;
+            @include breakpoint-up('md') {
+                max-width: 352px;
+            }
+            .btn {
+                padding: 12px 30px;
+                @include breakpoint-up('md') {
+                    padding: 19px 30px;
+                }
+            }
+        }
+    }
+}
+
 .collection-card {
     position: relative;
     height: 255px;
@@ -10,7 +30,7 @@
     }
 
     @include breakpoint-up('md') {
-        height: 700px;
+        height: 710px;
         margin: 0 20px;
         max-width: 100%;
 
@@ -19,21 +39,31 @@
         }
     }
 
+    &:hover {
+        .collection-card__image-has-hover-image {
+            .collection-card__image-hover {
+                opacity: 1;
+            }
+        }
+    }
+
     &__cta {
         position: absolute;
-        bottom: 10px;
+        bottom: 12px;
         left: 50%;
         transform: translateX(-50%);
-        width: calc(100% - 40px);
+        width: 100%;
+        max-width: 295px;
 
         @include breakpoint-up('md') {
             bottom: 40px;
             padding: 0 30px;
             width: 100%;
+            max-width: 447px;
         }
 
         .btn {
-            padding: 19px 30px;
+            padding: 14px 30px;
             margin: 0 auto 0;
 
             @include breakpoint-up('md') {
@@ -51,10 +81,15 @@
         img {
             height: 350px;
             object-fit: cover;
+            transition: 0.3s ease-in-out opacity;
 
             @include breakpoint-up('md') {
                 height: 700px;
             }
         }
+    }
+
+    &__image-hover {
+        opacity: 0;
     }
 }

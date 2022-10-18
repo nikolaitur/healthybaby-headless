@@ -5,6 +5,7 @@ import { nacelleClient } from 'services'
 import ArticleHeroEverGreen from '../../../components/Article/ArticleHeroEverGreen'
 import ArticleSocial from '../../../components/Article/ArticleSocial'
 import ArticleSectionsContent from '../../../components/Article/ArticleSectionsContent'
+import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
 
 function Article({ article }) {
   console.log(article)
@@ -16,18 +17,24 @@ function Article({ article }) {
       ) : (
         <></>
       )}
-      <div className="article__container">
-        {article.fields.articleSections ? (
-          <ArticleSectionsContent sections={article.fields.articleSections} />
-        ) : (
-          <></>
-        )}
-        {article.fields.articleSocial ? (
-          <ArticleSocial content={article.fields.articleSocial} key="social" />
-        ) : (
-          <></>
-        )}
+      <div className="article__container article-content__container">
+        <ArticleSocial key="social" />
+        <div>
+          {article.fields.articleSections ? (
+            <ArticleSectionsContent sections={article.fields.articleSections} />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
+      {article.fields.articlePagination ? (
+        <ArticlePrevNext
+          content={article.fields.articlePagination}
+          key="articlePagination"
+        />
+      ) : (
+        <></>
+      )}
     </article>
   )
 }
