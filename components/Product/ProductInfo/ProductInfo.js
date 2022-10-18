@@ -51,17 +51,15 @@ const ProductInfo = (props) => {
   const richTextRenderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        console.log(node)
+        // console.log(node, "Node")
         return (
-          <></>
-          //  `<img src=https:${node.data.target.fields.file.url} />`
+          `<img src=https:${node.data.target.fields.file.url} />`
         )
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        console.log(node)
+        // console.log(node, "Node")
         return (
-          <></>
-          //  `<img src=https:${node.data.target.fields.file.url} />`
+          `<img src=https:${node.data.target.fields.file.url} />`
         )
       },
     },

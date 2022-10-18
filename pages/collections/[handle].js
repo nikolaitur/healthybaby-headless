@@ -13,10 +13,12 @@ function Collection(props) {
   const { collection, products, productBadges } = { ...props }
 
   useEffect(() => {
-    dataLayerViewProductList({
-      products: products,
-      url: router.asPath,
-    })
+    if(products) {
+      dataLayerViewProductList({
+        products: products,
+        url: router.asPath,
+      })
+    }
   })
 
   return (

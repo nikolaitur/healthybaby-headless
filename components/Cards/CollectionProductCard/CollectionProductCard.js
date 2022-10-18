@@ -62,22 +62,10 @@ const CollectionProductCard = ({
   useEffect(() => {
     if (content.fields?.productHandle && products) {
       setHandle(content.fields.productHandle.replace('::en-US', ''))
-      setProduct(
-        products.find(
-          (product) =>
-            product.content.handle ===
-            content.fields.productHandle.replace('::en-US', '')
-        )
-      )
-      getProdouctPrice(
-        products.find(
-          (product) =>
-            product.content.handle ===
-            content.fields.productHandle.replace('::en-US', '')
-        )
-      )
+      setProduct(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
+      getProdouctPrice(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
     }
-  }, [handle])
+}, [handle])
 
   const handleLink = (product) => {
     dataLayerSelectProduct({ product, url: router.pathname })
@@ -150,6 +138,26 @@ const CollectionProductCard = ({
       nacelleEntryId: selectedVariant.nacelleEntryId,
       selectedVariant,
     })
+
+    await cartClient
+      .cartLinesAdd({
+          cartId: cartDrawerContext.shopifyCartId,
+          lines: [
+          {
+              merchandiseId: selectedVariant.nacelleEntryId,
+              nacelleEntryId: selectedVariant.nacelleEntryId,
+              quantity: 1,
+          },
+          ],
+      })
+      .then((res) => {
+          console.log(res)
+      })
+      .catch((err) => {
+          console.error(err, 'Error')
+      })
+
+    cartDrawerContext.setIsOpen(true)
 
     console.log(cartDrawerContext.shopifyCartId)
 

@@ -59,7 +59,7 @@ const Order = ({orderId}) => {
                   alt={image.altText || item.variant.title}
                   width={266}
                   height={322}
-                  objectFit="contain"
+                  objectFit="cover"
                   layout="fill"
                 />
               </div>
@@ -96,7 +96,7 @@ const Order = ({orderId}) => {
                     alt={image.altText || item.variant.title}
                     width={266}
                     height={322}
-                    objectFit="contain"
+                    objectFit="cover"
                   />
                 </div>
                 <div className="account-order__line-item-metadata">
