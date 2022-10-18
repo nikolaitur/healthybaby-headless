@@ -23,6 +23,8 @@ const CollectionHeader = ({ content }) => {
         },
     }
 
+    console.log("header fields:", content)
+
     return (
         <section className="collection-header">
             <div className="collection-header__container container">
@@ -47,7 +49,7 @@ const CollectionHeader = ({ content }) => {
                     : ""}
 
                     {content?.description ?
-                        <div className="collection-header__description">{documentToReactComponents(content.description, contentfulToReactnative)}</div>
+                        <div className="collection-header__description">{content.description}</div>
                     : ""}
 
                     {content.fields?.description ?
