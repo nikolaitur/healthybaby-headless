@@ -174,7 +174,7 @@ const CollectionProductCard = ({ content, products, productBadges, crossSell }) 
         {badges?.length > 0 &&
             <ul className="collection-product-card__badge-list">
                 {badges.map(badge => {
-                    return <div className="collection-product-card__badge">
+                    return <div className="collection-product-card__badge" key={index}>
                         <Image
                             src={`https:${badge.file.url}`}
                             alt={badge.title}
