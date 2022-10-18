@@ -24,7 +24,6 @@ const findProductBadges = ({ content, products, productBadges }) => {
       (product) => product.content.handle === handle
     )
     const badges = productBadges.reduce((carry, badge) => {
-        console.log("product.tags:", product.tags)
         if (product?.tags.some((tag) => tag.indexOf(badge.handle) > -1)) {
             if (badge?.fields?.image?.fields) {
               return [...carry, badge.fields.image.fields]
