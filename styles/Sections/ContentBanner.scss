@@ -3,11 +3,10 @@
     overflow: hidden;
 
     @include breakpoint-up('md') {
-        padding: 80px 0 0;
+        padding: 80px 0 40px;
     }
 
     &__container {
-        background: #ECDCDE;
         padding: 40px 30px;
 
         @include breakpoint-down('sm') {

@@ -10,7 +10,7 @@ import ProductCrossSells from '../../Product/ProdcutCrossSells'
 
 // import ProductReviews from '../../Product/ProdcutReviews'
 
-const ProductSections =  ({ content }) => {
+const ProductSections =  ({ content, product }) => {
     
     // console.log("product sections", content)
 
@@ -38,7 +38,7 @@ const ProductSections =  ({ content }) => {
                         case 'productTechnology':
                             return <ProductTechnologyCallout content={section} key={index} />;
                         case 'productCrossSells':
-                                return <ProductCrossSells content={section} key={index} />;
+                                return <ProductCrossSells content={section} product={product} key={index} />;
                         default:
                         return null
                     }

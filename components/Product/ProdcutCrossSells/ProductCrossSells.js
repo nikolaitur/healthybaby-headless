@@ -14,12 +14,25 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import CollectionProductCard from '../../Cards/CollectionProductCard'
+import CollectionSections from '@/components/Sections/CollectionSections';
 
-const ProductCrossSells = ({ content }) => {
+const ProductCrossSells = ({ content, product }) => {
     const [products, setProducts] = useState(false)
 
     useEffect(() => {
         const getProducts = async () => {
+            let productId = product.sourceEntryId.split("gid://shopify/Product/").pop()
+            let handle = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/recommendations/products.json?product_id=${productId}&limit=3&intent=related`
+            // console.log(product, "cross sells", product.sourceEntryId.split("gid://shopify/Product/").pop(), `${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/recommendations/products.json?product_id=8032012370160&limit=4&intent=related`)
+            // fetch(handle)
+            //     .then(response => response.json())
+            //     .then(({ products }) => {
+            //         if (products.length > 0) {
+            //             console.log(products)
+            //         }
+            //     }
+            // );
+            
             const productHandles = content.fields.sections.filter(section => {
                 if (section.fields.productHandle) return section
               }).map(section => section.fields.productHandle.replace('::en-US', ''))

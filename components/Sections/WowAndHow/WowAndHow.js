@@ -4,9 +4,13 @@ import parse from 'html-react-parser'
 import Select, { components } from 'react-select'
 import IconCaretTop from '@/svgs/caret-top.svg'
 import { useRouter } from 'next/router';
+import ThreeStarsIcon from '@/svgs/three-stars.svg'
+import TwoStarsIcon from '@/svgs/two-stars.svg'
+import ThreeStarsReversesIcon from '@/svgs/three-stars-reverse.svg'
+import OneStarIcon from '@/svgs/one-star.svg'
 
 const WowAndHow = ({ content }) => {
-    const { header, subheader, copy, babyStage, ctaText, ctaUrl, showStars, backgroundColor } = {...content.fields}
+    const { header, subheader, copy, babyStage, ctaText, ctaUrl, displayStars } = {...content.fields}
     const imageGrid1 = content.fields.imageGrid1.fields.file.url
     const imageGrid2 = content.fields.imageGrid2.fields.file.url
     const imageGrid3 = content.fields.imageGrid3.fields.file.url
@@ -16,8 +20,6 @@ const WowAndHow = ({ content }) => {
     // if(backgroundColor.indexOf('#') !== 0) {
     //     backgroundColor = "#C7E0E5"
     // }
-
-
 
     const DropdownIndicator = props => {
         return (
@@ -37,41 +39,71 @@ const WowAndHow = ({ content }) => {
         }),
     }
 
+    const buildImages = (view) => {
+        return (
+            <div className={`wow-and-how__image wow-and-how__image--${view}`}>
+                <div className="wow-and-how__grid">
+                    <div className="wow-and-how__upper-grid">
+                        <div className="wow-and-how__grid-image">
+                            {displayStars && <div className="wow-and-how__stars">
+                                <ThreeStarsReversesIcon />
+                            </div>}
+                            <Image
+                                src={`https:${imageGrid1}`}
+                                alt={``}
+                                layout="fill"
+                                sizes="60vw"
+                            />
+                        </div>
+                        <div className="wow-and-how__grid-image">
+                            {displayStars && <div className="wow-and-how__stars">
+                                <TwoStarsIcon />
+                            </div>}
+                            <Image
+                                src={`https:${imageGrid2}`}
+                                alt={``}
+                                layout="fill"
+                                sizes="27vw"
+                            />
+                        </div>
+                    </div>
+                    <div className="wow-and-how__lower-grid">
+                        <div className="wow-and-how__grid-image">
+                            {displayStars && <div className="wow-and-how__stars">
+                                <OneStarIcon />
+                            </div>}
+                            <Image
+                                src={`https:${imageGrid3}`}
+                                alt={``}
+                                layout="fill"
+                                sizes="27vw"
+                            />
+                        </div>
+                        <div className="wow-and-how__grid-image">
+                            {displayStars && <div className="wow-and-how__stars">
+                                <ThreeStarsIcon />
+                            </div>}
+                            <Image
+                                src={`https:${imageGrid4}`}
+                                alt={``}
+                                layout="fill"
+                                sizes="60vw"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
 
     return (
         <section className="wow-and-how" data-background-color="teal">
             <div className="wow-and-how__container container">
-                <div className="wow-and-how__image wow-and-how__image--desktop">
-                    <div className="wow-and-how__grid">
-                        <Image
-                            src={`https:${imageGrid1}`}
-                            alt={``}
-                            width="465"
-                            height="370"
-                        />
-                        <Image
-                            src={`https:${imageGrid2}`}
-                            alt={``}
-                            width="215"
-                            height="185"
-                        />
-                        <Image
-                            src={`https:${imageGrid3}`}
-                            alt={``}
-                            width="215"
-                            height="215"
-                        />
-                        <Image
-                            src={`https:${imageGrid4}`}
-                            alt={``}
-                            width="465"
-                            height="370"
-                        />
-                    </div>
-                </div>
+                {buildImages('desktop')}
                 <div className="wow-and-how__content">
                     <h6 className="wow-and-how__subheader">{ subheader }</h6>
-                    {header && <h4 className="wow-and-how__header">{ parse(header) }</h4>}
+                    {header && <h2 className="wow-and-how__header">{ parse(header) }</h2>}
                     <h5 className="wow-and-how__copy">{ copy }</h5>
                     <div className="wow-and-how__cta">
                         <Link href={ctaUrl}>
@@ -80,14 +112,7 @@ const WowAndHow = ({ content }) => {
                             </button>
                         </Link>
                     </div>
-                    <div className="wow-and-how__image wow-and-how__image--mobile">
-                        <Image
-                            src={`https://images.ctfassets.net/urdrzzac4igp/1PQUBAWs7qIxzxDQBgU0YE/b7e3f797e9a8a3212e879cc70abecb9d/Group_266.png`}
-                            alt={``}
-                            width="785"
-                            height="770"
-                        />
-                    </div>
+                    {buildImages('mobile')}
                     <div className="wow-and-how__subheader">BROWSE BY STAGE</div>
                     <div className="wow-and-how__stages">
                         <Select

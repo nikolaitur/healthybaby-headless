@@ -3,6 +3,7 @@
   top: 30px;
   left: -25px;
   z-index: 2;
+  pointer-events: none;
   @include breakpoint-up('md') {
     top: -30px;
     left: auto;
@@ -14,6 +15,7 @@
 }
 
 .stories-slider__image-bottom-stars {
+  pointer-events: none;
   position: absolute;
   top: 40vw;
   right: -40px;
@@ -71,6 +73,30 @@
 
   &__slider {
     width: 100%;
+    &.stories-slider__slider-content-alignment--right {
+      .stories-slide__image-container {
+        order: -1;
+        @include breakpoint-up('xl') {
+          padding: 0 120px 0 40px
+        }
+      }
+      .stories-slide__content {
+        @include breakpoint-up('md') {
+          padding: 0 0 0 90px;
+        }
+      }
+      .stories-slider__image-top-stars {
+        left: -25px;
+      }
+      .stories-slider__image-bottom-stars {
+        @include breakpoint-up('md') {
+          left: calc(46% - 160px);
+        }
+        @include breakpoint-up('xl') {
+          left: calc(46% - 275px);
+        }
+      }
+    }
   }
 }
 

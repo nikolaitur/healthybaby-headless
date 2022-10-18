@@ -14,32 +14,6 @@ const DiaperFinderCard = ({ content }) => {
 
     const diaperCalculatorContext = useDiaperCalculatorContext()
 
-    // console.log(diaperCalculatorContext)
-
-    // const [stage, setStage] = useState(1)
-    // const [lifeStage, setLifeStage] = useState(intialValues.lifeStage)
-    // const [birthday, setBirthday] = useState(new Date());
-    // const [viatminFinderData, setVitaminFinderData] = useState(intialValues);
-
-    // useEffect(() => {}, [stage]);
-
-    // const goToNextStage = (stageNumber, lifeStage = false) => {
-    //     setStage(stageNumber)
-    //     setLifeStage(lifeStage)
-    // }
-
-    // const showVitaminRestult = () => {
-    //     console.log(birthday)
-    //     goToNextStage(3)
-    //     setVitaminFinderData(viatminFinderData => ({
-    //         ...viatminFinderData,
-    //         lifeStage,
-    //         birthday
-    //     }))
-
-    //     console.log(viatminFinderData)
-    // }
-
     let intialValues = {
         birthday: new Date(),
         weight: "10"
@@ -52,12 +26,20 @@ const DiaperFinderCard = ({ content }) => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        setDiaperFinderData(diaperFinderData => ({
-            ...diaperFinderData,
-            birthday,
-            [name]: value,
-        }))
-        diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
+        // setDiaperFinderData(diaperFinderData => ({
+        //     ...diaperFinderData,
+        //     birthday,
+        //     [name]: value,
+        // }))
+
+        let data = {
+            birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
+            weight: Number(value)
+        }
+
+        diaperCalculatorContext.setDiaperCalculatorData(data)
+
+        // diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
 
         console.log(diaperFinderData, "DIAPER")
     };
@@ -66,14 +48,20 @@ const DiaperFinderCard = ({ content }) => {
         setBirthday(date)
         setDiaperFinderData(diaperFinderData => ({
             ...diaperFinderData,
-            birthday
+            birthday: date
         }))
-        diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
+
+        let data = {
+            birthday: date,
+            weight: diaperCalculatorContext.diaperCalculatorData.weight
+        }
+
+        diaperCalculatorContext.setDiaperCalculatorData(data)
     }
 
     const openDiaperCalculator = () => {
         diaperCalculatorContext.setIsOpen(true)
-        diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
+        // diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
         console.log(diaperFinderData, diaperCalculatorContext.isOpen)
     }
 
@@ -93,11 +81,11 @@ const DiaperFinderCard = ({ content }) => {
                     <div className="diaper-finder-card__form">
                         <div className="input-wrapper birthday">
                             <span>{`Baby’s birthday`}</span>
-                            <DatePicker closeOnScroll={true} selected={birthday} onChange={(date) => handleDateChange(date)} placeholderText="MM/DD/YY" />
+                            <DatePicker closeOnScroll={true} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="MM/DD/YY" />
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
-                            <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperFinderData.weight}></input>
+                            <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>
                         <div className="input-wrapper">

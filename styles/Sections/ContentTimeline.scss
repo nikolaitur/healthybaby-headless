@@ -1,6 +1,8 @@
 .content-timeline {
-    padding: 70px 0;
-
+    padding: 40px 0;
+    @include breakpoint-up('md') {
+        padding: 70px 0;
+    }
     &__container {
         @include breakpoint-up('md') {
             display: flex;
@@ -22,7 +24,7 @@
             padding-top: 100px;
             max-width: 700px;
         }
-        
+
     }
 
     &__header {
