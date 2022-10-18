@@ -26,7 +26,6 @@ const PressLogos = ({ content }) => {
         breakpoints={{
           768: {
             slidesPerView: 7,
-            loop: true,
           },
         }}
       >

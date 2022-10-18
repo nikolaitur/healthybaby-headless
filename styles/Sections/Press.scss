@@ -47,7 +47,9 @@
   }
 
   .swiper-wrapper {
-    justify-content: center;
+    @include breakpoint-up('md') {
+      justify-content: center;
+    }
   }
 
   &__item {
