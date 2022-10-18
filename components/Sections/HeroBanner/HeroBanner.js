@@ -16,22 +16,24 @@ const HeroBanner = ({ content }) => {
         subtitleTruePosition = subtitlePosition
     }
 
+    console.log("featuredMedia:", featuredMedia)
+
     // console.log('HeroBanner', content)
     return (
         <section className={`hero ${isVideo ? 'hero--video' : ''}`}>
             <div className="hero__image">
 
-                {featuredMedia && isVideo && <Player playsInline loop={true} autoPlay={true} muted={true}>
+                {featuredMedia?.fields?.file && isVideo && <Player playsInline loop={true} autoPlay={true} muted={true}>
                     <source src={`https:${featuredMedia.fields.file.url}`} />
                 </Player>}
 
-                {featuredMedia && !isVideo && <Image
+                {featuredMedia?.fields?.file && !isVideo && <Image
                     className="hero__image--desktop"
                     src={`https:${featuredMedia.fields.file.url}`}
                     alt={title}
                     layout="fill"
                 />}
-                {mobileBackgroundImage && mobileBackgroundImage.fields.file.contentType.includes('image') && <Image
+                {mobileBackgroundImage?.fields?.url && mobileBackgroundImage.fields.file.contentType.includes('image') && <Image
                     className="hero__image--mobile"
                     src={`https:${mobileBackgroundImage.fields.file.url}`}
                     alt={title}
