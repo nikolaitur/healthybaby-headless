@@ -13,8 +13,8 @@ const ProductIngredients = ({ content }) => {
                     {content.fields?.subheader ? 
                         <h6 className="product-ingredients__subheader">{ content.fields.subheader }</h6>
                     : ""}
-                    {content.fields?.title ? 
-                        <div className="product-ingredients__header" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.fields.title) }}></div>
+                    {content.fields?.header ? 
+                        <div className="product-ingredients__header" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.fields.header) }}></div>
                     : ""}
                 </div>
                 {content.fields?.sections ? (
