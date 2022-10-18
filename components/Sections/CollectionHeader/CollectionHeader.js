@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Image from 'next/image';
 import parse from 'html-react-parser'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
@@ -33,11 +34,12 @@ const CollectionHeader = ({ content }) => {
                     : ""}
 
                     {content?.description ?
-                        <p className="collection-header__description">{ content.description }</p>
+                        <div className="collection-header__description" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.description) }}></div>
+                        
                     : ""}
 
                     {content.fields?.description ?
-                        <p className="collection-header__description">{ content.fields.description }</p>
+                        <div className="collection-header__description" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.fields.description) }}></div>
                     : ""}
 
                     {content.fields?.menu ? (

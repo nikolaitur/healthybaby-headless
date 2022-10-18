@@ -85,7 +85,7 @@ const DiaperFinderCard = ({ content }) => {
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
-                            <input name="weight" label="Weight" onChange={handleInputChange}  value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
+                            <input name="weight" label="Weight" onChange={handleInputChange} value={diaperCalculatorContext.diaperCalculatorData.weight} placeholderText="0"></input>
                             <span className="suffix">lbs</span>
                         </div>
                         <div className="input-wrapper">

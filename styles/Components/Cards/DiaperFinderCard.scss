@@ -98,6 +98,10 @@
         justify-content: center;
         max-width: 380px;
         margin: 0 auto;
+
+        span {
+            margin-bottom: 0!important;
+        }
     }
 
     &__form {
@@ -123,9 +127,9 @@
             font-weight: 500;
             font-size: 32px;
             line-height: 32px;
-            color: #4161A5;
+            color: #A0B0D2;
             border: none;
-            border-bottom: 1px dashed #4161A5;
+            border-bottom: 1px dashed #A0B0D2;
     
             @include breakpoint-up('md') {
                 margin-left: 8px;
@@ -205,7 +209,7 @@
             font-weight: 500;
             font-size: 32px;
             line-height: 32px;
-            color: #4161A5;
+            color: #A0B0D2;
             transform: translate(20px, 28px);
             position: absolute;
     
@@ -214,6 +218,18 @@
                 line-height: 50px;
                 transform: translate(145px, 0px);
             }
+        }
+
+        ::placeholder {
+            color: #A0B0D2;
+        }
+          
+        :-ms-input-placeholder {
+            color: #A0B0D2;
+        }
+          
+        ::-ms-input-placeholder {
+            color: #A0B0D2;
         }
     
     }
