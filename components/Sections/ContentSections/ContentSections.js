@@ -4,7 +4,6 @@ import CollectionCards from '../CollectionCards'
 import DiaperFinder from '../DiaperFinder'
 import ShopByCategory from '../ShopByCategory'
 import BestSellers from '../BestSellers'
-import ContentPreview from '../ContentPreview'
 import StoriesSlider from '../StoriesSlider'
 import About from '../About'
 import WowAndHow from '../WowAndHow'
@@ -35,8 +34,6 @@ const ContentSections = ({ sections }) => {
             return <BestSellers content={section} key={index} />
           case 'storiesSlider':
             return <StoriesSlider content={section} key={index} />
-          case 'contentPreview':
-            return <ContentPreview content={section} key={index} />
           case 'wowAndHow':
             return <WowAndHow content={section} key={index} />
           case 'about':

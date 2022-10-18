@@ -132,15 +132,17 @@ const LineItem = ({ item }) => {
     <div className="line-item">
       <div className="line-item__wrapper">
         <div className="line-item__image">
-          <Image
-            className=""
-            src={`${item.variant.featuredMedia.src}`}
-            alt={item.variant.productTitle}
-            layout="responsive"
-            objectFit="cover"
-            height="132"
-            width="108"
-          />
+            {item.variant.featuredMedia?.src ? (
+                    <Image
+                        className=""
+                        src={`${item.variant.featuredMedia.src}`}
+                        alt={ item.variant.productTitle }
+                        layout="responsive"
+                        objectFit="cover"
+                        height="132"
+                        width="108"
+                    />
+            ) : ""}
         </div>
         <div className="line-item__content">
           <div className="line-item__title">{item.variant.productTitle}</div>
