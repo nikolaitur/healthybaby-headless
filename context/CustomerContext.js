@@ -91,8 +91,6 @@ export function CustomerProvider({ children }) {
 
     const { customer } = data
 
-    dataLayerLogin({ url: router.pathname })
-
     if (customer === null) {
       Cookies.remove('customerAccessToken')
       return false
@@ -123,7 +121,7 @@ export function CustomerProvider({ children }) {
     if (enableLoadingState) {
       setCustomerLoading(false)
     }
-
+    dataLayerLogin({ url: router.pathname })
     setCustomer(customer)
     console.log('customer:', customer)
     return { data }
