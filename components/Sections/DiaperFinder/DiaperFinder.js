@@ -70,16 +70,16 @@ const DiaperFinder = ({ content }) => {
             paddingBottom: "2px",
             paddingTop: "2px",
             visibility: "visible",
-            color: "#4161A5",
+            color: "#A0B0D2",
             flex: "1 1 auto",
             display: "inline-grid",
             gridArea: "1/1/2/3",
             gridTemplateColumns: "0 min-content",
-            borderBottom: "1px dashed #4161A5",
+            borderBottom: "1px dashed #A0B0D2",
             cursor: "pointer"
         }),
         singleValue: () => ({
-            color: "#4161A5",
+            color: "#A0B0D2",
             gridArea: "1/1/2/3",
             margin: "0 2px",
             maxWidth: "100%",
@@ -94,13 +94,17 @@ const DiaperFinder = ({ content }) => {
             width: "290px",
             padding: "24px 20px"
         }),
-        option: () => ({
+        option: (provided, state) => ({
             fontFamily: "DomaineText",
             fontStyle: "italic",
             fontWeight: "500",
             color: "#fff",
             padding: "7px 0",
-            cursor: "pointer"
+            cursor: "pointer",
+            transition: "0.3ms",
+            '&:hover': {
+                color: '#4161A5'
+             }
         })
     }
 
@@ -329,6 +333,7 @@ const DiaperFinder = ({ content }) => {
                                 className="diaper-finder__select" 
                                 defaultValue={genderOptions[0]} 
                                 options={genderOptions}
+                                closeMenuOnScroll={true}
                                 onChange={(e) => onSelectChange(e)}/>
                             <span className="select-line">
                                 <span>{diaperFinderData.gender == "They" ? "were" : "was"} born on </span>
