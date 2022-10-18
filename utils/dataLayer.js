@@ -105,20 +105,15 @@ export const dataLayerViewSearchResults = ({ products }) => {
       ecommerce: {
         actionField: { list: 'search results' },
         impressions: products.map((item, index) => {
+          console.log('search result')
+          console.log(item)
           return {
-            id: item.sku, // SKU
-            name: item.title, // Product title
+            name: item.Title, // Product title
             brand: 'Healthy Baby',
             category: '',
-            variant: item.variant_title,
-            price: formatPrice(item.price).toString(),
-            quantity: '1',
-            product_id: item.id.toString(), // The product_id
+            product_id: item.Id, // The product_id
             variant_id: '', // id or variant_id
-            compare_at_price: item.compare_at_price
-              ? formatPrice(item.compare_at_price).toString()
-              : '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
-            image: item.image || '', // If available, otherwise use an empty string
+            image: item['Image Src'] || '', // If available, otherwise use an empty string
             position: index.toString(),
           }
         }),

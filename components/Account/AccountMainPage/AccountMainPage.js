@@ -5,7 +5,6 @@ import AccountTabs from '../AccountTabs'
 import OrderHistory from '../OrderHistory'
 import Order from '../Order'
 import MyInfo from '../MyInfo'
-import { dataLayerLogin } from '@/utils/dataLayer'
 
 const AccountMainPage = ({ page, orderId }) => {
   console.log('page:', page)
@@ -19,8 +18,6 @@ const AccountMainPage = ({ page, orderId }) => {
     }),
     []
   )
-
-  dataLayerLogin({ url: router.pathname })
 
   const getTabKey = (tabValue) =>
     Object.keys(tabs).find((key) => tabs[key] === tabValue)
