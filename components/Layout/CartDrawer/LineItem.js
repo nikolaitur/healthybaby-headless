@@ -56,11 +56,16 @@ const LineItem = ({ item }) => {
   const decrement = () => {
     if (item.quantity <= 1) {
       console.log('remove from cart')
-      dataLayerRFC(item)
+      dataLayerRFC({ item })
       removeFromCart(item)
     } else {
       decrementItem(item)
     }
+  }
+
+  const remove = () => {
+    dataLayerRFC({ item })
+    removeFromCart(item)
   }
 
   const upgradeToSubscription = async () => {
@@ -76,8 +81,7 @@ const LineItem = ({ item }) => {
         // attributes: [{ key: 'subscription', value: sellingPlanId }]
       }
 
-      console.log('remove from cart')
-      dataLayerRFC(item)
+      dataLayerRFC({ item })
 
       removeFromCart(item)
 
@@ -181,7 +185,7 @@ const LineItem = ({ item }) => {
             </div>
             <button
               onClick={() => {
-                removeFromCart(item)
+                remove()
               }}
               className="line-item__trash"
             >

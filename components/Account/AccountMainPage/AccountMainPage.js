@@ -5,10 +5,10 @@ import AccountTabs from '../AccountTabs'
 import OrderHistory from '../OrderHistory'
 import Order from '../Order'
 import MyInfo from '../MyInfo'
+import { dataLayerLogin } from '@/utils/dataLayer'
 
-const AccountMainPage = ({page, orderId}) => {
-
-  console.log("page:", page)
+const AccountMainPage = ({ page, orderId }) => {
+  console.log('page:', page)
   const router = useRouter()
 
   const { tab } = router.query
@@ -17,8 +17,10 @@ const AccountMainPage = ({page, orderId}) => {
       'order-history': 'Order History',
       'my-info': 'My Info',
     }),
-    [],
+    []
   )
+
+  dataLayerLogin({ url: router.pathname })
 
   const getTabKey = (tabValue) =>
     Object.keys(tabs).find((key) => tabs[key] === tabValue)
@@ -30,21 +32,22 @@ const AccountMainPage = ({page, orderId}) => {
     setSelectedTab(tabKey)
 
     if (updateUrl) {
-      router.push({pathname: `/account/${tabKey}`}, undefined, { shallow: true })
+      router.push({ pathname: `/account/${tabKey}` }, undefined, {
+        shallow: true,
+      })
     }
   }
 
   const renderBody = (pickedTab) => {
-
     if (router.pathname === '/account/orders/[id]') {
       return <Order orderId={orderId} />
     }
 
-    switch(pickedTab) {
+    switch (pickedTab) {
       case 'my-info':
-        return (<MyInfo page={page} />)
+        return <MyInfo page={page} />
       case 'order-history':
-        return (<OrderHistory />)
+        return <OrderHistory />
     }
   }
 
@@ -60,7 +63,11 @@ const AccountMainPage = ({page, orderId}) => {
   return (
     <div className="account-main">
       <AccountHeader props={page.fields} />
-      <AccountTabs tabs={tabs} selected={selectedTab} onSelected={onTabSelected} />
+      <AccountTabs
+        tabs={tabs}
+        selected={selectedTab}
+        onSelected={onTabSelected}
+      />
       {/* Body Content */}
       <div className="account-body">{renderBody(tab)}</div>
     </div>

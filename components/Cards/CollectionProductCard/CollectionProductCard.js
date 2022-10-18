@@ -6,13 +6,15 @@ import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
 
+import { useRouter } from 'next/router'
+
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
 
-import { dataLayerATC } from '@/utils/dataLayer'
+import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -41,6 +43,7 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
   const [productPrice, setProductPrice] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(false)
   const { title, cardWidth } = content.fields
+  const router = useRouter()
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
@@ -61,6 +64,11 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
       }
     }
   }, [handle])
+
+  const handleLink = (product) => {
+    dataLayerSelectProduct({ product, url: router.pathname })
+    router.push(`/products/${handle}`)
+  }
 
   const getProdouctPrice = (product) => {
     if (product.variants.length > 1) {
@@ -183,7 +191,7 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
         </div>
       )}
 
-      <Link href={`/products/${handle}`}>
+      <a onClick={() => handleLink(product)}>
         <div
           className={`collection-product-card__image ${
             content.fields?.image && content.fields?.imageHover
@@ -220,9 +228,9 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
             <div className="placeholder"></div>
           )}
         </div>
-      </Link>
+      </a>
       {content.fields?.image && content.fields?.imageHover ? (
-        <Link href={`/products/${handle}`}>
+        <a onClick={() => handleLink(product)}>
           <Swiper
             className="collection-product-card__slider"
             modules={[Lazy, Pagination]}
@@ -257,17 +265,17 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
               />
             </SwiperSlide>
           </Swiper>
-        </Link>
+        </a>
       ) : (
         ''
       )}
       <div className="collection-product-card__content">
         {content.fields?.title ? (
-          <Link href={`/products/${handle}`}>
+          <a onClick={() => handleLink(product)}>
             <div className="collection-product-card__title">
               {content.fields.title}
             </div>
-          </Link>
+          </a>
         ) : (
           ''
         )}

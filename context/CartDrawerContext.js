@@ -4,6 +4,7 @@ import cartClient from 'services/nacelleClientCart'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import CartDrawer from '../components/Layout/CartDrawer'
 import Router, { useRouter } from 'next/router'
+import { dataLayerViewCart } from '@/utils/dataLayer'
 
 import * as Cookies from 'es-cookie'
 
@@ -33,6 +34,12 @@ export function CartDrawerProvider({ children }) {
     }
     getCartDrawerContent()
   }, [])
+
+  useEffect(() => {
+    if (isOpen) {
+      dataLayerViewCart({ cart })
+    }
+  }, [isOpen])
 
   useEffect(() => {
     const getCartClient = async () => {
