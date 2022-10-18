@@ -22,10 +22,11 @@ const PressLogos = ({ content }) => {
         spaceBetween={0}
         lazy={true}
         pagination={false}
-        loop={true}
+        loop={false}
         breakpoints={{
           768: {
             slidesPerView: 7,
+            loop: true,
           },
         }}
       >
