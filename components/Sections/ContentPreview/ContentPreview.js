@@ -7,21 +7,21 @@ import ContentCard from '../../Cards/ContentCard'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const ContentPreview = ({ content }) => {
-    const { subheader } = content.fields
+    const { subheader, contentCards, guidesUrl, activitiesUrl, advisorsUrl, podcastsUrl } = {...content.fields}
 
-    const guides = content.fields.contentCards.filter(card => {
+    const guides = contentCards.filter(card => {
         return card.fields.contentType == "Guides"
     })
 
-    const activities = content.fields.contentCards.filter(card => {
+    const activities = contentCards.filter(card => {
         return card.fields.contentType == "Activities"
     })
 
-    const advisors = content.fields.contentCards.filter(card => {
+    const advisors = contentCards.filter(card => {
         return card.fields.contentType == "Advisors"
     })
 
-    const podcasts = content.fields.contentCards.filter(card => {
+    const podcasts = contentCards.filter(card => {
         return card.fields.contentType == "Podcast"
     })
 
@@ -37,13 +37,13 @@ const ContentPreview = ({ content }) => {
     const updateActiveContent = (contentName) => {
         switch (contentName) {
             case 'Guides':
-                return setActiveContent({ name: "Guides", ctaText: "Explore All Guides", ctaUrl: "/", fields: guides})
+                return setActiveContent({ name: "Guides", ctaText: "Explore All Guides", ctaUrl: guidesUrl || '', fields: guides})
             case 'Activities':
-                return setActiveContent({ name: "Activities", ctaText: "Explore All Activities", ctaUrl: "/", fields: activities})
+                return setActiveContent({ name: "Activities", ctaText: "Explore All Activities", ctaUrl: activitiesUrl || '', fields: activities})
             case 'Advisors':
-                return setActiveContent({ name: "Advisors", ctaText: "Meet Our Experts", ctaUrl: "/", fields: advisors})
+                return setActiveContent({ name: "Advisors", ctaText: "Meet Our Experts", ctaUrl: advisorsUrl || '', fields: advisors})
             case 'Podcast':
-                return setActiveContent({ name: "Podcast", ctaText: "Listen To More Episodes", ctaUrl: "/", fields: podcasts})
+                return setActiveContent({ name: "Podcast", ctaText: "Listen To More Episodes", ctaUrl: podcastsUrl || '', fields: podcasts})
             default:
             return null
         }
