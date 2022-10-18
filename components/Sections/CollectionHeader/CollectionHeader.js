@@ -7,7 +7,7 @@ import parse from 'html-react-parser'
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
     const { titleAlignmentDesktop, titleAlignmentMobile} = {...content.fields}
-    console.log(content)
+    // console.log(content)
 
     return (
         <section className="collection-header">
