@@ -49,7 +49,7 @@ const CollectionProductCard = ({ content, products, productBadges, crossSell }) 
 
     const badge = findProductBadge({ content, products, productBadges })
 
-    console.log(content)
+    // console.log(content)
 
     useEffect(() => {
         if (content.fields?.productHandle && products) {
