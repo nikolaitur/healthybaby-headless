@@ -165,36 +165,12 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               ))
             : ''}
         </div>
-        <div className="mobile-nav">
-            <div className="mobile-nav__left">
-                <div className="main-nav__item" onClick={() => openMobileMenu()}>
-                    <HamburgerMenu />
-                </div>
-                <div className="main-nav__item" onClick={() => toggleSearch()}>
-                    <Search />
-                </div>
-            </div>
-            <div className="mobile-nav__logo">
-                <LogoMobile />
-            </div>
-            <div className="mobile-nav__right">
-                {customerContext.customer ? (
-                    <div className="main-nav__item">
-                        <Link href="/account/my-info">
-                            <a>
-                                <Baby/>
-                            </a>
-                        </Link>
-                    </div>
-                ):(
-                    <div className="main-nav__item" onClick={() => openAccountModal()}>
-                        <Baby />
-                    </div>
-                )}
-                <div className="main-nav__item" onClick={() => openCartDrawer()}>
-                    <Cart />
-                </div>
-            </div>
+        <div className="main-nav__logo">
+          <Link href="/">
+            <a>
+              <Logo />
+            </a>
+          </Link>
         </div>
         <div className="main-nav__right">
           {props?.secondaryNavigation
@@ -249,12 +225,19 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           <LogoMobile />
         </div>
         <div className="mobile-nav__right">
-          <div
-            className="main-nav__item"
-            onClick={() => console.log('openModal')}
-          >
-            <Baby />
-          </div>
+          {customerContext.customer ? (
+            <div className="main-nav__item">
+              <Link href="/account/my-info">
+                <a>
+                  <Baby />
+                </a>
+              </Link>
+            </div>
+          ) : (
+            <div className="main-nav__item" onClick={() => openAccountModal()}>
+              <Baby />
+            </div>
+          )}
           <div className="main-nav__item" onClick={() => openCartDrawer()}>
             <Cart />
           </div>
