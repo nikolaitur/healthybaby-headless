@@ -1,5 +1,8 @@
 .experts {
-    padding: 70px 0;
+    padding: 40px 0;
+    @include breakpoint-up('md') {
+        padding: 70px 0;
+    }
 
     &__header {
         text-align: center;
@@ -25,7 +28,7 @@
         margin-bottom: 60px;
         width: 100%;
         &:last-child {
-            margin-bottom: 60px;
+            margin-bottom: 0;
         }
 
         @include breakpoint-up('sm') {
@@ -42,9 +45,15 @@
     }
 
     &__image {
-        margin: 0 auto 90px;
+        margin: 0 auto 36px;
         max-width: 520px;
-
+        padding: 0 10px;
+        @include breakpoint-up('sm') {
+            padding: 0;
+        }
+        @include breakpoint-up('md') {
+            margin: 0 auto 90px;
+        }
         img {
             width: 100%;
             max-width: 300px;
@@ -58,29 +67,38 @@
     }
 
     &__name {
-        font-family: $NeutraText;
+        font-family: $NeutraTextDemi;
         font-style: normal;
         font-weight: 500;
-        font-size: fontsize(26px);
-        line-height: 29px;
+        font-size: 20px;
+        line-height: 22px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
         position: relative;
         margin-top: 30px;
         text-align: center;
+        @include breakpoint-up('sm') {
+            font-size: fontsize(26px);
+            line-height: 29px;
+        }
     }
 
     &__description {
         margin-top: 30px;
         text-align: center;
         max-width: 500px;
-        margin: 30px auto;
+        margin: 10px auto;
+        @include breakpoint-up('sm') {
+            margin: 30px auto;
+        }
     }
 
     &__cta {
-        margin-top: 30px;
+        margin-top: 20px;
         cursor: pointer;
-
+        @include breakpoint-up('sm') {
+            margin-top: 30px;
+        }
         .link {
             margin: 0 auto;
         }

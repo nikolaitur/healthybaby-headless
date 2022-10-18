@@ -1,9 +1,14 @@
 .nutrition-chart {
-    padding: 70px 0;
+    padding: 40px 0;
 
     @include breakpoint-up('md') {
+        padding: 70px 0;
+    }
+
+    @include breakpoint-up('xl') {
         padding: 140px 0;
     }
+
 
     &__header {
         text-align: center;
@@ -28,7 +33,7 @@
             border-radius: 60px;
             max-width: max-content;
             margin: 50px auto 0;
-        }   
+        }
     }
 
     &__tab {
