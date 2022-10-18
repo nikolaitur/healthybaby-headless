@@ -238,7 +238,7 @@ const DiaperCalculator = ({props, children}) => {
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
-                            <input name="weight" label="Weight" onChange={(e) => handleInputChange(e)} defaultValue={weight} value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
+                            <input name="weight" label="Weight" onChange={(e) => handleInputChange(e)} value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>
                         <p className="diaper-calculator__copy">
