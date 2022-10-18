@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import Link from 'next/link'
 import Image from 'next/image'
+import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 
 import ProductCard from '../../Cards/ProductCard'
 import CloseIcon from '../../../svgs/close-icon.svg'
@@ -55,6 +56,7 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
       if (!results[0]) {
         setSearchProducts({ hits: [], total: 0 })
       } else {
+        dataLayerViewSearchResults({ products: results[0].hits })
         setSearchProducts({ hits: results[0].hits, total: results[0].nbHits })
       }
 
