@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const AccountHeader = ({props}) => {
 
+  const router = useRouter()
   const {headerDesktopImage, headerMobileImage, headerText } = {...props}
 
   const isDesktop = useMediaQuery(

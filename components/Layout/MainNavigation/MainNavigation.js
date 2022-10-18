@@ -194,9 +194,19 @@ const MainNavigation = forwardRef(({props}, ref) => {
                 <LogoMobile />
             </div>
             <div className="mobile-nav__right">
-                <div className="main-nav__item" onClick={() => console.log('openModal')}>
-                    <Baby />
-                </div>
+                {customerContext.customer ? (
+                    <div className="main-nav__item">
+                        <Link href="/account/my-info">
+                            <a>
+                                <Baby/>
+                            </a>
+                        </Link>
+                    </div>
+                ):(
+                    <div className="main-nav__item" onClick={() => openAccountModal()}>
+                        <Baby />
+                    </div>
+                )}
                 <div className="main-nav__item" onClick={() => openCartDrawer()}>
                     <Cart />
                 </div>
