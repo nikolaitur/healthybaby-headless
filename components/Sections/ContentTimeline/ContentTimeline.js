@@ -4,9 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import parse from 'html-react-parser'
 
-const ContentTimeline = ({ content }) => {
-   console.log(content, "TIMELINE")
+import Plus from '../../../svgs/plus.svg'
 
+const ContentTimeline = ({ content }) => {
+    
     useEffect(function mount() {
         window.addEventListener("scroll", timeLineScroll);
         window.addEventListener("scroll", fadeIn);
@@ -62,10 +63,20 @@ const ContentTimeline = ({ content }) => {
     }
 
     const contentTimelineBlock = (item, index) => {
+        const { header, description, ctaText, ctaUrl } = {...item.fields}
+        // console.log(item, "item")
         return (
             <div className="content-timeline__item" key={index}>
-                {item?.fields?.header && <div className="content-timeline__title">{ parse(item.fields.header) }</div>}
-                <p className="content-timeline__copy large">{ item.fields.description }</p>
+                <div className="content-timeline__title">{ header }</div>
+                <p className="content-timeline__copy large">{ description }</p>
+                {ctaText && ctaUrl ? (
+                    <Link href={ctaUrl}>
+                        <div className="content-timeline__link">
+                            <span><Plus /></span>  
+                            <span>{ctaText}</span>  
+                        </div>
+                    </Link>
+                ) : ""}
             </div>
         )
     }

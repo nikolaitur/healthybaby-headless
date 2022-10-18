@@ -1,6 +1,6 @@
 .collection-grid {
     padding-top: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 
     &__container {
         @include breakpoint-down('md') {
@@ -38,7 +38,7 @@
         @include breakpoint-up('md') {
             margin-bottom: 5px;
         }
-    } 
+    }
 
     &__subheader {
         margin-top: 15px;

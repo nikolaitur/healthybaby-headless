@@ -6,8 +6,6 @@ import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
 
-import { useRouter } from 'next/router'
-
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
 
@@ -35,7 +33,12 @@ const findProductBadge = ({ content, products, productBadges }) => {
   return null
 }
 
-const CollectionProductCard = ({ content, products, productBadges }) => {
+const CollectionProductCard = ({
+  content,
+  products,
+  productBadges,
+  crossSell,
+}) => {
   const [, { addToCart }] = useCart()
   const [isloading, setIsLoading] = useState(false)
   const [handle, setHandle] = useState(false)
@@ -43,25 +46,32 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
   const [productPrice, setProductPrice] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(false)
   const { title, cardWidth } = content.fields
-  const router = useRouter()
+  const isCrossSell = { ...crossSell }
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
   const badge = findProductBadge({ content, products, productBadges })
 
+  console.log(content)
+
   useEffect(() => {
     if (content.fields?.productHandle && products) {
       setHandle(content.fields.productHandle.replace('::en-US', ''))
-
-      if (handle) {
-        setProduct(
-          products.find((product) => product.content.handle === handle)
+      setProduct(
+        products.find(
+          (product) =>
+            product.content.handle ===
+            content.fields.productHandle.replace('::en-US', '')
         )
-        getProdouctPrice(
-          products.find((product) => product.content.handle === handle)
+      )
+      getProdouctPrice(
+        products.find(
+          (product) =>
+            product.content.handle ===
+            content.fields.productHandle.replace('::en-US', '')
         )
-      }
+      )
     }
   }, [handle])
 
@@ -300,8 +310,25 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
           ></span>
         </div>
         <div className="collection-product-card__cta">
-          {product && product.variants.length > 1 ? (
-            <button className="btn secondary" onClick={() => openQuickView()}>
+          {isCrossSell ? (
+            <button
+              className="btn secondary quickview"
+              onClick={() => openQuickView()}
+            >
+              <span>Quick View -</span>
+              {productPrice ? (
+                <>
+                  {`\u00A0`} ${productPrice}
+                </>
+              ) : (
+                ''
+              )}
+            </button>
+          ) : product && product.variants.length > 1 ? (
+            <button
+              className="btn secondary quickview"
+              onClick={() => openQuickView()}
+            >
               <span>{getCtaText()}</span>
               {productPrice ? (
                 <>

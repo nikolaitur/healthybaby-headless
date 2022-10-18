@@ -4,11 +4,11 @@ import Image from 'next/image';
 import parse from 'html-react-parser'
 
 const ContentBanner = ({ content }) => {
-    const { header, subheader, desktopImage, mobileImage, ctaText, ctaUrl } = content.fields
+    const { header, subheader, backgroundColor, desktopImage, mobileImage, ctaText, ctaUrl } = {...content.fields}
 
     return (
         <section className="content-banner">
-            <div className="content-banner__container container">
+            <div className="content-banner__container container" style={{'backgroundColor': (backgroundColor || '#ECDCDE')}}>
                 <div className="content-banner__image">
                     <Image
                         className="content-banner__image--desktop"
@@ -26,11 +26,11 @@ const ContentBanner = ({ content }) => {
                     />
                 </div>
                 <div className="content-banner__content">
-                    {content.fields?.header ? (
-                        <div className="content-banner__header">{ parse(content.fields.header) }</div>
+                    {header ? (
+                        <div className="content-banner__header">{ parse(header) }</div>
                     ) : ""}
-                    {content.fields?.subheader ? (
-                        <div className="content-banner__subheader">{ content.fields.subheader }</div>
+                    {subheader ? (
+                        <div className="content-banner__subheader">{subheader}</div>
                     ) : ""}
                 </div>
                 <div className="content-banner__cta">

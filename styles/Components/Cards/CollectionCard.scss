@@ -39,6 +39,14 @@
         }
     }
 
+    &:hover {
+        .collection-card__image-has-hover-image {
+            .collection-card__image-hover {
+                opacity: 1;
+            }
+        }
+    }
+
     &__cta {
         position: absolute;
         bottom: 12px;
@@ -73,10 +81,15 @@
         img {
             height: 350px;
             object-fit: cover;
+            transition: 0.3s ease-in-out opacity;
 
             @include breakpoint-up('md') {
                 height: 700px;
             }
         }
+    }
+
+    &__image-hover {
+        opacity: 0;
     }
 }

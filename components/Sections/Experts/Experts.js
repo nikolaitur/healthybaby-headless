@@ -12,11 +12,11 @@ const Experts = ({ content }) => {
                         <h6 className="experts__subheader">{ content.fields.subheader }</h6>
                     ) : ""}
                     {content.fields?.header ? (
-                        <h2 className="experts__header">{ content.fields.header }</h2>
+                        <h3 className="experts__header">{ content.fields.header }</h3>
                     ) : ""}
                 </div>
                 {content.fields?.sections ? (
-                    <div className="experts__wrapper"> 
+                    <div className="experts__wrapper">
                         {content.fields.sections.map((item, index) => (
                             <div className="experts__expert" key={index}>
                                 {item.fields?.image ? (
@@ -27,8 +27,9 @@ const Experts = ({ content }) => {
                                             alt={item.fields.image.fields.title}
                                             layout="responsive"
                                             objectFit="cover"
-                                            height="512"
-                                            width="512"
+                                            height="520"
+                                            width="520"
+                                            sizes="(min-width: 768px) 50vw, (min-width: 1200px) 800px, 100vw"
                                         />
                                     </div>
                                 ) : ""}
@@ -43,13 +44,13 @@ const Experts = ({ content }) => {
                                         <Link href={item.fields.ctaUrl}>
                                             <button className="link">{ item.fields.ctaText }</button>
                                         </Link>
-                                    </div>     
-                                 ) : ""} 
+                                    </div>
+                                 ) : ""}
                             </div>
-                        ))}                    
+                        ))}
                     </div>
                 ) : ""}
-            </div>   
+            </div>
         </section>
     )
 }
