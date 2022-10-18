@@ -205,8 +205,8 @@ const CollectionProductCard = ({
 
     {badges?.length > 0 &&
         <ul className="collection-product-card__badge-list">
-            {badges.map(badge => {
-                return <div className="collection-product-card__badge">
+            {badges.map((badge, index) => {
+                return <li className="collection-product-card__badge" key={index}>
                     <Image
                         src={`https:${badge.file.url}`}
                         alt={badge.title}
@@ -215,7 +215,7 @@ const CollectionProductCard = ({
                         height={100}
                         width={100}
                     />
-                </div>
+                </li>
             })}
         </ul>
     }
