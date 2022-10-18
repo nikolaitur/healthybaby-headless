@@ -13,6 +13,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
 
 import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -45,6 +46,7 @@ const CollectionProductCard = ({
   productBadges,
   crossSell,
 }) => {
+  const router = useRouter()
   const [, { addToCart }] = useCart()
   const [isloading, setIsLoading] = useState(false)
   const [handle, setHandle] = useState(false)
