@@ -17,26 +17,28 @@ const CollectionGrid = ({ content, products, productBadges }) => {
             <div className="collection-grid__container container">
                 <div className={`collection-grid__content ${router.pathname !== `/shop-all` ? "hide" : ""}`}>
                     {header && <h5 className={`collection-grid__header`}>{ parse(header) }</h5>}
-                    <p className="collection-grid__subheader large">{ subheader }</p>
+                    {subheader && <p className="collection-grid__subheader large">{ subheader }</p>}
                 </div>
-                <div className="collection-grid__wrapper">
-                    {sectionItems.map((item, index) => {
-                        let type = item.type;
+                {content.fields?.sections ? (
+                    <div className="collection-grid__wrapper">
+                        {content.fields.sections.map((item, index) => {
+                            let type = item.type;
 
-                        switch (type) {
-                            case 'collectionProductCard':
-                                return <CollectionProductCard content={item} products={products} productBadges={productBadges} key={index} />
-                            case 'collectionCallout':
-                                return <CollectionCallout content={item} key={index} />
-                            case 'diaperCalculator':
-                                return <DiaperFinderCard content={item} key={index} />
-                            case 'vitaminFinder':
-                                return <VitaminFinder content={item} key={index} />
-                            default:
-                            return null
-                        }
-                    })}
-                </div>
+                            switch (type) {
+                                case 'collectionProductCard':
+                                    return <CollectionProductCard content={item} products={products} productBadges={productBadges} key={index} />
+                                case 'collectionCallout':
+                                    return <CollectionCallout content={item} key={index} />
+                                case 'diaperCalculator':
+                                    return <DiaperFinderCard content={item} key={index} />
+                                case 'vitaminFinder':
+                                    return <VitaminFinder content={item} key={index} />
+                                default:
+                                return null
+                            }
+                        })}
+                    </div>
+                ) : ""}
             </div>
         </section>
     )
