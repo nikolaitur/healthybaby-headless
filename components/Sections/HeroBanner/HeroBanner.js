@@ -31,7 +31,7 @@ const HeroBanner = ({ content }) => {
                     alt={title}
                     layout="fill"
                 />}
-                {mobileBackgroundImage?.fields?.url && mobileBackgroundImage.fields.file.contentType.includes('image') && <Image
+                {mobileBackgroundImage?.fields?.file && mobileBackgroundImage.fields.file.contentType.includes('image') && <Image
                     className="hero__image--mobile"
                     src={`https:${mobileBackgroundImage.fields.file.url}`}
                     alt={title}
