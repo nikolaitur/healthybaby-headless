@@ -220,6 +220,7 @@
         margin-top: 10px;
 
         .btn {
+            padding: 9px 20px;
             @include breakpoint-up('md') {
                 padding: 19px 50px;
             }
