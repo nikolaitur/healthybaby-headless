@@ -115,6 +115,7 @@
     &__content {
         max-width: 1040px;
         width: 100%;
+        padding: 75px 0;
     }
 
     &__subheader {
@@ -135,9 +136,15 @@
     }
 
     &__content-header {
-        margin-bottom: 50px;
         > * {
             margin: 10px 0;
+        }
+    }
+
+    &__cta {
+        margin-top: 40px;
+        @include breakpoint-up('md') {
+            margin-top: 50px;
         }
     }
 
