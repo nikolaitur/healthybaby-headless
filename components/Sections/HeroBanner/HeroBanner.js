@@ -6,7 +6,7 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import parse from 'html-react-parser'
 
 const HeroBanner = ({ content }) => {
-    const { title, italicizeTitle, subtitle, subtitlePosition, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl, alignment, verticalAlignment, hideCta } = {...content.fields}
+    const { title, subtitle, subtitlePosition, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl, alignment, verticalAlignment, hideCta } = {...content.fields}
 
     const isVideo = featuredMedia?.fields?.file?.contentType.includes('video')
 
@@ -15,8 +15,6 @@ const HeroBanner = ({ content }) => {
     if (subtitlePosition) {
         subtitleTruePosition = subtitlePosition
     }
-
-    console.log("featuredMedia:", featuredMedia)
 
     // console.log('HeroBanner', content)
     return (
@@ -44,7 +42,7 @@ const HeroBanner = ({ content }) => {
                 <div className="hero__content">
                     <div className="hero__content-header">
                         {subtitleTruePosition === 'above title' && <h4 className="hero__subheader">{ subtitle }</h4>}
-                        <h1 className={`hero__header ${italicizeTitle ? 'hero__header--italicized' : ''}`}>{ parse(title) }</h1>
+                        <h1 className="hero__header">{ parse(title) }</h1>
                         {subtitleTruePosition === 'below title' && <h4 className="hero__subheader">{ subtitle }</h4>}
                     </div>
                     {hideCta === 'False' && <div className="hero__cta">
