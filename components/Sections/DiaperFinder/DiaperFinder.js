@@ -38,7 +38,7 @@ const DiaperFinder = ({ content }) => {
     const [startDate, setStartDate] = useState(new Date());
     const [babyName, setBabyName] = useState("")
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
-    const [weight, setWeight] = useState(0)
+    const [weight, setWeight] = useState(1.1)
     const [product, setProduct] = useState(false)
     const [prenatalProduct, setPrenatalProduct] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false);

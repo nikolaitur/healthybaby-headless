@@ -599,4 +599,16 @@
         right: 0;
         z-index: 0;
     }
+
+    ::placeholder {
+        color: #A0B0D2;
+    }
+
+    :-ms-input-placeholder {
+        color: #A0B0D2;
+    }
+
+    ::-ms-input-placeholder {
+        color: #A0B0D2;
+    }
 }
