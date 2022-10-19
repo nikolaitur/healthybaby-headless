@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, forwardRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
@@ -40,12 +40,12 @@ const findProductBadges = ({ content, products, productBadges }) => {
   return null
 }
 
-const CollectionProductCard = ({
+const CollectionProductCard = forwardRef(({
   content,
   products,
   productBadges,
   crossSell,
-}) => {
+}, ref) => {
   const router = useRouter()
   const [, { addToCart }] = useCart()
   const [isloading, setIsLoading] = useState(false)
@@ -67,7 +67,7 @@ const CollectionProductCard = ({
       setProduct(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
       getProdouctPrice(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
     }
-}, [handle])
+  }, [handle])
 
   const handleLink = (product) => {
     dataLayerSelectProduct({ product, url: router.pathname })
@@ -220,7 +220,7 @@ const CollectionProductCard = ({
         </ul>
     }
 
-      <a onClick={() => handleLink(product)}>
+      <a className={cardWidth == 'Full Width' ? 'collection-product-card__image-wrapper--full-width' : ''} onClick={() => handleLink(product)} ref={ref}>
         <div
           className={`collection-product-card__image ${
             content.fields?.image && content.fields?.imageHover
@@ -373,6 +373,6 @@ const CollectionProductCard = ({
       </div>
     </div>
   )
-}
+})
 
 export default CollectionProductCard

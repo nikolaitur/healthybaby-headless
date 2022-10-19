@@ -52,7 +52,7 @@ export function CartDrawerProvider({ children }) {
       const lines = cartItems
 
       if (!Cookies.get('shopifyCartId')) {
-        console.log(shopifyCartId, 'ID')
+        // console.log(shopifyCartId, 'ID')
         cartClient
           .cart({
             cartId: Cookies.get('shopifyCartId'),
