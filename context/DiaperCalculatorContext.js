@@ -11,7 +11,7 @@ export function useDiaperCalculatorContext() {
 export function DiaperCalculatorProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
-  const [diaperCalculatorData, setDiaperCalculatorData] = useState({ birthday: null, weight: "1.1" })
+  const [diaperCalculatorData, setDiaperCalculatorData] = useState({ birthday: null, weight: 0 })
 
   return (
     <DiaperCalculatorContext.Provider value={{ isOpen, setIsOpen, diaperCalculatorData, setDiaperCalculatorData }}>

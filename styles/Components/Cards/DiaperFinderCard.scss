@@ -102,6 +102,11 @@
         justify-content: center;
         max-width: 380px;
         margin: 0 auto;
+
+        span {
+            margin-bottom: 0!important;
+        }
+        
         @include breakpoint-up('md') {
             padding: 19px 20px;
         }
@@ -224,6 +229,18 @@
             }
         }
 
+        ::placeholder {
+            color: #A0B0D2;
+        }
+          
+        :-ms-input-placeholder {
+            color: #A0B0D2;
+        }
+          
+        ::-ms-input-placeholder {
+            color: #A0B0D2;
+        }
+    
     }
 
 
