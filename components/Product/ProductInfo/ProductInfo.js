@@ -389,13 +389,22 @@ const ProductInfo = (props) => {
                         className="product-form__add-on"
                         onChange={() => handleCheckBoxChange(option)}
                       >
-                        <div className="product-form__add-on--image"></div>
+                        <div className="product-form__add-on--image">
+                            {page.fields?.productAddOnImage ?
+                                <Image
+                                    src={`https:${page.fields.productAddOnImage.fields.file.url}`}
+                                    alt={`messageProduct.content.title`}
+                                    width={72}
+                                    height={72}
+                                />
+                            : ""}
+                        </div>
                         <div className="product-form__add-on--content">
                           <div className="product-form__add-on--title">
-                            Add a 4-pk of Wipes?
+                            {page.fields?.productAddOnText ? page.fields.productAddOnText : "Add a 4-pk of Wipes?" }
                           </div>
                           <div className="product-form__add-on--price">
-                            +$27
+                            {page.fields?.productAddOnPrice ? `+$${page.fields.productAddOnPrice}` : "+$27" }
                           </div>
                         </div>
                         <input type="checkbox"></input>
