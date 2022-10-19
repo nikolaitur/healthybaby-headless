@@ -5,6 +5,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
+import { useMediaQuery } from 'react-responsive'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
@@ -55,6 +56,9 @@ const CollectionProductCard = forwardRef(({
   const [selectedVariant, setSelectedVariant] = useState(false)
   const { title, cardWidth } = content.fields
   const isCrossSell = { ...crossSell }
+  const isDesktop = useMediaQuery(
+    { minWidth: 1074 }
+  )
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
@@ -236,7 +240,7 @@ const CollectionProductCard = forwardRef(({
                 alt={content.fields.image.fields.title}
                 layout="responsive"
                 objectFit="cover"
-                height={cardWidth == 'Full Width' ? 695 : 710}
+                height={cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710}
                 width={cardWidth == 'Full Width' ? 870 : 570}
               />
               {content.fields?.imageHover ? (
@@ -246,7 +250,7 @@ const CollectionProductCard = forwardRef(({
                   alt={content.fields.imageHover.fields.title}
                   layout="responsive"
                   objectFit="cover"
-                  height={cardWidth == 'Full Width' ? 695 : 710}
+                  height={cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
               ) : (
