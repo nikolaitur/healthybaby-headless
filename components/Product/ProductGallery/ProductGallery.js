@@ -28,7 +28,7 @@ const ProductGallery = ( props ) => {
                     />
                 </div>
             ) : (
-                product.content.media.map((image, index) => {
+                product.content.media.slice(0, 6).map((image, index) => {
                     return (
                         <div className="product-gallery__image" key={index}>
                             <Image
@@ -61,7 +61,7 @@ const ProductGallery = ( props ) => {
                         "--swiper-pagination-bullet-inactive-opacity": "1"
                     }}
                 >
-                    {product.content.media.map((image, index) => {
+                    {product.content.media.slice(0, 6).map((image, index) => {
                         return (
                             <SwiperSlide key={index}>
                                 <Image
