@@ -36,9 +36,9 @@ const DiaperFinder = ({ content }) => {
     const [, { addToCart }] = useCart()
     const [isActive, setIsActive] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
-    const [babyName, setBabyName] = useState("/")
+    const [babyName, setBabyName] = useState("")
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
-    const [weight, setWeight] = useState(1.1)
+    const [weight, setWeight] = useState(0)
     const [product, setProduct] = useState(false)
     const [prenatalProduct, setPrenatalProduct] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false);
@@ -325,7 +325,7 @@ const DiaperFinder = ({ content }) => {
                     <div className="diaper-finder__form">
                         <span>
                             <span>My baby’s name is</span>
-                            <input name="baby-name" label="Name" onChange={(e) => handleInputChange(e)} value={babyName}></input>
+                            <input name="baby-name" label="Name" onChange={(e) => handleInputChange(e)} value={babyName} placeholder="/"></input>
                         </span>
                         <span>                           
                             <Select 
@@ -337,13 +337,13 @@ const DiaperFinder = ({ content }) => {
                                 onChange={(e) => onSelectChange(e)}/>
                             <span className="select-line">
                                 <span>{diaperFinderData.gender == "They" ? "were" : "was"} born on </span>
-                                <DatePicker closeOnScroll={true} selected={startDate} onChange={(date) => setStartDate(date)} />
+                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                             </span>
                         </span>
                         <span className="weight">
                             <span>& weigh</span>
                             <div className="input-wrapper">
-                                <input type="number" name="weight" label="Weight" onChange={(e) => handleInputChange(e)}  value={weight}></input>
+                                <input type="tel" name="weight" label="Weight" onChange={(e) => handleInputChange(e)} min="0" value={weight} placeholder="1.1"></input>
                                 <span className="suffix">lbs</span>
                             </div>
                         </span>
