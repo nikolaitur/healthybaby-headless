@@ -259,7 +259,7 @@ const DiaperCalculator = ({props, children}) => {
                         <span className="title">Size Guide: </span>
                         <div className="toggle">
                             <span className={`${measurement == "lbs" ? "active" : ""}`} onClick={() => toggleMeasurement("lbs")}>lbs</span>
-                            <span className={`${measurement == "kgs" ? "active" : ""}`} onClick={() => toggleMeasurement("kgs")}>kgs</span>
+                            {/* <span className={`${measurement == "kgs" ? "active" : ""}`} onClick={() => toggleMeasurement("kgs")}>kgs</span> */}
                         </div>
                     </div>
                     <div className="diaper-calculator__size-guide">
