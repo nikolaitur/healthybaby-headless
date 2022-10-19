@@ -19,7 +19,7 @@ const ProductOptions = ( props ) => {
     return (
         <>
             <div className="product-form__label">
-                <span>Choose {option.name}:</span> {option.name == "Size" ? <span onClick={() => diaperCalculatorContext.setIsOpen(true)}>Diaper calculator</span> : ""}
+                <span>Choose {option.name}:</span> {option.name == "Size" ? <span className="calculator" onClick={() => diaperCalculatorContext.setIsOpen(true)}>Diaper calculator</span> : ""}
             </div>
             <div className="product-form__items">
                 {option.values.map((value, vIndex) => (
