@@ -67,13 +67,6 @@ const DiaperFinderCard = ({ content }) => {
 
     return (
         <div className="diaper-finder-card item">
-            <div className="diaper-finder-card__background">
-                {/* <Image
-                    src={`https:${backgroundImage.fields.file.url}`}
-                    alt={header}
-                    layout="fill"
-                /> */}
-            </div>
             <div className="diaper-finder-card__content">
                 <div className="diaper-finder-card__stage">
                     <h6 className="diaper-finder-card__subheader">{subheader}</h6>
@@ -85,8 +78,10 @@ const DiaperFinderCard = ({ content }) => {
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
+                            <div>
                             <input name="weight" label="Weight" onChange={handleInputChange} value={diaperCalculatorContext.diaperCalculatorData.weight} placeholderText="0"></input>
-                            <span className="suffix">lbs</span>
+                                <span className="suffix">lbs</span>
+                            </div>
                         </div>
                         <div className="input-wrapper">
                             <button className="btn" onClick={() => openDiaperCalculator()}>

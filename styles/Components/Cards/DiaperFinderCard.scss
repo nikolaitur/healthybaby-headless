@@ -2,30 +2,30 @@
     // max-width: 570px;
     background: #E7EBF4!important;
     border-radius: 3px;
-    padding: 36px;
-    text-align: center;
+    padding: 48px 28px 35px;
     display: flex;
     align-items: center;
     position: relative;
     flex-grow: 1;
     width: 100%;
-    min-height: 643px;
-    max-height: 643px;
-    margin-bottom: 30px;
+    margin: 0 -15px 30px;
+    @include breakpoint-up(400px) {
+        text-align: center;
+    }
 
-    // @include breakpoint-up('md') {
-    //     width: calc(50% - 30px);
-    //     max-width: calc(50% - 30px);
-    //     max-height: 870px;
-    //     margin-bottom: 0px;
-        
-    // }
-    
     @include breakpoint-up('md') {
-        width: calc(33% - 30px);
-        max-width: calc(33% - 30px);
-        max-height: 653px;
-        margin-bottom: 0;
+        padding: 36px;
+        width: calc(33.33% - 13.33px);
+        max-width: calc(33.33% - 13.33px);
+        margin: 0;
+        // min-height: 643px;
+        // max-height: 643px;
+    }
+
+
+    @include breakpoint-up('lg') {
+        width: calc(33% - 20px);
+        max-width: calc(33% - 20px);
     }
 
     &__background {
@@ -37,16 +37,18 @@
         z-index: 0;
     }
 
-    &__stage {
-        // display: none;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 0;
-        max-width: calc(100% - 40px);
+    &__content {
         width: 100%;
-        left: 20px;
+    }
+
+    &__stage {
+        width: 100%;
         display: block;
+        max-width: 375px;
+        margin: 0 auto;
+        @include breakpoint-up('md') {
+            max-width: 100%;
+        }
     }
 
     &__subheader {
@@ -54,16 +56,18 @@
     }
 
     &__header {
+        font-size: 32px;
+        line-height: 1;
         margin-bottom: 10px;
-
         @include breakpoint-up('md') {
             margin-bottom: 5px;
         }
 
         @include breakpoint-up('lg') {
+            font-size: 48px;
             margin-bottom: 10px;
         }
-    } 
+    }
 
     &__copy {
         max-width: 375px;
@@ -88,11 +92,11 @@
         color: $primaryBrown;
         border: none;
         background: none;
-        cursor: pointer;     
+        cursor: pointer;
     }
 
     .btn {
-        padding: 19px 20px;
+        padding: 14px 20px;
         width: 100%;
         max-width: initial;
         justify-content: center;
@@ -102,20 +106,24 @@
         span {
             margin-bottom: 0!important;
         }
+        
+        @include breakpoint-up('md') {
+            padding: 19px 20px;
+        }
     }
 
     &__form {
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
+        font-size: 28px;
+        line-height: 28px;
         color: $primaryBrown;
         margin-top: 35px;
         padding-top: 35px;
         border-top: 1px solid rgba(61, 51, 49, 0.1);
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('lg') {
             font-size: 36px;
             line-height: 50px;
         }
@@ -125,24 +133,24 @@
             font-family: $DomaineText;
             font-style: italic;
             font-weight: 500;
-            font-size: 32px;
-            line-height: 32px;
+            font-size: 28px;
+            line-height: 1;
             color: #A0B0D2;
             border: none;
             border-bottom: 1px dashed #A0B0D2;
-    
-            @include breakpoint-up('md') {
+
+            @include breakpoint-up('lg') {
                 margin-left: 8px;
                 font-size: 36px;
                 line-height: 50px;
             }
-    
+
             &[name="weight"] {
                 width: 100px;
-    
-                &:before {
-                    content: "lbs"
-                }
+
+                // &:before {
+                //     content: "lbs"
+                // }
             }
         }
 
@@ -150,9 +158,11 @@
             display: flex;
             justify-content: space-evenly;
             flex-direction: column;
-            align-items: center;
+            @include breakpoint-up(400px) {
+                align-items: center;
+            }
 
-            @include breakpoint-up('md') {
+            @include breakpoint-up('lg') {
                 flex-direction: row;
             }
 
@@ -163,14 +173,14 @@
             &.weight {
                 max-width: 350px;
                 margin: 30px auto 0;
+                @include breakpoint-up('lg') {
+                    max-width: 100%;
+                }
             }
 
-            span {
-                margin-bottom: 15px;
 
-                @include breakpoint-up('md') {
-                    margin-bottom: 0px;
-                }
+            span {
+                margin-bottom: 0;
             }
         }
 
@@ -182,7 +192,9 @@
             &__week {
                 height: 35px;
                 display: flex;
-                align-items: center;
+                @include breakpoint-up(400px) {
+                    align-items: center;
+                }
             }
 
             &__day {
@@ -202,7 +214,7 @@
                 width: 210px;
             }
         }
-    
+
         .suffix {
             font-family: $DomaineText;
             font-style: italic;
@@ -210,13 +222,10 @@
             font-size: 32px;
             line-height: 32px;
             color: #A0B0D2;
-            transform: translate(20px, 28px);
-            position: absolute;
-    
-            @include breakpoint-up('md') {
+
+            @include breakpoint-up('lg') {
                 font-size: 36px;
                 line-height: 50px;
-                transform: translate(145px, 0px);
             }
         }
 

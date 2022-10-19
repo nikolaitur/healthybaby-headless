@@ -131,16 +131,18 @@
 }
 
 .account-order__line-items {
-  display: flex;
-  flex-direction: column;
   list-style: none;
   border-bottom: 1px solid #D9D5D5;
+  padding-bottom: 36px;
+  @include breakpoint-up('sm') {
+    padding: 24px 0;
+  }
 }
 
 .account-order__line-item {
-  margin-bottom: 24px;
+  margin: 24px 0;
   @include breakpoint-up('sm') {
-    margin-bottom: 36px;
+    margin: 36px 0;
   }
   &:last-child {
     margin-bottom: 0;
@@ -153,7 +155,7 @@
     position: relative;
     min-height: 50vw;
     @include breakpoint-up('md') {
-      min-height: 20vw;
+      min-height: 17vw;
     }
   }
   .account-order__line-item-metadata {

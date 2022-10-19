@@ -1,0 +1,151 @@
+.transcript-drawer {
+  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  overflow: hidden;
+  pointer-events: none;
+
+  &.active {
+    pointer-events: all;
+
+    .transcript-drawer__overlay {
+      opacity: 0.3;
+      pointer-events: all;
+    }
+
+    .transcript-drawer__content {
+      transform: translateX(0);
+      transition: 0.3s;
+    }
+  }
+
+  &__overlay {
+    width: 100vw;
+    position: absolute;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+    background: #000;
+    filter: blur(0px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+
+  &__container {
+    // display: flex;
+    // justify-content: flex-end;
+    // align-items: center;
+    // height: 100%;
+    // position: relative;
+
+    @include breakpoint-up('md') {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  &__content {
+    position: relative;
+    min-width: 100%;
+    max-width: 525px;
+    // padding: 30px;
+    height: 100vh;
+    background: #e5e5e5;
+    transform: translateX(100vw);
+    transition: 0.3s;
+    overflow-y: scroll;
+    padding: 0 0 30px;
+    padding: 0 50px;
+
+    @include breakpoint-up('md') {
+      // padding: 0;
+      min-width: 525px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: $NeutraText;
+    color: $primaryBrown;
+
+    @include breakpoint-up('md') {
+      margin: 32px -20px 0;
+      font-size: 18px;
+    }
+
+    &-back {
+      cursor: pointer;
+    }
+
+    &-close {
+      cursor: pointer;
+    }
+
+    &-back svg {
+      margin-right: 12px;
+      width: 36px;
+    }
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+    color: $primaryBrown;
+    font-family: $NeutraText;
+    margin-top: 40px;
+
+    @include breakpoint-up('md') {
+      margin-top: 80px;
+      font-size: 18px;
+    }
+  }
+
+  &__title {
+    position: relative;
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    color: $primaryBrown;
+    margin-top: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    @include breakpoint-up('md') {
+      font-size: 48px;
+      margin-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  &__body {
+    margin: 30px 0;
+
+    p {
+      font-size: 18px;
+      margin-bottom: 16px;
+
+      @include breakpoint-up('md') {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+    }
+
+    b {
+      font-weight: bold;
+      display: block;
+    }
+  }
+}
