@@ -2,6 +2,7 @@
 import React, { useState, useEffect, forwardRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import SearchMenu from './SearchMenu'
 import MegaMenu from './MegaMenu'
@@ -23,18 +24,13 @@ import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
 const MainNavigation = forwardRef(({ props }, ref) => {
-  // const primaryNavigation = props.mainNavigation
-  // const secondaryNavigation = props.secondaryNavigation
-  // const searchIcon = props.searchIcon.fields.file.url
-  // const accountIcon = props.babyIcon.fields.file.url
-  // const cartIcon = props.cartIcon.fields.file.url
-
   const customerContext = useCustomerContext()
   const modalContext = useModalContext()
   const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } =
     useHeaderContext()
   const cartDrawerContext = useCartDrawerContext()
 
+  const router = useRouter()
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false)
   const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false)
@@ -139,6 +135,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     cartDrawerContext.setIsOpen(true)
   }
   const toggleSearch = () => {
+    if (router.pathname === '/search') {
+      return false
+    }
     setSearchOpen(!isSearchOpen)
     setQuery('')
   }
@@ -146,6 +145,13 @@ const MainNavigation = forwardRef(({ props }, ref) => {
   const handleSearchChange = (event) => {
     setQuery(event.target.value)
     // console.log('value is:', event.target.value);
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setSearchOpen(false)
+      router.push(`/search?query=${e.target.value}`)
+    }
   }
 
   return (
@@ -203,9 +209,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           <div className={`main-nav__search ${isSearchOpen ? 'active' : ''}`}>
             <input
               type="text"
-              className="input"
               placeholder="search products, articles, events, etc..."
               onChange={handleSearchChange}
+              onKeyDown={(e) => handleKeyDown(e)}
             />
           </div>
         </div>

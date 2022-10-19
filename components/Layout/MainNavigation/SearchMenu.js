@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react'
-import { nacelleClient } from 'services'
-import Link from 'next/link'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 
 import ProductCard from '../../Cards/ProductCard'
 import CloseIcon from '../../../svgs/close-icon.svg'
-import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 import algoliasearch from 'algoliasearch'
-import Product from 'pages/products/[handle]'
-// import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALOGLIA_APPLICATION_ID,
@@ -19,12 +14,9 @@ const searchClient = algoliasearch(
 const index = searchClient.initIndex('shopify_products')
 
 const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
-  const [searchState, setSearchState] = useState(null)
-  const [searchResults, setSearchResults] = useState([])
-
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState(query)
   const [searchProducts, setSearchProducts] = useState({ hits: [], total: 0 })
-  const [searchArticles, setSearchArticles] = useState({ hits: [], total: 0 })
 
   const queries = [
     {
@@ -33,14 +25,7 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
       params: {
         hitsPerPage: 3,
       },
-    },
-    {
-      indexName: 'articles',
-      query: searchQuery,
-      params: {
-        hitsPerPage: 3,
-      },
-    },
+    }
   ]
 
   useEffect(() => {
@@ -50,7 +35,6 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
     searchClient.multipleQueries(queries).then(({ results }) => {
       if (searchQuery == '') {
         setSearchProducts({ hits: [], total: 0 })
-        setSearchArticles({ hits: [], total: 0 })
       }
 
       if (!results[0]) {
@@ -58,12 +42,6 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
       } else {
         dataLayerViewSearchResults({ products: results[0].hits })
         setSearchProducts({ hits: results[0].hits, total: results[0].nbHits })
-      }
-
-      if (!results || !results[1]) {
-        setSearchArticles({ hits: [], total: 0 })
-      } else {
-        setSearchArticles({ hits: results[1].hits, total: results[1].nbHits })
       }
 
       if (query.length > 0) {
@@ -97,6 +75,10 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
     return dataObject
   }
 
+  if (router.pathname === '/search') {
+    return ''
+  }
+
   return (
     <div className={`search ${query.length > 0 ? 'show' : ''}`}>
       <div className="search-menu__close" onClick={() => closeSearchMenu()}>
@@ -113,29 +95,6 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
                   ))
                 : ''}
             </div>
-          </div>
-
-          <div className="search-menu__articles">
-            <div className="search-menu__header">Suggested Articles</div>
-            <div className="search-menu__wrapper">
-              {searchArticles.hits.length > 0
-                ? searchArticles.hits.map((article, index) => (
-                    <Link href="/" key={index} className="search-menu__link">
-                      <div className="search-menu__link">
-                        {article.title['en-US']}
-                      </div>
-                    </Link>
-                  ))
-                : ''}
-            </div>
-            <Link href="/">
-              <div className="search-menu__result">
-                <span>All Results</span>
-                <span>
-                  <LongArrowRight />
-                </span>
-              </div>
-            </Link>
           </div>
         </div>
       </div>
