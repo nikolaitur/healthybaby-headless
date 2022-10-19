@@ -1,0 +1,130 @@
+.wowhow-hero {
+  position: relative;
+
+  &__background {
+    &--mobile {
+      width: 100%;
+      padding-bottom: 106%;
+      background-size: cover;
+      @include breakpoint-up('md') {
+        display: none;
+      }
+    }
+    &--desktop {
+      width: 100%;
+      padding-bottom: 40%;
+      background-size: cover;
+      display: none;
+      @include breakpoint-up('md') {
+        display: block;
+      }
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(14, 13, 13, 0.4) 52.45%,
+      rgba(29, 27, 27, 0.7) 100%
+    );
+  }
+
+  &__content {
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: max-content;
+    padding-left: 28px;
+    padding-right: 28px;
+    max-width: 100%;
+  }
+
+  &__type {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: $NeutraText;
+    color: white;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+    }
+  }
+
+  &__title {
+    font-size: 34px;
+    font-weight: 500;
+    font-family: $DomaineText;
+    color: white;
+    margin-top: 10px;
+    max-width: 260px;
+
+    @include breakpoint-up('md') {
+      margin-top: 33px;
+      font-size: 96px;
+      max-width: unset;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: $NeutraText;
+    color: white;
+    max-width: 280px;
+    width: 100%;
+    line-height: 19px;
+
+    @include breakpoint-up('md') {
+      margin-top: 32px;
+      font-size: 26px;
+      line-height: 29px;
+      max-width: 870px;
+    }
+  }
+
+  &__icon {
+    width: 30px;
+
+    margin: 0 auto 20px;
+
+    @include breakpoint-up('md') {
+      width: 48px;
+      margin: 0 auto 32px;
+    }
+  }
+
+  &__links {
+    svg {
+      width: 40px;
+      cursor: pointer;
+
+      @include breakpoint-up('md') {
+        width: 80px;
+      }
+    }
+
+    &--left {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--right {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

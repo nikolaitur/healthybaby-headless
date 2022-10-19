@@ -57,7 +57,8 @@ const ProductGallery = ( props ) => {
                     style={{
                         "--swiper-navigation-color": "#fff",
                         "--swiper-pagination-color": "#00B188",
-                        "--swiper-pagination-bullet-inactive-color": "#fff"
+                        "--swiper-pagination-bullet-inactive-color": "#fff",
+                        "--swiper-pagination-bullet-inactive-opacity": "1"
                     }}
                 >
                     {product.content.media.map((image, index) => {

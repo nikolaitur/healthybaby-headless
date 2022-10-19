@@ -1,6 +1,8 @@
 .product-detail-tabs {
-    padding: 70px 0;
-
+    padding: 40px 0;
+    @include breakpoint-up('md') {
+        padding: 70px 0;
+    }
     &__header {
         text-align: center;
         max-width: 1100px;
@@ -13,14 +15,16 @@
     &__tabs {
         margin-top: 70px;
         display: flex;
-        justify-content: space-evenly;
         border-bottom: 1px solid rgba(61, 51, 49, 0.1);
         padding-bottom: 30px;
         overflow: hidden;
         overflow-x: scroll;
 
         @include breakpoint-up('md') {
+            justify-content: space-evenly;
             overflow: visible;
+            max-width: 1920px;
+            margin: 70px auto 0;
         }
 
     }
@@ -98,7 +102,7 @@
                 margin: 0 0 0px;
                 text-align: right;
             }
-            
+
 
             .product-detail-slide__content {
                 p {
@@ -138,7 +142,7 @@
                     @include breakpoint-up('md') {
                         margin: 10px 0 auto 0;
                     }
-                    
+
                 }
             }
         }
@@ -147,6 +151,10 @@
     &__content {
 
         h3 {
+            @include breakpoint-up('md') {
+                font-size: fontsize(42px);
+            }
+
             + h5 {
                 margin-top: 10px;
             }
@@ -163,8 +171,8 @@
             position: relative;
 
             @include breakpoint-up('md') {
-                font-size: fontsize(32px);
-                line-height: 36px;
+                font-size: fontsize(26px);
+                line-height: 26px;
             }
 
 
@@ -211,6 +219,14 @@
             + h6 {
                 margin-top: 30px;
             }
+        }
+
+        b {
+            font-family: $NeutraTextDemi;
+        }
+
+        i {
+            font-family: $NeutraTextItalic;
         }
     }
 }

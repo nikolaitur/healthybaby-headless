@@ -51,6 +51,25 @@
         }
     }
 
+    &__title {
+        @include breakpoint-down('md') {
+            &.center-mobile {
+                text-align: center;
+            }
+            &.left-mobile {
+                text-align: left;
+            }
+        }
+        @include breakpoint-up('md') {
+            &.center-desktop {
+                text-align: center;
+            }
+            &.left-desktop {
+                text-align: left;
+            }
+        }
+    }
+
     &__description {
         font-family: $NeutraText;
         font-style: normal;

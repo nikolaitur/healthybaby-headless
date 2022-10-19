@@ -1,6 +1,5 @@
 .diaper-finder {
     padding: 80px 0 60px;
-    min-height: 100vh;
     // background: #D0D8E9;
     display: flex;
     align-items: center;
@@ -56,12 +55,14 @@
             font-weight: 500;
             font-size: 32px;
             line-height: 32px;
-            color: #4161A5;
+            color: #A0B0D2;
             border: none;
-            border-bottom: 1px dashed #4161A5;
+            border-bottom: 1px dashed #A0B0D2;
+            margin-top: 5px;
 
             @include breakpoint-up('md') {
                 margin-left: 8px;
+                margin-top: 0;
                 font-size: 52px;
                 line-height: 52px;
             }
@@ -71,7 +72,7 @@
                 line-height: 62px;
             }
 
-            &[name="name"] {
+            &[name="baby-name"] {
                 
                 @include breakpoint-up('md') {
                     width: 250px;
@@ -125,14 +126,14 @@
             font-weight: 500;
             font-size: 32px;
             line-height: 32px;
-            color: #4161A5;
+            color: #A0B0D2;
             transform: translate(-80px, 6px);
             position: absolute;
 
             @include breakpoint-up('md') {
                 font-size: 52px;
                 line-height: 52px;
-                transform: translate(-80px, 11px);
+                transform: translate(-80px, 1px);
             }
 
             @include breakpoint-up('xl') {
@@ -146,14 +147,14 @@
     &__container {
         z-index: 1; 
 
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             display: flex;
             align-items: center;
         }
     }
 
     &__content {
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('md') {
             width: 60%;
             padding-bottom: 100px;
         }
@@ -242,15 +243,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 350px;
+        width: 100%;
         text-align: center;
         cursor: pointer;
-        position: absolute;
-        margin: 45px auto 0;
-        left: 50%;
-        transform: translateX(-50%);
+        // position: absolute;
+        margin: 45px 0 0;
+        // left: 50%;
+        // transform: translateX(-50%);
 
         @include breakpoint-up('md') {
+            width: 410px;
             left: 0;
             transform: translateX(0);
         }
@@ -261,7 +263,7 @@
     }
 
     &__image {
-        height: 350px;
+        // height: 350px;
 
         @include breakpoint-up('md') {
             position: absolute;
@@ -283,6 +285,14 @@
         }
 
         &--mobile {
+            img {
+                width: 100%;
+                object-fit: contain;
+                width: 100% !important;
+                position: relative !important;
+                height: unset !important;
+
+            }
             @include breakpoint-up('md') {
                 display: none!important;
             }
@@ -299,6 +309,10 @@
             @include breakpoint-up('md') {
                 height: auto;
             }
+        }
+
+        span {
+            padding-top: 0!important;
         }
     }
 
@@ -360,24 +374,40 @@
         }
 
         &--container {
-            display: flex;
+           // display: flex;
         }
 
         &--image {
-            width: 145px;
-            height: 180px;
+            width: 100%;
             background: #fff;
-            display: none;
 
             @include breakpoint-up('md') {
                 display: block;
+                height: 490px;
+            }
+
+            img {
+                width: 100%;
+                object-fit: contain;
+                width: 100% !important;
+                position: relative !important;
+                height: unset !important;
+
+                @include breakpoint-up('md') {
+                    height: 490px!important;
+                }
+            }
+
+            span {
+                padding-top: 0!important;
             }
         }
 
         &--content {
-            @include breakpoint-up('md') {
-                margin-left: 35px;
-            }
+            // @include breakpoint-up('md') {
+            //     margin-left: 35px;
+            // }
+            margin-bottom: 10px;
         }
 
         &--bullets {
@@ -408,25 +438,37 @@
         }
 
         &--cta {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.02em;
-            color: #fff;
-            background: #00B188;
-            padding: 19px 0px;
-            border-radius: 60px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
+            // font-family: $NeutraText;
+            // font-style: normal;
+            // font-weight: 500;
+            // font-size: 18px;
+            // line-height: 22px;
+            // display: flex;
+            // align-items: center;
+            // letter-spacing: 0.02em;
+            // color: #fff;
+            // background: #00B188;
+            // padding: 19px 0px;
+            // border-radius: 60px;
+            // width: 100%;
+            // display: flex;
+            // justify-content: center;
             margin-top: 30px;
+
+            .btn {
+                padding: 19px 20px;
+                max-width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
 
             span:last-child {
                 margin-left: 20px;
+                display: none;
+
+                @include breakpoint-up('md') {
+                    display: block;
+                }
             }
 
             svg {

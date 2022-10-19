@@ -12,28 +12,41 @@ import { useModalContext } from '../../../context/ModalContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
 
-import { dataLayerATC } from '@/utils/dataLayer'
+import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-const findProductBadge = ({ content, products, productBadges }) => {
+const findProductBadges = ({ content, products, productBadges }) => {
   if (content.fields?.productHandle && products && productBadges) {
     const handle = content.fields.productHandle.replace('::en-US', '')
     const product = products.find(
       (product) => product.content.handle === handle
     )
-    const badge = productBadges.find((badge) => {
-      return product?.tags.some((tag) => tag.indexOf(badge.handle) > -1)
-    })
-    if (badge?.fields?.image?.fields) {
-      return badge.fields.image.fields
+    const badges = productBadges.reduce((carry, badge) => {
+        if (product?.tags.some((tag) => tag.indexOf(badge.handle) > -1)) {
+            if (badge?.fields?.image?.fields) {
+              return [...carry, badge.fields.image.fields]
+            }
+        }
+        return carry
+    }, [])
+
+    if (badges.length) {
+        return badges
     }
   }
   return null
 }
 
-const CollectionProductCard = ({ content, products, productBadges }) => {
+const CollectionProductCard = ({
+  content,
+  products,
+  productBadges,
+  crossSell,
+}) => {
+  const router = useRouter()
   const [, { addToCart }] = useCart()
   const [isloading, setIsLoading] = useState(false)
   const [handle, setHandle] = useState(false)
@@ -41,26 +54,25 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
   const [productPrice, setProductPrice] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(false)
   const { title, cardWidth } = content.fields
+  const isCrossSell = { ...crossSell }
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
-  const badge = findProductBadge({ content, products, productBadges })
+  const badges = findProductBadges({ content, products, productBadges })
 
   useEffect(() => {
     if (content.fields?.productHandle && products) {
       setHandle(content.fields.productHandle.replace('::en-US', ''))
-
-      if (handle) {
-        setProduct(
-          products.find((product) => product.content.handle === handle)
-        )
-        getProdouctPrice(
-          products.find((product) => product.content.handle === handle)
-        )
-      }
+      setProduct(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
+      getProdouctPrice(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
     }
-  }, [handle])
+}, [handle])
+
+  const handleLink = (product) => {
+    dataLayerSelectProduct({ product, url: router.pathname })
+    router.push(`/products/${handle}`)
+  }
 
   const getProdouctPrice = (product) => {
     if (product.variants.length > 1) {
@@ -129,6 +141,26 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
       selectedVariant,
     })
 
+    await cartClient
+      .cartLinesAdd({
+          cartId: cartDrawerContext.shopifyCartId,
+          lines: [
+          {
+              merchandiseId: selectedVariant.nacelleEntryId,
+              nacelleEntryId: selectedVariant.nacelleEntryId,
+              quantity: 1,
+          },
+          ],
+      })
+      .then((res) => {
+          console.log(res)
+      })
+      .catch((err) => {
+          console.error(err, 'Error')
+      })
+
+    cartDrawerContext.setIsOpen(true)
+
     console.log(cartDrawerContext.shopifyCartId)
 
     await cartClient
@@ -170,20 +202,25 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
         cardWidth == 'Full Width' ? 'full-width' : ''
       }`}
     >
-      {!!badge && (
-        <div className="collection-product-card__badge">
-          <Image
-            src={`https:${badge.file.url}`}
-            alt={badge.title}
-            layout="responsive"
-            objectFit="cover"
-            height={100}
-            width={100}
-          />
-        </div>
-      )}
 
-      <Link href={`/products/${handle}`}>
+    {badges?.length > 0 &&
+        <ul className="collection-product-card__badge-list">
+            {badges.map((badge, index) => {
+                return <li className="collection-product-card__badge" key={index}>
+                    <Image
+                        src={`https:${badge.file.url}`}
+                        alt={badge.title}
+                        layout="responsive"
+                        objectFit="cover"
+                        height={100}
+                        width={100}
+                    />
+                </li>
+            })}
+        </ul>
+    }
+
+      <a onClick={() => handleLink(product)}>
         <div
           className={`collection-product-card__image ${
             content.fields?.image && content.fields?.imageHover
@@ -220,9 +257,9 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
             <div className="placeholder"></div>
           )}
         </div>
-      </Link>
+      </a>
       {content.fields?.image && content.fields?.imageHover ? (
-        <Link href={`/products/${handle}`}>
+        <a onClick={() => handleLink(product)}>
           <Swiper
             className="collection-product-card__slider"
             modules={[Lazy, Pagination]}
@@ -257,17 +294,17 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
               />
             </SwiperSlide>
           </Swiper>
-        </Link>
+        </a>
       ) : (
         ''
       )}
       <div className="collection-product-card__content">
         {content.fields?.title ? (
-          <Link href={`/products/${handle}`}>
+          <a onClick={() => handleLink(product)}>
             <div className="collection-product-card__title">
               {content.fields.title}
             </div>
-          </Link>
+          </a>
         ) : (
           ''
         )}
@@ -292,8 +329,25 @@ const CollectionProductCard = ({ content, products, productBadges }) => {
           ></span>
         </div>
         <div className="collection-product-card__cta">
-          {product && product.variants.length > 1 ? (
-            <button className="btn secondary" onClick={() => openQuickView()}>
+          {isCrossSell ? (
+            <button
+              className="btn secondary quickview"
+              onClick={() => openQuickView()}
+            >
+              <span>Quick View -</span>
+              {productPrice ? (
+                <>
+                  {`\u00A0`} ${productPrice}
+                </>
+              ) : (
+                ''
+              )}
+            </button>
+          ) : product && product.variants.length > 1 ? (
+            <button
+              className="btn secondary quickview"
+              onClick={() => openQuickView()}
+            >
               <span>{getCtaText()}</span>
               {productPrice ? (
                 <>

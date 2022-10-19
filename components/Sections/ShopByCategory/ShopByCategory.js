@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link';
-import Image from 'next/image';
 import parse from 'html-react-parser'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +13,7 @@ import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import HealthyBrain from '../../../svgs/healthy-brain.svg'
 
 const ShopByCategory = ({ content }) => {
-    const {header, headerFontStyle, subheader, collectionCards } = {...content.fields}
+    const {header, subheader, collectionCards, ctaText, ctaUrl } = {...content.fields}
 
     return (
         <section className="shop-by-category">
@@ -23,12 +22,12 @@ const ShopByCategory = ({ content }) => {
                     <h6 className="shop-by-category__subheader">{ subheader }</h6>
                     {header && <h2 className="shop-by-category__header">{ parse(header) }</h2>}
                     <div className="shop-by-category__link">
-                        <Link href="/">
+                        {ctaText && ctaUrl && <Link href={ctaUrl || ''}>
                             <div className="shop-by-category__button">
-                                <span>Shop All</span>
+                                <span>{ctaText}</span>
                                 <span><LongArrowRight /></span>
                             </div>
-                        </Link>
+                        </Link>}
                     </div>
                 </div>
                 <div className="shop-by-category__slider">

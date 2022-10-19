@@ -1,30 +1,41 @@
 import React, {useState, useEffect} from 'react'
+import { useRouter } from 'next/router'
 import { nacelleClient } from 'services'
 
 import CollectionGrid from '../components/Sections/CollectionGrid'
 import CollectionHeader from '../components/Sections/CollectionHeader'
 import ValueProps from '../components/Sections/ValueProps'
 
-export default function ShopAll({ pages, products }) {
+import { dataLayerViewProductList } from '@/utils/dataLayer'
+
+export default function ShopAll({ pages, products, productBadges }) {
     console.log(pages[0].fields, "Shop All", products)
+    const router = useRouter()
     const shopAll = pages[0].fields
     const shopAllSections = shopAll.sections
 
+    useEffect(() => {
+      dataLayerViewProductList({
+        products: products,
+        url: router.asPath,
+      })
+    })
+
     useEffect(function mount() {
         window.addEventListener("scroll", backgroundColorChange);
-    
+
         return function unMount() {
           window.removeEventListener("scroll", backgroundColorChange);
         };
       });
-    
+
     const backgroundColorChange = () => {
-          
+
         const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
         const scroll = scrollPosition + (window.innerHeight / 3)
-        
+
         const sections = document.querySelectorAll("section");
-        
+
         sections.forEach(element => {
             if(element.offsetTop <= scroll && element.offsetTop + element.offsetHeight > scroll) {
                 const bodyClasses = document.body.className
@@ -52,7 +63,7 @@ export default function ShopAll({ pages, products }) {
 
                     switch (type) {
                         case 'collection':
-                            return <CollectionGrid content={section} products={products} key={index} />
+                            return <CollectionGrid content={section} products={products} key={index} productBadges={productBadges} />
                         case 'valueProps':
                             return <ValueProps content={section} key={index} />
                         default:
@@ -65,60 +76,41 @@ export default function ShopAll({ pages, products }) {
 }
 
 export async function getStaticProps({ previewData }) {
-  try {
-    const pages = await nacelleClient.content({
-      handles: ['shop-all']
-    })
 
-    let productHandles = []
+  const pages = await nacelleClient.content({
+    handles: ['shop-all']
+  })
 
-    if(pages[0].fields.sections) {
-        pages[0].fields.sections.map((collection, index) => {
-          if(collection.fields.sections) {
-            let collectionHandles = collection.fields.sections.filter(section => {
-                if (section.fields.productHandle) return section
-              }).map(section => section.fields.productHandle.replace('::en-US', ''))
+  let productHandles = []
 
-            productHandles.push(collectionHandles)
-          }
-        })
-    }
+  if(pages[0].fields.sections) {
+      pages[0].fields.sections.map((collection, index) => {
+        if(collection.fields.sections) {
+          let collectionHandles = collection.fields.sections.filter(section => {
+              if (section.fields.productHandle) return section
+            }).map(section => section.fields.productHandle.replace('::en-US', ''))
 
-    const products = await nacelleClient.products({
-      handles: productHandles.flat(1)
-    })
+          productHandles.push(collectionHandles)
+        }
+      })
+  }
 
-    if(products.length) {
-        return {
-          props: { 
-            pages,
-            products
-          }
-      }
-    }
-  } catch {
-    // fake hero image section until Sanity is hooked up
-    const page = {
-      fields: {
-          sections: [
-            {
-              fields: {
-                handle: "",
-                title: "",
-                subtitle: "",
-                ctaText: "",
-                ctaUrl: "",
-                textColor: "",
-              }
-            }
-          ]
-      }
-    }
+  const products = await nacelleClient.products({
+    handles: productHandles.flat(1)
+  })
 
-    return {
-      props: {
-        page
-      }
+  const productBadges = await nacelleClient.content({
+    type: 'productBadge',
+  })
+
+  if(products.length) {
+      return {
+        props: {
+          pages,
+          products,
+          productBadges,
+        }
     }
   }
+
 }

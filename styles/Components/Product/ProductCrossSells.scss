@@ -38,6 +38,8 @@
     }  
 
     &__items {
+        display: none;
+
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;
@@ -46,11 +48,30 @@
             grid-template-rows: 1fr;
             gap: 0 36px;
         }
+    }
 
+    &__slider {
+        overflow: visible;
+        width: 300px;
+        margin: 0;
+
+        @include breakpoint-up('md') {
+            display: none
+        }
     }
 
     .collection-product-card {
         width: 100%;
         max-width: 100%;
     }
+    .collection-product-card__image {
+        @include breakpoint-down('md') {
+            // height: 710px;
+
+            // img {
+            //     height: 710px;
+            // }
+        }
+    }
+
 }

@@ -67,7 +67,6 @@ export const dataLayerATC = ({ item }) => {
   - this is for removing from cart
 */
 export const dataLayerRFC = ({ item }) => {
-  console.log(item)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_remove_from_cart',
@@ -106,20 +105,15 @@ export const dataLayerViewSearchResults = ({ products }) => {
       ecommerce: {
         actionField: { list: 'search results' },
         impressions: products.map((item, index) => {
+          console.log('search result')
+          console.log(item)
           return {
-            id: item.sku, // SKU
-            name: item.title, // Product title
+            name: item.Title, // Product title
             brand: 'Healthy Baby',
             category: '',
-            variant: item.variant_title,
-            price: formatPrice(item.price).toString(),
-            quantity: '1',
-            product_id: item.id.toString(), // The product_id
+            product_id: item.Id, // The product_id
             variant_id: '', // id or variant_id
-            compare_at_price: item.compare_at_price
-              ? formatPrice(item.compare_at_price).toString()
-              : '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
-            image: item.image || '', // If available, otherwise use an empty string
+            image: item['Image Src'] || '', // If available, otherwise use an empty string
             position: index.toString(),
           }
         }),
@@ -150,7 +144,7 @@ export const dataLayerSelectProduct = ({ product, url }) => {
 }
 
 export const dataLayerViewCart = ({ cart }) => {
-  if (!cart.line_items.length) {
+  if (!cart.length) {
     return false
   }
   TagManager.dataLayer({
@@ -161,7 +155,7 @@ export const dataLayerViewCart = ({ cart }) => {
       cart_total: formatPrice(cart.order_total).toString(),
       ecommerce: {
         actionField: { list: 'Shopping Cart' },
-        impressions: buildProductDataFromBold(cart.line_items),
+        impressions: buildProductData(cart.map((item) => item.product)),
       },
     },
   })
@@ -178,13 +172,14 @@ export const dataLayerBeginCheckout = ({ cart }) => {
         checkout: {
           actionField: { step: 'Final', action: 'checkout' },
         },
-        products: buildProductDataFromBold(cart.line_items),
+        products: buildProductData(cart.map((item) => item.product)),
       },
     },
   })
 }
 
 export const dataLayerSignup = ({ customer, url }) => {
+  console.log('dl sign up')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_sign_up',
@@ -197,6 +192,7 @@ export const dataLayerSignup = ({ customer, url }) => {
 }
 
 export const dataLayerLogin = ({ customer, url }) => {
+  console.log('dl_login')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_login',

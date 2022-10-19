@@ -18,7 +18,7 @@ function Product({ product, page }) {
             <ProductGallery product={product} page={page} />
             <ProductInfo product={product} page={page} />
         </div>
-        <ProductSections content={page} />
+        <ProductSections content={page} product={product} />
         <ProductReviews product={product} />
       </section>
     )
