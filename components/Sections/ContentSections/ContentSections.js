@@ -12,6 +12,7 @@ import ContactForm from '../ContactForm'
 import AfterShip from '../AfterShip'
 import JazzHR from '../JazzHR'
 import Press from '../Press'
+import ArticleContent from '@/components/Article/ArticleContent'
 
 const ContentSections = ({ sections }) => {
   return (
@@ -48,6 +49,8 @@ const ContentSections = ({ sections }) => {
             return <JazzHR content={section} key={index} />
           case 'pressBlock':
             return <Press content={section} key={index} />
+          case 'articleContent':
+            return <ArticleContent content={section} key={index} />
           default:
             return null
         }
