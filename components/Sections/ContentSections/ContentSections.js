@@ -13,6 +13,7 @@ import AfterShip from '../AfterShip'
 import JazzHR from '../JazzHR'
 import Press from '../Press'
 import Experts from '../Experts'
+import ProductFiftyFifty from '@/components/Product/ProductFiftyFifty'
 
 const ContentSections = ({ sections }) => {
   return (
@@ -51,6 +52,8 @@ const ContentSections = ({ sections }) => {
             return <Press content={section} key={index} />
           case 'experts':
             return <Experts content={section} key={index} />
+          case 'productFiftyFifty':
+            return <ProductFiftyFifty content={section} key={index} />
           default:
             return null
         }
