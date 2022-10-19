@@ -39,7 +39,10 @@ const ProductCard = ({ content }) => {
                     <Link href="/">{ title }</Link>
                 </div>
                 <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div>
-                <div className="product-card__reviews"></div>
+                <div className="product-card__reviews">
+                    <span className="junip-store-key" data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"></span>
+                    <span className="junip-product-summary" data-product-id="4522469523505"></span>
+                </div>
                 <div className="product-card__price">$30</div>
             </div>
         </div>

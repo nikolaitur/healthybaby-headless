@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import Script from 'next/script';
 import Link from 'next/link'
 import Image from 'next/image'
 import parse from 'html-react-parser'
@@ -36,6 +37,10 @@ const BestSellers = ({ content }) => {
 
     return (
         <section className="best-sellers">
+            <Script
+                src="https://scripts.juniphq.com/v1/junip_shopify.js"
+                strategy="lazyOnload"
+            />
             <div className="best-sellers__container container">
                 <div className="best-sellers__content">
                     <h2 className="best-sellers__header">{parse(header)}</h2>
