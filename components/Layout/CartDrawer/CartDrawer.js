@@ -182,8 +182,12 @@ const CartDrawer = ({ content }) => {
                     <div className={`cart-drawer__shipping ${freeShipping ? "free" : ""}`}>
                         <span className="message">
                             {freeShipping ? (
-                                <>
-                                    <span><strong>You’ve earned free shipping!</strong></span>
+                                <>  
+                                    {cartDrawerContent?.fields.shippingThreshold ? (
+                                        <span><strong>{cartDrawerContent.fields.shippingThreshold}</strong></span>
+                                    ) : (
+                                        <span><strong>You’ve earned free shipping!</strong></span>
+                                    )}
                                 </>
                             ) : (
                                 <span><strong>${(freeShippingLimit - cartSubtotal).toFixed(2)}</strong> away from complimentary shipping</span>
