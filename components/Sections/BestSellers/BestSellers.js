@@ -6,34 +6,40 @@ import Link from 'next/link'
 import Image from 'next/image'
 import parse from 'html-react-parser'
 
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Lazy, Navigation } from "swiper";
 
 import 'swiper/css';
 import "swiper/css/navigation";
 
-import ProductCard from '../../Cards/ProductCard'
+import CollectionProductCard from '../../Cards/CollectionProductCard'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const BestSellers = ({ content }) => {
     const { header } = content.fields
-    const { products } = content.fields
-
-    const [bestSellers, setBestSellers] = useState([])
+    // const { products } = content.fields
+    const [products, setProducts] = useState(false)
 
     useEffect(() => {
-        const getBestSellers = async () => {
-            const productList = products.split(',')
-            await nacelleClient.products({
-                handles: productList
-            }).then(response => {
-                setBestSellers(response)
-            })
-        }
+        const getProducts = async () => {   
+            if(content.fields?.sections) {
+                const productHandles = content.fields.sections.filter(section => {
+                    if (section.fields.handle) return section
+                }).map(section => section.fields.handle.replace('::en-US', ''))
 
-        getBestSellers()
-    }, [products]);
+                console.log(productHandles, "Handles", content.fields.sections)
+              
+                const productsData = await nacelleClient.products({
+                    handles: productHandles
+                })
+    
+                setProducts(productsData)
+
+                console.log(productsData)
+            }
+        }
+        getProducts()
+    }, [])
 
     return (
         <section className="best-sellers">
@@ -53,7 +59,34 @@ const BestSellers = ({ content }) => {
                         </Link>
                     </div>
                 </div>
-                {bestSellers.length > 0 ? (
+                {/* {content.fields?.sections && products ? (
+                    <>
+                        <div className="product-cross-sells__items">
+                            {content.fields.sections.map((item, index) => {
+                                return <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
+                            })}
+                        </div>
+                        <Swiper
+                            className="product-cross-sells__slider"
+                            modules={[Lazy]}
+                            spaceBetween={20}
+                            slidesPerView={1}
+                            lazy={true}
+                            style={{
+                                "--swiper-navigation-color": "#fff",
+                                "--swiper-pagination-color": "#fff",
+                            }}
+                        >
+                            {content.fields.sections.map((item, index) => (
+                                <SwiperSlide key={index}>
+                                    <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </>
+
+                ) : ""} */}
+                {content.fields?.sections && products ? (
                     <div className="best-sellers__slider">
                         <Swiper
                             className="best-sellers__slider--desktop"
@@ -67,9 +100,9 @@ const BestSellers = ({ content }) => {
                                 "--swiper-pagination-color": "#fff",
                             }}
                         >
-                            {bestSellers.map((product, index) => (
+                           {content.fields.sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <ProductCard content={product} />
+                                    <CollectionProductCard content={item} key={index} products={products}/>
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -85,9 +118,9 @@ const BestSellers = ({ content }) => {
                                 "--swiper-pagination-color": "#fff",
                             }}
                         >
-                            {bestSellers.map((product, index) => (
+                            {content.fields.sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <ProductCard content={product} />
+                                    <CollectionProductCard content={item} key={index} products={products}/>
                                 </SwiperSlide>
                             ))}
                         </Swiper>

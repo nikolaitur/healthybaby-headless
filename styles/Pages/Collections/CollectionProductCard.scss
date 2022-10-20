@@ -227,6 +227,23 @@
         }
     }
 
+    &__price {
+        display: none;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 5px;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 27px;
+        }
+    }
+
     &__slider {
         margin-bottom: 15px;
         cursor: pointer;

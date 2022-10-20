@@ -56,7 +56,7 @@ const CollectionProductCard = ({ content, products, productBadges, crossSell }) 
 
     const badges = findProductBadges({ content, products, productBadges })
 
-    // console.log(content)
+    console.log(content, products)
 
     useEffect(() => {
         if (content.fields?.productHandle && products) {
@@ -293,6 +293,9 @@ const CollectionProductCard = ({ content, products, productBadges, crossSell }) 
                     ) : (
                         <button className="btn secondary" onClick={() => handleAddItem()}><span>{getCtaText()}</span>{productPrice ? <>{`\u00A0`} ${productPrice}</> : ""}</button>
                     )}
+                </div>
+                <div className="collection-product-card__price">
+                    {productPrice ? <>${productPrice}</> : ""}
                 </div>
             </div>
         </div>
