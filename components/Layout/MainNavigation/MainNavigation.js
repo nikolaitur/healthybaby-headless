@@ -231,7 +231,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           </div>
         </div>
         <div className="mobile-nav__logo">
-          <LogoMobile />
+          <Link href="/">
+            <LogoMobile />
+          </Link>
         </div>
         <div className="mobile-nav__right">
           {customerContext.customer ? (
