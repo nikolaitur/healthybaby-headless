@@ -21,7 +21,7 @@ const Experts = ({ content }) => {
         {content.fields?.sections ? (
           <div
             className={`experts__wrapper ${
-              content.fields?.threeInRow == 'True' ? 'three_in_row' : ''
+              content.fields?.expertsPerRow == 'three' ? 'three_in_row' : ''
             }`}
           >
             {content.fields.sections.map((item, index) => (
