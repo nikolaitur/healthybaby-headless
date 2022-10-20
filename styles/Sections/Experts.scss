@@ -1,106 +1,112 @@
 .experts {
-    padding: 40px 0;
+  padding: 40px 0;
+  @include breakpoint-up('md') {
+    padding: 70px 0;
+  }
+
+  &__header {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  &__subheader {
+    text-align: center;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 70px auto 0;
+
     @include breakpoint-up('md') {
-        padding: 70px 0;
+      max-width: 1210px;
+    }
+  }
+
+  &__expert {
+    margin-bottom: 60px;
+    width: 100%;
+    &:last-child {
+      margin-bottom: 0;
     }
 
-    &__header {
-        text-align: center;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    &__subheader {
-        text-align: center;
-    }
-
-    &__wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 70px auto 0 ;
-
-        @include breakpoint-up('md') {
-            max-width: 1210px;
-        }
-    }
-
-    &__expert {
+    @include breakpoint-up('sm') {
+      width: 50%;
+      padding: 0 21px;
+      &:last-child {
         margin-bottom: 60px;
-        width: 100%;
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        @include breakpoint-up('sm') {
-            width: 50%;
-            padding: 0 21px;
-            &:last-child {
-                margin-bottom: 60px;
-            }
-        }
-
-        @include breakpoint-up('md') {
-            padding: 0 42px;
-        }
+      }
     }
 
-    &__image {
-        margin: 0 auto 36px;
-        max-width: 520px;
-        padding: 0 10px;
-        @include breakpoint-up('sm') {
-            padding: 0;
-        }
-        @include breakpoint-up('md') {
-            margin: 0 auto 90px;
-        }
-        img {
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-            border-radius: 100%;
-
-            @include breakpoint-up('lg') {
-                object-fit: cover;
-            }
-        }
+    @include breakpoint-up('md') {
+      padding: 0 42px;
     }
+  }
 
-    &__name {
-        font-family: $NeutraTextDemi;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 22px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        position: relative;
-        margin-top: 30px;
-        text-align: center;
-        @include breakpoint-up('sm') {
-            font-size: fontsize(26px);
-            line-height: 29px;
-        }
+  .three_in_row .experts__expert {
+    @include breakpoint-up('sm') {
+      width: 33.33%;
     }
+  }
 
-    &__description {
-        margin-top: 30px;
-        text-align: center;
-        max-width: 500px;
-        margin: 10px auto;
-        @include breakpoint-up('sm') {
-            margin: 30px auto;
-        }
+  &__image {
+    margin: 0 auto 36px;
+    max-width: 520px;
+    padding: 0 10px;
+    @include breakpoint-up('sm') {
+      padding: 0;
     }
+    @include breakpoint-up('md') {
+      margin: 0 auto 90px;
+    }
+    img {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      border-radius: 100%;
 
-    &__cta {
-        margin-top: 20px;
-        cursor: pointer;
-        @include breakpoint-up('sm') {
-            margin-top: 30px;
-        }
-        .link {
-            margin: 0 auto;
-        }
+      @include breakpoint-up('lg') {
+        object-fit: cover;
+      }
     }
+  }
+
+  &__name {
+    font-family: $NeutraTextDemi;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    position: relative;
+    margin-top: 30px;
+    text-align: center;
+    @include breakpoint-up('sm') {
+      font-size: fontsize(26px);
+      line-height: 29px;
+    }
+  }
+
+  &__description {
+    margin-top: 30px;
+    text-align: center;
+    max-width: 500px;
+    margin: 10px auto;
+    @include breakpoint-up('sm') {
+      margin: 30px auto;
+    }
+  }
+
+  &__cta {
+    margin-top: 20px;
+    cursor: pointer;
+    @include breakpoint-up('sm') {
+      margin-top: 30px;
+    }
+    .link {
+      margin: 0 auto;
+    }
+  }
 }
