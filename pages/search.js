@@ -60,9 +60,9 @@ const SearchResultsPage = ({ productBadges }) => {
       <div className="container">
         <div className="search-results-page__header">
           {searchQuery ? (
-            <h1 className="h3">Search results for “{searchQuery}”</h1>
+            <h1 className="h3">{`Search results for “${searchQuery}”`}</h1>
           ):(
-            <h1 className="h3">Search results for '...'</h1>
+            <h1 className="h3">{`Search results for '...'`}</h1>
           )}
           {searchQuery && <h4>{searchProducts.length} Product{searchProducts.length === 1 ? '' : 's'}</h4>}
           <div className="search-results-page__search-input-wrapper">
