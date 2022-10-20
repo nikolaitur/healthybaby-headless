@@ -1,27 +1,35 @@
 import { useState } from 'react'
 import { nacelleClient } from 'services'
+import Head from 'next/head'
 
 import ArticleHeroPodcast from '../../../components/Article/ArticleHeroPodcast'
 import ArticleSocial from '../../../components/Article/ArticleSocial'
 import ArticleSectionsContent from '../../../components/Article/ArticleSectionsContent'
 
 function Article({ article }) {
-  console.log(article)
-
   return (
-    <article className="article">
-      <ArticleHeroPodcast content={article} />
-      <div className="article__container article-content__container">
-        <ArticleSocial key="social" />
-        <div className="article-sectionsContent">
-          {article.fields.articleSections ? (
-            <ArticleSectionsContent sections={article.fields.articleSections} />
-          ) : (
-            <></>
-          )}
-        </div>
-      </div>
-    </article>
+    <>
+      <Head>
+        <title>{article.title} &ndash; Healthybaby</title>
+        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <>
+        <article className="article">
+          <ArticleHeroPodcast content={article} />
+          <div className="article__container article-content__container">
+            <ArticleSocial key="social" />
+            <div className="article-sectionsContent">
+              {article.fields.articleSections ? (
+                <ArticleSectionsContent sections={article.fields.articleSections} />
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+        </article>
+      </>
+    </>
   )
 }
 

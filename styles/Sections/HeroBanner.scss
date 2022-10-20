@@ -120,12 +120,9 @@
 
     &__subheader {
         color: #FFFFFF;
-        font-size: 24px;
+        font-size: 18px;
         line-height: 110%;
         text-transform: none;
-        @include breakpoint-up('md') {
-            font-size: 38px;
-        }
     }
 
     &__header {

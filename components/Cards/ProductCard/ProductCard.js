@@ -28,7 +28,6 @@ const findProductBadges = ({ product, productBadges }) => {
     return null
 }
 
-
 const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-width: 768px) 100vw, (min-width: 1080) 40vw, 600px" }) => {
 
     const [, { addToCart }] = useCart()
@@ -182,7 +181,7 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
             </div>
             <div className="product-card__content">
                 <div className="product-card__title">
-                    <Link href="/">{ title }</Link>
+                    <Link href={`/products/${handle}`}>{ title }</Link>
                 </div>
                 {/* <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div> */}
                 {!showCTA && <div className="product-card__price">${productPrice}</div> }

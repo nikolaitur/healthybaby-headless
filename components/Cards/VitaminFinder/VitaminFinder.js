@@ -41,6 +41,12 @@ const VitaminFinder = ({ content, refs, index }) => {
         setStage(stageNumber)
         setLifeStage(lifeStage)
         setProduct(false)
+
+        if(lifeStage == "conceive") {
+            getResultProduct("our-prenatal-preconception-1st-trimester")
+        } else {
+            setProduct(false)
+        }
     }
 
     const getResultProduct =  async (handle) => {
@@ -195,7 +201,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <h6 className="vitamin-finder__subheader">{subheader}</h6>
                     <div className="vitamin-finder__header">{header}</div>
                     <p className="vitamin-finder__copy large">{description}</p>
-                    <DatePicker closeOnScroll={true} selected={dueDate}  onChange={(date) => setDueDate(date)} placeholderText="Enter your due date" />
+                    <DatePicker selected={dueDate}  onChange={(date) => setDueDate(date)} placeholderText="Enter your due date" />
                     <button className="btn secondary" onClick={() => showVitaminRestult()}>
                         <span>{ recommendationsText }</span>
                         <span><LongArrowRight /></span>

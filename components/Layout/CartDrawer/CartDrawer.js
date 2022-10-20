@@ -203,10 +203,12 @@ const CartDrawer = ({ content }) => {
           >
             <span className="message">
               {freeShipping ? (
-                <>
-                  <span>
-                    <strong>You’ve earned free shipping!</strong>
-                  </span>
+                <>  
+                    {cartDrawerContent?.fields.shippingThreshold ? (
+                        <span><strong>{cartDrawerContent.fields.shippingThreshold}</strong></span>
+                    ) : (
+                        <span><strong>You’ve earned free shipping!</strong></span>
+                    )}
                 </>
               ) : (
                 <span>
