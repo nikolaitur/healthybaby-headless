@@ -37,6 +37,7 @@
         left: 50%;
         top: -280px;
         transform: translateX(-50%);
+        z-index: 4;
     }
 
     &__logo {
@@ -115,9 +116,18 @@
         }
     }
 
+    &__item-search {
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
     &__search {
+        display: flex;
+        justify-content: flex-end;
         position: absolute;
-        right: 100px;
+        right: 85px;
         width: 0;
         transition: 0.3s;
         opacity: 0;
@@ -133,16 +143,17 @@
 
         input {
             background: #FFFFFF;
-            border: 1px solid #DBEDF8;
+            border: 1px solid #F4EAEB;
             border-radius: 60px;
             height: 48px;
             width: 100%;
-            max-width: 520px;
+            min-width: 265px;
+            max-width: 340px;
             padding: 0 30px;
-            font-family: $NeutraText;
+            font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 19px;
             letter-spacing: 0.02em;
             color: $primaryBrown;
