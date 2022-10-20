@@ -43,12 +43,6 @@ const TranscriptDrawer = ({ title, content }) => {
                 <ArrowLeft />
                 <span>Back</span>
               </div>
-              <div
-                className="transcript-drawer__header-close"
-                onClick={hideDrawer}
-              >
-                <IconClose />
-              </div>
             </div>
             <div className="transcript-drawer__eyebrow">Transcript</div>
             <div className="transcript-drawer__title">{title}</div>

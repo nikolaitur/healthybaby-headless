@@ -9,7 +9,7 @@ const ArticleHeroHowWow = ({ content }) => {
   // const { ctaText, ctaUrl } = content.fields
   // const backgroundImage = image.fields.file.url
 
-  const { articleHero, title } = {
+  const { articleHero } = {
     ...content.fields,
   }
 
@@ -49,7 +49,7 @@ const ArticleHeroHowWow = ({ content }) => {
         <div className="wowhow-hero__type">
           {articleHero?.fields?.eyebrowText}
         </div>
-        <h3 className="wowhow-hero__title">{title}</h3>
+        <h3 className="wowhow-hero__title">{articleHero?.fields?.title}</h3>
         <h3 className="wowhow-hero__subtitle">
           {articleHero?.fields?.subtitle}
         </h3>
