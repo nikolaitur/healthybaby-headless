@@ -1,14 +1,24 @@
 import { nacelleClient } from 'services'
+import Head from 'next/head'
+
 import ContentSections from '@/components/Sections/ContentSections'
 
 export default function DynamicPage({ page, handle }) {
-  console.log("page:", page)
   const sections = page.fields.sections
 
   return (
-    <div className={`standard-page standard-page--${handle}`}>
-      <ContentSections sections={sections} />
-    </div>
+    <>
+      <Head>
+        <title>{page.title} &ndash; Healthybaby</title>
+        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <>
+        <div className={`standard-page standard-page--${handle}`}>
+          <ContentSections sections={sections} />
+        </div>
+      </>
+    </>
   )
 }
 

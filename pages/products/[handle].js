@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import Head from 'next/head'
 
 import ProductGallery from '../../components/Product/ProductGallery'
 import ProductInfo from '../../components/Product/ProductInfo'
@@ -13,14 +14,23 @@ function Product({ product, page }) {
   }, [])
   return (
     product && (
-      <section className="product-main">
-        <div className="product-main__container container">
-            <ProductGallery product={product} page={page} />
-            <ProductInfo product={product} page={page} />
-        </div>
-        <ProductSections content={page} product={product} />
-        <ProductReviews product={product} />
-      </section>
+      <>
+        <Head>
+          <title>{product.content.title} &ndash; Healthybaby</title>
+          <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <>
+          <section className="product-main">
+            <div className="product-main__container container">
+                <ProductGallery product={product} page={page} />
+                <ProductInfo product={product} page={page} />
+            </div>
+            <ProductSections content={page} product={product} />
+            <ProductReviews product={product} />
+          </section>
+        </>
+      </>
     )
   )
 }
