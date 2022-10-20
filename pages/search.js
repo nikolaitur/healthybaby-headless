@@ -36,7 +36,6 @@ const SearchResultsPage = ({ productBadges }) => {
       }
     ]
     searchClient.multipleQueries(queries).then(({ results }) => {
-      console.log("results:", results)
       if (searchQuery == '') {
         setSearchProducts([])
       } else if (!results[0]) {

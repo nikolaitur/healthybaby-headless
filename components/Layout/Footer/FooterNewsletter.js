@@ -7,8 +7,6 @@ const FooterNewsletter = ({ content}) => {
 
   }
 
-  // console.log(content, "newsletter")
-
   return (
     <div className="footer__newsletter">
         <div className="footer__content">

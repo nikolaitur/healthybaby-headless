@@ -98,7 +98,6 @@ const CollectionProductCard = forwardRef(({
   }
 
   const handleAddItem = async () => {
-    console.log('added')
     let selectedVariant = product.variants[0]
 
     const variant = getCartVariant({
@@ -120,8 +119,6 @@ const CollectionProductCard = forwardRef(({
       variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
       quantity: 1,
     }
-
-    console.log(newItem)
 
     dataLayerATC({ item: newItem })
 
@@ -154,8 +151,6 @@ const CollectionProductCard = forwardRef(({
       })
 
     cartDrawerContext.setIsOpen(true)
-
-    console.log(cartDrawerContext.shopifyCartId)
 
     await cartClient
       .cartLinesAdd({

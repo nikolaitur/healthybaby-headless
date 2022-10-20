@@ -26,8 +26,6 @@ const Footer = ({ content }) => {
         }
     }
 
-    // console.log(content, "footer")
-
     return (
       <footer>
         <div className="footer">

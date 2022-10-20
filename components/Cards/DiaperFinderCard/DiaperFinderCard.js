@@ -40,8 +40,6 @@ const DiaperFinderCard = ({ content, refs, index }) => {
         diaperCalculatorContext.setDiaperCalculatorData(data)
 
         // diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
-
-        console.log(diaperFinderData, "DIAPER")
     };
 
     const handleDateChange = (date) => {
@@ -62,7 +60,6 @@ const DiaperFinderCard = ({ content, refs, index }) => {
     const openDiaperCalculator = () => {
         diaperCalculatorContext.setIsOpen(true)
         // diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
-        console.log(diaperFinderData, diaperCalculatorContext.isOpen)
     }
 
     useEffect(() => {

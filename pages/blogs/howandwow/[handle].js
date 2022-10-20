@@ -10,7 +10,6 @@ import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
 import ArticleHeroHowWow from '@/components/Article/ArticleHeroHowWow'
 
 function Article({ article }) {
-  console.log(article)
   return (
     <>
       <Head>

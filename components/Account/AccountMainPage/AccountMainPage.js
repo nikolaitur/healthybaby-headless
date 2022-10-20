@@ -7,7 +7,6 @@ import Order from '../Order'
 import MyInfo from '../MyInfo'
 
 const AccountMainPage = ({ page, orderId }) => {
-  console.log('page:', page)
   const router = useRouter()
 
   const { tab } = router.query

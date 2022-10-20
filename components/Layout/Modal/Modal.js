@@ -13,8 +13,6 @@ const Modal = ({props, children}) => {
 
   const modalContext = useModalContext()
 
-  console.log(modalContext.isOpen, children)
-
   const getContent = (type, children) => {
     switch(type) {
       case 'create':

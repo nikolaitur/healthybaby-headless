@@ -16,7 +16,6 @@ const HeroBanner = ({ content }) => {
         subtitleTruePosition = subtitlePosition
     }
 
-    // console.log('HeroBanner', content)
     return (
         <section className={`hero ${isVideo ? 'hero--video' : ''}`}>
             <div className="hero__image">

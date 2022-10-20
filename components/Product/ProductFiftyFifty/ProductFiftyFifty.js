@@ -5,9 +5,6 @@ import Image from 'next/image';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const ProductFiftyFifty = ({ content }) => {
-
-    // console.log(content)
-
     return (
         <div className="product-fifty-fifty">
             <div className={`product-fifty-fifty__container container ${content.fields?.flipped ? (content.fields.flipped == "True" ? "flipped" : "") : ""}`}>

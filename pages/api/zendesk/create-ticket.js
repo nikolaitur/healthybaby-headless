@@ -28,8 +28,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // console.log("body:", body)
-
   axios.post('https://healthynesting.zendesk.com/api/v2/tickets.json', JSON.stringify(body), {
     headers: {
       'Content-Type': 'application/json'

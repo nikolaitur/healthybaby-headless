@@ -47,19 +47,14 @@ const ProductInfo = (props) => {
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
-  // console.log(product, "info", selectedVariant, page)
-  console.log(page)
-
   const richTextRenderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        // console.log(node, "Node")
         return (
           `<img src=https:${node.data.target.fields.file.url} />`
         )
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        // console.log(node, "Node")
         return (
           `<img src=https:${node.data.target.fields.file.url} />`
         )
@@ -178,8 +173,6 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
-    console.log(variant, purchaseSubscription)
-
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -237,7 +230,6 @@ const ProductInfo = (props) => {
           console.error(err, 'Error')
         })
     } else {
-      console.log('one-time')
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
       )
@@ -335,8 +327,6 @@ const ProductInfo = (props) => {
             })
 
             setMessageProduct(product[0])
-
-            console.log(product[0], "Product")
         }
 
     }

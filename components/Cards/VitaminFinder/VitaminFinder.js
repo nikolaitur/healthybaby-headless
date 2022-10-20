@@ -85,7 +85,6 @@ const VitaminFinder = ({ content, refs, index }) => {
     }
 
     const handleAddItem = async () => {
-        console.log("added")
         let selectedVariant = product.variants[0]
 
         const variant = getCartVariant({
@@ -108,8 +107,6 @@ const VitaminFinder = ({ content, refs, index }) => {
             nacelleEntryId: selectedVariant.nacelleEntryId,
             selectedVariant
         })
-
-        console.log(cartDrawerContext.shopifyCartId)
 
         await cartClient.cartLinesAdd({
             cartId: cartDrawerContext.shopifyCartId,
@@ -149,8 +146,6 @@ const VitaminFinder = ({ content, refs, index }) => {
                 }
                 return carry
             }, 0)
-
-            console.log("getSurroundingIndexesHeight:", getSurroundingIndexesHeight)
 
             if (getSurroundingIndexesHeight) {
                 setMaxHeight(getSurroundingIndexesHeight)

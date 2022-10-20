@@ -123,7 +123,6 @@ export function CustomerProvider({ children }) {
     }
     dataLayerLogin({ url: router.pathname })
     setCustomer(customer)
-    console.log('customer:', customer)
     return { data }
   }
 
@@ -249,7 +248,6 @@ export function CustomerProvider({ children }) {
       }),
     }).then((response) => response.json())
     if (response && response.message === 'error') {
-      console.log('response:', response)
       return response.data.errors
     }
     if (response && response.message === 'success') {
@@ -274,7 +272,6 @@ export function CustomerProvider({ children }) {
       }),
     }).then((response) => response.json())
     if (response && response.message === 'error') {
-      console.log('response:', response)
       return response.data.errors
     }
     if (response && response.message === 'success') {
@@ -304,10 +301,6 @@ export function CustomerProvider({ children }) {
     }
 
     if (defaultAddressIsChecked) {
-      console.log(
-        'setting as default:',
-        data.customerAddressCreate.customerAddress.id
-      )
       await setAsDefaultAddress({
         accessToken,
         addressId: data.customerAddressCreate.customerAddress.id,
@@ -339,7 +332,6 @@ export function CustomerProvider({ children }) {
       return { errors: errors }
     }
 
-    console.log('setting as default:', addressId)
     if (defaultAddressIsChecked) {
       await setAsDefaultAddress({
         accessToken,
@@ -386,8 +378,6 @@ export function CustomerProvider({ children }) {
       },
     })
     const { data, errors } = response
-
-    console.log(data, errors)
 
     if (errors && errors.length) {
       return { errors: errors }
