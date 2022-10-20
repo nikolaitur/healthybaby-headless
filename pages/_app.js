@@ -6,6 +6,8 @@ import { useEffect } from 'react'
 import Layout from 'components/Layout'
 import '../styles/globals.scss'
 import TagManager from 'react-gtm-module'
+import { dataLayerRouteChange } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)
@@ -24,6 +26,7 @@ function AppContainer({
   headerSettings,
   footerSettings,
 }) {
+  const router = useRouter()
   const checkoutClient = createShopifyCheckoutClient({
     myshopifyDomain: process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN,
     storefrontCheckoutToken:
@@ -31,10 +34,19 @@ function AppContainer({
     storefrontApiVersion: process.env.NEXT_PUBLIC_STOREFRONT_API_VERSION,
   })
 
+  const onRountChangeComplete = (newUrl) => {
+    if (TagManager) {
+      dataLayerRouteChange({ url: router.asPath })
+    }
+  }
+
   useEffect(() => {
     TagManager.initialize({
       gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
     })
+
+    onRountChangeComplete()
+    router.events.on('routeChangeComplete', onRountChangeComplete)
   })
 
   return (
@@ -53,9 +65,9 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings'],
   })
 
-  let headerSettings = contentEntry.filter(content => {
-    return content.fields.handle == "header-settings";
-  })[0];
+  let headerSettings = contentEntry.filter((content) => {
+    return content.fields.handle == 'header-settings'
+  })[0]
 
   // client request to remove the featured products section in megamenu
   // if (headerSettings.fields.mainNavigation?.length > 0) {
@@ -75,9 +87,9 @@ AppContainer.getInitialProps = async (appContext) => {
   //   })
   // }
 
-  const footerSettings = contentEntry.filter(content => {
-    return content.fields.handle == "footer-settings";
-  })[0];
+  const footerSettings = contentEntry.filter((content) => {
+    return content.fields.handle == 'footer-settings'
+  })[0]
 
   const appProps = await App.getInitialProps(appContext)
 

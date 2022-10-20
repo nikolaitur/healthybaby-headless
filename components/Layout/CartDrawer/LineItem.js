@@ -56,11 +56,16 @@ const LineItem = ({ item }) => {
   const decrement = () => {
     if (item.quantity <= 1) {
       console.log('remove from cart')
-      dataLayerRFC(item)
+      dataLayerRFC({ item })
       removeFromCart(item)
     } else {
       decrementItem(item)
     }
+  }
+
+  const remove = () => {
+    dataLayerRFC({ item })
+    removeFromCart(item)
   }
 
   const upgradeToSubscription = async () => {
@@ -76,8 +81,7 @@ const LineItem = ({ item }) => {
         // attributes: [{ key: 'subscription', value: sellingPlanId }]
       }
 
-      console.log('remove from cart')
-      dataLayerRFC(item)
+      dataLayerRFC({ item })
 
       removeFromCart(item)
 
@@ -128,15 +132,17 @@ const LineItem = ({ item }) => {
     <div className="line-item">
       <div className="line-item__wrapper">
         <div className="line-item__image">
-          <Image
-            className=""
-            src={`${item.variant.featuredMedia.src}`}
-            alt={item.variant.productTitle}
-            layout="responsive"
-            objectFit="cover"
-            height="132"
-            width="108"
-          />
+            {item.variant.featuredMedia?.src ? (
+                    <Image
+                        className=""
+                        src={`${item.variant.featuredMedia.src}`}
+                        alt={ item.variant.productTitle }
+                        layout="responsive"
+                        objectFit="cover"
+                        height="132"
+                        width="108"
+                    />
+            ) : ""}
         </div>
         <div className="line-item__content">
           <div className="line-item__title">{item.variant.productTitle}</div>
@@ -184,7 +190,7 @@ const LineItem = ({ item }) => {
             </div>
             <button
               onClick={() => {
-                removeFromCart(item)
+                remove()
               }}
               className="line-item__trash"
             >

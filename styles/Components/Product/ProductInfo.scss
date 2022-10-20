@@ -344,6 +344,10 @@
 
                 @include breakpoint-up('md') {
                     font-size: 22px;
+
+                    s {
+                        font-size: 20px;
+                    }
                 }
             }
         }

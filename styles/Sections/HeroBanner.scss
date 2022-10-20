@@ -115,16 +115,14 @@
     &__content {
         max-width: 1040px;
         width: 100%;
+        padding: 75px 0;
     }
 
     &__subheader {
         color: #FFFFFF;
-        font-size: 24px;
+        font-size: 18px;
         line-height: 110%;
         text-transform: none;
-        @include breakpoint-up('md') {
-            font-size: 38px;
-        }
     }
 
     &__header {
@@ -135,9 +133,15 @@
     }
 
     &__content-header {
-        margin-bottom: 50px;
         > * {
             margin: 10px 0;
+        }
+    }
+
+    &__cta {
+        margin-top: 40px;
+        @include breakpoint-up('md') {
+            margin-top: 50px;
         }
     }
 
@@ -154,7 +158,7 @@
         color: $primaryBrown;
         background: #fff;
         padding: 14px 60px;
-        width: 100%;
+        width: auto;
         border-radius: 60px;
         cursor: pointer;
 

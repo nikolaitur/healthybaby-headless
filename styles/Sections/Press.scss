@@ -1,0 +1,75 @@
+.press-section {
+  padding: 70px 28px;
+  background-color: #e7ebf4;
+
+  @include breakpoint-up('md') {
+    padding: 140px 28px;
+  }
+
+  &__eyebrow {
+    font-family: $NeutraText;
+    font-size: 16px;
+    font-weight: 500;
+    color: $primaryBrown;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+
+    @include breakpoint-up('md') {
+      font-size: 18px;
+    }
+  }
+
+  &__items {
+    margin-top: 32px;
+
+    &-title {
+      font-family: $DomaineText;
+      font-size: 32px;
+      color: $primaryBrown;
+      font-weight: 500;
+      max-width: 1170px;
+      text-align: center;
+      margin: auto;
+
+      @include breakpoint-up('md') {
+        font-size: 62px;
+      }
+    }
+  }
+}
+
+.press-logos {
+  margin-top: 72px;
+
+  @include breakpoint-up('md') {
+    margin-top: 150px;
+  }
+
+  .swiper-wrapper {
+    @include breakpoint-up('md') {
+      justify-content: center;
+    }
+  }
+
+  &__item {
+    width: fit-content;
+    margin: auto;
+    opacity: 0.7;
+
+    &.active {
+      opacity: 1;
+    }
+    img {
+      height: 36px;
+      width: auto;
+      max-width: 60px;
+      object-fit: contain;
+
+      @include breakpoint-up('md') {
+        max-width: 120px;
+        height: 72px;
+      }
+    }
+  }
+}

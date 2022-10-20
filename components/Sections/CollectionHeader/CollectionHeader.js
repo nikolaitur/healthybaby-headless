@@ -3,11 +3,25 @@ import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Image from 'next/image';
 import parse from 'html-react-parser'
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
     const { titleAlignmentDesktop, titleAlignmentMobile} = {...content.fields}
-    console.log(content)
+
+
+    // find more examples from https://lightrun.com/answers/contentful-rich-text-rendering-rich-text-in-react-native
+    const contentfulToReactnative = {
+        renderNode: {
+        [INLINES.HYPERLINK]: (children) => {
+            return <Link href={children?.data?.uri || ''}>
+            <a className="link">{children.content[0].value}</a>
+            </Link>
+        },
+        [BLOCKS.PARAGRAPH]: (node, children) => <p className="large">{children}</p>
+        },
+    }
 
     return (
         <section className="collection-header">
@@ -29,15 +43,15 @@ const CollectionHeader = ({ content }) => {
                     : "" }
 
                     {content?.title ?
-                        <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ content.title }</h1>
+                        <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ parse(content.title) }</h1>
                     : ""}
 
                     {content?.description ?
-                        <p className="collection-header__description">{ content.description }</p>
+                        <div className="collection-header__description">{content.description}</div>
                     : ""}
 
                     {content.fields?.description ?
-                        <p className="collection-header__description">{ content.fields.description }</p>
+                        <div className="collection-header__description">{documentToReactComponents(content.fields.description, contentfulToReactnative)}</div>
                     : ""}
 
                     {content.fields?.menu ? (
