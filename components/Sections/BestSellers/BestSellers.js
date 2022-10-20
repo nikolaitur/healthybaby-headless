@@ -23,7 +23,7 @@ const BestSellers = ({ content }) => {
 
     useEffect(() => {
         const getBestSellers = async () => {
-            const productList = products.split(',')
+            const productList = products.replace(/ /g, '').split(',')
             await nacelleClient.products({
                 handles: productList
             }).then(response => {
@@ -64,7 +64,7 @@ const BestSellers = ({ content }) => {
                         >
                             {bestSellers.map((product, index) => (
                                 <SwiperSlide key={index}>
-                                    <ProductCard content={product} />
+                                    <ProductCard product={product} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -72,9 +72,14 @@ const BestSellers = ({ content }) => {
                             className="best-sellers__slider--mobile"
                             modules={[Lazy, Navigation]}
                             spaceBetween={20}
-                            slidesPerView={1}
+                            slidesPerView={1.1}
                             lazy={true}
                             navigation={true}
+                            breakpoints={{
+                                768: {
+                                    slidesPerView: 2.1
+                                }
+                            }}
                             style={{
                                 "--swiper-navigation-color": "#fff",
                                 "--swiper-pagination-color": "#fff",
@@ -82,7 +87,7 @@ const BestSellers = ({ content }) => {
                         >
                             {bestSellers.map((product, index) => (
                                 <SwiperSlide key={index}>
-                                    <ProductCard content={product} />
+                                    <ProductCard product={product} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>

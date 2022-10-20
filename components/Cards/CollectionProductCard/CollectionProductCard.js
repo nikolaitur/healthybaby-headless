@@ -6,6 +6,7 @@ import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
 import { useMediaQuery } from 'react-responsive'
+import { getProductPrice } from '@/utils/getProductPrice'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
@@ -69,24 +70,13 @@ const CollectionProductCard = forwardRef(({
     if (content.fields?.productHandle && products) {
       setHandle(content.fields.productHandle.replace('::en-US', ''))
       setProduct(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
-      getProdouctPrice(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
+      setProductPrice(getProductPrice(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', ''))))
     }
   }, [handle])
 
   const handleLink = (product) => {
     dataLayerSelectProduct({ product, url: router.pathname })
     router.push(`/products/${handle}`)
-  }
-
-  const getProdouctPrice = (product) => {
-    if (product.variants.length > 1) {
-      let lowestPrice = product.variants.reduce(function (prev, curr) {
-        return prev.price < curr.price ? prev : curr
-      })
-      setProductPrice(lowestPrice.price)
-    } else {
-      setProductPrice(product.variants[0].price)
-    }
   }
 
   const openQuickView = async () => {

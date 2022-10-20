@@ -10,11 +10,15 @@ import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
 import ArticleHeroHowWow from '@/components/Article/ArticleHeroHowWow'
 
 function Article({ article }) {
+  console.log(article)
   return (
     <>
       <Head>
         <title>{article.title} &ndash; Healthybaby</title>
-        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <meta
+          name="description"
+          content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
@@ -28,7 +32,9 @@ function Article({ article }) {
             <ArticleSocial key="social" />
             <div>
               {article.fields.articleSections ? (
-                <ArticleSectionsContent sections={article.fields.articleSections} />
+                <ArticleSectionsContent
+                  sections={article.fields.articleSections}
+                />
               ) : (
                 <></>
               )}

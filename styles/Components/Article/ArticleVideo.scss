@@ -45,6 +45,19 @@
     overflow: hidden;
     background-size: cover;
 
+    &.mobile {
+      @include breakpoint-up('md') {
+        display: none;
+      }
+    }
+
+    &.desktop {
+      display: none;
+      @include breakpoint-up('md') {
+        display: block;
+      }
+    }
+
     @include breakpoint-up('md') {
       height: 650px;
     }
