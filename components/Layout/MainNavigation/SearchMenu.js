@@ -77,10 +77,9 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
   }, [query])
 
   const closeSearchMenu = () => {
-    console.log('closed')
     setSearchQuery('')
     toggleSearch()
-    console.log(searchQuery, '2')
+    // console.log(searchQuery, '2')
   }
 
   const productData = (product) => {

@@ -105,8 +105,8 @@ export const dataLayerViewSearchResults = ({ products }) => {
       ecommerce: {
         actionField: { list: 'search results' },
         impressions: products.map((item, index) => {
-          console.log('search result')
-          console.log(item)
+          // console.log('search result')
+          // console.log(item)
           return {
             name: item.Title, // Product title
             brand: 'Healthy Baby',
@@ -179,7 +179,7 @@ export const dataLayerBeginCheckout = ({ cart }) => {
 }
 
 export const dataLayerSignup = ({ customer, url }) => {
-  console.log('dl sign up')
+  // console.log('dl sign up')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_sign_up',
@@ -192,7 +192,7 @@ export const dataLayerSignup = ({ customer, url }) => {
 }
 
 export const dataLayerLogin = ({ customer, url }) => {
-  console.log('dl_login')
+  // console.log('dl_login')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_login',

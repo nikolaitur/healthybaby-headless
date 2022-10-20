@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, forwardRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
+import { useMediaQuery } from 'react-responsive'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
@@ -40,12 +41,12 @@ const findProductBadges = ({ content, products, productBadges }) => {
   return null
 }
 
-const CollectionProductCard = ({
+const CollectionProductCard = forwardRef(({
   content,
   products,
   productBadges,
   crossSell,
-}) => {
+}, ref) => {
   const router = useRouter()
   const [, { addToCart }] = useCart()
   const [isloading, setIsLoading] = useState(false)
@@ -55,6 +56,9 @@ const CollectionProductCard = ({
   const [selectedVariant, setSelectedVariant] = useState(false)
   const { title, cardWidth } = content.fields
   const isCrossSell = { ...crossSell }
+  const isDesktop = useMediaQuery(
+    { minWidth: 1074 }
+  )
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
@@ -67,7 +71,7 @@ const CollectionProductCard = ({
       setProduct(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
       getProdouctPrice(products.find((product) => product.content.handle === content.fields.productHandle.replace('::en-US', '')))
     }
-}, [handle])
+  }, [handle])
 
   const handleLink = (product) => {
     dataLayerSelectProduct({ product, url: router.pathname })
@@ -220,7 +224,7 @@ const CollectionProductCard = ({
         </ul>
     }
 
-      <a onClick={() => handleLink(product)}>
+      <a className={cardWidth == 'Full Width' ? 'collection-product-card__image-wrapper--full-width' : ''} onClick={() => handleLink(product)} ref={ref}>
         <div
           className={`collection-product-card__image ${
             content.fields?.image && content.fields?.imageHover
@@ -236,7 +240,7 @@ const CollectionProductCard = ({
                 alt={content.fields.image.fields.title}
                 layout="responsive"
                 objectFit="cover"
-                height={cardWidth == 'Full Width' ? 695 : 710}
+                height={cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710}
                 width={cardWidth == 'Full Width' ? 870 : 570}
               />
               {content.fields?.imageHover ? (
@@ -246,7 +250,7 @@ const CollectionProductCard = ({
                   alt={content.fields.imageHover.fields.title}
                   layout="responsive"
                   objectFit="cover"
-                  height={cardWidth == 'Full Width' ? 695 : 710}
+                  height={cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
               ) : (
@@ -373,6 +377,6 @@ const CollectionProductCard = ({
       </div>
     </div>
   )
-}
+})
 
 export default CollectionProductCard

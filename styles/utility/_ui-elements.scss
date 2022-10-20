@@ -40,15 +40,17 @@
           }
       }
 
-      &:hover {
-          background: #fff;
-          color: $primaryBrown;
+      @include breakpoint-up('md') {
+        &:hover {
+            background: #fff;
+            color: $primaryBrown;
 
-          svg {
-              path {
-                  fill: $primaryBrown;
-              }
-          }
+            svg {
+                path {
+                    fill: $primaryBrown;
+                }
+            }
+        }
       }
   }
 
@@ -64,13 +66,15 @@
     justify-content: center;
   }
 
-  &:hover {
-    background: $primaryGreen;
-    color: #fff;
-
-    svg {
-      path {
-        fill: #fff;
+  @include breakpoint-up('md') {
+    &:hover {
+      background: $primaryGreen;
+      color: #fff;
+  
+      svg {
+        path {
+          fill: #fff;
+        }
       }
     }
   }

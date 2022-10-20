@@ -1,6 +1,5 @@
 import React from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
+import Script from 'next/script'
 
 import ProductGallery from '../ProductGallery'
 import ProductInfo from '../ProductInfo'
@@ -12,6 +11,10 @@ const ProductQuickView = ({content}) => {
     return (
         <>  
             <div className="product-quickview">
+                <Script
+                    src="https://scripts.juniphq.com/v1/junip_shopify.js"
+                    strategy="lazyOnload"
+                />
                 <ProductGallery product={product} page={page} quickView={true} />
                 <ProductInfo product={product} page={page} />
             </div>

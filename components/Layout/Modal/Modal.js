@@ -1,5 +1,6 @@
 import { useModalContext } from '../../../context/ModalContext'
 import IconClose from '../../../svgs/close-icon.svg'
+import IconCloseLarge from '../../../svgs/close-icon-large.svg'
 
 import CreateAccountForm from '../../Layout/Forms/CreateAccountForm'
 import LoginAccountForm from '../../Layout/Forms/LoginAccountForm'
@@ -38,7 +39,7 @@ const Modal = ({props, children}) => {
       <div className="modal__content">
         <div className="modal__content-container">
           <div className="modal__close" onClick={() => closeModal()}>
-            <IconClose />
+            {modalContext.modalType == "quickview" ? <IconCloseLarge />  : <IconClose /> }
           </div>
           {getContent(modalContext.modalType, children)}
         </div>

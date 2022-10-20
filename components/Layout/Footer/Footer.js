@@ -34,25 +34,27 @@ const Footer = ({ content }) => {
             <div className="footer__container container">
                 <FooterNewsletter content={newsletter} />
                 <div className="footer__nav">
-                    {mainNavigation.map((item, index) => (
-                        <div className="footer__wrapper footer__wrapper--main" key={index}>
-                            <div className="footer__title">
-                                {item.fields.title}
-                            </div>
-                            {item.fields?.links ? (
-                                <div className="footer__links">
-                                    {item.fields.links.map((link, index) => (
-                                        <div className="footer__link" key={index}>
-                                            <Link href={link.fields.url}>
-                                                {link.fields.title}
-                                            </Link>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : ""}
+                    <div className="footer__nav-main">
+                      {mainNavigation.map((item, index) => (
+                          <div className="footer__wrapper footer__wrapper--main" key={index}>
+                              <div className="footer__title">
+                                  {item.fields.title}
+                              </div>
+                              {item.fields?.links ? (
+                                  <div className="footer__links">
+                                      {item.fields.links.map((link, index) => (
+                                          <div className="footer__link" key={index}>
+                                              <Link href={link.fields.url}>
+                                                  {link.fields.title}
+                                              </Link>
+                                          </div>
+                                      ))}
+                                  </div>
+                              ) : ""}
 
-                        </div>
-                    ))}
+                          </div>
+                      ))}
+                    </div>
                     <div className="footer__wrapper footer__wrapper--accordion">
                         {mainNavigation.map((item, index) => (
                             <FooterAccordion key={index} title={item.fields.title} links={item.fields.links} />
@@ -78,11 +80,9 @@ const Footer = ({ content }) => {
                     {content.fields?.social ? (
                         <div className='footer__social'>
                             {social.map((item, index) => (
-                                <Link href={item.fields.url} key={index}>
-                                    <div className="footer__icon">
-                                        {getSocialIcon(item.fields.title)}
-                                    </div>
-                                </Link>
+                                <a className="footer__icon" target="_blank" rel="noreferrer" href={item.fields.url} key={index}>
+                                    {getSocialIcon(item.fields.title)}
+                                </a>
                             ))}
                         </div>
                     ) : "" }
