@@ -130,6 +130,11 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     if (router.pathname === '/search') {
       return false
     }
+    if (isSearchOpen && window?.innerWidth < 1074) {
+      document.body.classList.remove('searchmenu-is-active')
+    } else if (!isSearchOpen && window?.innerWidth < 1074) {
+      document.body.classList.add('searchmenu-is-active')
+    }
     setSearchOpen(!isSearchOpen)
     setSearchQuery('')
   }
@@ -314,21 +319,22 @@ const MainNavigation = forwardRef(({ props }, ref) => {
         className={`mobile-menu mobile-menu--search ${
           isSearchOpen ? 'is-open' : ''
         }`}
+        style={{ top: announcementBarHeight }}
       >
         <div className="mobile-menu__close" onClick={() => toggleSearch()}>
           <CloseIcon />
         </div>
         <div className={`mobile-menu__search`}>
-          <input
-            type="text"
-            placeholder="search products"
-            onChange={handleSearchChange}
-            onKeyDown={(e) => handleKeyDown(e)}
-            value={searchQuery}
-          />
-          <span>
+          <div className="mobile-menu__search-input-wrapper">
+            <input
+              type="text"
+              placeholder="search products"
+              onChange={handleSearchChange}
+              onKeyDown={(e) => handleKeyDown(e)}
+              value={searchQuery}
+            />
             <Search />
-          </span>
+          </div>
         </div>
         <SearchMenu
           searchQuery={searchQuery}

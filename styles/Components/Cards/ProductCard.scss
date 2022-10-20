@@ -64,8 +64,13 @@
             }
 
             .search & {
-                font-size: 22px;
-                line-height: 22px;
+                font-family: $NeutraTextDemi;
+                font-size: 16px;
+                line-height: 19px;
+                @include breakpoint-up('md') {
+                    font-size: 22px;
+                    line-height: 24px;
+                }
             }
         }
     }
@@ -106,8 +111,12 @@
         }
 
         .search & {
-            font-size: 18px;
-            line-height: 22px;
+            font-size: 16px;
+            line-height: 18px;
+            @include breakpoint-up('md') {
+                font-size: 18px;
+                line-height: 22px;
+            }
         }
     }
 

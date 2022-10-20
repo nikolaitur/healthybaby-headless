@@ -80,19 +80,31 @@
 
         .search-menu__wrapper {
             flex-direction: row;
-            margin: 0 -20px;
+            flex-wrap: wrap;
+            margin: 0 -6px;
+            @include breakpoint-up('sm') {
+                margin: 0 -20px;
+            }
             @include breakpoint-up('md') {
                 flex-direction: row;
             }
         }
 
         .product-card {
-            width: 25%;
+            width: 50%;
+            margin: 0 0 30px;
+            padding: 0 6px;
+            @include breakpoint-up('sm') {
+                padding: 0 20px;
+            }
             @include breakpoint-up('md') {
-                margin-bottom: 30px;
+                width: 25%;
             }
             .product-card__image {
-                height: 15vw;
+                height: 40vw;
+                @include breakpoint-up('md') {
+                    height: 15vw;
+                }
                 @include breakpoint-up('lg') {
                     height: 13vw;
                 }
