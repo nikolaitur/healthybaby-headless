@@ -1,5 +1,5 @@
 // import classes from './MainNavigation.scss'
-import React, { useState, useEffect, forwardRef } from 'react'
+import React, { useState, useEffect, forwardRef, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -37,6 +37,8 @@ const MainNavigation = forwardRef(({ props }, ref) => {
   const [isSearchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [announcementBarHeight, setAnnoucementBarHeight] = useState()
+
+  const mobileMenuRef = useRef()
 
   useEffect(() => {
     const handleResize = () => {
@@ -151,6 +153,19 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     }
   }
 
+  const handleClickOutside = (event) => {
+    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      setMobileMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
+
   return (
     <>
       <div className="main-nav">
@@ -232,7 +247,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
         </div>
         <div className="mobile-nav__logo">
           <Link href="/">
-            <LogoMobile />
+            <a>
+              <LogoMobile />
+            </a>
           </Link>
         </div>
         <div className="mobile-nav__right">
@@ -257,6 +274,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
       <div
         className={`mobile-menu ${isMobileMenuOpen ? 'is-open' : ''}`}
         style={{ top: announcementBarHeight }}
+        ref={mobileMenuRef}
       >
         <div className="mobile-menu__close" onClick={() => closeMobileMenu()}>
           <CloseIcon />
