@@ -24,7 +24,7 @@
   }
 
   h6 {
-    font-family: $NeutraTextDemi;
+    font-family: $NeutraText;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -33,10 +33,12 @@
     color: $primaryBrown;
     margin-bottom: 20px;
     text-transform: none;
-
     @include breakpoint-up('md') {
       font-size: 26px;
       line-height: 31px;
+    }
+    b {
+      font-family: $NeutraTextDemi;
     }
   }
 

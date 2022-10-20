@@ -17,6 +17,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import ProductOptions from '../../Product/ProductOptions'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useModalContext } from '../../../context/ModalContext'
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
 import StarFull from '../../../svgs/star-full.svg'
@@ -44,6 +45,7 @@ const ProductInfo = (props) => {
   const [messageProduct, setMessageProduct] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
+  const modalContext = useModalContext()
 
   // console.log(product, "info", selectedVariant, page)
   console.log(page)
@@ -283,6 +285,7 @@ const ProductInfo = (props) => {
     }
 
     cartDrawerContext.setIsOpen(true)
+    modalContext.setIsOpen(false)
   }
 
   useEffect(() => {
@@ -454,7 +457,7 @@ const ProductInfo = (props) => {
                   Monthly Auto-Ship <br />
                   <span>Update sizing or cancel anytime</span>
                   <span className="price">
-                    ${Number(subscriptionPrice).toFixed(2)}
+                    <s>${selectedVariant.price.toFixed(2)}</s> ${Number(subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
               </div>

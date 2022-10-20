@@ -1,12 +1,12 @@
 import { nacelleClient } from 'services'
 import ContentSections from '@/components/Sections/ContentSections'
 
-export default function DynamicPage({ page }) {
+export default function DynamicPage({ page, handle }) {
   console.log("page:", page)
   const sections = page.fields.sections
 
   return (
-    <div className="standard-page">
+    <div className={`standard-page standard-page--${handle}`}>
       <ContentSections sections={sections} />
     </div>
   )

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css"
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
-const VitaminFinder = ({ content }) => {
+const VitaminFinder = ({ content, refs, index }) => {
     const { header, subheader, description, ctaText1, ctaText2, ctaText3, recommendationsText, addToCartText, backgroundImage, backgroundImageMobile } = {...content.fields}
 
     let intialValues = {
@@ -31,6 +30,7 @@ const VitaminFinder = ({ content }) => {
     const [dueDate, setDueDate] = useState(new Date());
     const [product, setProduct] = useState(false)
     const [viatminFinderData, setVitaminFinderData] = useState(intialValues);
+    const [maxHeight, setMaxHeight] = useState('100%')
 
     const cartDrawerContext =  useCartDrawerContext()
     const modalContext = useModalContext()
@@ -86,12 +86,12 @@ const VitaminFinder = ({ content }) => {
             product,
             variant: selectedVariant,
         })
-        
+
         let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
 
         if(!sellingPlan) {
             sellingPlan = false
-        } 
+        }
 
         addToCart({
             product,
@@ -121,12 +121,45 @@ const VitaminFinder = ({ content }) => {
           .catch((err) => {
             console.error(err, "Error")
           })
-        
+
           cartDrawerContext.setIsOpen(true)
     }
 
+    useEffect(() => {
+        const handleResize = () => {
+
+            const isDesktop = window.innerWidth > 1440
+
+            if (!isDesktop) {
+                setMaxHeight('100%')
+                return false
+            }
+
+            const validRefs = refs.current.filter(ref => ref)
+            const getSurroundingIndexes = [validRefs[index - 1]?.current, validRefs[index + 1]?.current]
+            const getSurroundingIndexesHeight = getSurroundingIndexes.reduce((carry, el) => {
+                if (el && !el.classList.contains('collection-product-card__image-wrapper--full-width')) {
+                    return el.offsetHeight
+                }
+                return carry
+            }, 0)
+
+            console.log("getSurroundingIndexesHeight:", getSurroundingIndexesHeight)
+
+            if (getSurroundingIndexesHeight) {
+                setMaxHeight(getSurroundingIndexesHeight)
+            }
+        }
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+        return () => {
+          window.removeEventListener('resize', handleResize)
+        }
+      }, [])
+
     return (
-        <div className="vitamin-finder item">
+        <div className="vitamin-finder item" style={{'maxHeight': maxHeight}}>
             <div className="vitamin-finder__background">
                 <div className="vitamin-finder__background--desktop">
                     <Image
@@ -183,7 +216,7 @@ const VitaminFinder = ({ content }) => {
                                     height="315"
                                     width="315"
                                 />
-                            </div>  
+                            </div>
                             <button className="btn secondary" onClick={() => handleAddItem()}>
                                 <span>{ addToCartText }</span>
                                 <span><LongArrowRight /></span>

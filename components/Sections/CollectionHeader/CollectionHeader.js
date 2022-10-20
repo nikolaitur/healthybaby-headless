@@ -23,8 +23,6 @@ const CollectionHeader = ({ content }) => {
         },
     }
 
-    console.log("header fields:", content)
-
     return (
         <section className="collection-header">
             <div className="collection-header__container container">

@@ -9,7 +9,7 @@ import ValueProps from '../components/Sections/ValueProps'
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
 export default function ShopAll({ pages, products, productBadges }) {
-    console.log(pages[0].fields, "Shop All", products)
+    // console.log(pages[0].fields, "Shop All", products)
     const router = useRouter()
     const shopAll = pages[0].fields
     const shopAllSections = shopAll.sections

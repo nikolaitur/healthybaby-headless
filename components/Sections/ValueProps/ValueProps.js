@@ -7,7 +7,7 @@ import ValuePropSvg3 from '../../../svgs/value-prop-3.svg'
 import parse from 'html-react-parser'
 
 const ValueProps = ({ content }) => {
-    console.log(content, "VAlue Props")
+    // console.log(content, "VAlue Props")
     return (
        <section className="value-props">
 

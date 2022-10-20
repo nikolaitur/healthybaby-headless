@@ -17,11 +17,38 @@
     }
 
     .product-gallery {
-        display: block;
-        
         @include breakpoint-up('md') {
             margin-right: 30px;
             width: 50%;
+            display: block;
+        }
+    }
+
+    .product-info__sticky {
+        @include breakpoint-down('md') {
+            display: flex;
+            flex-direction: column;
+
+            .product-info__reviews {
+                order: 1;
+            }
+
+            .product-info__title {
+                order: 2;
+            }
+
+            .product-info__description {
+                order: 4;
+                font-size: 18px;
+            }
+
+            .product-info__price {
+                order: 3;
+            }
+
+            .product-form {
+                order: 5;
+            }
         }
     }
 
@@ -39,6 +66,32 @@
     .product-form__count {
         padding: 0 0 20px;
         margin-bottom: 20px;
+    }
+
+    .product-form__submit.btn {
+        @include breakpoint-down('md') {
+            padding: 14px 30px;
+        }
+    }
+
+    .product-form__input-wrapper {
+        label {
+            br {
+                display: block;
+            }
+
+            span {
+                padding-left: 27px;
+            }
+
+            @include breakpoint-up('md') {
+                font-size: 18px;
+
+                span {
+                    padding-left: 30px!important;
+                }
+           }
+        }
     }
 
     .product-info__title {
@@ -68,14 +121,25 @@
     }
 
     .product-message,
-    .product-tabs,
-    .product-status {
+    .product-tabs {
         display: none;
+    }
+
+    .product-form__label {
+        .calculator {
+            display: none;
+        }
     }
 
     .product-form__label,
     .product-form__count {
         font-size: 18px;
         line-height: 25px;
+    }
+
+    .product-form__label {
+        @include breakpoint-down('md') {
+            font-size: 14px;
+        }
     }
 }

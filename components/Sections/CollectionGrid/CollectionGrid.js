@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, createRef } from 'react'
 import { useRouter } from 'next/router'
 import CollectionCallout from '../../Sections/CollectionCallout'
 import CollectionProductCard from '../../Cards/CollectionProductCard'
@@ -8,9 +8,9 @@ import parse from 'html-react-parser'
 
 const CollectionGrid = ({ content, products, productBadges }) => {
     const sectionItems = content.fields.sections
-    const {header, subheader } = {...content.fields}
-
+    const { header, subheader } = {...content.fields}
     const router = useRouter()
+    const myRefs = useRef([]);
 
     return (
         <section className="collection-grid" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor : ""}>
@@ -23,16 +23,18 @@ const CollectionGrid = ({ content, products, productBadges }) => {
                     <div className="collection-grid__wrapper">
                         {content.fields.sections.map((item, index) => {
                             let type = item.type;
+                            const cardRef = createRef()
+                            myRefs.current[index] = cardRef
 
                             switch (type) {
                                 case 'collectionProductCard':
-                                    return <CollectionProductCard content={item} products={products} productBadges={productBadges} key={index} />
+                                    return <CollectionProductCard index={index} ref={cardRef} content={item} products={products} productBadges={productBadges} key={index} />
                                 case 'collectionCallout':
-                                    return <CollectionCallout content={item} key={index} />
+                                    return <CollectionCallout index={index} content={item} key={index} />
                                 case 'diaperCalculator':
-                                    return <DiaperFinderCard content={item} key={index} />
+                                    return <DiaperFinderCard index={index} refs={myRefs} content={item} key={index} />
                                 case 'vitaminFinder':
-                                    return <VitaminFinder content={item} key={index} />
+                                    return <VitaminFinder index={index} refs={myRefs} content={item} key={index} />
                                 default:
                                 return null
                             }
