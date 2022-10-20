@@ -23,7 +23,7 @@ $NeutraText: 'NeutraText';
 
     &__newsletter {
         padding: 0px 22px 60px;
-        
+
         @include breakpoint-up('lg') {
             padding: 0 0 80px;
             display: flex;
@@ -43,24 +43,25 @@ $NeutraText: 'NeutraText';
         align-content: normal;
 
         @include breakpoint-up('md') {
-            flex-wrap: wrap;
             padding: 80px 0 0px;
             margin: 0 0 90px;
             flex-direction: row;
-            display: flex;
             border: 1px solid #D0D8E9;
             border-width: 1px 0 0 0;
         }
+    }
 
-        @include breakpoint-up('lg') {
-            flex-wrap: nowrap;
-        }
+    &__nav-main {
+      display: none;
+      width: 100%;
+      @include breakpoint-up('md') {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
 
     &__wrapper {
         @include breakpoint-up('md') {
-            min-width: 180px;
-            max-width: 240px;
             padding-right: 20px;
             width: 33%;
         }
@@ -70,15 +71,24 @@ $NeutraText: 'NeutraText';
         }
 
         &--main {
-            display: none!important;
+            display: none;
+            flex-grow: 0;
+            flex-shrink: 1;
+            flex-basis: auto;
+            align-self: auto;
+            order: 0;
+            min-width: 150px;
+            max-width: none;
 
             @include breakpoint-up('md') {
-                display: block!important;
+                display: block;
                 margin-bottom: 30px;
+                width: 25%;
             }
 
             @include breakpoint-up('lg') {
                 margin-bottom: 0px;
+                width: 20%;
             }
         }
 
@@ -95,14 +105,11 @@ $NeutraText: 'NeutraText';
             display: flex;
             align-items: center;
             justify-content: center;
-
-            svg {
-                // max-width: 50px;
-
-                // @include breakpoint-up('md') {
-                //     max-width: 83px;
-                // }
-            }
+            flex-grow: 0;
+            flex-shrink: 1;
+            flex-basis: auto;
+            align-self: auto;
+            order: 0;
 
             @include breakpoint-up('md') {
                 padding-right: 0px;
@@ -111,61 +118,6 @@ $NeutraText: 'NeutraText';
                 align-items: flex-start;
                 min-width: 130px;
             }
-        }
-
-        &:nth-child(1) {
-            display: block;
-            flex-grow: 0;
-            flex-shrink: 1;
-            flex-basis: auto;
-            align-self: auto;
-            order: 0;
-            min-width: 150px;
-        }
-          
-        &:nth-child(2) {
-            display: block;
-            flex-grow: 0;
-            flex-shrink: 1;
-            flex-basis: auto;
-            align-self: auto;
-            order: 0;
-        }
-        
-        &:nth-child(3) {
-            display: block;
-            flex-grow: 0;
-            flex-shrink: 1;
-            flex-basis: auto;
-            align-self: auto;
-            order: 0;
-        }
-        
-        &:nth-child(4) {
-            display: block;
-            flex-grow: 0;
-            flex-shrink: 1;
-            flex-basis: auto;
-            align-self: auto;
-            order: 0;
-        }
-        
-        &:nth-child(5) {
-            display: block;
-            flex-grow: 0;
-            flex-shrink: 1;
-            flex-basis: auto;
-            align-self: auto;
-            order: 0;
-        }
-        
-        &:nth-child(7) {
-            // display: block;
-            flex-grow: 0;
-            flex-shrink: 1;
-            flex-basis: auto;
-            align-self: auto;
-            order: 0;
         }
     }
 
@@ -186,7 +138,7 @@ $NeutraText: 'NeutraText';
         line-height: 31px;
         letter-spacing: -0.02em;
         color: #3D3331;
-        
+
         @include breakpoint-up('md') {
             font-size: 56px;
             line-height: 56px;
@@ -277,7 +229,7 @@ $NeutraText: 'NeutraText';
     &__submit {
         position: absolute;
         right: 20px;
-        top: 16px; 
+        top: 16px;
 
         @include breakpoint-up('md') {
             right: 30px;
@@ -347,7 +299,7 @@ $NeutraText: 'NeutraText';
                 margin-right: 30px;
                 margin-left: 30px;
                 position: relative;
-    
+
                 &:before {
                     content: "|";
                     position: relative;
@@ -363,7 +315,7 @@ $NeutraText: 'NeutraText';
 
         &--mobile {
             display: block;
-            
+
             @include breakpoint-up('lg') {
                 display: none;
             }
@@ -488,7 +440,7 @@ $NeutraText: 'NeutraText';
     }
 
     .accordion-content {
-        padding: 30px 12px 10px; 
+        padding: 30px 12px 10px;
         list-style: none;
 
         li:not(:last-child) {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ProductCard = ({ content }) => {
-    const { title, media } = content.content
+    const { title, media, handle } = content.content
 
     let image = ""
 
@@ -14,7 +14,7 @@ const ProductCard = ({ content }) => {
     return (
         <div className="product-card">
             <div className="product-card__image">
-                <Link href="/">
+                <Link href={`/products/${handle}`}>
                     <a>
                         {image ?
                             <Image
@@ -36,7 +36,7 @@ const ProductCard = ({ content }) => {
             </div>
             <div className="product-card__content">
                 <div className="product-card__title">
-                    <Link href="/">{ title }</Link>
+                    <Link href={`/products/${handle}`}>{ title }</Link>
                 </div>
                 <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div>
                 <div className="product-card__reviews"></div>
