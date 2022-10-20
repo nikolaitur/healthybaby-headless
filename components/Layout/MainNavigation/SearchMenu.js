@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 
@@ -11,11 +12,9 @@ const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALOGLIA_APPLICATION_ID,
   process.env.NEXT_PUBLIC_ALOGLIA_WRITE_API_KEY
 )
-const index = searchClient.initIndex('shopify_products')
 
-const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
+const SearchMenu = ({ searchQuery, setSearchQuery, setSearchOpen, isSearchOpen }) => {
   const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState(query)
   const [searchProducts, setSearchProducts] = useState({ hits: [], total: 0 })
 
   const queries = [
@@ -23,56 +22,46 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
       indexName: 'shopify_products',
       query: searchQuery,
       params: {
-        hitsPerPage: 3,
+        hitsPerPage: 4,
       },
     }
   ]
 
   useEffect(() => {
-    setSearchQuery(query)
-    // console.log(searchQuery, "searchquery")
-
     searchClient.multipleQueries(queries).then(({ results }) => {
       if (searchQuery == '') {
-        setSearchProducts({ hits: [], total: 0 })
-      }
-
-      if (!results[0]) {
-        setSearchProducts({ hits: [], total: 0 })
+        setSearchProducts([])
+        document.body.classList.remove('searchmenu-is-active')
+      } else if (!results[0]) {
+        setSearchProducts([])
+        document.body.classList.remove('searchmenu-is-active')
       } else {
         dataLayerViewSearchResults({ products: results[0].hits })
-        setSearchProducts({ hits: results[0].hits, total: results[0].nbHits })
+        nacelleClient.products({
+          handles: results[0].hits.map(product => product.Handle)
+        }).then(products => {
+          if (products.length) {
+            setSearchProducts(products)
+            document.body.classList.add('searchmenu-is-active')
+          }
+        })
       }
-
-      if (query.length > 0) {
-        document.body.classList.add('no-scroll')
-      } else {
-        document.body.classList.remove('no-scroll')
-      }
-
-      // console.log(results, "results", searchProducts.hits, searchArticles.hits);
     })
-  }, [query])
+  }, [searchQuery])
+
+  useEffect(() => {
+    const onRouteChangeComplete = () => {
+      setSearchQuery('')
+      setSearchOpen(false)
+      document.body.classList.remove('searchmenu-is-active')
+    }
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+  }, [router.pathname])
 
   const closeSearchMenu = () => {
     setSearchQuery('')
-    toggleSearch()
-    // console.log(searchQuery, '2')
-  }
-
-  const productData = (product) => {
-    let dataObject = {
-      content: {
-        title: product['Title'],
-        media: [
-          {
-            src: product['Image Src'],
-          },
-        ],
-      },
-    }
-
-    return dataObject
+    setSearchOpen(false)
+    document.body.classList.remove('searchmenu-is-active')
   }
 
   if (router.pathname === '/search') {
@@ -80,18 +69,18 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
   }
 
   return (
-    <div className={`search ${query.length > 0 ? 'show' : ''}`}>
-      <div className="search-menu__close" onClick={() => closeSearchMenu()}>
-        <CloseIcon />
-      </div>
+    <div className={`search ${searchQuery.length > 0 ? 'show' : ''}`}>
       <div className={`search-menu`}>
         <div className="search-menu__container container">
+          <div className="search-menu__close" onClick={() => closeSearchMenu()}>
+            <CloseIcon />
+          </div>
           <div className="search-menu__products">
             <div className="search-menu__header">Top Products</div>
             <div className="search-menu__wrapper">
-              {searchProducts.hits.length > 0
-                ? searchProducts.hits.map((product, index) => (
-                    <ProductCard content={productData(product)} key={index} />
+              {searchProducts.length > 0
+                ? searchProducts.map((product, index) => (
+                    <ProductCard product={product} key={index} sizes="600px" />
                   ))
                 : ''}
             </div>
@@ -100,7 +89,7 @@ const SearchMenu = ({ query, toggleSearch, isSearchOpen }) => {
       </div>
       <div
         className={`search-menu__overlay ${
-          query.length > 0 || isSearchOpen ? 'show' : ''
+          searchQuery.length > 0 || isSearchOpen ? 'show' : ''
         }`}
         onClick={() => closeSearchMenu()}
       ></div>

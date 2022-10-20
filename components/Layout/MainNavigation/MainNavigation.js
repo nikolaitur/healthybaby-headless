@@ -35,16 +35,8 @@ const MainNavigation = forwardRef(({ props }, ref) => {
   const [isMobileMenuSlideOpen, setMobileMenuSlideOpen] = useState(false)
   const [isSecondarySlideOpen, setSecondarySlideOpen] = useState(false)
   const [isSearchOpen, setSearchOpen] = useState(false)
-  const [query, setQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
   const [announcementBarHeight, setAnnoucementBarHeight] = useState()
-
-  useEffect(() => {
-    if (isSearchOpen) {
-      document.body.classList.add('no-scroll')
-    } else {
-      document.body.classList.remove('no-scroll')
-    }
-  }, [isSearchOpen])
 
   useEffect(() => {
     const handleResize = () => {
@@ -139,11 +131,11 @@ const MainNavigation = forwardRef(({ props }, ref) => {
       return false
     }
     setSearchOpen(!isSearchOpen)
-    setQuery('')
+    setSearchQuery('')
   }
 
   const handleSearchChange = (event) => {
-    setQuery(event.target.value)
+    setSearchQuery(event.target.value)
     // console.log('value is:', event.target.value);
   }
 
@@ -185,7 +177,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               ))
             : ''}
           <div
-            className={`main-nav__item ${isSearchOpen ? 'active' : ''}`}
+            className={`main-nav__item main-nav__item-search ${isSearchOpen ? 'active' : ''}`}
             onClick={() => toggleSearch()}
           >
             <Search />
@@ -209,21 +201,27 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           <div className={`main-nav__search ${isSearchOpen ? 'active' : ''}`}>
             <input
               type="text"
-              placeholder="search products, articles, events, etc..."
+              placeholder="search products"
               onChange={handleSearchChange}
+              value={searchQuery}
               onKeyDown={(e) => handleKeyDown(e)}
             />
           </div>
         </div>
         <MegaMenu menu={megaMenu} />
-        <SearchMenu query={query} toggleSearch={toggleSearch} />
+        <SearchMenu
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSearchOpen={setSearchOpen}
+          isSearchOpen={isSearchOpen}
+        />
       </div>
       <div className="mobile-nav">
         <div className="mobile-nav__left">
           <div className="main-nav__item" onClick={() => openMobileMenu()}>
             <HamburgerMenu />
           </div>
-          <div className="main-nav__item" onClick={() => toggleSearch()}>
+          <div className="main-nav__item main-nav__item-search" onClick={() => toggleSearch()}>
             <Search />
           </div>
         </div>
@@ -323,17 +321,19 @@ const MainNavigation = forwardRef(({ props }, ref) => {
         <div className={`mobile-menu__search`}>
           <input
             type="text"
-            className="input"
-            placeholder="search products, articles, events, etc..."
+            placeholder="search products"
             onChange={handleSearchChange}
+            onKeyDown={(e) => handleKeyDown(e)}
+            value={searchQuery}
           />
           <span>
             <Search />
           </span>
         </div>
         <SearchMenu
-          query={query}
-          toggleSearch={toggleSearch}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSearchOpen={setSearchOpen}
           isSearchOpen={isSearchOpen}
         />
       </div>

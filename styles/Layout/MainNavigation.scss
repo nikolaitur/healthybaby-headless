@@ -116,7 +116,18 @@
         }
     }
 
+    &__item-search {
+        position: relative;
+        right: 15px;
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
     &__search {
+        display: flex;
+        justify-content: flex-end;
         position: absolute;
         right: 100px;
         width: 0;
@@ -134,16 +145,17 @@
 
         input {
             background: #FFFFFF;
-            border: 1px solid #DBEDF8;
+            border: 1px solid #F4EAEB;
             border-radius: 60px;
             height: 48px;
             width: 100%;
-            max-width: 520px;
+            min-width: 250px;
+            max-width: 340px;
             padding: 0 30px;
-            font-family: $NeutraText;
+            font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 19px;
             letter-spacing: 0.02em;
             color: $primaryBrown;
