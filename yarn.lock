@@ -1298,10 +1298,10 @@
   resolved "https://registry.npmjs.org/@nacelle/shopify-checkout/-/shopify-checkout-0.0.12.tgz"
   integrity sha512-CV4tshpofg4elsTpoIHQne5dBucQG+5+Nb83FLtZs8vnNQOo/BMpuF9WWzxwnfgEQ1mkslTpjuX0SNZCH4+cwQ==
 
-"@nacelle/storefront-sdk@^1.7.4":
-  version "1.7.4"
-  resolved "https://registry.npmjs.org/@nacelle/storefront-sdk/-/storefront-sdk-1.7.4.tgz"
-  integrity sha512-k7cLWdlpl7gEvknDrcw5BJPEXLHsi67O/AiQrlUBMXg8gHnIScsq1yagt6HveWIW7XRbyALJ246p/1jFkcxZEQ==
+"@nacelle/storefront-sdk@^1.7.9":
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/@nacelle/storefront-sdk/-/storefront-sdk-1.7.9.tgz#bc695bef7df60fb459fb107d9602bdaa62930761"
+  integrity sha512-MZMkra7ydUVMhkTcHCzlSa/w2hUcQ8ZtYoc2Yx7vr/p1ja5OhkSndMICVLhD9ODwOQFWaJjCku7FOMpH17exOw==
   dependencies:
     "@urql/core" "^2.5.0"
     cross-fetch "^3.1.4"
