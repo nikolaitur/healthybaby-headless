@@ -53,7 +53,7 @@ const MegaMenu = ({ menu, menuColors }) => {
           {menu.fields.primaryNavLinks ? (
             <div className="mega-menu__primary-nav">
               {menu.fields.primaryNavLinks.map((link, index) => (
-                <Link href={link.fields.url} key={index}>
+                <Link href={link.fields.url || ''} key={index}>
                   <div
                     className="mega-menu__link"
                     onMouseEnter={() =>
@@ -77,7 +77,7 @@ const MegaMenu = ({ menu, menuColors }) => {
           {menu.fields.secondaryNavLinks ? (
             <div className="mega-menu__secondary-nav">
               {menu.fields.secondaryNavLinks.map((link, index) => (
-                <Link href={link.fields.url} key={index}>
+                <Link href={link.fields.url || ''} key={index}>
                   <div className="mega-menu__sub-link">
                     <div className="mega-menu__title">{link.fields.title}</div>
                   </div>
