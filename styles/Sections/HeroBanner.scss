@@ -151,11 +151,22 @@
         }
     }
 
-    &__cta {
+
+    &__cta,
+    .hero-video__icon {
         margin-top: 40px;
         @include breakpoint-up('md') {
             margin-top: 50px;
         }
+        &.hide {
+            display: none;
+        }
+    }
+
+    .hero-video__icon {
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
     }
 
     &__button {
@@ -185,6 +196,12 @@
 
         span:last-child {
             margin-left: 20px;
+        }
+    }
+
+    .hero-video__video-player {
+        @include breakpoint-down('sm') {
+            height: 75vw !important;
         }
     }
 }
