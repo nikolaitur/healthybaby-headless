@@ -2,13 +2,16 @@ import Link from 'next/link';
 
 import FooterNewsletter from './FooterNewsletter'
 import FooterAccordion from './FooterAccordion'
-import BrandIcon from '../../../svgs/brand-icon.svg'
-import Twitter from '../../../svgs/twitter-logo.svg'
-import Youtube from '../../../svgs/youtube-logo.svg'
-import Facebook from '../../../svgs/facebook-logo.svg'
-import Instagram from '../../../svgs/instagram-logo.svg'
-import FooterDetail1 from '../../../svgs/footer-detail-1.svg'
-import FooterDetail2 from '../../../svgs/footer-detail-2.svg'
+import BrandIcon from '@/svgs/brand-icon.svg'
+import Twitter from '@/svgs/twitter-logo.svg'
+import Youtube from '@/svgs/youtube-logo.svg'
+import Facebook from '@/svgs/facebook-logo.svg'
+import Instagram from '@/svgs/instagram-logo.svg'
+import FooterDetail1 from '@/svgs/footer-detail-1.svg'
+import FooterDetail2 from '@/svgs/footer-detail-2.svg'
+import FooterDetailMobile1 from '@/svgs/footer-detail-mobile-1.svg'
+import FooterDetailMobile2 from '@/svgs/footer-detail-mobile-2.svg'
+import FooterDetailMobile3 from '@/svgs/footer-detail-mobile-3.svg'
 
 const Footer = ({ content }) => {
     const { mainNavigation, newsletter, copyright, policy, social } = content.fields
@@ -112,11 +115,21 @@ const Footer = ({ content }) => {
                     </div>
                 </div>
             </div>
-            <div className="footer__detail footer__detail--1" >
-                <FooterDetail1/>
+            <div className="footer__detail footer__detail--desktop footer__detail--desktop-1">
+                <FooterDetail1 />
             </div>
-            <div className="footer__detail footer__detail--2" >
-                <FooterDetail2/>
+            <div className="footer__detail footer__detail--desktop footer__detail--desktop-2">
+                <FooterDetail2 />
+            </div>
+
+            <div className="footer__detail footer__detail--mobile footer__detail--mobile-1">
+                <FooterDetailMobile1 />
+            </div>
+            <div className="footer__detail footer__detail--mobile footer__detail--mobile-2">
+                <FooterDetailMobile2 />
+            </div>
+            <div className="footer__detail footer__detail--mobile footer__detail--mobile-3">
+                <FooterDetailMobile3 />
             </div>
         </div>
       </footer>
