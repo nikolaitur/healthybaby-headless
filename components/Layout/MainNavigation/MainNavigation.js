@@ -183,6 +183,13 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (megaMenuIsOpen) {
+      setSearchOpen(false)
+      setSearchQuery('')
+    }
+  }, [megaMenuIsOpen])
+
   return (
     <>
       <div className="main-nav">
