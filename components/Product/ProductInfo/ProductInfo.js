@@ -482,7 +482,7 @@ const openSubscribeInfoModal = async () => {
                 <label htmlFor="html">
                   Monthly Auto-Ship <br />
                   <span>Update sizing or cancel anytime</span>
-                  <span onClick={() => openSubscribeInfoModal()}><QuestionMark /></span>
+                  <span className="question-mark" onClick={() => openSubscribeInfoModal()}><QuestionMark /></span>
                   <span className="price">
                     <s>${selectedVariant.price.toFixed(2)}</s> ${Number(subscriptionPrice).toFixed(2)}
                   </span>
