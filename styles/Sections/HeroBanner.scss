@@ -78,11 +78,15 @@
         }
 
         &--vertical-center {
-            align-items: center;
+            @include breakpoint-up('md') {
+                align-items: center;
+            }
         }
 
         &--vertical-right {
-            align-items: flex-end;
+            @include breakpoint-up('md') {
+                align-items: flex-end;
+            }
         }
 
         &--vertical-bottom {
@@ -99,16 +103,22 @@
         }
 
         &--horizontal-left {
-            justify-content: flex-start;
+            @include breakpoint-up('md') {
+                justify-content: flex-start;
+            }
         }
 
         &--horizontal-center {
-            text-align: center;
-            justify-content: center;
+            @include breakpoint-up('md') {
+                text-align: center;
+                justify-content: center;
+            }
         }
 
         &--horizontal-right {
-            justify-content: flex-end;
+            @include breakpoint-up('md') {
+                justify-content: flex-end;
+            }
         }
     }
 
