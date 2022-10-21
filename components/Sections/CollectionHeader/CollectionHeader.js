@@ -10,7 +10,6 @@ const CollectionHeader = ({ content }) => {
     const router = useRouter()
     const { titleAlignmentDesktop, titleAlignmentMobile} = {...content.fields}
 
-
     // find more examples from https://lightrun.com/answers/contentful-rich-text-rendering-rich-text-in-react-native
     const contentfulToReactnative = {
         renderNode: {
@@ -23,7 +22,7 @@ const CollectionHeader = ({ content }) => {
         },
     }
 
-    console.log(content)
+    console.log(content, "Shop All", router.pathname)
 
     return (
         <section className="collection-header">
@@ -60,10 +59,41 @@ const CollectionHeader = ({ content }) => {
                         <div className="collection-header__description">{documentToReactComponents(content.fields.description, contentfulToReactnative)}</div>
                     : ""}
 
+                    {/* Collection Page Menu */}
                     {content.fields?.menu ? (
                         <div className="collection-header__links">
                             {content.fields.menu.fields?.sections ? (
                                 content.fields.menu.fields.sections.map((item, index) => {
+                                    return (
+                                        <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
+                                            <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
+                                                {item.fields?.image ? (
+                                                    <span className="image">
+                                                        <Image
+                                                            className="featured"
+                                                            src={`https:${item.fields.image.fields.file.url}`}
+                                                            alt={item.fields.image.fields.title}
+                                                            layout="responsive"
+                                                            objectFit="cover"
+                                                            height="84"
+                                                            width="84"
+                                                        />
+                                                    </span>
+                                                ) : <span className="image"></span>}
+                                                <span>{item.fields?.title ? item.fields.title : ""}</span>
+                                            </div>
+                                        </Link>
+                                    )
+                                })
+                            ) : ""}
+                        </div>
+                    ) : ""}
+
+                    {/* Shop All Page Menu */}
+                    {content?.menu ? (
+                        <div className="collection-header__links">
+                            {content.menu.fields?.sections ? (
+                                content.menu.fields.sections.map((item, index) => {
                                     return (
                                         <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
                                             <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
