@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { nacelleClient } from 'services'
+import Head from 'next/head'
 
 import ArticleHeroEverGreen from '../../../components/Article/ArticleHeroEverGreen'
 import ArticleSocial from '../../../components/Article/ArticleSocial'
@@ -8,34 +9,41 @@ import ArticleSectionsContent from '../../../components/Article/ArticleSectionsC
 import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
 
 function Article({ article }) {
-  console.log(article)
-
   return (
-    <article className="article">
-      {article.fields.articleHero ? (
-        <ArticleHeroEverGreen content={article} />
-      ) : (
-        <></>
-      )}
-      <div className="article__container article-content__container">
-        <ArticleSocial key="social" />
-        <div>
-          {article.fields.articleSections ? (
-            <ArticleSectionsContent sections={article.fields.articleSections} />
+    <>
+      <Head>
+        <title>{article.title} &ndash; Healthybaby</title>
+        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <>
+        <article className="article">
+          {article.fields.articleHero ? (
+            <ArticleHeroEverGreen content={article} />
           ) : (
             <></>
           )}
-        </div>
-      </div>
-      {article.fields.articlePagination ? (
-        <ArticlePrevNext
-          content={article.fields.articlePagination}
-          key="articlePagination"
-        />
-      ) : (
-        <></>
-      )}
-    </article>
+          <div className="article__container article-content__container">
+            <ArticleSocial key="social" />
+            <div>
+              {article.fields.articleSections ? (
+                <ArticleSectionsContent sections={article.fields.articleSections} />
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          {article.fields.articlePagination ? (
+            <ArticlePrevNext
+              content={article.fields.articlePagination}
+              key="articlePagination"
+            />
+          ) : (
+            <></>
+          )}
+        </article>
+      </>
+    </>
   )
 }
 

@@ -42,6 +42,7 @@
         pointer-events: none;
         transition: 0.3s;
         display: none;
+        z-index: 9;
 
         @include breakpoint-up('md') {
             display: block;
