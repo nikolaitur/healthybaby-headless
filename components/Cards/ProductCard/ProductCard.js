@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 import { useCart } from '@nacelle/react-hooks'
 import { useModalContext } from '@/context/ModalContext'
 import { getProductPrice } from '@/utils/getProductPrice'
@@ -179,8 +180,22 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
                     <Link href={`/products/${handle}`}>{ title }</Link>
                 </div>
                 {/* <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div> */}
+                <div className="product-card__reviews">
+                    <Script
+                        src="https://scripts.juniphq.com/v1/junip_shopify.js"
+                        strategy="lazyOnload"
+                    />
+                    <span
+                        className="junip-store-key"
+                        data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
+                    ></span>
+                    <span
+                        className="junip-product-summary"
+                        data-product-id="4522469523505"
+                    ></span>
+                </div>
                 {!showCTA && <div className="product-card__price">${productPrice}</div> }
-                <div className="product-card__reviews"></div>
+
                 {showCTA &&
                     <div className="product-card__cta-btn">
                         {product && product.variants.length > 1 ? (

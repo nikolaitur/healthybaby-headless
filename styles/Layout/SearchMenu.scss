@@ -26,7 +26,7 @@
     height: calc(100vh - 53px);
 
     @include breakpoint-up('md') {
-        height: 576px;
+        height: 586px;
         overflow: hidden;
     }
 
