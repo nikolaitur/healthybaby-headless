@@ -222,7 +222,7 @@ const CollectionProductCard = forwardRef(({
               : ''
           }`}
         >
-          {content.fields?.image ? (
+          {content.fields?.image?.fields ? (
             <>
               <Image
                 className="featured"
@@ -233,7 +233,7 @@ const CollectionProductCard = forwardRef(({
                 height={cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710}
                 width={cardWidth == 'Full Width' ? 870 : 570}
               />
-              {content.fields?.imageHover ? (
+              {content.fields?.imageHover?.fields ? (
                 <Image
                   className="hover"
                   src={`https:${content.fields.imageHover.fields.file.url}`}
