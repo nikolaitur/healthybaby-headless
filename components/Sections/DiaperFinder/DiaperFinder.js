@@ -30,15 +30,15 @@ const DiaperFinder = ({ content }) => {
         name: "/",
         gender: genderOptions[0],
         birthday: null,
-        weight: "1.1"
+        weight: "0"
     }
 
     const [, { addToCart }] = useCart()
     const [isActive, setIsActive] = useState(false);
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null);
     const [babyName, setBabyName] = useState("")
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
-    const [weight, setWeight] = useState(1.1)
+    const [weight, setWeight] = useState(0)
     const [product, setProduct] = useState(false)
     const [prenatalProduct, setPrenatalProduct] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false);
@@ -337,13 +337,13 @@ const DiaperFinder = ({ content }) => {
                                 onChange={(e) => onSelectChange(e)}/>
                             <span className="select-line">
                                 <span>{diaperFinderData.gender == "They" ? "were" : "was"} born on </span>
-                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="MM/DD/YY" />
                             </span>
                         </span>
                         <span className="weight">
                             <span>& weigh</span>
                             <div className="input-wrapper">
-                                <input type="tel" name="weight" label="Weight" onChange={(e) => handleInputChange(e)} min="0" value={weight} placeholder="1.1"></input>
+                                <input type="tel" name="weight" label="Weight" onChange={(e) => handleInputChange(e)} min="0" value={weight} placeholder="0"></input>
                                 <span className="suffix">lbs</span>
                             </div>
                         </span>
