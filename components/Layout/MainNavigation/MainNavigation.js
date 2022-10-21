@@ -168,7 +168,6 @@ const MainNavigation = forwardRef(({ props }, ref) => {
 
   const handleClickOutside = (event) => {
     if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
-      console.log("mobileMenuRef.current.classList:", mobileMenuRef.current.classList)
       if (mobileMenuRef.current.classList.contains('is-open')) {
         closeMobileMenu()
       }
