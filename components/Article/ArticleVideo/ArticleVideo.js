@@ -42,7 +42,7 @@ const ArticleVideo = ({ content }) => {
                 className=""
                 src={`https:${coverImage.fields.file.url}`}
                 alt={`video`}
-                layout="responsive"
+                layout="fill"
                 objectFit="cover"
                 height={coverImage.fields?.file?.details.image.height}
                 width={coverImage.fields?.file?.details.image.width}
