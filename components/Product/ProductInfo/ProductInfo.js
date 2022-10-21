@@ -405,7 +405,7 @@ const openSubscribeInfoModal = async () => {
                         onChange={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page.fields?.productAddOnImage ? (
+                          {page?.fields?.productAddOnImage ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
@@ -418,12 +418,12 @@ const openSubscribeInfoModal = async () => {
                         </div>
                         <div className="product-form__add-on--content">
                           <div className="product-form__add-on--title">
-                            {page.fields?.productAddOnText
+                            {page?.fields?.productAddOnText
                               ? page.fields.productAddOnText
                               : 'Add a 4-pk of Wipes?'}
                           </div>
                           <div className="product-form__add-on--price">
-                            {page.fields?.productAddOnPrice
+                            {page?.fields?.productAddOnPrice
                               ? `+$${page.fields.productAddOnPrice}`
                               : '+$27'}
                           </div>
