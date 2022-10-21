@@ -70,6 +70,12 @@ h1,
   line-height: 42px;
   color: $primaryBrown;
 
+  i {
+    font-family: $DomaineTextItalic;
+    font-style: italic;
+  }
+
+
   @include breakpoint-up('md') {
     font-size: fontsize(96px);
     line-height: 96px;
@@ -133,6 +139,12 @@ h4,
   letter-spacing: -0.01em;
   color: $primaryBrown;
 
+  i {
+    font-family: $NeutraTextItalic;
+    font-style: italic;
+  }
+
+
   @include breakpoint-up('md') {
     font-size: fontsize(28px);
   }
@@ -150,6 +162,11 @@ h5,
   font-size: fontsize(28px);
   line-height: 100%;
   color: $primaryBrown;
+
+  i {
+    font-family: $DomaineTextItalic;
+    font-style: italic;
+  }
 
   @include breakpoint-up('md') {
     font-size: fontsize(38px);
@@ -175,6 +192,11 @@ h6,
     text-transform: uppercase;
     color: $primaryBrown;
     margin-bottom: 15px;
+
+    i {
+      font-family: $NeutraTextItalic;
+      font-style: italic;
+    }
 
   @include breakpoint-up('md') {
     font-size: 18px;

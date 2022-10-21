@@ -153,21 +153,34 @@
         font-family: $NeutraTextDemi;
         font-style: normal;
         font-weight: 500;
-        font-size: 22px;
-        line-height: 31px;
+        font-size: 14px;
+        line-height: 18px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
         padding: 0 0 30px;
         border-bottom: 1px solid rgb(0 0 0 / 10%);
         margin-bottom: 30px;
+        text-align: center;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 31px;
+            text-align: left;
+        }
     }
 
     &__add-on {
         border: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 6px 15px 6px 6px;
+        padding: 6px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-direction: row-reverse;
+
+        @include breakpoint-up('md') {
+            padding: 6px 15px 6px 6px;
+            flex-direction: row;
+        }
 
         input {
             cursor: pointer;
@@ -256,13 +269,28 @@
             visibility: visible;
             border: 2px solid $primaryBrown;
         }
+
+        input[type='radio']:checked:before {
+            width: 14px;
+            height: 14px;
+            border-radius: 100%;
+            background-color: transparent;
+            content: "";
+            display: inline-block;
+            visibility: visible;
+            border: 1px solid #fff;
+            position: absolute;
+            z-index: 1;
+            left: 16.5px;
+            top: 15px;
+        }
     
         input[type='radio']:checked:after {
-            width: 15px;
-            height: 15px;
-            border-radius: 15px;
+            width: 17px;
+            height: 17px;
+            border-radius: 17px;
             top: -3px;
-            left: -2px;
+            left: -3px;
             position: relative;
             background-color: $primaryGreen;
             content: '';
@@ -316,6 +344,16 @@
 
                 @include breakpoint-up('md') {
                     font-size: 22px;
+
+                    s {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .question-mark {
+                @include breakpoint-up('md') {
+                    padding-left: 5px;
                 }
             }
         }

@@ -238,7 +238,7 @@ const DiaperCalculator = ({props, children}) => {
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
-                            <input name="weight" label="Weight" onChange={(e) => handleInputChange(e)} defaultValue={weight} value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
+                            <input name="weight" label="Weight" onChange={(e) => handleInputChange(e)} value={diaperCalculatorContext.diaperCalculatorData.weight}></input>
                             <span className="suffix">lbs</span>
                         </div>
                         <p className="diaper-calculator__copy">
@@ -259,7 +259,7 @@ const DiaperCalculator = ({props, children}) => {
                         <span className="title">Size Guide: </span>
                         <div className="toggle">
                             <span className={`${measurement == "lbs" ? "active" : ""}`} onClick={() => toggleMeasurement("lbs")}>lbs</span>
-                            <span className={`${measurement == "kgs" ? "active" : ""}`} onClick={() => toggleMeasurement("kgs")}>kgs</span>
+                            {/* <span className={`${measurement == "kgs" ? "active" : ""}`} onClick={() => toggleMeasurement("kgs")}>kgs</span> */}
                         </div>
                     </div>
                     <div className="diaper-calculator__size-guide">

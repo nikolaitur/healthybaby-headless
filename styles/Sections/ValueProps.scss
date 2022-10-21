@@ -60,6 +60,25 @@
             }
         }
 
+        span {
+            padding-top: 0!important;
+        }
+
+        img {
+            width: 100%;
+            object-fit: contain!important;
+            width: 100% !important;
+            position: relative !important;
+            max-height: 47px !important;
+            height: 47px!important;
+            
+            @include breakpoint-up('md') {
+               max-height: 108px !important;
+               height: 108px!important;
+               object-fit: contain!important;
+            }
+        }
+
         svg {
             max-width: 48px;
             max-height: 48px;

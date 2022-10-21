@@ -4,6 +4,7 @@ import cartClient from 'services/nacelleClientCart'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import CartDrawer from '../components/Layout/CartDrawer'
 import Router, { useRouter } from 'next/router'
+import { dataLayerViewCart } from '@/utils/dataLayer'
 
 import * as Cookies from 'es-cookie'
 
@@ -35,6 +36,12 @@ export function CartDrawerProvider({ children }) {
   }, [])
 
   useEffect(() => {
+    if (isOpen) {
+      dataLayerViewCart({ cart })
+    }
+  }, [isOpen])
+
+  useEffect(() => {
     const getCartClient = async () => {
       const cartItems = cart.map((lineItem) => ({
         merchandiseId: lineItem.nacelleEntryId,
@@ -45,7 +52,7 @@ export function CartDrawerProvider({ children }) {
       const lines = cartItems
 
       if (!Cookies.get('shopifyCartId')) {
-        console.log(shopifyCartId, 'ID')
+        // console.log(shopifyCartId, 'ID')
         cartClient
           .cart({
             cartId: Cookies.get('shopifyCartId'),

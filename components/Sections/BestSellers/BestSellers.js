@@ -27,15 +27,11 @@ const BestSellers = ({ content }) => {
                     if (section.fields.handle) return section
                 }).map(section => section.fields.handle.replace('::en-US', ''))
 
-                console.log(productHandles, "Handles", content.fields.sections)
-              
                 const productsData = await nacelleClient.products({
                     handles: productHandles
                 })
     
                 setProducts(productsData)
-
-                console.log(productsData)
             }
         }
         getProducts()
@@ -110,9 +106,14 @@ const BestSellers = ({ content }) => {
                             className="best-sellers__slider--mobile"
                             modules={[Lazy, Navigation]}
                             spaceBetween={20}
-                            slidesPerView={1}
+                            slidesPerView={1.1}
                             lazy={true}
                             navigation={true}
+                            breakpoints={{
+                                768: {
+                                    slidesPerView: 2.1
+                                }
+                            }}
                             style={{
                                 "--swiper-navigation-color": "#fff",
                                 "--swiper-pagination-color": "#fff",

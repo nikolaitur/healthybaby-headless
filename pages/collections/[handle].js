@@ -1,6 +1,7 @@
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import Head from 'next/head'
 
 import CollectionHeader from '../../components/Sections/CollectionHeader'
 import CollectionGrid from '../../components/Sections/CollectionGrid'
@@ -23,13 +24,20 @@ function Collection(props) {
 
   return (
     <>
-      <CollectionHeader content={collection} />
-      <CollectionGrid
-        content={collection}
-        products={products}
-        productBadges={productBadges}
-      />
-      <CollectionSections content={collection} />
+      <Head>
+        <title>{collection.title} &ndash; Healthybaby</title>
+        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <>
+        <CollectionHeader content={collection} />
+        <CollectionGrid
+          content={collection}
+          products={products}
+          productBadges={productBadges}
+        />
+        <CollectionSections content={collection} />
+      </>
     </>
   )
 }

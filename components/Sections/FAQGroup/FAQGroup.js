@@ -13,7 +13,7 @@ const FAQGroup = ({content}) => {
   }
 
   return (
-    <div className="faq-group container">
+    <div className="faq-group">
       <h3>{parse(title)}</h3>
       <ul className="faq-items">
         {visibleItems.map(item => {

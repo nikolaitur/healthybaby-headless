@@ -24,12 +24,12 @@
     // }
 
     @include breakpoint-up('md') {
-        width: calc(33% - 30px);
-        max-width: calc(33% - 30px);
+        width: calc(33.33% - 13.33px);
+        max-width: calc(33.33% - 13.33px);
 
         &.full-width {
-            width: calc(50% - 30px);
-            max-width: calc(50% - 30px);
+            width: calc(50% - 10px);
+            max-width: calc(50% - 10px);
 
             .btn {
                 width: calc(100% - 200px);
@@ -40,6 +40,16 @@
             }
         }
 
+    }
+
+    @include breakpoint-up('lg') {
+        width: calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+
+        &.full-width {
+            width: calc(50% - 15px);
+            max-width: calc(50% - 15px);
+        }
     }
 
     &__title {
@@ -85,6 +95,8 @@
         top: 10px;
         right: 0;
         z-index: 2;
+        list-style: none;
+        pointer-events: none;
         @include breakpoint-up('sm') {
             top: 15px;
         }

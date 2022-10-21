@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import { nacelleClient } from 'services'
+import Head from 'next/head'
 
 import CollectionGrid from '../components/Sections/CollectionGrid'
 import CollectionHeader from '../components/Sections/CollectionHeader'
@@ -9,7 +10,7 @@ import ValueProps from '../components/Sections/ValueProps'
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
 export default function ShopAll({ pages, products, productBadges }) {
-    console.log(pages[0].fields, "Shop All", products)
+    // console.log(pages[0].fields, "Shop All", products)
     const router = useRouter()
     const shopAll = pages[0].fields
     const shopAllSections = shopAll.sections
@@ -54,23 +55,30 @@ export default function ShopAll({ pages, products, productBadges }) {
 
     return (
         <>
-            <div className="shop-all">
-                <CollectionHeader content={shopAll} />
+            <Head>
+              <title>The Safest Baby Essentials—Diapers, Wipes, Shampoo, Laundry, and More &ndash; Healthybaby</title>
+              <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <>
+                <div className="shop-all">
+                    <CollectionHeader content={shopAll} />
 
-                {/* TO do Add swtich to apply different section types */}
-                {shopAllSections.map((section, index) => {
-                    let type = section.type;
+                    {/* TO do Add swtich to apply different section types */}
+                    {shopAllSections.map((section, index) => {
+                        let type = section.type;
 
-                    switch (type) {
-                        case 'collection':
-                            return <CollectionGrid content={section} products={products} key={index} productBadges={productBadges} />
-                        case 'valueProps':
-                            return <ValueProps content={section} key={index} />
-                        default:
-                        return null
-                    }
-                })}
-            </div>
+                        switch (type) {
+                            case 'collection':
+                                return <CollectionGrid content={section} products={products} key={index} productBadges={productBadges} />
+                            case 'valueProps':
+                                return <ValueProps content={section} key={index} />
+                            default:
+                            return null
+                        }
+                    })}
+                </div>
+            </>
         </>
     )
 }

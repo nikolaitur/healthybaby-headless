@@ -17,11 +17,13 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import ProductOptions from '../../Product/ProductOptions'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useModalContext } from '../../../context/ModalContext'
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
 import StarFull from '../../../svgs/star-full.svg'
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
+import QuestionMark from '../../../svgs/question-mark.svg'
 
 const ProductInfo = (props) => {
   const { product, page } = { ...props }
@@ -44,9 +46,7 @@ const ProductInfo = (props) => {
   const [messageProduct, setMessageProduct] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
-
-  // console.log(product, "info", selectedVariant, page)
-  console.log(page)
+  const modalContext = useModalContext()
 
   const richTextRenderOptions = {
     renderNode: {
@@ -283,7 +283,27 @@ const ProductInfo = (props) => {
     }
 
     cartDrawerContext.setIsOpen(true)
+    modalContext.setIsOpen(false)
   }
+
+const openSubscribeInfoModal = async () => {
+    const pages = await nacelleClient.content({
+      handles: ["subscribe-info-modal"]
+    })
+
+    console.log(pages, "PAGE")
+
+    if (pages) {
+      modalContext.setIsOpen(false)
+      modalContext.setModalType('subscribe-info-modal')
+      modalContext.setIsOpen(true)
+      modalContext.setContent({
+        product: null,
+        page: pages[0],
+        className: "subscribe-modal",
+      })
+    }
+}
 
   useEffect(() => {
     const sellingPlanAllocations = selectedVariant.metafields.find(
@@ -389,13 +409,22 @@ const ProductInfo = (props) => {
                         className="product-form__add-on"
                         onChange={() => handleCheckBoxChange(option)}
                       >
-                        <div className="product-form__add-on--image"></div>
+                        <div className="product-form__add-on--image">
+                            {page.fields?.productAddOnImage ?
+                                <Image
+                                    src={`https:${page.fields.productAddOnImage.fields.file.url}`}
+                                    alt={`messageProduct.content.title`}
+                                    width={72}
+                                    height={72}
+                                />
+                            : ""}
+                        </div>
                         <div className="product-form__add-on--content">
                           <div className="product-form__add-on--title">
-                            Add a 4-pk of Wipes?
+                            {page.fields?.productAddOnText ? page.fields.productAddOnText : "Add a 4-pk of Wipes?" }
                           </div>
                           <div className="product-form__add-on--price">
-                            +$27
+                            {page.fields?.productAddOnPrice ? `+$${page.fields.productAddOnPrice}` : "+$27" }
                           </div>
                         </div>
                         <input type="checkbox"></input>
@@ -453,8 +482,9 @@ const ProductInfo = (props) => {
                 <label htmlFor="html">
                   Monthly Auto-Ship <br />
                   <span>Update sizing or cancel anytime</span>
+                  <span className="question-mark" onClick={() => openSubscribeInfoModal()}><QuestionMark /></span>
                   <span className="price">
-                    ${Number(subscriptionPrice).toFixed(2)}
+                    <s>${selectedVariant.price.toFixed(2)}</s> ${Number(subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
               </div>

@@ -28,7 +28,7 @@ const ProductGallery = ( props ) => {
                     />
                 </div>
             ) : (
-                product.content.media.map((image, index) => {
+                product.content.media.slice(0, 5).map((image, index) => {
                     return (
                         <div className="product-gallery__image" key={index}>
                             <Image
@@ -46,39 +46,36 @@ const ProductGallery = ( props ) => {
             )}
                 
             </div>
-            {quickView ? "" : (
-                <Swiper
-                    className="product-gallery__slider"
-                    modules={[Lazy, Pagination]}
-                    spaceBetween={20}
-                    slidesPerView={1}
-                    lazy={true}
-                    pagination={true}
-                    style={{
-                        "--swiper-navigation-color": "#fff",
-                        "--swiper-pagination-color": "#00B188",
-                        "--swiper-pagination-bullet-inactive-color": "#fff",
-                        "--swiper-pagination-bullet-inactive-opacity": "1"
-                    }}
-                >
-                    {product.content.media.map((image, index) => {
-                        return (
-                            <SwiperSlide key={index}>
-                                <Image
-                                    className=""
-                                    src={image.src}
-                                    alt={`image`}
-                                    layout="responsive"
-                                    objectFit="cover"
-                                    height="600"
-                                    width="490"
-                                />
-                            </SwiperSlide>
-                        )
-                    })}
-                </Swiper>
-            )}
-            
+            <Swiper
+                className="product-gallery__slider"
+                modules={[Lazy, Pagination]}
+                spaceBetween={20}
+                slidesPerView={1}
+                lazy={true}
+                pagination={true}
+                style={{
+                    "--swiper-navigation-color": "#fff",
+                    "--swiper-pagination-color": "#00B188",
+                    "--swiper-pagination-bullet-inactive-color": "#fff",
+                    "--swiper-pagination-bullet-inactive-opacity": "1"
+                }}
+            >
+                {product.content.media.slice(0, 5).map((image, index) => {
+                    return (
+                        <SwiperSlide key={index}>
+                            <Image
+                                className=""
+                                src={image.src}
+                                alt={`image`}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="600"
+                                width="490"
+                            />
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
         </>
     )
 }

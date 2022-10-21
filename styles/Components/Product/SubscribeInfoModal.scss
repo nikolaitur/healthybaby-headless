@@ -1,0 +1,53 @@
+.subscribe-info-modal {
+    min-width: 320px;
+    background: #fff;
+    padding: 30px 20px; 
+    max-width: 320px;
+
+    &__header {
+        font-family: $DomaineText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 22px;
+        color: $primaryBrown;
+        margin: 0 0 10px;
+    }
+
+    p {
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin: 0 0 10px;
+
+        b {
+            font-family: $NeutraTextDemi;
+
+            i {
+                font-family: $NeutraTextDemiItalic;
+            }
+        }
+
+        i {
+            font-family: $NeutraTextItalic;
+        }
+    }
+
+    li {
+        font-family: $NeutraTextDemi;
+        margin-left: 15px;
+        list-style: disc;
+
+        &:not(last-child) {
+            margin-top: 10px;
+        }
+
+        p {
+            font-family: $NeutraTextDemi;
+        }
+    }
+}

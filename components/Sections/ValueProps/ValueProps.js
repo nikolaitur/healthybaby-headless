@@ -7,7 +7,7 @@ import ValuePropSvg3 from '../../../svgs/value-prop-3.svg'
 import parse from 'html-react-parser'
 
 const ValueProps = ({ content }) => {
-
+    // console.log(content, "VAlue Props")
     return (
        <section className="value-props">
 
@@ -18,30 +18,54 @@ const ValueProps = ({ content }) => {
                     </div>
                 ) : ("")}
                 <div className="value-props__wrapper">
-                    {(content.fields?.valuePropText1) ? (
+                    {(content.fields?.valuePropText1 && content.fields?.valuePropImage1) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
-                                <ValuePropSvg1 />
+                                <Image
+                                    className="featured"
+                                    src={`https:${content.fields.valuePropImage1.fields.file.url}`}
+                                    alt={content.fields.valuePropText1}
+                                    layout="responsive"
+                                    objectFit="cover"
+                                    height="108"
+                                    width="108"
+                                />
                             </div>
                             <p className="value-props__copy">
                                 { content.fields.valuePropText1 }
                             </p>
                         </div>
                     ) : ("")}
-                    {(content.fields?.valuePropText2) ? (
+                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
-                                <ValuePropSvg2 />
+                             <Image
+                                    className="featured"
+                                    src={`https:${content.fields.valuePropImage2.fields.file.url}`}
+                                    alt={content.fields.valuePropText2}
+                                    layout="responsive"
+                                    objectFit="cover"
+                                    height="108"
+                                    width="108"
+                                />
                             </div>
                             <p className="value-props__copy">
                                 { content.fields.valuePropText2 }
                             </p>
                         </div>
                     ) : ("")}
-                    {(content.fields?.valuePropText3) ? (
+                    {(content.fields?.valuePropText3 && content.fields?.valuePropImage3) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
-                                <ValuePropSvg3 />
+                                <Image
+                                    className="featured"
+                                    src={`https:${content.fields.valuePropImage3.fields.file.url}`}
+                                    alt={content.fields.valuePropText3}
+                                    layout="responsive"
+                                    objectFit="cover"
+                                    height="108"
+                                    width="108"
+                                />
                             </div>
                             <p className="value-props__copy">
                                 { content.fields.valuePropText3 }

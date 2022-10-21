@@ -10,7 +10,6 @@
     flex-grow: 1;
     width: 100%;
     min-height: 643px;
-    max-height: 643px;
     margin-bottom: 30px;
 
     // @include breakpoint-up('md') {
@@ -18,14 +17,23 @@
     //     max-width: calc(50% - 30px);
     //     max-height: 870px;
     //     margin-bottom: 0px;
-        
+
     // }
-    
+
     @include breakpoint-up('md') {
-        width: calc(33% - 30px);
-        max-width: calc(33% - 30px);
-        max-height: 653px;
+        width: calc(33% - 13.33px);
+        max-width: calc(33% - 13.33px);
         margin-bottom: 0;
+    }
+
+
+    @include breakpoint-up('lg') {
+        width: calc(33% - 20px);
+        max-width: calc(33% - 20px);
+    }
+
+    @include breakpoint-up(1400px) {
+        min-height: 100%;
     }
 
     &__background {
@@ -83,24 +91,18 @@
         color: #3D3331;
         margin-bottom: 10px;
 
-        @include breakpoint-up('md') {
-            font-size: 40px;
-            line-height: 40px;
-            margin-bottom: 5px;
-        }
-
-        @include breakpoint-up('lg') {
+        @include breakpoint-up('xl') {
             font-size: 48px;
             line-height: 48px;
             margin-bottom: 10px;
         }
-    } 
+    }
 
     &__copy {
         max-width: 375px;
         margin: 0 auto 30px;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('xl') {
             margin-bottom: 60px;
         }
     }
@@ -119,7 +121,7 @@
         color: $primaryBrown;
         border: none;
         background: none;
-        cursor: pointer;     
+        cursor: pointer;
     }
 
     .btn {
@@ -131,7 +133,10 @@
         margin: 0 auto;
 
         &:not(:first-child) {
-            margin-bottom: 36px;
+            margin-bottom: 25px;
+            @include breakpoint-up('xl') {
+                margin-bottom: 36px;
+            }
         }
 
         span {
@@ -160,7 +165,7 @@
         margin: 0 auto;
         margin-bottom: 36px;
 
-        @include breakpoint-up('md') {
+        @include breakpoint-up('xl') {
             font-size: 18px;
             line-height: 22px;
         }

@@ -48,6 +48,7 @@
         right: 40px;
         top: 10px;
         cursor: pointer;
+        z-index: 2;
 
         @include breakpoint-up('md') {
             right: 10px;
@@ -73,5 +74,12 @@
         @include breakpoint-up('md') {
             right: 40px;
         }
+    }
+}
+
+.modal.subscribe-modal {
+    .modal__content {
+        max-width: 320px;
+        width: 100vw;
     }
 }

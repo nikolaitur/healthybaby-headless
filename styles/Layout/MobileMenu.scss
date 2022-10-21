@@ -58,6 +58,12 @@
         }
     }
 
+    &__search-input-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+    }
+
     &__search {
         position: absolute;
         z-index: 13;
@@ -70,13 +76,13 @@
 
         input {
             background: #FFFFFF;
-            border: 1px solid #DBEDF8;
+            border: 1px solid #F4EAEB;
             border-radius: 60px;
             height: 48px;
             width: 100%;
             max-width: 520px;
             padding: 0 30px;
-            font-family: $NeutraText;
+            font-family: $NeutraTextDemi;
             font-style: normal;
             font-weight: 500;
             font-size: 14px;
@@ -87,6 +93,8 @@
 
         svg {
             position: absolute;
+            width: 18px;
+            height: 18px;
             right: 15px;
             top: 15px;
         }
