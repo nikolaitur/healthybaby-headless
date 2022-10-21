@@ -350,6 +350,12 @@
                     }
                 }
             }
+
+            .question-mark {
+                @include breakpoint-up('md') {
+                    padding-left: 5px;
+                }
+            }
         }
     }
 

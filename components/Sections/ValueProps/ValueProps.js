@@ -23,7 +23,7 @@ const ValueProps = ({ content }) => {
                                 <Image
                                     className="featured"
                                     src={`https:${content.fields.valuePropImage1.fields.file.url}`}
-                                    alt={content.fields.valuePropImage1.fields.title}
+                                    alt={content.fields.valuePropText1}
                                     layout="responsive"
                                     objectFit="cover"
                                     height="108"
@@ -41,7 +41,7 @@ const ValueProps = ({ content }) => {
                              <Image
                                     className="featured"
                                     src={`https:${content.fields.valuePropImage2.fields.file.url}`}
-                                    alt={content.fields.valuePropImage2.fields.title}
+                                    alt={content.fields.valuePropText2}
                                     layout="responsive"
                                     objectFit="cover"
                                     height="108"
@@ -56,15 +56,15 @@ const ValueProps = ({ content }) => {
                     {(content.fields?.valuePropText3 && content.fields?.valuePropImage3) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
-                                {/* <Image
+                                <Image
                                     className="featured"
-                                    src={`https:${content.fields.valuePropImage3.fields.image.fields.file.url}`}
-                                    alt={content.fields.valuePropImage3.fields.image.fields.title}
+                                    src={`https:${content.fields.valuePropImage3.fields.file.url}`}
+                                    alt={content.fields.valuePropText3}
                                     layout="responsive"
                                     objectFit="cover"
                                     height="108"
                                     width="108"
-                                /> */}
+                                />
                             </div>
                             <p className="value-props__copy">
                                 { content.fields.valuePropText3 }

@@ -87,7 +87,8 @@ const MegaMenu = ({ menu, menuColors }) => {
           ) : (
             ''
           )}
-          {menu.fields.featuredArticles ? (
+          {/* client requested to remove this section */}
+          {/* {menu.fields.featuredArticles ? (
             <div className="mega-menu__featured-articles">
               <div className="mega-menu__sub-header">Featured Articles</div>
               {menu.fields.featuredArticles.map((article, index) => (
@@ -103,8 +104,7 @@ const MegaMenu = ({ menu, menuColors }) => {
             </div>
           ) : (
             ''
-          )}
-          {/* client requested to remove this section */}
+          )} */}
           {/* {menu.fields?.featuredProductsList?.length > 0 ?
                     <div className="mega-menu__featured-products">
                         <div className="mega-menu__sub-header">Featured Products</div>

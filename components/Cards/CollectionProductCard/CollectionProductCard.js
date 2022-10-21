@@ -61,6 +61,8 @@ const CollectionProductCard = forwardRef(({
     { minWidth: 1074 }
   )
 
+  console.log(content)
+
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
@@ -217,7 +219,7 @@ const CollectionProductCard = forwardRef(({
               : ''
           }`}
         >
-          {content.fields?.image ? (
+          {content.fields?.image?.fields ? (
             <>
               <Image
                 className="featured"
@@ -228,7 +230,7 @@ const CollectionProductCard = forwardRef(({
                 height={cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710}
                 width={cardWidth == 'Full Width' ? 870 : 570}
               />
-              {content.fields?.imageHover ? (
+              {content.fields?.imageHover?.fields ? (
                 <Image
                   className="hover"
                   src={`https:${content.fields.imageHover.fields.file.url}`}
@@ -305,8 +307,8 @@ const CollectionProductCard = forwardRef(({
           ''
         )}
         {/* {product.content?.description ? (
-                    <p className="collection-product-card__subtitle">{ product.content.description  }</p>
-                ) : ""} */}
+            <p className="collection-product-card__subtitle">{ product.content.description  }</p>
+        ) : ""} */}
         <div className="collection-product-card__reviews">
           <span
             className="junip-store-key"
@@ -358,6 +360,9 @@ const CollectionProductCard = forwardRef(({
               )}
             </button>
           )}
+        </div>
+        <div className="collection-product-card__price">
+            {productPrice ? <>${productPrice}</> : ""}
         </div>
       </div>
     </div>

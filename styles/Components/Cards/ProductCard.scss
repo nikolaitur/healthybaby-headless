@@ -94,6 +94,40 @@
         }
     }
 
+    &__reviews {
+        display: flex;
+        align-items: center;
+        margin-top: 3px;
+
+        &--count,
+        .junip-product-summary-review-count {
+            font-family: $NeutraTextDemi;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 17px;
+            letter-spacing: -0.01em;;
+            color: $primaryGreen;
+            margin-left: 6px;
+            padding-top: 2px;
+
+            @include breakpoint-up('md') {
+                margin-left: 15px;
+                padding-top: 0px;
+                font-size: 18px;
+                line-height: 25px;
+            }
+        }
+
+        .junip-product-summary-star {
+            svg {
+                path {
+                    fill: $primaryGreen;
+                }
+            }
+        }
+    }
+
     &__price {
         font-family: $NeutraText;
         font-style: normal;
