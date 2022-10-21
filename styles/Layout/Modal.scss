@@ -76,3 +76,10 @@
         }
     }
 }
+
+.modal.subscribe-modal {
+    .modal__content {
+        max-width: 320px;
+        width: 100vw;
+    }
+}
