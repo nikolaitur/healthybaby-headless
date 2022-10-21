@@ -172,8 +172,6 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
-    console.log(variant, purchaseSubscription)
-
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -231,7 +229,6 @@ const ProductInfo = (props) => {
           console.error(err, 'Error')
         })
     } else {
-      console.log('one-time')
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
       )
@@ -346,10 +343,7 @@ const openSubscribeInfoModal = async () => {
         const product = await nacelleClient.products({
           handles: [handle],
         })
-
         setMessageProduct(product[0])
-
-        console.log(product[0], 'Product')
       }
     }
 

@@ -32,7 +32,6 @@ const LoginAccountForm = ({ redirect }) => {
       setIsLoading(false)
 
       if (response.errors?.length) {
-          console.log(response)
           setErrorMessage(response.errors[0].message)
       } else {
           modalContext.setIsOpen(false)

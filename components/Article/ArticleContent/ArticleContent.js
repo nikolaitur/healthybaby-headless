@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 const ArticleContent = ({ content }) => {
   const [articleContent, setArticleContent] = useState(false)
 
-  console.log("content:", content)
-
   useEffect(() => {
     const getRichTextToHtml = () => {
       if (content.fields?.richContent) {

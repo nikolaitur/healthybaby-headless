@@ -53,22 +53,22 @@ const DiaperCalculator = ({props, children}) => {
         const recommendProduct = () => {
             if(diaperCalculatorContext.isOpen) {
                 if(weight < 10) {
-                    // console.log("size 1")
+                    // size 1
                     setDiaperSize(1)
                 } else if(weight > 10 && weight < 12) {
-                    // console.log("size 2")
+                    // size 2
                     setDiaperSize(2)
                 } else if(weight > 12 && weight < 18) {
-                    // console.log("size 3")
+                    // size 3
                     setDiaperSize(3)
                 } else if(weight > 18 && weight < 22) {
-                    // console.log("size 4")
+                    // size 4
                     setDiaperSize(4)
                 } else if(weight > 22 && weight < 37) {
-                    // console.log("size 5")
+                    // size 5
                     setDiaperSize(5)
                 } else {
-                    // console.log("size 6")
+                    // size 6
                     setDiaperSize(6)
                 }
 
@@ -164,8 +164,6 @@ const DiaperCalculator = ({props, children}) => {
         const selectedVariant = noWipes.filter(obj => {
             return obj.content.selectedOptions[0].value.includes(`Size ${diaperSize}`);
         });
-
-        console.log(product, selectedVariant)
 
         const variant = getCartVariant({
             product,

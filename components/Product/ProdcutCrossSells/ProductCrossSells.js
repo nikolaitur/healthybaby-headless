@@ -33,14 +33,10 @@ const ProductCrossSells = ({ content, product, productBadges }) => {
           const productHandles = response.data?.data?.products?.map(
             (product) => product.handle
           )
-
           const productsData = await nacelleClient.products({
             handles: productHandles,
           })
-
           setProducts(productsData)
-
-          console.log(productsData)
         })
         .catch(function (error) {
           console.log(error)

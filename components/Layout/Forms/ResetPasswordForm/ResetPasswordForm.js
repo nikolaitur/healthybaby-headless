@@ -27,7 +27,6 @@ const ResetPasswordForm = ({ customerId, resetToken}) => {
     setIsLoading(false)
 
     if (response.errors?.length) {
-      console.log(response)
       setErrorMessage(response.errors[0].message)
     } else {
       if (response) {

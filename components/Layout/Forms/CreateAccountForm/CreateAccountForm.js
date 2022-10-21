@@ -80,7 +80,6 @@ const CreateAccountForm = () => {
     const response = await customerContext.register(formData)
 
     if (response.errors?.length) {
-      console.log(response)
       // setError(response.errors[0].field[1])
       setErrorMessage(response.errors[0].message)
     } else {

@@ -157,7 +157,6 @@ const MainNavigation = forwardRef(({ props }, ref) => {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value)
-    // console.log('value is:', event.target.value);
   }
 
   const handleKeyDown = (e) => {

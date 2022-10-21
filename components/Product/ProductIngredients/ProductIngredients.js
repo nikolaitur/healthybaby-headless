@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const ProductIngredients = ({ content }) => {
-    // console.log(content, "product ingredients")
-
     return (
         <div className="product-ingredients">
             <div className="product-ingredients__container container">
