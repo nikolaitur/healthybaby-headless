@@ -103,4 +103,17 @@
             left: -110px;
         }
     }
+
+    .collection-product-card {
+        width: 100%;
+        max-width: 100%;
+
+        .collection-product-card__cta {
+            display: none;
+        }
+
+        .collection-product-card__price {
+            display: block;
+        }
+    }
 }
