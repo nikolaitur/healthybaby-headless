@@ -12,6 +12,7 @@ const ProductFiftyFifty = ({ content }) => {
 
   const [hasWindow, setHasWindow] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlayingMobile, setIsPlayingMobile] = useState(false)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -21,6 +22,10 @@ const ProductFiftyFifty = ({ content }) => {
 
   const playVideo = () => {
     setIsPlaying(true)
+  }
+
+  const playVideoMobile = () => {
+    setIsPlayingMobile(true)
   }
 
   const mobileImage = content.fields?.imageMobile
@@ -42,14 +47,18 @@ const ProductFiftyFifty = ({ content }) => {
           {content.fields?.videoUrl ? (
             <div className="article-video article-video--mobile">
               <div
-                className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
-                onClick={() => playVideo()}
+                className={`article-video__icon ${
+                  isPlayingMobile ? 'hide' : ''
+                }`}
+                onClick={() => playVideoMobile()}
               >
                 <PlayIcon />
               </div>
               <div
-                className={`article-video__image ${isPlaying ? 'hide' : ''}`}
-                onClick={() => playVideo()}
+                className={`article-video__image ${
+                  isPlayingMobile ? 'hide' : ''
+                }`}
+                onClick={() => playVideoMobile()}
               >
                 {mobileImage ? (
                   <Image
@@ -69,7 +78,7 @@ const ProductFiftyFifty = ({ content }) => {
                 {hasWindow && (
                   <ReactPlayer
                     url={content.fields?.videoUrl}
-                    playing={isPlaying}
+                    playing={isPlayingMobile}
                     controls={true}
                     className="article-video__video-player"
                     width="100%"
