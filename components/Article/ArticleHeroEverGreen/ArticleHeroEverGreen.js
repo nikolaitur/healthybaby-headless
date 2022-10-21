@@ -141,29 +141,23 @@ const ArticleHeroEverGreen = ({ content }) => {
                 <PlayIcon />
               </div>
               <div
-                className={`article-video__image ${isPlaying ? 'hide' : ''}`}
+                className={`article-video__image desktop ${
+                  isPlaying ? 'hide' : ''
+                }`}
                 onClick={() => playVideo()}
                 style={{
                   backgroundImage: `url(https:${articleHero.fields?.featuredMedia.fields?.file.url})`,
                 }}
-              >
-                {/* {articleHero.fields?.featuredMedia.fields.file ? (
-                  <Image
-                    className=""
-                    src={`https:${articleHero.fields?.featuredMedia.fields.file.url}`}
-                    alt={`video`}
-                    layout="responsive"
-                    objectFit="cover"
-                    height={250}
-                    width={
-                      articleHero.fields.featuredMedia.fields.file.details.image
-                        .width
-                    }
-                  />
-                ) : (
-                  <></>
-                )} */}
-              </div>
+              ></div>
+              <div
+                className={`article-video__image mobile ${
+                  isPlaying ? 'hide' : ''
+                }`}
+                onClick={() => playVideo()}
+                style={{
+                  backgroundImage: `url(https:${articleHero.fields?.featuredMediaMobile.fields?.file.url})`,
+                }}
+              ></div>
               <div className="article-video__video">
                 {hasWindow && (
                   <ReactPlayer

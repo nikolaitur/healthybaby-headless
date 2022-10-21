@@ -23,6 +23,8 @@ const CollectionHeader = ({ content }) => {
         },
     }
 
+    console.log(content)
+
     return (
         <section className="collection-header">
             <div className="collection-header__container container">
@@ -44,6 +46,10 @@ const CollectionHeader = ({ content }) => {
 
                     {content?.title ?
                         <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ parse(content.title) }</h1>
+                    : ""}
+
+                    {content.fields?.subheader ?
+                        <div className="collection-header__subheader">{content.fields.subheader}</div>
                     : ""}
 
                     {content?.description ?

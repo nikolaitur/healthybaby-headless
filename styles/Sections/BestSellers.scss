@@ -60,8 +60,6 @@
 
     &__slider {
         overflow: visible;
-        width: 290px;
-
         @include breakpoint-up('md') {
             width: 100%;
         }
@@ -103,6 +101,19 @@
 
         .swiper-button-prev {
             left: -110px;
+        }
+    }
+
+    .collection-product-card {
+        width: 100%;
+        max-width: 100%;
+
+        .collection-product-card__cta {
+            display: none;
+        }
+
+        .collection-product-card__price {
+            display: block;
         }
     }
 }

@@ -96,6 +96,7 @@
         right: 0;
         z-index: 2;
         list-style: none;
+        pointer-events: none;
         @include breakpoint-up('sm') {
             top: 15px;
         }
@@ -235,6 +236,23 @@
             @include breakpoint-up('md') {
                 padding: 19px 50px;
             }
+        }
+    }
+
+    &__price {
+        display: none;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
+        margin-top: 5px;
+
+        @include breakpoint-up('md') {
+            font-size: 22px;
+            line-height: 27px;
         }
     }
 
