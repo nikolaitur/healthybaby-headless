@@ -51,14 +51,12 @@ const ProductInfo = (props) => {
   const richTextRenderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        return (
-          `<img src=https:${node.data.target.fields.file.url} />`
-        )
+        // console.log(node, "Node")
+        return `<img src=https:${node.data.target.fields.file.url} />`
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        return (
-          `<img src=https:${node.data.target.fields.file.url} />`
-        )
+        // console.log(node, "Node")
+        return `<img src=https:${node.data.target.fields.file.url} />`
       },
     },
   }
@@ -104,10 +102,10 @@ const ProductInfo = (props) => {
         let regExp = /\(([^)]+)\)/
         let match = regExp.exec(sizeOption[0].value)
 
-        if(match) {
-            if (match[1].includes('diapers')) {
-                setDiaperAmount(match[1].replace(' diapers', ''))
-            }
+        if (match) {
+          if (match[1].includes('diapers')) {
+            setDiaperAmount(match[1].replace(' diapers', ''))
+          }
         }
       }
     }
@@ -329,10 +327,10 @@ const openSubscribeInfoModal = async () => {
             let regExp = /\(([^)]+)\)/
             let match = regExp.exec(sizeOption[0].value)
 
-            if(match) {
-                if (match[1].includes('diapers')) {
-                    setDiaperAmount(match[1].replace(' diapers', ''))
-                }
+            if (match) {
+              if (match[1].includes('diapers')) {
+                setDiaperAmount(match[1].replace(' diapers', ''))
+              }
             }
           }
         }
@@ -340,15 +338,13 @@ const openSubscribeInfoModal = async () => {
     }
 
     const getMessageProduct = async () => {
-        if(page.fields?.messageProduct) {
-            const handle = page.fields.messageProduct.replace('::en-US', '')
-            const product = await nacelleClient.products({
-                handles: [handle]
-            })
-
-            setMessageProduct(product[0])
-        }
-
+      if (page?.fields?.messageProduct) {
+        const handle = page.fields.messageProduct.replace('::en-US', '')
+        const product = await nacelleClient.products({
+          handles: [handle],
+        })
+        setMessageProduct(product[0])
+      }
     }
 
     getDiaperCount()
@@ -375,7 +371,7 @@ const openSubscribeInfoModal = async () => {
         {product.content?.title && (
           <h1 className="product-info__title h3">{product.content.title}</h1>
         )}
-        {page.fields?.productDescription ? (
+        {page?.fields?.productDescription ? (
           <div className="product-info__description">
             {page.fields.productDescription}
           </div>
@@ -403,21 +399,27 @@ const openSubscribeInfoModal = async () => {
                         onChange={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                            {page.fields?.productAddOnImage ?
-                                <Image
-                                    src={`https:${page.fields.productAddOnImage.fields.file.url}`}
-                                    alt={`messageProduct.content.title`}
-                                    width={72}
-                                    height={72}
-                                />
-                            : ""}
+                          {page?.fields?.productAddOnImage ? (
+                            <Image
+                              src={`https:${page.fields.productAddOnImage.fields.file.url}`}
+                              alt={`messageProduct.content.title`}
+                              width={72}
+                              height={72}
+                            />
+                          ) : (
+                            ''
+                          )}
                         </div>
                         <div className="product-form__add-on--content">
                           <div className="product-form__add-on--title">
-                            {page.fields?.productAddOnText ? page.fields.productAddOnText : "Add a 4-pk of Wipes?" }
+                            {page?.fields?.productAddOnText
+                              ? page.fields.productAddOnText
+                              : 'Add a 4-pk of Wipes?'}
                           </div>
                           <div className="product-form__add-on--price">
-                            {page.fields?.productAddOnPrice ? `+$${page.fields.productAddOnPrice}` : "+$27" }
+                            {page?.fields?.productAddOnPrice
+                              ? `+$${page.fields.productAddOnPrice}`
+                              : '+$27'}
                           </div>
                         </div>
                         <input type="checkbox"></input>
@@ -477,7 +479,8 @@ const openSubscribeInfoModal = async () => {
                   <span>Update sizing or cancel anytime</span>
                   <span className="question-mark" onClick={() => openSubscribeInfoModal()}><QuestionMark /></span>
                   <span className="price">
-                    <s>${selectedVariant.price.toFixed(2)}</s> ${Number(subscriptionPrice).toFixed(2)}
+                    <s>${selectedVariant.price.toFixed(2)}</s> $
+                    {Number(subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
               </div>
@@ -535,39 +538,45 @@ const openSubscribeInfoModal = async () => {
 
           {messageProduct ? (
             <div className="product-message">
-                {page.fields?.messageTitle ? (
-                    <p className="product-message__title large">
-                        {page.fields.messageTitle}
-                    </p>
-                ) : ""}
-                <div className="product-message__wrapper">
-                    <div className="product-message__image">
-                        {messageProduct ?
-                            <Image
-                                src={messageProduct.content.featuredMedia.src}
-                                alt={messageProduct.content.title}
-                                width={72}
-                                height={72}
-                            />
-                        : ""}
-                    </div>
-                    {page.fields?.messageText ? (
-                        <p className="product-message__text large">
-                        {page.fields.messageText}
-                        </p>
-                    ) : ""}
-                    <Link href={messageProduct.content.handle}>
-                    <div className="product-message__link">
-                        <span>Shop Now</span>
-                    </div>
-                    </Link>
+              {page.fields?.messageTitle ? (
+                <p className="product-message__title large">
+                  {page.fields.messageTitle}
+                </p>
+              ) : (
+                ''
+              )}
+              <div className="product-message__wrapper">
+                <div className="product-message__image">
+                  {messageProduct ? (
+                    <Image
+                      src={messageProduct.content.featuredMedia.src}
+                      alt={messageProduct.content.title}
+                      width={72}
+                      height={72}
+                    />
+                  ) : (
+                    ''
+                  )}
                 </div>
+                {page.fields?.messageText ? (
+                  <p className="product-message__text large">
+                    {page.fields.messageText}
+                  </p>
+                ) : (
+                  ''
+                )}
+                <Link href={messageProduct.content.handle}>
+                  <div className="product-message__link">
+                    <span>Shop Now</span>
+                  </div>
+                </Link>
+              </div>
             </div>
           ) : (
             ''
           )}
 
-          {page.fields?.productDetailTabTitle1 &&
+          {page?.fields?.productDetailTabTitle1 &&
           page.fields?.productDetailTabContent1 ? (
             <div className="product-tabs">
               <div className="product-tabs__nav">

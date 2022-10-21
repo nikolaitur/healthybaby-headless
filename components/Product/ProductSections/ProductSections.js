@@ -10,7 +10,7 @@ import ProductCrossSells from '../../Product/ProdcutCrossSells'
 
 // import ProductReviews from '../../Product/ProdcutReviews'
 
-const ProductSections =  ({ content, product }) => {
+const ProductSections =  ({ content, product, productBadges }) => {
     return (
         <div className="product-main__sections">
             {content.fields?.sections ? (
@@ -33,12 +33,12 @@ const ProductSections =  ({ content, product }) => {
                         case 'productTechnology':
                             return <ProductTechnologyCallout content={section} key={index} />;
                         case 'productCrossSells':
-                                return <ProductCrossSells content={section} product={product} key={index} />;
+                                return <ProductCrossSells content={section} product={product} key={index} productBadges={productBadges} />;
                         default:
                         return null
                     }
                 })
-            ) : ""} 
+            ) : ""}
         </div>
     )
 }
