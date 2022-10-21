@@ -65,10 +65,10 @@
         z-index: 2;
 
         &--vertical-top {
-            align-items: flex-start;
             padding: 70px 0 0;
 
             @include breakpoint-up('md') {
+                align-items: flex-start;
                 padding: 220px 0 0;
             }
 
@@ -90,10 +90,10 @@
         }
 
         &--vertical-bottom {
-            align-items: flex-end;
             padding: 0 0 70px;
 
             @include breakpoint-up('md') {
+                align-items: flex-end;
                 padding: 0 0 220px;
             }
 
@@ -126,6 +126,9 @@
         max-width: 1040px;
         width: 100%;
         padding: 75px 0;
+        @include breakpoint-up('sm') {
+            padding: 125px 0;
+        }
     }
 
     &__subheader {
