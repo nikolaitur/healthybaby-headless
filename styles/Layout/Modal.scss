@@ -45,14 +45,10 @@
 
     &__close {
         position: absolute;
-        right: 40px;
+        right: 10px;
         top: 10px;
         cursor: pointer;
         z-index: 2;
-
-        @include breakpoint-up('md') {
-            right: 10px;
-        }
     }
 }
 
