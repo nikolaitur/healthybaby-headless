@@ -59,21 +59,35 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     modalContext.setIsOpen(true)
   }
 
-  const onMenuMouseEnter = () => {
-    setmegaMenuIsOpen(false)
-    setMegaMenu(false)
+  const unlockScroll = () => {
+    document.body.style.position = ''
+    document.body.style.top = ''
+    document.body.style.left = ''
+    document.body.style.right = ''
+    window.scrollTo(0, parseInt('0') * -1)
+  }
+
+  const lockScroll = () => {
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${window.scrollY}px`
+    document.body.style.left = '0'
+    document.body.style.right = '0'
   }
 
   const openMobileMenu = () => {
-    if (window) window.scrollTo(0, 0)
-    setMobileMenuOpen(!isMobileMenuOpen)
+    setMobileMenuOpen(true)
     setmegaMenuIsOpen(true)
+    lockScroll()
   }
 
   const closeMobileMenu = () => {
-    setMobileMenuOpen(!isMobileMenuOpen)
+    setMobileMenuOpen(false)
     setmegaMenuIsOpen(false)
     setMegaMenu(false)
+    closeMobileMegaMenuSlide()
+    setSearchOpen()
+    unlockScroll()
+    document.body.classList.remove('searchmenu-is-active')
   }
 
   const openMobileMegaMenuSlide = (menu, secondarySlide = false) => {
@@ -109,14 +123,14 @@ const MainNavigation = forwardRef(({ props }, ref) => {
       }
     }
 
-    setMobileMenuSlideOpen(!isMobileMenuSlideOpen)
+    setMobileMenuSlideOpen(true)
     setmegaMenuIsOpen(true)
     setMegaMenu(menu)
     setSecondarySlideOpen(secondarySlide)
   }
 
   const closeMobileMegaMenuSlide = () => {
-    setMobileMenuSlideOpen(!isMobileMenuSlideOpen)
+    setMobileMenuSlideOpen(false)
     document.documentElement.style.setProperty('--menuBackground', '#D0D8E9')
     document.documentElement.style.setProperty('--menuItemHover', '#D0D8E9')
     document.documentElement.style.setProperty(
@@ -155,7 +169,10 @@ const MainNavigation = forwardRef(({ props }, ref) => {
 
   const handleClickOutside = (event) => {
     if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
-      setMobileMenuOpen(false);
+      console.log("mobileMenuRef.current.classList:", mobileMenuRef.current.classList)
+      if (mobileMenuRef.current.classList.contains('is-open')) {
+        closeMobileMenu()
+      }
     }
   };
 
@@ -341,7 +358,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
         }`}
         style={{ top: announcementBarHeight }}
       >
-        <div className="mobile-menu__close" onClick={() => toggleSearch()}>
+        <div className="mobile-menu__close" onClick={() => closeMobileMenu()}>
           <CloseIcon />
         </div>
         <div className={`mobile-menu__search`}>
