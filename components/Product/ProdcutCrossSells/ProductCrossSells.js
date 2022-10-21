@@ -16,7 +16,7 @@ import 'swiper/css/pagination'
 import CrossSellProductCard from '../../Cards/CrossSellProductCard'
 import CollectionSections from '@/components/Sections/CollectionSections'
 
-const ProductCrossSells = ({ content, product }) => {
+const ProductCrossSells = ({ content, product, productBadges }) => {
   const [products, setProducts] = useState(false)
 
   useEffect(() => {
@@ -78,6 +78,7 @@ const ProductCrossSells = ({ content, product }) => {
                     key={index}
                     product={product}
                     crossSell={true}
+                    productBadges={productBadges}
                   />
                 )
               })}
@@ -99,6 +100,7 @@ const ProductCrossSells = ({ content, product }) => {
                     key={index}
                     product={product}
                     crossSell={true}
+                    productBadges={productBadges}
                   />
                 </SwiperSlide>
               ))}

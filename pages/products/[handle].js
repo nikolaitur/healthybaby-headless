@@ -8,7 +8,7 @@ import ProductInfo from '../../components/Product/ProductInfo'
 import ProductSections from '../../components/Product/ProductSections'
 import ProductReviews from '../../components/Product/ProductReviews'
 
-function Product({ product, page }) {
+function Product({ product, page, productBadges }) {
   useEffect(() => {
     dataLayerViewProduct({ product })
   }, [])
@@ -26,7 +26,7 @@ function Product({ product, page }) {
                 <ProductGallery product={product} page={page} />
                 <ProductInfo product={product} page={page} />
             </div>
-            <ProductSections content={page} product={product} />
+            <ProductSections content={page} product={product} productBadges={productBadges} />
             <ProductReviews product={product} />
           </section>
         </>
@@ -89,10 +89,16 @@ export async function getStaticProps({ params }) {
       ]
   }
 
+  const productBadges = await nacelleClient.content({
+    type: 'productBadge',
+  })
+
+
   return {
     props: {
       product: products[0],
-      page: pageData
+      page: pageData,
+      productBadges,
     },
   }
 }
