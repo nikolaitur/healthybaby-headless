@@ -52,13 +52,11 @@ export function CartDrawerProvider({ children }) {
       const lines = cartItems
 
       if (!Cookies.get('shopifyCartId')) {
-        // console.log(shopifyCartId, 'ID')
         cartClient
           .cart({
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            // console.log(response, 'response')
             // if (response.cart.length) {
             //   setShopifyCartCartClient(response.cart)
             //   setShopifyCartId(response.cart.id)
@@ -72,7 +70,6 @@ export function CartDrawerProvider({ children }) {
             note: 'Please use a red ribbon for the bow, if possible :)',
           })
           .then((response) => {
-            console.log(response)
             if (response) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)

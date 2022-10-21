@@ -42,8 +42,6 @@ const ProductCrossSells = ({ content, product }) => {
               })
 
               setProducts(productsData)
-
-              console.log(productsData)
         }
         getProducts()
     }, [])

@@ -5,9 +5,6 @@ import Image from 'next/image';
 import ProductAboutAccordion from './ProductAboutAccordion';
 
 const ProductAbout = ({ content }) => {
-
-    // console.log(content, "about")
-
     return (
         <div className="product-about">
             <div className="product-about__container container">

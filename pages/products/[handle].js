@@ -67,8 +67,6 @@ export async function getStaticProps({ params }) {
     type: "product"
   })
 
-  console.log(pages, "pages", params.handle)
-
   let pageData = pages[0]
 
   if (!products.length) {

@@ -64,7 +64,6 @@ const ContentTimeline = ({ content }) => {
 
     const contentTimelineBlock = (item, index) => {
         const { header, description, ctaText, ctaUrl } = {...item.fields}
-        // console.log(item, "item")
         return (
             <div className="content-timeline__item" key={index}>
                 <div className="content-timeline__title">{ header }</div>

@@ -11,16 +11,11 @@ import ProductCrossSells from '../../Product/ProdcutCrossSells'
 // import ProductReviews from '../../Product/ProdcutReviews'
 
 const ProductSections =  ({ content, product }) => {
-    
-    // console.log("product sections", content)
-
     return (
         <div className="product-main__sections">
             {content.fields?.sections ? (
                 content.fields.sections.map((section, index) => {
                     const type = section.type
-
-                    // console.log(section)
 
                     switch (type) {
                         case 'productValueProps':

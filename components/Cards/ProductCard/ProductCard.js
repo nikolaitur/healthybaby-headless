@@ -66,7 +66,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
     }
 
     const handleAddItem = async () => {
-        console.log('added')
         let selectedVariant = product.variants[0]
 
         const variant = getCartVariant({
@@ -88,8 +87,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
           variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
           quantity: 1,
         }
-
-        console.log(newItem)
 
         dataLayerATC({ item: newItem })
 
@@ -122,8 +119,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
           })
 
         cartDrawerContext.setIsOpen(true)
-
-        console.log(cartDrawerContext.shopifyCartId)
 
         await cartClient
           .cartLinesAdd({

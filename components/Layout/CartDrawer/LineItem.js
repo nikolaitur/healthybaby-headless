@@ -25,8 +25,6 @@ const LineItem = ({ item }) => {
 
   const cartDrawerContext = useCartDrawerContext()
 
-  // console.log(item, "item")
-
   let isSubscription = false
   let hasSubscriptionProduct = false
 
@@ -55,7 +53,6 @@ const LineItem = ({ item }) => {
 
   const decrement = () => {
     if (item.quantity <= 1) {
-      console.log('remove from cart')
       dataLayerRFC({ item })
       removeFromCart(item)
     } else {
@@ -96,8 +93,6 @@ const LineItem = ({ item }) => {
         variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
         quantity: 1,
       }
-
-      console.log(newItem)
 
       dataLayerATC({ item: newItem })
 
