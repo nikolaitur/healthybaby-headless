@@ -26,7 +26,7 @@ const ProductCrossSells = ({ content, product }) => {
         .pop()
       axios
         .post('/api/shopify/get-recommended-products', {
-          product: 8032012370160,
+          product: productId,
           limit: 3,
         })
         .then(async function (response) {

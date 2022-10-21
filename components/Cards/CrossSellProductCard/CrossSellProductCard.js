@@ -19,12 +19,8 @@ import { useRouter } from 'next/router'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-const findProductBadges = ({ content, products, productBadges }) => {
-  if (content.fields?.productHandle && products && productBadges) {
-    const handle = content.fields.productHandle.replace('::en-US', '')
-    const product = products.find(
-      (product) => product.content.handle === handle
-    )
+const findProductBadges = ({ product, productBadges }) => {
+  if (product && productBadges) {
     const badges = productBadges.reduce((carry, badge) => {
       if (product?.tags.some((tag) => tag.indexOf(badge.handle) > -1)) {
         if (badge?.fields?.image?.fields) {
@@ -49,16 +45,29 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
   const [productPrice, setProductPrice] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(false)
   const isDesktop = useMediaQuery({ minWidth: 1074 })
+  const [productBadges, setProductBadges] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
-  const badges = null
+  const badges = findProductBadges({ product, productBadges })
 
   useEffect(() => {
     setHandle(product.content.handle)
     getProdouctPrice(product)
   }, [handle])
+
+  useEffect(() => {
+    const getProductBadges = async () => {
+      const productBadges = await nacelleClient.content({
+        type: 'productBadge',
+      })
+
+      setProductBadges(productBadges)
+    }
+
+    getProductBadges()
+  }, [])
 
   const handleLink = (product) => {
     dataLayerSelectProduct({ product, url: router.pathname })
@@ -94,97 +103,26 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
     }
   }
 
-  const handleAddItem = async () => {
-    console.log('added')
-    let selectedVariant = product.variants[0]
-
-    const variant = getCartVariant({
-      product,
-      variant: selectedVariant,
-    })
-
-    let sellingPlan = selectedVariant.metafields.find(
-      (metafield) => metafield.key === 'sellingPlanAllocations'
-    )
-
-    if (!sellingPlan) {
-      sellingPlan = false
-    }
-
-    const newItem = {
-      product,
-      variant,
-      variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
-      quantity: 1,
-    }
-
-    console.log(newItem)
-
-    dataLayerATC({ item: newItem })
-
-    addToCart({
-      product,
-      variant,
-      quantity: 1,
-      sellingPlan,
-      subscription: false,
-      nacelleEntryId: selectedVariant.nacelleEntryId,
-      selectedVariant,
-    })
-
-    await cartClient
-      .cartLinesAdd({
-        cartId: cartDrawerContext.shopifyCartId,
-        lines: [
-          {
-            merchandiseId: selectedVariant.nacelleEntryId,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            quantity: 1,
-          },
-        ],
-      })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.error(err, 'Error')
-      })
-
-    cartDrawerContext.setIsOpen(true)
-
-    console.log(cartDrawerContext.shopifyCartId)
-
-    await cartClient
-      .cartLinesAdd({
-        cartId: cartDrawerContext.shopifyCartId,
-        lines: [
-          {
-            merchandiseId: selectedVariant.nacelleEntryId,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            quantity: 1,
-          },
-        ],
-      })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.error(err, 'Error')
-      })
-
-    cartDrawerContext.setIsOpen(true)
-  }
-
-  const getCtaText = () => {
-    if (product && product.variants.length > 1) {
-      return 'Quick View -'
-    } else {
-      return 'Add To Cart - '
-    }
-  }
-
   return (
     <div className={`collection-product-card`}>
+      {badges?.length > 0 && (
+        <ul className="collection-product-card__badge-list">
+          {badges.map((badge, index) => {
+            return (
+              <li className="collection-product-card__badge" key={index}>
+                <Image
+                  src={`https:${badge.file.url}`}
+                  alt={badge.title}
+                  layout="responsive"
+                  objectFit="cover"
+                  height={100}
+                  width={100}
+                />
+              </li>
+            )
+          })}
+        </ul>
+      )}
       <a onClick={() => handleLink(product)} ref={ref}>
         <div className={`collection-product-card__image`}>
           <Image
