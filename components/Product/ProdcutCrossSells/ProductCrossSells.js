@@ -13,7 +13,7 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-import CollectionProductCard from '../../Cards/CollectionProductCard'
+import CrossSellProductCard from '../../Cards/CrossSellProductCard'
 import CollectionSections from '@/components/Sections/CollectionSections'
 
 const ProductCrossSells = ({ content, product }) => {
@@ -29,26 +29,22 @@ const ProductCrossSells = ({ content, product }) => {
           product: 8032012370160,
           limit: 3,
         })
-        .then(function (response) {
-          console.log(response)
+        .then(async function (response) {
+          const productHandles = response.data?.data?.products?.map(
+            (product) => product.handle
+          )
+
+          const productsData = await nacelleClient.products({
+            handles: productHandles,
+          })
+
+          setProducts(productsData)
+
+          console.log(productsData)
         })
         .catch(function (error) {
           console.log(error)
         })
-
-      const productHandles = content.fields.sections
-        .filter((section) => {
-          if (section.fields.productHandle) return section
-        })
-        .map((section) => section.fields.productHandle.replace('::en-US', ''))
-
-      const productsData = await nacelleClient.products({
-        handles: productHandles,
-      })
-
-      setProducts(productsData)
-
-      console.log(productsData)
     }
     getProducts()
   }, [])
@@ -73,15 +69,14 @@ const ProductCrossSells = ({ content, product }) => {
         ) : (
           ''
         )}
-        {content.fields?.sections && products ? (
+        {products ? (
           <>
             <div className="product-cross-sells__items">
-              {content.fields.sections.map((item, index) => {
+              {products.map((product, index) => {
                 return (
-                  <CollectionProductCard
-                    content={item}
+                  <CrossSellProductCard
                     key={index}
-                    products={products}
+                    product={product}
                     crossSell={true}
                   />
                 )
@@ -98,12 +93,11 @@ const ProductCrossSells = ({ content, product }) => {
                 '--swiper-pagination-color': '#fff',
               }}
             >
-              {content.fields.sections.map((item, index) => (
+              {products.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <CollectionProductCard
-                    content={item}
+                  <CrossSellProductCard
                     key={index}
-                    products={products}
+                    product={product}
                     crossSell={true}
                   />
                 </SwiperSlide>
