@@ -25,7 +25,7 @@ const ProductFiftyFifty = ({ content }) => {
   }
 
   const playVideoMobile = () => {
-    setIsPlaying(true)
+    setIsPlayingMobile(true)
   }
 
   const mobileImage = content.fields?.imageMobile
@@ -50,7 +50,7 @@ const ProductFiftyFifty = ({ content }) => {
                 className={`article-video__icon ${
                   isPlayingMobile ? 'hide' : ''
                 }`}
-                onClick={() => playVideo()}
+                onClick={() => playVideoMobile()}
               >
                 <PlayIcon />
               </div>
