@@ -45,6 +45,9 @@
   }
   .faq-item__content {
     padding-top: 26px;
+    b {
+      font-family: $NeutraTextDemi;
+    }
     .link {
       display: inline;
       font-size: inherit;
