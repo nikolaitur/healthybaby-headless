@@ -176,14 +176,10 @@ const CollectionProductCard = forwardRef(({
   }
 
   const getCtaText = () => {
-    if (content.fields?.ctaText) {
-      return content.fields.ctaText
+    if (product && product.variants.length > 1) {
+      return 'Quick View -'
     } else {
-      if (product && product.variants.length > 1) {
-        return 'Quick View -'
-      } else {
-        return 'Add To Cart - '
-      }
+      return 'Add To Cart - '
     }
   }
 
