@@ -1,260 +1,258 @@
 .product-fifty-fifty {
-    padding: 0 0 70px;
+  margin: 70px 0 70px;
+
+  @include breakpoint-up('md') {
+    margin: 70px 0 140px;
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include breakpoint-up('md') {
+      flex-direction: row;
+
+      &.flipped {
+        flex-direction: row-reverse;
+
+        .product-fifty-fifty__content {
+          @include breakpoint-up('md') {
+            padding-left: 60px;
+            padding-right: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  &__content {
+    order: 1;
 
     @include breakpoint-up('md') {
-        padding: 70px 0 140px;
+      order: 0;
+      padding-right: 60px;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  &__image {
+    order: 0;
+    margin-bottom: 0px;
+
+    @include breakpoint-up('md') {
+      width: 50%;
+      // padding-left: 60px;
+      margin-bottom: 0;
     }
 
-    &__container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        @include breakpoint-up('md') {
-            flex-direction: row;
+    &--desktop {
+      display: none;
 
-            &.flipped {
-                flex-direction: row-reverse;
-
-                .product-fifty-fifty__content {
-                    @include breakpoint-up('md') {
-                        padding-left: 60px;
-                        padding-right: 0px;
-                    }
-                }
-            }
-        }
+      @include breakpoint-up('md') {
+        display: block;
+      }
     }
 
-    &__content {
-        order: 1;
+    &--mobile {
+      display: block;
+      margin: 0 0 36px;
 
-        @include breakpoint-up('md') {
-            order: 0;
-            padding-right: 60px;
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+      @include breakpoint-up('md') {
+        display: none;
+      }
     }
 
-    &__image {
-        order: 0;
-        margin-bottom: 0px;
+    img {
+      height: 400px !important;
+      object-fit: cover;
 
-        @include breakpoint-up('md') {
-            width: 50%;
-            // padding-left: 60px;
-            margin-bottom: 0;
-        }
+      @include breakpoint-up('md') {
+        height: 750px !important;
+      }
+    }
+  }
 
-        &--desktop {
-            display: none;
+  &__header {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 34px;
+    color: $primaryBrown;
+    margin-bottom: 40px;
 
-            @include breakpoint-up('md') {
-                display: block;
-            }
-        }
+    @include breakpoint-up('md') {
+      font-size: 62px;
+      line-height: 62px;
+      margin-bottom: 60px;
+    }
+  }
 
-        &--mobile {
-            display: block;
-            margin: 0 0 36px;
+  &__subheader {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
 
-            @include breakpoint-up('md') {
-                display: none;
-            }
-        }
+    @include breakpoint-up('md') {
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
 
-        img {
-            height: 400px!important;
-            object-fit: cover;
+  &__copy {
+    margin-bottom: 0px;
 
-            @include breakpoint-up('md') {
-                height: 750px!important;
-            }
-        }
+    @include breakpoint-up('md') {
+      margin-bottom: 70px;
     }
 
-    &__header {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 34px;
-        line-height: 34px;
-        color: $primaryBrown;
-        margin-bottom: 40px;
+    p {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: fontsize(18px);
+      line-height: 140%;
+      letter-spacing: -0.01em;
+      color: $primaryBrown;
 
-        @include breakpoint-up('md') {
-            font-size: 62px;
-            line-height: 62px;
-            margin-bottom: 60px;
-        }
+      @include breakpoint-up('md') {
+        font-size: fontsize(20px);
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: fontsize(22px);
+      }
+    }
+  }
+
+  &__link {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: $primaryGreen;
+    margin-top: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid $primaryGreen;
+    width: max-content;
+
+    @include breakpoint-up('md') {
+      margin-top: 30px;
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+
+  &__button {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    letter-spacing: 0.02em;
+    color: #3d3331;
+    padding: 30px 0;
+    cursor: pointer;
+
+    @include breakpoint-up('md') {
+      max-width: 100%;
+      margin-bottom: 0px;
     }
 
-    &__subheader {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 16px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: $primaryBrown;
+    span:last-child {
+      margin-left: 20px;
+    }
+  }
 
-        @include breakpoint-up('md') {
-            font-size: 18px;
-            line-height: 18px;
-        }
+  &__title {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 29px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-top: 15px;
+  }
+
+  &__subtitle {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+  }
+
+  .accordion-item {
+    position: relative;
+    padding: 24px 0px;
+
+    &.is-open {
+      svg {
+        transform: rotateX(180deg);
+      }
     }
 
-    &__copy {
-        margin-bottom: 0px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: calc(100% - 44px);
+      height: 1px;
+      transform: translateX(-50%);
+      background: #d0d8e9;
+    }
+  }
 
-        @include breakpoint-up('md') {
-            margin-bottom: 70px;
-        }
+  .accordion-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
+    letter-spacing: 0.02em;
+    color: #3d3331;
 
-        p {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: fontsize(18px);
-            line-height: 140%;
-            letter-spacing: -0.01em;
-            color: $primaryBrown;
+    svg {
+      transition: 0.3s;
+    }
+  }
 
-            @include breakpoint-up('md') {
-                font-size: fontsize(20px);
-            }
+  .accordion-content {
+    padding: 30px 0 10px;
+    list-style: none;
 
-            @include breakpoint-up('xl') {
-                font-size: fontsize(22px);
-            }
-        }
+    li:not(:last-child) {
+      margin-bottom: 18px;
     }
 
-    &__link {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: 0.02em;
-        color: $primaryGreen;
-        margin-top: 15px;
-        cursor: pointer;
-        border-bottom: 1px solid $primaryGreen;
-        width: max-content;
-
-        @include breakpoint-up('md') {
-            margin-top: 30px;
-            font-size: 18px;
-            line-height: 22px;
-        }
+    a {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      color: #3d3331;
+      text-decoration: none;
     }
-
-    &__button {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-        padding: 30px 0;
-        cursor: pointer;
-
-        @include breakpoint-up('md') {
-            
-            max-width: 100%;
-            margin-bottom: 0px;
-        }
-
-        span:last-child {
-            margin-left: 20px;
-        }
-    }
-
-    &__title {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 26px;
-        line-height: 29px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 15px;
-    }
-
-    &__subtitle {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 20px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-    }
-
-    .accordion-item {
-        position: relative;
-        padding: 24px 0px;
-
-        &.is-open {
-
-            svg {
-                transform: rotateX(180deg);
-            }
-        }
-
-        &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: calc(100% - 44px);
-            height: 1px;
-            transform: translateX(-50%);
-            background: #D0D8E9;;
-        }
-    }
-
-    .accordion-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-
-        svg {
-            transition: 0.3s;
-        }
-    }
-
-    .accordion-content {
-        padding: 30px 0 10px; 
-        list-style: none;
-
-        li:not(:last-child) {
-            margin-bottom: 18px;
-        }
-
-        a {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
-            color: #3D3331;
-            text-decoration: none;
-        }
-    }
+  }
 }
