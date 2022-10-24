@@ -29,7 +29,7 @@ const DiaperCalculator = ({props, children}) => {
     const [measurement, setMeasurement] = useState("lbs");
     const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
     const [selectedVariant, setSelectedVariant] = useState(false);
-    
+
     const cartDrawerContext =  useCartDrawerContext()
     const diaperCalculatorContext =  useDiaperCalculatorContext()
 
@@ -45,7 +45,7 @@ const DiaperCalculator = ({props, children}) => {
                 setProduct(response[0])
             });
         }
-    
+
         getProduct()
     }, [])
 
@@ -79,9 +79,9 @@ const DiaperCalculator = ({props, children}) => {
 
                 diaperCalculatorContext.setDiaperCalculatorData(data)
             }
-    
+
         }
-    
+
         recommendProduct()
 
     }, [weight, diaperSize])
@@ -206,7 +206,7 @@ const DiaperCalculator = ({props, children}) => {
         await cartClient.cartLinesAdd({
                 cartId: cartDrawerContext.shopifyCartId,
                 lines: [
-                    lineItem    
+                    lineItem
                 ]
             })
             .then((data) => {
@@ -215,7 +215,7 @@ const DiaperCalculator = ({props, children}) => {
             .catch((err) => {
                 console.error(err, "Error")
             })
-        
+
         cartDrawerContext.setIsOpen(true)
     }
 
@@ -232,7 +232,7 @@ const DiaperCalculator = ({props, children}) => {
                     <div className="diaper-calculator__form">
                         <div className="input-wrapper">
                             <span>{`Baby’s birthday`}</span>
-                            <DatePicker closeOnScroll={true}  onChange={(date) => handleDateChange(date)} selected={diaperCalculatorContext.diaperCalculatorData.birthday} />
+                            <DatePicker dateFormat="MM/dd/yy" placeholderText="00/00/00" closeOnScroll={true}  onChange={(date) => handleDateChange(date)} selected={diaperCalculatorContext.diaperCalculatorData.birthday} />
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby's weight`}</span>
@@ -240,7 +240,7 @@ const DiaperCalculator = ({props, children}) => {
                             <span className="suffix">lbs</span>
                         </div>
                         <p className="diaper-calculator__copy">
-                            We recommend our Monthly Diaper Membership in the following size: 
+                            We recommend our Monthly Diaper Membership in the following size:
                         </p>
                         <div className="diaper-calculator__recommendation">
                             <span className="circle">{diaperSize}</span>
@@ -261,7 +261,7 @@ const DiaperCalculator = ({props, children}) => {
                         </div>
                     </div>
                     <div className="diaper-calculator__size-guide">
-                        
+
                         <div className='diaper-calculator__size-guide--header'>
                             <span>Size</span>
                             <span>Weight (lbs)</span>
@@ -278,7 +278,7 @@ const DiaperCalculator = ({props, children}) => {
                     <p className="diaper-calculator__contact">
                         If you have questions, feel free to reach out to our team at support@healthybaby.com. We’re always here for you and baby!
                     </p>
-                </div>   
+                </div>
             </div>
         </div>
     )

@@ -169,14 +169,14 @@ const DiaperFinder = ({ content }) => {
 
         if(babyMonth < 0) {
             getPrenantalRecommendation()
-            return 
+            return
         }
-        
+
         if(weight < 6) {
             if(babyMonth > 0) {
                 console.log("Contact Customer Service")
                 // return "Contact Customer Service"
-            } 
+            }
         } else if(weight >= 6 && weight <= 11.99) {
             if(babyMonth <= 2 && babyMonth >= 0) {
                 getProduct("our-newborn-gift-bundle")
@@ -255,7 +255,7 @@ const DiaperFinder = ({ content }) => {
                 const wipes = response[0].variants.filter(obj => {
                     return obj.content.title.includes("Wipes (x4)");
                 });
-        
+
                 let variant = wipes.filter(obj => {
                     return obj.content.selectedOptions[0].value.includes(size);
                 });
@@ -270,18 +270,18 @@ const DiaperFinder = ({ content }) => {
     const handleAddItem = async () => {
         console.log(product, selectedVariant, "ADDED")
         if(product && selectedVariant) {
-            
+
             const variant = getCartVariant({
                 product,
                 variant: selectedVariant,
             })
-            
+
             let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
-    
+
             if(!sellingPlan) {
                 sellingPlan = false
-            } 
-    
+            }
+
             addToCart({
                 product,
                 variant,
@@ -291,9 +291,9 @@ const DiaperFinder = ({ content }) => {
                 nacelleEntryId: selectedVariant.nacelleEntryId,
                 selectedVariant
             })
-    
+
             console.log(cartDrawerContext.shopifyCartId)
-    
+
             await cartClient.cartLinesAdd({
                 cartId: cartDrawerContext.shopifyCartId,
                 lines: [
@@ -310,7 +310,7 @@ const DiaperFinder = ({ content }) => {
               .catch((err) => {
                 console.error(err, "Error")
               })
-            
+
               cartDrawerContext.setIsOpen(true)
         }
     }
@@ -327,17 +327,17 @@ const DiaperFinder = ({ content }) => {
                             <span>My baby’s name is</span>
                             <input name="baby-name" label="Name" onChange={(e) => handleInputChange(e)} value={babyName} placeholder="/"></input>
                         </span>
-                        <span>                           
-                            <Select 
-                                styles={customSelectStyles} 
-                                className="diaper-finder__select" 
-                                defaultValue={genderOptions[0]} 
+                        <span>
+                            <Select
+                                styles={customSelectStyles}
+                                className="diaper-finder__select"
+                                defaultValue={genderOptions[0]}
                                 options={genderOptions}
                                 closeMenuOnScroll={true}
                                 onChange={(e) => onSelectChange(e)}/>
                             <span className="select-line">
                                 <span>{diaperFinderData.gender == "They" ? "were" : "was"} born on </span>
-                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="MM/DD/YY" />
+                                <DatePicker dateFormat="MM/dd/yy" selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="MM/DD/YY" />
                             </span>
                         </span>
                         <span className="weight">
@@ -422,7 +422,7 @@ const DiaperFinder = ({ content }) => {
                                 </button>
                             </div>
                             <div className="diaper-finder__product--delivery">
-                                <span>COMPLIMENTARY DELIVERY</span><span className="bullet">•</span><span>CANCEL ANY TIME</span>  
+                                <span>COMPLIMENTARY DELIVERY</span><span className="bullet">•</span><span>CANCEL ANY TIME</span>
                             </div>
                         </div>
                     ) : (
