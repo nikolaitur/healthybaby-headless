@@ -1,5 +1,5 @@
 .product-info {
-    
+
     @include breakpoint-up('md') {
         width: 40%;
         padding: 40px 0 0px;
@@ -115,7 +115,7 @@
                 font-size: 18px;
                 line-height: 25px;
             }
-        }   
+        }
     }
 
     &__items {
@@ -254,49 +254,46 @@
         input {
             margin-right: 12px;
             cursor: pointer;
+            position: relative;
         }
 
-        input[type='radio']:after {
-            width: 15px;
-            height: 15px;
-            border-radius: 15px;
-            top: -3px;
-            left: -2px;
-            position: relative;
-            background-color: #F5F2F2;
-            content: '';
-            display: inline-block;
-            visibility: visible;
+        input[type='radio']:before {
+            content: "";
+            width: 16px;
+            height: 16px;
             border: 2px solid $primaryBrown;
+            background-color: #F5F2F2;
+            border-radius: 100%;
+            display: block;
+            position: absolute;
+            top: -2px;
+            left: -4px;
         }
 
         input[type='radio']:checked:before {
-            width: 14px;
-            height: 14px;
-            border-radius: 100%;
-            background-color: transparent;
             content: "";
-            display: inline-block;
-            visibility: visible;
-            border: 1px solid #fff;
-            position: absolute;
-            z-index: 1;
-            left: 16.5px;
-            top: 15px;
-        }
-    
-        input[type='radio']:checked:after {
-            width: 17px;
-            height: 17px;
-            border-radius: 17px;
-            top: -3px;
-            left: -3px;
-            position: relative;
-            background-color: $primaryGreen;
-            content: '';
-            display: inline-block;
-            visibility: visible;
+            width: 16px;
+            height: 16px;
             border: 2px solid $primaryGreen;
+            background-color: #fff;
+            border-radius: 100%;
+            display: block;
+            position: absolute;
+            top: -2px;
+            left: -4px;
+        }
+
+        input[type='radio']:checked:after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border: 2px solid #fff;
+            background-color: #00B188;
+            border-radius: 100%;
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: -2px;
         }
 
         label {
@@ -383,7 +380,7 @@
             max-width: 170px;
         }
 
-        &--decrement, 
+        &--decrement,
         &--increment {
             border: none;
             background: #fff;
@@ -402,7 +399,7 @@
         }
     }
 
-    
+
 
 
 }
@@ -540,11 +537,11 @@
         line-height: 140%;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-    
+
         @include breakpoint-up('md') {
             font-size: fontsize(20px);
         }
-    
+
         @include breakpoint-up('xl') {
             font-size: fontsize(22px);
         }
