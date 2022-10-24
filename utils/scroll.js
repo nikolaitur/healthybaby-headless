@@ -10,10 +10,10 @@ export const lockScroll = (fixedTop = false) => {
 }
 
 export const unlockScroll = () => {
-  const orignalscrollPos = document.body.style.top;
+  const originalScrollPos = document.body.style.top;
   document.body.style.position = ''
   document.body.style.top = ''
   document.body.style.left = ''
   document.body.style.right = ''
-  window.scrollTo(0, parseInt(orignalscrollPos) * -1)
+  window.scrollTo(0, parseInt(originalScrollPos) * -1)
 }
