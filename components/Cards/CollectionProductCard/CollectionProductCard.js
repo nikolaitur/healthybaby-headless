@@ -61,8 +61,6 @@ const CollectionProductCard = forwardRef(({
     { minWidth: 1074 }
   )
 
-  console.log(content)
-
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
