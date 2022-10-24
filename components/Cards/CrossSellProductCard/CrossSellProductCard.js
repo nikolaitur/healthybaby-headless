@@ -97,8 +97,7 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
       modalContext.setIsOpen(true)
       modalContext.setContent({
         product,
-        page: pages[0],
-        className: 'quickview',
+        page: pages[0]
       })
     }
   }

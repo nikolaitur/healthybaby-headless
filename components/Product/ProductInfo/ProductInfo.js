@@ -287,10 +287,9 @@ const openSubscribeInfoModal = async () => {
     console.log(pages, "PAGE")
 
     if (pages) {
-      modalContext.setIsOpen(false)
-      modalContext.setModalType('subscribe-info-modal')
-      modalContext.setIsOpen(true)
-      modalContext.setContent({
+      modalContext.setSecondaryModalType('subscribe-info-modal')
+      modalContext.setIsSecondaryModalOpen(true)
+      modalContext.setSecondaryModalContent({
         product: null,
         page: pages[0],
         className: "subscribe-modal",

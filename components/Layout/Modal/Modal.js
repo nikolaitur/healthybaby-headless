@@ -8,13 +8,20 @@ import ProductQuickView from '../../Product/ProductQuickView'
 import ForgotPasswordForm from '../Forms/ForgotPasswordForm'
 import SubscribeModal from '../../Product/SubscribeModal'
 
-const Modal = ({props, children}) => {
+const Modal = ({props, children, modalLevel = 'primary'}) => {
 
   const { className } = {...children}
 
   const modalContext = useModalContext()
 
-  const getContent = (type, children) => {
+  const getContent = (children) => {
+
+    let type = modalContext.modalType
+
+    if (modalLevel !== 'primary') {
+      type = modalContext.secondaryModalType
+    }
+
     switch(type) {
       case 'create':
         return <CreateAccountForm />
@@ -32,17 +39,28 @@ const Modal = ({props, children}) => {
   }
 
   const closeModal = () => {
-    modalContext.setIsOpen(false)
+    if (modalLevel !== 'primary') {
+      modalContext.setIsSecondaryModalOpen(false)
+    } else {
+      modalContext.setIsOpen(false)
+    }
+  }
+
+  const getModalLevelType = () => {
+    if (modalLevel !== 'primary') {
+      return modalContext.secondaryModalType
+    }
+    return modalContext.modalType
   }
 
   return (
-    <div className={`modal ${className}`}>
+    <div className={`modal ${getModalLevelType() == "quickview" ? 'quickview' : ''}`}>
       <div className="modal__content">
         <div className="modal__content-container">
           <div className="modal__close" onClick={() => closeModal()}>
-            {modalContext.modalType == "quickview" ? <IconCloseLarge />  : <IconClose /> }
+            {getModalLevelType() == "quickview" ? <IconCloseLarge />  : <IconClose /> }
           </div>
-          {getContent(modalContext.modalType, children)}
+          {getContent(children)}
         </div>
       </div>
       <div className={`modal__overlay`} onClick={() => closeModal()}></div>
