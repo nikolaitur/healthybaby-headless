@@ -51,9 +51,9 @@
         position: relative;
         width: 100%;
         max-width: 525px;
-        padding: 30px 20px;
+        padding: 30px 12px;
         height: 100vh;
-        background: #E7EBF4; 
+        background: #E7EBF4;
         transform: translateX(100vw);
         transition: 0.3s;
         overflow-y: scroll;
@@ -90,7 +90,7 @@
             line-height: 40px;
             margin-bottom: 5px;
         }
-    } 
+    }
 
     &__form {
         font-family: $DomaineText;
@@ -111,23 +111,22 @@
         input {
             background: transparent;
             font-family: $DomaineText;
-            font-style: italic;
             font-weight: 500;
             font-size: 28px;
             line-height: 40px;
             color: #4161A5;
             border: none;
             border-bottom: 1px dashed #4161A5;
-    
+            margin-left: 5px;
             @include breakpoint-up('md') {
                 margin-left: 8px;
                 font-size: 28px;
                 line-height: 40px;
             }
-    
+
             &[name="weight"] {
                 width: 90px;
-    
+
                 &:before {
                     content: "lbs"
                 }
@@ -135,7 +134,7 @@
         }
 
         .input-wrapper {
-                       
+
             @include breakpoint-up('md') {
                 display: flex;
                 flex-direction: row;
@@ -180,9 +179,9 @@
 
         .react-datepicker-wrapper {
             width: max-content;
-            
+
             input {
-                max-width: 150px;
+                max-width: 125px;
             }
 
             @include breakpoint-up('md') {
@@ -191,7 +190,7 @@
                 }
             }
         }
-    
+
         .suffix {
             font-family: $DomaineText;
             font-style: italic;
@@ -201,14 +200,14 @@
             color: #4161A5;
             transform:translate(-35px, 1px);
             position: absolute;
-    
+
             @include breakpoint-up('md') {
                 font-size: 28px;
                 line-height: 40px;
                 transform: translate(225px, 0px);
             }
         }
-    
+
     }
 
     &__copy {
@@ -292,7 +291,7 @@
                     color: #fff;
                 }
             }
-            
+
         }
     }
 
@@ -328,7 +327,7 @@
                     top: -20px;
                     position: absolute;
                     background: #B8C4DD;;
-                    
+
                 }
 
                 &:after {

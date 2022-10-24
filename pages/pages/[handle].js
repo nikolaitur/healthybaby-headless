@@ -5,11 +5,12 @@ import ContentSections from '@/components/Sections/ContentSections'
 
 export default function DynamicPage({ page, handle }) {
   const sections = page.fields.sections
+  const pageTitle = `${page.title} – Healthybaby`
 
   return (
     <>
       <Head>
-        <title>{page.title} &ndash; Healthybaby</title>
+        <title>{pageTitle}</title>
         <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

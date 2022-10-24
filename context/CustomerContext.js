@@ -98,7 +98,7 @@ export function CustomerProvider({ children }) {
 
     const multipassRedirectURL = multipass
       .withCustomerData({ email: customer.email })
-      .withDomain('healthybaby-dev.myshopify.com')
+      .withDomain(process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN)
       .url()
 
     if (customer?.addresses?.edges.length > 0) {

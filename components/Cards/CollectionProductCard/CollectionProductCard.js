@@ -61,8 +61,6 @@ const CollectionProductCard = forwardRef(({
     { minWidth: 1074 }
   )
 
-  console.log(content)
-
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
@@ -93,8 +91,7 @@ const CollectionProductCard = forwardRef(({
       modalContext.setIsOpen(true)
       modalContext.setContent({
         product,
-        page: pages[0],
-        className: 'quickview',
+        page: pages[0]
       })
     }
   }
@@ -176,14 +173,10 @@ const CollectionProductCard = forwardRef(({
   }
 
   const getCtaText = () => {
-    if (content.fields?.ctaText) {
-      return content.fields.ctaText
+    if (product && product.variants.length > 1) {
+      return 'Quick View -'
     } else {
-      if (product && product.variants.length > 1) {
-        return 'Quick View -'
-      } else {
-        return 'Add To Cart - '
-      }
+      return 'Add To Cart - '
     }
   }
 

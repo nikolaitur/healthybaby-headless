@@ -16,13 +16,13 @@ import CollectionProductCard from '../../Cards/CollectionProductCard'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 
 const BestSellers = ({ content }) => {
-    const { header } = content.fields
+    const { header, sections, ctaText, ctaUrl, ctaColor } = { ...content.fields}
     // const { products } = content.fields
     const [products, setProducts] = useState(false)
 
     useEffect(() => {
-        const getProducts = async () => {   
-            if(content.fields?.sections) {
+        const getProducts = async () => {
+            if(sections) {
                 const productHandles = content.fields.sections.filter(section => {
                     if (section.fields.handle) return section
                 }).map(section => section.fields.handle.replace('::en-US', ''))
@@ -30,7 +30,7 @@ const BestSellers = ({ content }) => {
                 const productsData = await nacelleClient.products({
                     handles: productHandles
                 })
-    
+
                 setProducts(productsData)
             }
         }
@@ -47,15 +47,15 @@ const BestSellers = ({ content }) => {
                 <div className="best-sellers__content">
                     <h2 className="best-sellers__header">{parse(header)}</h2>
                     <div className="best-sellers__link">
-                        <Link href="/">
-                            <div className="best-sellers__button">
-                                <span>Shop All</span>
+                        {(ctaUrl && ctaText) && <Link href={ctaUrl}>
+                            <div className="best-sellers__button" style={{'color': ctaColor}}>
+                                <span>{ctaText}</span>
                                 <span><LongArrowRight /></span>
                             </div>
-                        </Link>
+                        </Link>}
                     </div>
                 </div>
-                {/* {content.fields?.sections && products ? (
+                {/* {sections && products ? (
                     <>
                         <div className="product-cross-sells__items">
                             {content.fields.sections.map((item, index) => {
@@ -82,7 +82,7 @@ const BestSellers = ({ content }) => {
                     </>
 
                 ) : ""} */}
-                {content.fields?.sections && products ? (
+                {sections && products ? (
                     <div className="best-sellers__slider">
                         <Swiper
                             className="best-sellers__slider--desktop"
@@ -96,7 +96,7 @@ const BestSellers = ({ content }) => {
                                 "--swiper-pagination-color": "#fff",
                             }}
                         >
-                           {content.fields.sections.map((item, index) => (
+                           {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
                                     <CollectionProductCard content={item} key={index} products={products}/>
                                 </SwiperSlide>
@@ -119,7 +119,7 @@ const BestSellers = ({ content }) => {
                                 "--swiper-pagination-color": "#fff",
                             }}
                         >
-                            {content.fields.sections.map((item, index) => (
+                            {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
                                     <CollectionProductCard content={item} key={index} products={products}/>
                                 </SwiperSlide>

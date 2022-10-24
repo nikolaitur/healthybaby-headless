@@ -60,8 +60,7 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
           modalContext.setIsOpen(true)
           modalContext.setContent({
             product,
-            page: pages[0],
-            className: 'quickview',
+            page: pages[0]
           })
         }
     }

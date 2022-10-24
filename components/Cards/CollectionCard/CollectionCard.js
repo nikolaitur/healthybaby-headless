@@ -20,7 +20,7 @@ const CollectionCard = ({ content }) => {
                 />}
             </div>
             <div className="collection-card__cta">
-                <Link href={ctaUrl}>
+                <Link href={ctaUrl || ''}>
                     <button className="btn">{ctaText}</button>
                 </Link>
             </div>

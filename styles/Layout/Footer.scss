@@ -361,25 +361,28 @@ $NeutraText: 'NeutraText';
     &__detail {
         position: absolute;
         z-index: -1;
-        display: none;
 
-        @include breakpoint-up('md') {
-            display: block;
+        &--desktop {
+            display: none;
+            @include breakpoint-up('md') {
+                display: block;
+            }
         }
 
-        svg {
-            width: 540px;
-            height: 405px;
+        &--mobile {
+            @include breakpoint-up('md') {
+                display: none;
+            }
         }
 
-        &--1 {
+        &--desktop-1 {
             width: 540px;
             height: 405px;
             left: 0px;
             top: 90px;
         }
 
-        &--2 {
+        &--desktop-2 {
             right: -30px;
             bottom: -3px;
 
@@ -396,6 +399,23 @@ $NeutraText: 'NeutraText';
                 height: 387px;
             }
         }
+
+        &--mobile-1 {
+            top: 0px;
+            left: 0;
+        }
+
+        &--mobile-2 {
+            right: -230px;
+            top: 25%;
+        }
+
+        &--mobile-3 {
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
     }
 
     .accordion-item {

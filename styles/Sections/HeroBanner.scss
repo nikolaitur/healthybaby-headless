@@ -18,10 +18,10 @@
     &--video {
         height: auto;
         .hero__image {
-            position: static;
+            position: absolute;
         }
         .hero__container {
-            position: absolute;
+            position: relative;
             z-index: 1;
             height: 100%;
             top: 0;
@@ -29,7 +29,14 @@
             right: 0;
             bottom: 0;
         }
+
+        &.hero--video-is-playing {
+            .hero__image {
+                z-index: 2;
+            }
+        }
     }
+
 
     &__image {
         position: absolute;
@@ -196,12 +203,6 @@
 
         span:last-child {
             margin-left: 20px;
-        }
-    }
-
-    .hero-video__video-player {
-        @include breakpoint-down('sm') {
-            height: 75vw !important;
         }
     }
 }

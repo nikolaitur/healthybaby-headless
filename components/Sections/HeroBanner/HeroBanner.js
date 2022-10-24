@@ -10,8 +10,6 @@ import PlayIcon from '@/svgs/play-icon.svg'
 
 const HeroBanner = ({ content }) => {
 
-    console.log("content:", content)
-
     const { title, subtitle, subtitlePosition, featuredMedia, mobileBackgroundImage, ctaText, ctaUrl, alignment, verticalAlignment, hideCta, videoLink } = {...content.fields}
 
     const [hasWindow, setHasWindow] = useState(false)
@@ -36,7 +34,7 @@ const HeroBanner = ({ content }) => {
       }, [])
 
     return (
-        <section className={`hero ${isVideo || videoLink ? 'hero--video' : ''}`}>
+        <section className={`hero ${isVideo || videoLink ? 'hero--video' : ''} ${isPlaying ? 'hero--video-is-playing' : ''}`}>
             <div className="hero__image">
 
                 {hasWindow && videoLink ? (
@@ -72,7 +70,7 @@ const HeroBanner = ({ content }) => {
                     </>
                 }
             </div>
-            {!isPlaying && <div className={`hero__container hero__container--vertical-${verticalAlignment} hero__container--horizontal-${alignment} container`}>
+            <div className={`hero__container hero__container--vertical-${verticalAlignment} hero__container--horizontal-${alignment} container`}>
                 <div className="hero__content">
                     <div className="hero__content-header">
                         {subtitleTruePosition === 'above title' && <h4 className="hero__subheader">{ subtitle }</h4>}
@@ -82,7 +80,7 @@ const HeroBanner = ({ content }) => {
 
                     {videoLink ? (
                         <button
-                            className={`hero-video__icon ${isPlaying ? 'hide' : ''}`}
+                            className={`hero-video__icon`}
                             onClick={() => playVideo()}
                         >
                             <PlayIcon />
@@ -101,7 +99,7 @@ const HeroBanner = ({ content }) => {
                     )}
 
                 </div>
-            </div>}
+            </div>
         </section>
     )
 }
