@@ -354,6 +354,7 @@ const DiaperFinder = ({ content }) => {
                   {diaperFinderData.gender == 'They' ? 'were' : 'was'} born on{' '}
                 </span>
                 <DatePicker
+                  dateFormat="MM/dd/yy"
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   placeholderText="MM/DD/YY"
