@@ -64,7 +64,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
   const openMobileMenu = () => {
     setMobileMenuOpen(true)
     setmegaMenuIsOpen(true)
-    lockScroll(true)
+    lockScroll(0)
   }
 
   const closeMobileMenu = () => {

@@ -1,9 +1,5 @@
-export const lockScroll = (fixedTop = false) => {
-  if (fixedTop) {
-    document.body.style.top = `0`
-  } else {
-    document.body.style.top = `-${window.scrollY}px`
-  }
+export const lockScroll = (top = window.scrollY) => {
+  document.body.style.top = `-${top}px`
   document.body.style.left = '0'
   document.body.style.right = '0'
   document.body.style.position = 'fixed'
