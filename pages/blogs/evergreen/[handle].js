@@ -9,10 +9,12 @@ import ArticleSectionsContent from '../../../components/Article/ArticleSectionsC
 import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
 
 function Article({ article }) {
+  const pageTitle = `${article.title} – Healthybaby`
+
   return (
     <>
       <Head>
-        <title>{article.title} &ndash; Healthybaby</title>
+        <title>{pageTitle}</title>
         <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
