@@ -1,8 +1,7 @@
 .subscribe-info-modal {
-    min-width: 320px;
+    width: 100%;
     background: #fff;
-    padding: 30px 20px; 
-    max-width: 320px;
+    padding: 30px 20px;
 
     &__header {
         font-family: $DomaineText;

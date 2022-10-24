@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
 
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
@@ -13,53 +11,27 @@ const DiaperFinderCard = ({ content, refs, index }) => {
 
     const diaperCalculatorContext = useDiaperCalculatorContext()
 
-    let intialValues = {
-        birthday: new Date(),
-        weight: "10"
-    }
-
-    const [isActive, setIsActive] = useState(false);
-    const [birthday, setBirthday] = useState(new Date());
-    const [diaperFinderData, setDiaperFinderData] = useState(intialValues);
     const [maxHeight, setMaxHeight] = useState('100%')
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-
-        // setDiaperFinderData(diaperFinderData => ({
-        //     ...diaperFinderData,
-        //     birthday,
-        //     [name]: value,
-        // }))
-
         let data = {
             birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
             weight: Number(value)
         }
-
         diaperCalculatorContext.setDiaperCalculatorData(data)
-
-        // diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
     };
 
     const handleDateChange = (date) => {
-        setBirthday(date)
-        setDiaperFinderData(diaperFinderData => ({
-            ...diaperFinderData,
-            birthday: date
-        }))
-
         let data = {
             birthday: date,
             weight: diaperCalculatorContext.diaperCalculatorData.weight
         }
-
         diaperCalculatorContext.setDiaperCalculatorData(data)
     }
 
     const openDiaperCalculator = () => {
         diaperCalculatorContext.setIsOpen(true)
-        // diaperCalculatorContext.setDiaperCalculatorData(diaperFinderData)
     }
 
     useEffect(() => {
@@ -102,7 +74,7 @@ const DiaperFinderCard = ({ content, refs, index }) => {
                     <div className="diaper-finder-card__form">
                         <div className="input-wrapper birthday">
                             <span>{`Baby’s birthday`}</span>
-                            <DatePicker closeOnScroll={true} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="MM/DD/YY" />
+                            <DatePicker dateFormat="MM/dd/yy" closeOnScroll={true} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="00/00/00" />
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby’s weight`}</span>

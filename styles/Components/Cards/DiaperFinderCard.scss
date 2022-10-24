@@ -1,8 +1,8 @@
 .diaper-finder-card {
     // max-width: 570px;
-    background: #E7EBF4!important;
+    background: #f6f8fc!important;
     border-radius: 3px;
-    padding: 48px 28px 35px;
+    padding: 48px 20px 35px;
     display: flex;
     align-items: center;
     position: relative;
@@ -131,14 +131,13 @@
         input {
             background: transparent;
             font-family: $DomaineText;
-            font-style: italic;
             font-weight: 500;
             font-size: 28px;
             line-height: 1;
             color: #A0B0D2;
             border: none;
             border-bottom: 1px dashed #A0B0D2;
-
+            margin-left: 5px;
             @include breakpoint-up('xl') {
                 margin-left: 8px;
                 font-size: 36px;
@@ -146,22 +145,16 @@
             }
 
             &[name="weight"] {
-                width: 100px;
-
-                // &:before {
-                //     content: "lbs"
-                // }
+                width: 40px;
+                text-align: right;
             }
         }
 
         .input-wrapper {
             display: flex;
-            justify-content: space-evenly;
-            flex-direction: column;
             @include breakpoint-up(400px) {
-                align-items: center;
+                justify-content: center;
             }
-
             @include breakpoint-up('xl') {
                 flex-direction: row;
             }
@@ -179,6 +172,11 @@
                 @include breakpoint-up('xl') {
                     max-width: 100%;
                 }
+            }
+
+            &.weight,
+            &.birthday {
+                margin: 0 0 20px;
             }
 
 
@@ -214,13 +212,12 @@
         .react-datepicker-wrapper {
             width: max-content;
             input {
-                width: 210px;
+                width: 125px;
             }
         }
 
         .suffix {
             font-family: $DomaineText;
-            font-style: italic;
             font-weight: 500;
             font-size: 32px;
             line-height: 32px;
