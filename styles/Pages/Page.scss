@@ -15,6 +15,11 @@
     @media screen and (min-width: 1074px) and  (max-height:900px) {
       height: 600px;
     }
+    .hero__content {
+      @include breakpoint-down('xs') {
+        text-align: center;
+      }
+    }
   }
   .article-content {
     margin-top: 70px;
