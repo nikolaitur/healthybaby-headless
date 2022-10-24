@@ -10,8 +10,6 @@ import SubscribeModal from '../../Product/SubscribeModal'
 
 const Modal = ({props, children, modalLevel = 'primary'}) => {
 
-  const { className } = {...children}
-
   const modalContext = useModalContext()
 
   const getContent = (children) => {
