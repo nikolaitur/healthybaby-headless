@@ -23,6 +23,8 @@ import Cart from '../../../svgs/cart.svg'
 import CloseIcon from '../../../svgs/close-icon.svg'
 import CaretRight from '../../../svgs/caret-right.svg'
 
+import { unlockScroll, lockScroll } from '@/utils/scroll'
+
 const MainNavigation = forwardRef(({ props }, ref) => {
   const customerContext = useCustomerContext()
   const modalContext = useModalContext()
@@ -59,25 +61,10 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     modalContext.setIsOpen(true)
   }
 
-  const unlockScroll = () => {
-    document.body.style.position = ''
-    document.body.style.top = ''
-    document.body.style.left = ''
-    document.body.style.right = ''
-    window.scrollTo(0, parseInt('0') * -1)
-  }
-
-  const lockScroll = () => {
-    document.body.style.position = 'fixed'
-    document.body.style.top = `-${window.scrollY}px`
-    document.body.style.left = '0'
-    document.body.style.right = '0'
-  }
-
   const openMobileMenu = () => {
     setMobileMenuOpen(true)
     setmegaMenuIsOpen(true)
-    lockScroll()
+    lockScroll(true)
   }
 
   const closeMobileMenu = () => {

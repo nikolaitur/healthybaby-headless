@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import Modal from '../components/Layout/Modal'
 import Router, { useRouter } from 'next/router'
+import { unlockScroll, lockScroll } from '@/utils/scroll'
 
 const ModalContext = createContext()
 
@@ -18,8 +19,10 @@ export function ModalProvider({ children }) {
   useEffect(() => {
      if(isOpen) {
       document.body.classList.add("no-scroll")
+      lockScroll()
     } else {
       document.body.classList.remove("no-scroll")
+      unlockScroll()
     }
   }, [isOpen])
 
