@@ -4,10 +4,11 @@ import Head from 'next/head'
 
 export default function Custom404({ page }) {
     const { header, subheader, description } = {...page.fields}
+    const pageTitle = '404 Page Not Found – Healthybaby'
     return (
       <>
         <Head>
-          <title>404 Page Not Found &ndash; Healthybaby</title>
+          <title>{pageTitle}</title>
           <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
           <link rel="icon" href="/favicon.ico" />
         </Head>

@@ -10,10 +10,12 @@ import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
 import ArticleHeroHowWow from '@/components/Article/ArticleHeroHowWow'
 
 function Article({ article }) {
+  const pageTitle = `${article.title} – Healthybaby`
+
   return (
     <>
       <Head>
-        <title>{article.title} &ndash; Healthybaby</title>
+        <title>{pageTitle}</title>
         <meta
           name="description"
           content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby"

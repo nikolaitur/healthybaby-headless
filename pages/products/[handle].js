@@ -12,11 +12,14 @@ function Product({ product, page, productBadges }) {
   useEffect(() => {
     dataLayerViewProduct({ product })
   }, [])
+
+  const pageTitle = `${product.content.title} – Healthybaby`
+  
   return (
     product && (
       <>
         <Head>
-          <title>{product.content.title} &ndash; Healthybaby</title>
+          <title>{pageTitle}</title>
           <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
           <link rel="icon" href="/favicon.ico" />
         </Head>

@@ -22,10 +22,12 @@ function Collection(props) {
     }
   })
 
+  const pageTitle = `${collection.title} – Healthybaby`
+
   return (
     <>
       <Head>
-        <title>{collection.title} &ndash; Healthybaby</title>
+        <title>{pageTitle}</title>
         <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
