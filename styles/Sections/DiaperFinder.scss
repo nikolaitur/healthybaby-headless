@@ -1,614 +1,610 @@
 .diaper-finder {
-    padding: 80px 0 60px;
-    // background: #D0D8E9;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+  padding: 80px 0 60px;
+  // background: #D0D8E9;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  @include breakpoint-up('md') {
+    min-height: 100vh;
+  }
+
+  &__subheader {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  &__form {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
+    color: $primaryBrown;
+    margin-bottom: 60px;
 
     @include breakpoint-up('md') {
-        min-height: 100vh;
+      font-size: 38px;
+      line-height: 38px;
+      margin-bottom: 90px;
     }
 
-    &__subheader {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: $primaryBrown;
-        text-transform: uppercase;
-        margin-bottom: 30px;
+    @media only screen and (min-width: 1200px) {
+      font-size: 40px;
+      line-height: 40px;
     }
 
-    &__form {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
-        color: $primaryBrown;
-        margin-bottom: 60px;
+    @media only screen and (min-width: 1300px) {
+      font-size: 42px;
+      line-height: 42px;
+    }
 
+    @media only screen and (min-width: 1400px) {
+      font-size: 52px;
+      line-height: 52px;
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: 62px;
+      line-height: 62px;
+    }
+
+    input {
+      background: transparent;
+      font-family: $DomaineText;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 32px;
+      color: #a0b0d2;
+      border: none;
+      border-bottom: 1px dashed #a0b0d2;
+      margin-top: 5px;
+
+      @include breakpoint-up('md') {
+        font-size: 38px;
+        line-height: 38px;
+        margin-left: 8px;
+        margin-top: 0;
+      }
+
+      @media only screen and (min-width: 1200px) {
+        font-size: 40px;
+        line-height: 40px;
+      }
+
+      @media only screen and (min-width: 1300px) {
+        font-size: 42px;
+        line-height: 42px;
+      }
+
+      @media only screen and (min-width: 1400px) {
+        font-size: 52px;
+        line-height: 52px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 62px;
+        line-height: 62px;
+      }
+
+      &[name='baby-name'] {
         @include breakpoint-up('md') {
-            font-size: 38px;
-            line-height: 38px;
-            margin-bottom: 90px;
+          width: 250px;
         }
+      }
 
-        @media only screen and (min-width: 1200px) {
-            font-size: 40px;
-            line-height: 40px;
+      &[name='birthday'] {
+        width: 350px;
+      }
+
+      &[name='weight'] {
+        width: 170px;
+
+        &:before {
+          content: 'lbs';
         }
-
-        @media only screen and (min-width: 1300px) {
-            font-size: 42px;
-            line-height: 42px;
-        }
-
-        @media only screen and (min-width: 1400px) {
-            font-size: 52px;
-            line-height: 52px;
-        }
-
-        @include breakpoint-up('xl') {
-            font-size: 62px;
-            line-height: 62px;
-        }
-
-        input {
-            background: transparent;
-            font-family: $DomaineText;
-            font-style: italic;
-            font-weight: 500;
-            font-size: 32px;
-            line-height: 32px;
-            color: #A0B0D2;
-            border: none;
-            border-bottom: 1px dashed #A0B0D2;
-            margin-top: 5px;
-
-            @include breakpoint-up('md') {
-                font-size: 38px;
-                line-height: 38px;
-                margin-left: 8px;
-                margin-top: 0;
-            }
-    
-            @media only screen and (min-width: 1200px) {
-                font-size: 40px;
-                line-height: 40px;
-            }
-    
-            @media only screen and (min-width: 1300px) {
-                font-size: 42px;
-                line-height: 42px;
-            }
-    
-            @media only screen and (min-width: 1400px) {
-                font-size: 52px;
-                line-height: 52px;
-            }
-    
-            @include breakpoint-up('xl') {
-                font-size: 62px;
-                line-height: 62px;
-            }
-
-            &[name="baby-name"] {
-                
-                @include breakpoint-up('md') {
-                    width: 250px;
-                }
-            }
-
-            &[name="birthday"] {
-                width: 350px;
-            }
-
-            &[name="weight"] {
-                width: 170px;
-
-                &:before {
-                    content: "lbs"
-                }
-            }
-        }
-
-        .react-datepicker {
-            font-family: $NeutraText;
-            background: #A0B0D2;
-            font-size: 1.2rem;
-
-            &__week {
-                height: 35px;
-                display: flex;
-                align-items: center;
-            }
-
-            &__day {
-                color: #fff;
-                margin: 0 0.166rem;
-
-                &--selected,
-                &--keyboard-selected {
-                    background: #C2CDC6;
-                }
-            }
-        }
-
-        .react-datepicker-wrapper {
-            input {
-                width: 350px;
-            }
-        }
-
-        .suffix {
-            font-family: $DomaineText;
-            font-style: italic;
-            font-weight: 500;
-            font-size: 32px;
-            line-height: 32px;
-            color: #A0B0D2;
-            transform: translate(-80px, 6px);
-            position: absolute;
-
-            @include breakpoint-up('md') {
-                font-size: 38px;
-                line-height: 38px;
-                transform: translate(-80px, 1px);
-            }
-    
-            @media only screen and (min-width: 1200px) {
-                font-size: 40px;
-                line-height: 40px;
-                transform: translate(-80px, 1px);
-            }
-    
-            @media only screen and (min-width: 1300px) {
-                font-size: 42px;
-                line-height: 42px;
-                transform: translate(-80px, 0px);
-            }
-    
-            @media only screen and (min-width: 1400px) {
-                font-size: 52px;
-                line-height: 52px;
-                transform: translate(-80px, 1px);
-            }
-    
-            @include breakpoint-up('xl') {
-                font-size: 62px;
-                line-height: 62px;
-                transform: translate(-80px, 0px);
-            }
-            
-        }
+      }
     }
 
-    &__container {
-        z-index: 1; 
+    .react-datepicker {
+      font-family: $NeutraText;
+      background: #a0b0d2;
+      font-size: 1.2rem;
 
-        @include breakpoint-up('md') {
-            display: flex;
-            align-items: center;
-        }
-    }
-
-    &__content {
-        @include breakpoint-up('md') {
-            width: 65%;
-            padding-bottom: 100px;
-        }
-
-    }
-
-    &__form {
-        position: relative;
-
-        > span {
-            display: block;
-            margin-bottom: 20px;
-
-            @include breakpoint-up('md') {
-                margin-bottom: 0;
-                display: flex;
-                align-items: center;
-
-                &:not(:last-child) {
-                    margin-bottom: 20px;
-                }
-            }
-        }
-
-        .weight {
-            display: flex;
-            align-items: center;
-
-            input {
-                margin-left: 8px;
-            }
-        }
-    }
-
-    &__select {
-        display: inline-block;
-        position: absolute;
-        // max-width: 100px;
-        left: -12px;
-    }
-
-    .select-line {
-        @include breakpoint-up('md') {
-            display: flex;
-            align-items: center;
-
-            > span {
-                width: 100%;
-            }
-        }
-    }
-
-    &__cta {
-        // font-family: $NeutraText;
-        // font-style: normal;
-        // font-weight: 500;
-        // font-size: 18px;
-        // line-height: 22px;
-        // display: flex;
-        // align-items: center;
-        // letter-spacing: 0.02em;
-        // color: #3D3331;
-        // background: #fff;
-        // padding: 19px 70px;
-        // max-width: max-content;
-        // border-radius: 60px;
-        // max-width: 350px;
-        // cursor: pointer;
-        // margin: 0 auto;
-
-        // @include breakpoint-up('md') {
-        //     display: flex;
-        //     align-items: center;
-        //     margin: 0;
-        // }
-    }
-
-    &__clear {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        letter-spacing: 0.02em;
-        color: #3D3331;
+      &__week {
+        height: 35px;
         display: flex;
+        align-items: center;
+      }
+
+      &__day {
+        color: #fff;
+        margin: 0 0.166rem;
+
+        &--selected,
+        &--keyboard-selected {
+          background: #c2cdc6;
+        }
+      }
+    }
+
+    .react-datepicker-wrapper {
+      input {
+        width: 350px;
+      }
+    }
+
+    .suffix {
+      font-family: $DomaineText;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 32px;
+      color: #a0b0d2;
+      transform: translate(-80px, 6px);
+      position: absolute;
+
+      @include breakpoint-up('md') {
+        font-size: 38px;
+        line-height: 38px;
+        transform: translate(-80px, 1px);
+      }
+
+      @media only screen and (min-width: 1200px) {
+        font-size: 40px;
+        line-height: 40px;
+        transform: translate(-80px, 1px);
+      }
+
+      @media only screen and (min-width: 1300px) {
+        font-size: 42px;
+        line-height: 42px;
+        transform: translate(-80px, 0px);
+      }
+
+      @media only screen and (min-width: 1400px) {
+        font-size: 52px;
+        line-height: 52px;
+        transform: translate(-80px, 1px);
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 62px;
+        line-height: 62px;
+        transform: translate(-80px, 0px);
+      }
+    }
+  }
+
+  &__container {
+    z-index: 1;
+
+    @include breakpoint-up('md') {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__content {
+    @include breakpoint-up('md') {
+      width: 65%;
+      padding-bottom: 100px;
+    }
+  }
+
+  &__form {
+    position: relative;
+
+    > span {
+      display: block;
+      margin-bottom: 20px;
+
+      @include breakpoint-up('md') {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .weight {
+      display: flex;
+      align-items: center;
+
+      input {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &__select {
+    display: inline-block;
+    position: absolute;
+    // max-width: 100px;
+    left: -12px;
+    min-width: fit-content;
+  }
+
+  .select-line {
+    @include breakpoint-up('md') {
+      display: flex;
+      align-items: center;
+
+      > span {
+        width: 100%;
+      }
+    }
+  }
+
+  &__cta {
+    // font-family: $NeutraText;
+    // font-style: normal;
+    // font-weight: 500;
+    // font-size: 18px;
+    // line-height: 22px;
+    // display: flex;
+    // align-items: center;
+    // letter-spacing: 0.02em;
+    // color: #3D3331;
+    // background: #fff;
+    // padding: 19px 70px;
+    // max-width: max-content;
+    // border-radius: 60px;
+    // max-width: 350px;
+    // cursor: pointer;
+    // margin: 0 auto;
+
+    // @include breakpoint-up('md') {
+    //     display: flex;
+    //     align-items: center;
+    //     margin: 0;
+    // }
+  }
+
+  &__clear {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    color: #3d3331;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    // position: absolute;
+    margin: 45px 0 0;
+    // left: 50%;
+    // transform: translateX(-50%);
+
+    @include breakpoint-up('md') {
+      width: 410px;
+      left: 0;
+      transform: translateX(0);
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__image {
+    // height: 350px;
+
+    @include breakpoint-up('md') {
+      position: absolute;
+      right: -110px;
+      overflow: hidden;
+      top: 50%;
+      transform: translateY(-50%);
+      height: auto;
+      max-width: 65%;
+      z-index: -1;
+    }
+
+    &--desktop {
+      display: none !important;
+
+      @include breakpoint-up('md') {
+        display: block !important;
+      }
+    }
+
+    &--mobile {
+      img {
+        width: 100%;
+        object-fit: contain;
+        width: 100% !important;
+        position: relative !important;
+        height: unset !important;
+      }
+      @include breakpoint-up('md') {
+        display: none !important;
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    img {
+      height: 350px;
+      object-fit: cover;
+
+      @include breakpoint-up('md') {
+        height: auto;
+      }
+    }
+
+    span {
+      padding-top: 0 !important;
+    }
+  }
+
+  &__results {
+    margin-top: 100px;
+    @include breakpoint-up('md') {
+      margin-top: 0;
+      width: 40%;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    > div {
+      margin-bottom: 30px;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+  &__product,
+  &__article {
+    position: relative;
+    background: #e7ebf4;
+    padding: 25px;
+
+    @include breakpoint-up('md') {
+      padding: 35px 35px 30px;
+    }
+  }
+
+  &__product {
+    &--banner {
+      position: absolute;
+      right: 0;
+      text-align: center;
+      background: #ffedc0;
+      transform: rotate(25deg);
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 18px;
+      letter-spacing: 0.15em;
+      color: #3d3331;
+      padding: 20px 25px;
+      border-radius: 100%;
+      top: -25px;
+      right: -50px;
+      display: none;
+
+      @include breakpoint-up('md') {
+        display: block;
+      }
+    }
+
+    &--container {
+      // display: flex;
+    }
+
+    &--image {
+      width: 100%;
+      background: #fff;
+
+      @include breakpoint-up('md') {
+        display: block;
+        height: 490px;
+      }
+
+      img {
+        width: 100%;
+        object-fit: contain;
+        width: 100% !important;
+        position: relative !important;
+        height: unset !important;
+
+        @include breakpoint-up('md') {
+          height: 490px !important;
+        }
+      }
+
+      span {
+        padding-top: 0 !important;
+      }
+    }
+
+    &--content {
+      // @include breakpoint-up('md') {
+      //     margin-left: 35px;
+      // }
+      margin-bottom: 10px;
+    }
+
+    &--bullets {
+      li {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        font-family: $NeutraText;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 14px;
+        letter-spacing: -0.01em;
+        color: #3d3331;
+
+        &:first-child {
+          margin-top: 20px;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+
+        span:first-child {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    &--cta {
+      // font-family: $NeutraText;
+      // font-style: normal;
+      // font-weight: 500;
+      // font-size: 18px;
+      // line-height: 22px;
+      // display: flex;
+      // align-items: center;
+      // letter-spacing: 0.02em;
+      // color: #fff;
+      // background: #00B188;
+      // padding: 19px 0px;
+      // border-radius: 60px;
+      // width: 100%;
+      // display: flex;
+      // justify-content: center;
+      margin-top: 30px;
+
+      .btn {
+        padding: 19px 20px;
+        max-width: 100%;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        text-align: center;
-        cursor: pointer;
-        // position: absolute;
-        margin: 45px 0 0;
-        // left: 50%;
-        // transform: translateX(-50%);
+      }
+
+      span:last-child {
+        margin-left: 20px;
+        display: none;
 
         @include breakpoint-up('md') {
-            width: 410px;
-            left: 0;
-            transform: translateX(0);
+          display: block;
         }
+      }
 
-        &.hidden {
-            display: none;
+      svg {
+        path {
+          fill: #fff;
         }
+      }
     }
 
-    &__image {
-        // height: 350px;
+    &--delivery {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 14px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: $primaryBrown;
+      text-align: center;
+      margin-top: 20px;
 
-        @include breakpoint-up('md') {
-            position: absolute;
-            right: -110px;
-            overflow: hidden;
-            top: 50%;
-            transform: translateY(-50%);
-            height: auto;
-            max-width: 65%;
-            z-index: -1;
-        }
+      .bullet {
+        padding: 0 15px;
+      }
+    }
+  }
 
-        &--desktop {
-            display: none!important;
+  &__title {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    color: #3d3331;
+    margin-bottom: 10px;
 
-            @include breakpoint-up('md') {
-                display: block!important;
-            }
-        }
+    @include breakpoint-up('md') {
+      font-size: 28px;
+      line-height: 28px;
+    }
+  }
 
-        &--mobile {
-            img {
-                width: 100%;
-                object-fit: contain;
-                width: 100% !important;
-                position: relative !important;
-                height: unset !important;
+  &__copy {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    color: #3d3331;
+    margin-bottom: 30px;
 
-            }
-            @include breakpoint-up('md') {
-                display: none!important;
-            }
-        }
-        
-        &.hidden {
-            display: none;
-        }
+    @include breakpoint-up('md') {
+      font-size: 22px;
+      line-height: 31px;
+      margin-bottom: 60px;
+    }
+  }
 
-        img {
-            height: 350px;
-            object-fit: cover;
+  &__link {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.02em;
+    color: #3d3331;
 
-            @include breakpoint-up('md') {
-                height: auto;
-            }
-        }
-
-        span {
-            padding-top: 0!important;
-        }
+    @include breakpoint-up('md') {
+      font-size: 18px;
+      line-height: 22px;
     }
 
-    &__results {
-        margin-top: 100px;
-        @include breakpoint-up('md') {
-            margin-top: 0;
-            width: 40%;
-        }
-
-        &.hidden {
-            display: none;
-        }
-
-        > div {
-            margin-bottom: 30px;
-
-            &:last-child {
-                margin-bottom: 0px;
-            }
-        }
+    span:last-child {
+      margin-left: 20px;
     }
+  }
 
-    &__product,
-    &__article {
-        position: relative;
-        background: #E7EBF4;
-        padding: 25px;
+  &__detail {
+    position: absolute;
+    bottom: -4px;
+    right: 0;
+    z-index: 0;
+  }
 
-        @include breakpoint-up('md') {
-            padding: 35px 35px 30px;
-        }
-    }
+  ::placeholder {
+    color: #a0b0d2;
+  }
 
-    &__product {
+  :-ms-input-placeholder {
+    color: #a0b0d2;
+  }
 
-        &--banner {
-            position: absolute;    
-            right: 0;
-            text-align: center;
-            background: #FFEDC0;
-            transform: rotate(25deg);
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 18px;
-            letter-spacing: 0.15em;
-            color: #3D3331;
-            padding: 20px 25px;
-            border-radius: 100%;
-            top: -25px;
-            right: -50px;
-            display: none;
-
-            @include breakpoint-up('md') {
-                display: block;
-            }
-        }
-
-        &--container {
-           // display: flex;
-        }
-
-        &--image {
-            width: 100%;
-            background: #fff;
-
-            @include breakpoint-up('md') {
-                display: block;
-                height: 490px;
-            }
-
-            img {
-                width: 100%;
-                object-fit: contain;
-                width: 100% !important;
-                position: relative !important;
-                height: unset !important;
-
-                @include breakpoint-up('md') {
-                    height: 490px!important;
-                }
-            }
-
-            span {
-                padding-top: 0!important;
-            }
-        }
-
-        &--content {
-            // @include breakpoint-up('md') {
-            //     margin-left: 35px;
-            // }
-            margin-bottom: 10px;
-        }
-
-        &--bullets {
-            li {
-                list-style: none;
-                display: flex;
-                align-items: center;
-                font-family: $NeutraText;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 14px;
-                line-height: 14px;
-                letter-spacing: -0.01em;
-                color: #3D3331;
-
-                &:first-child {
-                    margin-top: 20px;
-                }
-
-                &:not(:last-child) {
-                    margin-bottom: 10px;
-                }
-
-                span:first-child {
-                    margin-right: 10px;
-                }
-            }
-        }
-
-        &--cta {
-            // font-family: $NeutraText;
-            // font-style: normal;
-            // font-weight: 500;
-            // font-size: 18px;
-            // line-height: 22px;
-            // display: flex;
-            // align-items: center;
-            // letter-spacing: 0.02em;
-            // color: #fff;
-            // background: #00B188;
-            // padding: 19px 0px;
-            // border-radius: 60px;
-            // width: 100%;
-            // display: flex;
-            // justify-content: center;
-            margin-top: 30px;
-
-            .btn {
-                padding: 19px 20px;
-                max-width: 100%;
-                align-items: center;
-                justify-content: center;
-            }
-
-            span:last-child {
-                margin-left: 20px;
-                display: none;
-
-                @include breakpoint-up('md') {
-                    display: block;
-                }
-            }
-
-            svg {
-                path {
-                    fill: #fff;
-                }
-            }
-        }
-
-        &--delivery {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 14px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: $primaryBrown;
-            text-align: center;
-            margin-top: 20px;
-
-            .bullet {
-                padding: 0 15px;
-            }
-        }
-    }
-
-    &__title {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 18px;
-        color: #3D3331;
-        margin-bottom: 10px;
-
-        @include breakpoint-up('md') {
-            font-size: 28px;
-            line-height: 28px;
-        }
-    }
-
-    &__copy {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-        margin-bottom: 30px;
-
-        @include breakpoint-up('md') {
-            font-size: 22px;
-            line-height: 31px;
-            margin-bottom: 60px;
-        }
-    }
-
-    &__link {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-        display: flex;
-        align-items: center;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-
-        @include breakpoint-up('md') {
-            font-size: 18px;
-            line-height: 22px;
-        }
-
-        span:last-child {
-            margin-left: 20px;
-        }
-    }
-
-    &__detail {
-        position: absolute;
-        bottom: -4px;
-        right: 0;
-        z-index: 0;
-    }
-
-    ::placeholder {
-        color: #A0B0D2;
-    }
-
-    :-ms-input-placeholder {
-        color: #A0B0D2;
-    }
-
-    ::-ms-input-placeholder {
-        color: #A0B0D2;
-    }
+  ::-ms-input-placeholder {
+    color: #a0b0d2;
+  }
 }
