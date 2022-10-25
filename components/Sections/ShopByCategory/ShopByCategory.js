@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import parse from 'html-react-parser'
+import Image from 'next/image'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Lazy, Navigation } from "swiper";
@@ -10,10 +11,9 @@ import "swiper/css/navigation";
 
 import CollectionCard from '../../Cards/CollectionCard'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
-import HealthyBrain from '../../../svgs/healthy-brain.svg'
 
 const ShopByCategory = ({ content }) => {
-    const {header, subheader, collectionCards, ctaText, ctaUrl } = {...content.fields}
+    const {header, subheader, collectionCards, ctaText, ctaUrl, enableInfoBanner, infoBannerImage, infoBannerText  } = {...content.fields}
 
     return (
         <section className="shop-by-category">
@@ -70,11 +70,18 @@ const ShopByCategory = ({ content }) => {
                         ))}
                     </Swiper>
                 </div>
-                <div className="shop-by-category__info">
-                    <span><HealthyBrain /></span>
+                {enableInfoBanner && <div className="shop-by-category__info">
+                    {infoBannerImage?.fields?.file.url && <span>
+                        <Image
+                            src={`https:${infoBannerImage?.fields?.file.url}`}
+                            alt={header}
+                            width="48"
+                            height="48"
+                        />
+                    </span>}
                     <span className="divider"></span>
-                    <span>Pair our products with daily enrichment activities you can integrate with your baby’s routine</span>
-                </div>
+                    <span>{infoBannerText}</span>
+                </div>}
             </div>
         </section>
     )
