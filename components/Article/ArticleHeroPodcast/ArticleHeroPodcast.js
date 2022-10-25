@@ -49,7 +49,7 @@ const articleHeroPodcast = ({ content }) => {
                   return (
                     <span key={index}>
                       <span className="name">
-                        {author.fields.name}{' '}
+                        {author.fields?.name}{' '}
                         {index + 1 === row.length ? '' : '+'}
                       </span>
                       {index + 1 === row.length ? '' : <>&nbsp;&nbsp;</>}
