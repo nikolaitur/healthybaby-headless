@@ -1,74 +1,79 @@
 .modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &__overlay {
+    cursor: pointer;
     width: 100%;
-    z-index: 999;
+    height: 100%;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    opacity: 0.5;
+    background: #000;
+    filter: blur(0px);
+  }
 
-    &__overlay {
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0.5;
-        background: #000;
-        filter: blur(0px);
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    max-width: 575px;
+    padding: 0 30px;
+    z-index: 1;
+    @include breakpoint-up('md') {
+      padding: 0;
     }
+  }
 
-    &__content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        max-width: 575px;
-        padding: 0 30px;
-        z-index: 1;
-        @include breakpoint-up('md') {
-            padding: 0;
-        }
-    }
+  &__content-container {
+    position: relative;
+    overflow-y: auto;
+  }
 
-    &__content-container {
-        position: relative;
-        overflow-y: auto;
-    }
-
-    &__close {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        cursor: pointer;
-        z-index: 2;
-    }
+  &__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 2;
+  }
 }
 
 .modal.quickview {
-    .modal__content {
-        max-width: 90%;
-        max-width: 1235px;
-        width: 100vw;
-        padding: 0 10px;
+  .modal__content {
+    max-width: 90%;
+    max-width: 1235px;
+    width: 100vw;
+    padding: 0 10px;
 
-        @include breakpoint-up('md') {
-            padding: 0 30px;
-        }
+    @include breakpoint-up('md') {
+      padding: 0 30px;
+    }
+  }
+
+  .modal__close {
+    right: 20px;
+
+    svg {
+      width: 16px;
+      height: 16px;
     }
 
-    .modal__close {
-        right: 20px;
-
-        @include breakpoint-up('md') {
-            right: 40px;
-        }
+    @include breakpoint-up('md') {
+      right: 40px;
     }
+  }
 }
