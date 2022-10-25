@@ -23,9 +23,14 @@
   }
   svg {
     position: absolute;
-    top: calc(50% - 9px);
-    right: 25px;
+    top: calc(50% - 12px);
+    right: 20px;
     pointer-events: none;
+    width: 24px;
+    height: 24px;
+    @include breakpoint-up('sm') {
+      right: 25px;
+    }
   }
   input {
     background: #FFFFFF;

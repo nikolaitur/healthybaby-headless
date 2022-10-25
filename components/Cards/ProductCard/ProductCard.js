@@ -190,7 +190,7 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
                     ></span>
                     <span
                         className="junip-product-summary"
-                        data-product-id="4522469523505"
+                        data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
                     ></span>
                 </div>
                 {!showCTA && <div className="product-card__price">${productPrice}</div> }

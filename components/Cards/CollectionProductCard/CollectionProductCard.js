@@ -309,7 +309,7 @@ const CollectionProductCard = forwardRef(({
           ></span>
           <span
             className="junip-product-summary"
-            data-product-id="4522469523505"
+            data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
           ></span>
         </div>
         <div className="collection-product-card__cta">

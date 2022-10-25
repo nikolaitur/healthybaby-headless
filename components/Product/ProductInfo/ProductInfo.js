@@ -361,7 +361,7 @@ const openSubscribeInfoModal = async () => {
             ></span>
             <span
               className="junip-product-summary"
-              data-product-id="4522469523505"
+              data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
             ></span>
             {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
           </>

@@ -109,18 +109,35 @@
             letter-spacing: -0.01em;;
             color: $primaryGreen;
             margin-left: 6px;
-            padding-top: 2px;
-
+            padding-top: 4px;
+            list-style: 1;
             @include breakpoint-up('md') {
-                margin-left: 15px;
-                padding-top: 0px;
+                margin-left: 5px;
+                padding-top: 6px;
                 font-size: 18px;
-                line-height: 25px;
             }
         }
 
+        .junip-product-summary-star-ratings-container {
+
+        }
+
         .junip-product-summary-star {
+            display: flex;
+            padding: 0;
+            width: 12px;
+            height: 12px;
+            margin-right: 2px;
+            @include breakpoint-up('md') {
+                width: 16px;
+                height: 16px;
+                margin-right: 4px;
+            }
             svg {
+                width: 12px;
+                @include breakpoint-up('md') {
+                    width: 16px;
+                }
                 path {
                     fill: $primaryGreen;
                 }
