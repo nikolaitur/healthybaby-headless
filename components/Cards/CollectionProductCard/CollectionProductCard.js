@@ -40,14 +40,13 @@ const findProductBadges = ({ content, product, productBadges }) => {
 }
 
 const CollectionProductCard = forwardRef(
-  ({ content, products, productBadges, crossSell }, ref) => {
+  ({ content, products, productBadges }, ref) => {
     const router = useRouter()
     const [, { addToCart }] = useCart()
     const [isloading, setIsLoading] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false)
     const [hasWindow, setHasWindow] = useState(false)
-    const { title, cardWidth } = content.fields
-    const isCrossSell = { ...crossSell }
+    const { title, cardWidth, ctaText } = {...content.fields}
     const isDesktop = useMediaQuery({ minWidth: 1074 })
 
     const cartDrawerContext = useCartDrawerContext()
@@ -159,10 +158,12 @@ const CollectionProductCard = forwardRef(
     }
 
     const getCtaText = () => {
-      if (product && product.variants.length > 1) {
-        return 'Quick View -'
+      if (ctaText) {
+        return ctaText
+      } else if (product && product.variants.length > 1) {
+        return `Quick View - $${productPrice ? productPrice : '' }`
       } else {
-        return 'Add To Cart - '
+        return `Add To Cart - $${productPrice ? productPrice : '' }`
       }
     }
 
@@ -312,44 +313,16 @@ const CollectionProductCard = forwardRef(
             ></span>
           </div>}
           <div className="collection-product-card__cta">
-            {isCrossSell ? (
-              <button
-                className="btn secondary quickview"
-                onClick={() => openQuickView()}
-              >
-                <span>Quick View -</span>
-                {productPrice ? (
-                  <>
-                    {`\u00A0`} ${productPrice}
-                  </>
-                ) : (
-                  ''
-                )}
-              </button>
-            ) : product && product.variants.length > 1 ? (
+            {product && product.variants.length > 1 ? (
               <button
                 className="btn secondary quickview"
                 onClick={() => openQuickView()}
               >
                 <span>{getCtaText()}</span>
-                {productPrice ? (
-                  <>
-                    {`\u00A0`} ${productPrice}
-                  </>
-                ) : (
-                  ''
-                )}
               </button>
             ) : (
               <button className="btn secondary" onClick={() => handleAddItem()}>
                 <span>{getCtaText()}</span>
-                {productPrice ? (
-                  <>
-                    {`\u00A0`} ${productPrice}
-                  </>
-                ) : (
-                  ''
-                )}
               </button>
             )}
           </div>
