@@ -3,7 +3,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const CollectionCard = ({ content }) => {
-    const { ctaText, ctaUrl, image, imageHover } = content.fields
+    const { ctaText, ctaUrl, image, imageHover, ctaTextColor, ctaBackgroundColor } = content.fields
+
+    const style = {
+        'backgroundColor': ctaBackgroundColor,
+        'color': ctaTextColor,
+    }
+
     return (
         <div className="collection-card">
             <div className={`collection-card__image ${imageHover?.fields?.file?.url ? 'collection-card__image-has-hover-image' : ''}`}>
@@ -21,7 +27,7 @@ const CollectionCard = ({ content }) => {
             </div>
             <div className="collection-card__cta">
                 <Link href={ctaUrl || ''}>
-                    <button className="btn">{ctaText}</button>
+                    <button className="btn" style={style}>{ctaText}</button>
                 </Link>
             </div>
         </div>
