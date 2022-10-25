@@ -53,14 +53,26 @@
 .article-cta.center {
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .article-cta.left {
   margin-left: 28px;
   margin-right: auto;
+  text-align: left;
 }
 
 .article-cta.right {
   margin-left: auto;
   margin-right: 28px;
+  text-align: right;
+}
+
+.article-cta .cta_link {
+  font-size: 18px;
+  line-height: 22px;
+  color: #00b188;
+  text-decoration: underline;
+  font-family: 'NeutraTextDemi';
+  font-weight: 500;
 }

@@ -15,6 +15,7 @@ import ArticleActivityHeader from '../../../components/Article/ArticleActivityHe
 const ArticleSectionsContent = ({ sections }) => {
   // const { ctaText, ctaUrl } = content.fields
   // const backgroundImage = content.fields.image.fields.file.url
+  console.log(sections)
   return (
     <>
       {sections.map((section, index) => {
@@ -59,7 +60,14 @@ const ArticleSectionsContent = ({ sections }) => {
                 className={`article-cta ${section.fields.alignment.toLowerCase()}`}
                 key={index}
               >
-                <a href={section.fields.buttonLink} className="btn secondary">
+                <a
+                  href={section.fields.buttonLink}
+                  className={
+                    section.fields.buttonOrLink == 'Link'
+                      ? 'cta_link'
+                      : `btn secondary`
+                  }
+                >
                   {section.fields.buttonText}
                 </a>
               </div>
