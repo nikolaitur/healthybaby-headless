@@ -145,10 +145,6 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
 
         <div className="collection-product-card__reviews">
           <span
-            className="junip-store-key"
-            data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-          ></span>
-          <span
             className="junip-product-summary"
             data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
           ></span>

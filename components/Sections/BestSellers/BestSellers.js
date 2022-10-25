@@ -39,10 +39,6 @@ const BestSellers = ({ content }) => {
 
     return (
         <section className="best-sellers">
-            <Script
-                src="https://scripts.juniphq.com/v1/junip_shopify.js"
-                strategy="lazyOnload"
-            />
             <div className="best-sellers__container container">
                 <div className="best-sellers__content">
                     <h2 className="best-sellers__header">{parse(header)}</h2>

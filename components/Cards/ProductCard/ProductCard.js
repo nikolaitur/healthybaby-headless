@@ -180,10 +180,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
                 {/* <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div> */}
                 <div className="product-card__reviews">
                     <span
-                        className="junip-store-key"
-                        data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-                    ></span>
-                    <span
                         className="junip-product-summary"
                         data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
                     ></span>
