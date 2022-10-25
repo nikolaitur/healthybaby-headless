@@ -27,10 +27,10 @@ const ContentBanner = ({ content }) => {
                 </div>
                 <div className="content-banner__content">
                     {header ? (
-                        <div className="content-banner__header">{ parse(header) }</div>
+                        <h2 className="content-banner__header">{ parse(header) }</h2>
                     ) : ""}
                     {subheader ? (
-                        <div className="content-banner__subheader">{subheader}</div>
+                        <p className="content-banner__subheader">{subheader}</p>
                     ) : ""}
                 </div>
                 <div className="content-banner__cta">
