@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
@@ -30,11 +30,16 @@ const findProductBadges = ({ product, productBadges }) => {
 
 const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-width: 768px) 100vw, (min-width: 1080) 40vw, 600px" }) => {
 
+    const [hasWindow, setHasWindow] = useState(false)
     const [, { addToCart }] = useCart()
     const modalContext = useModalContext()
     const cartDrawerContext = useCartDrawerContext()
     const { title, featuredMedia, handle } = {...product.content}
     const productPrice = getProductPrice(product)
+
+    useEffect(() => {
+        setHasWindow(true)
+    }, [])
 
     if (!featuredMedia) {
         return <></>
@@ -178,16 +183,12 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
                     <Link href={`/products/${handle}`}>{ title }</Link>
                 </div>
                 {/* <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div> */}
-                <div className="product-card__reviews">
-                    <span
-                        className="junip-store-key"
-                        data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-                    ></span>
+                {hasWindow && <div className="product-card__reviews">
                     <span
                         className="junip-product-summary"
                         data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
                     ></span>
-                </div>
+                </div>}
                 {!showCTA && <div className="product-card__price">${productPrice}</div> }
 
                 {showCTA &&

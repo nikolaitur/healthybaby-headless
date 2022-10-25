@@ -44,6 +44,7 @@ const ProductInfo = (props) => {
   const [quantity, setQuantity] = useState(1)
   const [diaperAmount, setDiaperAmount] = useState(false)
   const [messageProduct, setMessageProduct] = useState(false)
+  const [hasWindow, setHasWindow] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
@@ -348,23 +349,18 @@ const openSubscribeInfoModal = async () => {
 
     getDiaperCount()
     getMessageProduct()
+    setHasWindow(true)
+
   }, [])
 
   return product ? (
     <div className="product-info">
       <div className="product-info__sticky">
         <div className="product-info__reviews">
-          <>
-            <span
-              className="junip-store-key"
-              data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-            ></span>
-            <span
-              className="junip-product-summary"
-              data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
-            ></span>
-            {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
-          </>
+          {hasWindow && <span
+            className="junip-product-summary"
+            data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
+          ></span>}
         </div>
 
         {product.content?.title && (

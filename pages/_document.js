@@ -15,6 +15,15 @@ class MyDocument extends Document {
             src="https://app.jazz.co/widgets/basic/create/healthynest"
             charSet="utf-8"
           ></script>
+          <script
+            type="text/javascript"
+            async="true"
+            src="https://scripts.juniphq.com/v1/junip_shopify.js"
+          ></script>
+          <span
+            className="junip-store-key"
+            data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
+          ></span>
         </body>
       </Html>
     )

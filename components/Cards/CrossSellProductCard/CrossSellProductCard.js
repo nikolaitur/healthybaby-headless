@@ -40,6 +40,7 @@ const findProductBadges = ({ product, productBadges }) => {
 const CrossSellProductCard = forwardRef(({ product }, ref) => {
   const router = useRouter()
   const [, { addToCart }] = useCart()
+  const [hasWindow, setHasWindow] = useState(false)
   const [isloading, setIsLoading] = useState(false)
   const [handle, setHandle] = useState(false)
   const [productPrice, setProductPrice] = useState(false)
@@ -67,6 +68,7 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
     }
 
     getProductBadges()
+    setHasWindow(true)
   }, [])
 
   const handleLink = (product) => {
@@ -143,16 +145,12 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
           </div>
         </a>
 
-        <div className="collection-product-card__reviews">
-          <span
-            className="junip-store-key"
-            data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-          ></span>
+        {hasWindow && <div className="collection-product-card__reviews">
           <span
             className="junip-product-summary"
             data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
           ></span>
-        </div>
+        </div>}
         <div className="collection-product-card__cta">
           <button
             className="btn secondary quickview"
