@@ -37,6 +37,10 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
     const { title, featuredMedia, handle } = {...product.content}
     const productPrice = getProductPrice(product)
 
+    useEffect(() => {
+        setHasWindow(true)
+    }, [])
+
     if (!featuredMedia) {
         return <></>
     }
@@ -142,10 +146,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
       }
 
     const badges = findProductBadges({product, productBadges})
-
-    useEffect(() => {
-        setHasWindow(true)
-    }, [])
 
     return (
         <div className="product-card">
