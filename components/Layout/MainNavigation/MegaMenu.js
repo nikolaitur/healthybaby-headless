@@ -87,14 +87,14 @@ const MegaMenu = ({ menu, menuColors }) => {
           ) : (
             ''
           )}
-          {/* client requested to remove this section */}
-          {/* {menu.fields.featuredArticles ? (
+         
+          {menu.fields.featuredArticles ? (
             <div className="mega-menu__featured-articles">
               <div className="mega-menu__sub-header">Featured Articles</div>
-              {menu.fields.featuredArticles.map((article, index) => (
-                <Link href={article.fields.url || ''} key={index}>
+              {menu.fields.featuredArticles.map((item, index) => (
+                <Link href={item.fields.url || ''} key={index}>
                   <div className="mega-menu__featured-article">
-                    <span>{article.fields.title}</span>
+                    <span>{item.fields.title || ''}</span>
                     <span>
                       <LongArrowRight />
                     </span>
@@ -104,7 +104,8 @@ const MegaMenu = ({ menu, menuColors }) => {
             </div>
           ) : (
             ''
-          )} */}
+          )}
+          {/* client requested to remove this section */}
           {/* {menu.fields?.featuredProductsList?.length > 0 ?
                     <div className="mega-menu__featured-products">
                         <div className="mega-menu__sub-header">Featured Products</div>
