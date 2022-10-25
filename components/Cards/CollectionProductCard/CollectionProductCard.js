@@ -7,6 +7,7 @@ import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
 import { useMediaQuery } from 'react-responsive'
 import { getProductPrice } from '@/utils/getProductPrice'
+import Script from 'next/script'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
@@ -91,7 +92,8 @@ const CollectionProductCard = forwardRef(({
       modalContext.setIsOpen(true)
       modalContext.setContent({
         product,
-        page: pages[0]
+        page: pages[0],
+        className: 'quickview',
       })
     }
   }
@@ -309,7 +311,7 @@ const CollectionProductCard = forwardRef(({
           ></span>
           <span
             className="junip-product-summary"
-            data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
+            data-product-id={product?.sourceEntryId?.replace('gid://shopify/Product/', '')}
           ></span>
         </div>
         <div className="collection-product-card__cta">

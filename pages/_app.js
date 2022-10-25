@@ -8,6 +8,7 @@ import '../styles/globals.scss'
 import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)
@@ -52,6 +53,10 @@ function AppContainer({
   return (
     <CartProvider>
       <CheckoutProvider checkoutClient={checkoutClient}>
+        <Script
+            src="https://scripts.juniphq.com/v1/junip_shopify.js"
+            strategy="lazyOnload"
+        />
         <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
           <Component {...pageProps} />
         </Layout>
