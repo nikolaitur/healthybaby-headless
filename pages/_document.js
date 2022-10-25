@@ -15,6 +15,9 @@ class MyDocument extends Document {
             src="https://app.jazz.co/widgets/basic/create/healthynest"
             charSet="utf-8"
           ></script>
+          <script
+            src="https://scripts.juniphq.com/v1/junip_shopify.js">
+          </script>
         </body>
       </Html>
     )
