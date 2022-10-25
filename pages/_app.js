@@ -53,6 +53,10 @@ function AppContainer({
   return (
     <CartProvider>
       <CheckoutProvider checkoutClient={checkoutClient}>
+        <Script
+          src="https://scripts.juniphq.com/v1/junip_shopify.js"
+          strategy="beforeInteractive"
+        />
         <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
           <Component {...pageProps} />
         </Layout>
