@@ -51,23 +51,23 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
-      if (!Cookies.get('shopifyCartId')) {
+      if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
           .cart({
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            // if (response.cart.length) {
-            //   setShopifyCartCartClient(response.cart)
-            //   setShopifyCartId(response.cart.id)
-            // }
+            if (response.cart.length) {
+              setShopifyCartCartClient(response.cart)
+              setShopifyCartId(response.cart.id)
+            }
           })
       } else {
         const shopifyCart = await cartClient
           .cartCreate({
             lines,
-            attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-            note: 'Please use a red ribbon for the bow, if possible :)',
+            // attributes: [{ key: 'gift_options', value: 'in box with bow' }],
+            // note: 'Please use a red ribbon for the bow, if possible :)',
           })
           .then((response) => {
             if (response) {
