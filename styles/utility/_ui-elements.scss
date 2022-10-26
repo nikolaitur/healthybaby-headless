@@ -30,6 +30,12 @@
     max-width: max-content;
   }
 
+  svg {
+    path {
+      transition: 0.3s;
+    }
+  }
+
   &.secondary {
     background: $primaryGreen;
     color: #fff;
@@ -70,7 +76,7 @@
     &:hover {
       background: $primaryGreen;
       color: #fff;
-  
+
       svg {
         path {
           fill: #fff;
