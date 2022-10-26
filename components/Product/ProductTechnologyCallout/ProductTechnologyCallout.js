@@ -8,20 +8,20 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 const ProductTechnologyCallout = ({ content }) => {
 
     useEffect(() => {
-        
+
     }, [])
 
     return (
         <div className="product-technology-callout">
             <div className="product-technology-callout__container container">
                 <div className="product-technology-callout__content">
-                    {content.fields?.subheader ? 
+                    {content.fields?.subheader ?
                         <h6 className="product-technology-callout__subheader">{ content.fields.subheader }</h6>
                     : ""}
-                    {content.fields?.header ? 
+                    {content.fields?.header ?
                         <div className="product-technology-callout__header" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.fields.header) }}></div>
                     : ""}
-                    {content.fields?.copy ? 
+                    {content.fields?.copy ?
                         <h4 className="product-technology-callout__description large">{ content.fields.copy }</h4>
                     : ""}
                 </div>
@@ -30,7 +30,7 @@ const ProductTechnologyCallout = ({ content }) => {
                         {content.fields.sections.map((item, index) => {
                             return (
                                 <div className={`product-technology-callout__item ${item.fields.flipped == "True" ? "flipped" : ""}`} key={index}>
-                                    {item.fields?.image ? (
+                                    {item?.fields?.image?.fields?.file?.url ? (
                                         <div className="product-technology-callout__image">
                                             <Image
                                                 className="featured"
