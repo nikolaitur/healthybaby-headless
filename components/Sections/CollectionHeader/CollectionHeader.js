@@ -8,7 +8,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const CollectionHeader = ({ content }) => {
     const router = useRouter()
-    const { titleAlignmentDesktop, titleAlignmentMobile} = {...content.fields}
+    const { title, titleAlignmentDesktop, titleAlignmentMobile, description} = {...content.fields}
 
     // find more examples from https://lightrun.com/answers/contentful-rich-text-rendering-rich-text-in-react-native
     const contentfulToReactnative = {
@@ -22,13 +22,11 @@ const CollectionHeader = ({ content }) => {
         },
     }
 
-    console.log(content, "Shop All", router.pathname)
-
     return (
         <section className="collection-header">
             <div className="collection-header__container container">
                 <div className="collection-header__content">
-                    {content?.title ?
+                    {title ?
                         <div className="collection-header__breadcrumbs">
                             <Link href="/">
                                 <div className="collection-header__breadcrumb">
@@ -37,26 +35,18 @@ const CollectionHeader = ({ content }) => {
                             </Link>
                             <Link href={content.handle}>
                                 <div className="collection-header__breadcrumb">
-                                    <span> { content.title }</span>
+                                    <span> { title }</span>
                                 </div>
                             </Link>
                         </div>
                     : "" }
 
-                    {content?.title ?
-                        <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ parse(content.title) }</h1>
+                    {title ?
+                        <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ parse(title) }</h1>
                     : ""}
 
-                    {content.fields?.subheader ?
-                        <div className="collection-header__subheader">{content.fields.subheader}</div>
-                    : ""}
-
-                    {content?.description ?
-                        <div className="collection-header__description">{content.description}</div>
-                    : ""}
-
-                    {content.fields?.description ?
-                        <div className="collection-header__description">{documentToReactComponents(content.fields.description, contentfulToReactnative)}</div>
+                    {description?
+                        <div className="collection-header__description">{documentToReactComponents(description, contentfulToReactnative)}</div>
                     : ""}
 
                     {/* Collection Page Menu */}

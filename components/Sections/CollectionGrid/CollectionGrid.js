@@ -12,6 +12,8 @@ const CollectionGrid = ({ content, products, productBadges }) => {
     const router = useRouter()
     const myRefs = useRef([]);
 
+    console.log("content:", content)
+
     return (
         <section className="collection-grid" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor : ""}>
             <div className="collection-grid__container container">
