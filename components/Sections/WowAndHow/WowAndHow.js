@@ -96,9 +96,8 @@ const WowAndHow = ({ content }) => {
         )
     }
 
-
     return (
-        <section className="wow-and-how" data-background-color="teal">
+        <section className="wow-and-how" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
             <div className="wow-and-how__container container">
                 {buildImages('desktop')}
                 <div className="wow-and-how__content">
