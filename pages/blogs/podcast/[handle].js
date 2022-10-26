@@ -14,6 +14,12 @@ function Article({ article }) {
       <Head>
         <title>{pageTitle}</title>
         <meta
+          name="title"
+          content={
+            article.fields.metaTitle ? article.fields.metaTitle : pageTitle
+          }
+        />
+        <meta
           name="description"
           content={
             article.fields.metaDescription
