@@ -79,7 +79,7 @@ export function CartDrawerProvider({ children }) {
       }
     }
 
-    getCartClient()
+    // getCartClient()
   }, [])
 
   return (
