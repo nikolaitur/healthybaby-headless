@@ -60,7 +60,7 @@ export async function getStaticPaths() {
   const articles = await nacelleClient.content({ type: 'article' })
 
   const handles = articles
-    .filter((article) => article.fields.articleType === 'podcast')
+    .filter((article) => article.fields.articleType === 'Podcast')
     .filter((article) => article.handle)
     .map((article) => ({ params: { handle: article.handle } }))
 
