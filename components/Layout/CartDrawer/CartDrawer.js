@@ -95,7 +95,7 @@ const CartDrawer = ({ content }) => {
   useEffect(() => {
     const getUpsells = async () => {
       const productList = drawerContent[0].fields.upsells.map(
-        (product) => product.fields.handle.split('::')[0]
+        (product) => product.fields.handle.replace('::en-US', '')
       )
       const productVariants = drawerContent[0].fields.upsells.map((product) =>
         product.fields?.variantId ? product.fields.variantId : false

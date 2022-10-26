@@ -534,6 +534,14 @@
         padding: 0 15px;
       }
     }
+
+    &.error {
+        a {
+            color: $primaryGreen;
+            border-bottom: 1px solid $primaryGreen;
+            cursor: pointer;
+        }
+    }
   }
 
   &__title {
