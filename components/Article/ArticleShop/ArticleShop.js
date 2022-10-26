@@ -10,7 +10,7 @@ const ArticleShop = ({ content }) => {
   return (
     <div className="article-shop">
       <div className="article-shop__image">
-        {image ? (
+        {image?.fields?.file?.url ? (
           <Image
             className=""
             src={`https:${image.fields.file.url}`}

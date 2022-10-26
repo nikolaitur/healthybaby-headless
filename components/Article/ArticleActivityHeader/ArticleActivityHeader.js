@@ -11,7 +11,7 @@ const ArticleActivityHeader = ({ content }) => {
       <div className="article-activityheader__eyebrow">{eyebrowText}</div>
       <div className="article-activityheader__title">{parse(title)}</div>
       <div className="article-activityheader__image">
-        {logo ? (
+        {logo.fields?.file?.url ? (
           <Image
             className=""
             src={'https:' + logo.fields.file.url}
