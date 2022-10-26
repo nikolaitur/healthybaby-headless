@@ -67,7 +67,7 @@
     &__search-input-submit-btn {
         position: absolute;
         right: 10px;
-        top: 10px;
+        top: calc(50% - 15.5px);
         background: none;
         border: none;
         padding: 5px;
