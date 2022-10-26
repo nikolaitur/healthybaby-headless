@@ -39,7 +39,7 @@ const ArticleVideo = ({ content }) => {
             className={`article-video__image ${isPlaying ? 'hide' : ''}`}
             onClick={() => playVideo()}
           >
-            {coverImage ? (
+            {coverImage?.fields?.file?.url ? (
               <Image
                 className=""
                 src={`https:${coverImage.fields.file.url}`}
