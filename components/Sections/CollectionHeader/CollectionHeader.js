@@ -25,7 +25,7 @@ const CollectionHeader = ({ content }) => {
     return (
         <section className="collection-header">
             <div className="collection-header__container container">
-                <div className="collection-header__content">
+                <div className={`collection-header__content ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentMobile == "Left" ? "left-mobile" : "center-mobile"}`}>
                     {title ?
                         <div className="collection-header__breadcrumbs">
                             <Link href="/">
@@ -42,7 +42,7 @@ const CollectionHeader = ({ content }) => {
                     : "" }
 
                     {title ?
-                        <h1 className={`collection-header__title h2 ${titleAlignmentDesktop == "Left" ? "left-desktop" : "center-desktop"} ${titleAlignmentDesktop == "Left" ? "left-mobile" : "center-mobile"}`}>{ parse(title) }</h1>
+                        <h1 className={`collection-header__title h2`}>{ parse(title) }</h1>
                     : ""}
 
                     {description?

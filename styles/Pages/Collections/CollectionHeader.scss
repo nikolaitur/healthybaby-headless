@@ -7,12 +7,6 @@
         padding-bottom: 0px;
     }
 
-    &.center-content {
-        .collection-header__content {
-            text-align: center;
-            align-items: center;
-        }
-    }
 
     &__container {
         @include breakpoint-down('md') {
@@ -31,6 +25,31 @@
         @include breakpoint-up('md') {
             text-align: center;
             padding-bottom: 60px;
+        }
+
+        &.left-desktop {
+            @include breakpoint-up('md') {
+                text-align: left;
+                align-items: flex-start;
+            }
+            .collection-header__links-wrapper {
+                @include breakpoint-up('md') {
+                    justify-content: flex-start;
+                }
+            }
+        }
+
+
+        &.left-mobile {
+            @include breakpoint-down('xs') {
+                text-align: left;
+                align-items: flex-start;
+            }
+            .collection-header__links-wrapper {
+                @include breakpoint-down('md') {
+                    justify-content: flex-start;
+                }
+            }
         }
     }
 
