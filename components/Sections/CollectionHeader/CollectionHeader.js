@@ -51,31 +51,33 @@ const CollectionHeader = ({ content }) => {
 
                     {/* Collection Page Menu */}
                     {content.fields?.menu ? (
-                        <div className="collection-header__links">
-                            {content.fields.menu.fields?.sections ? (
-                                content.fields.menu.fields.sections.map((item, index) => {
-                                    return (
-                                        <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
-                                            <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
-                                                {item.fields?.image ? (
-                                                    <span className="image">
-                                                        <Image
-                                                            className="featured"
-                                                            src={`https:${item.fields.image.fields.file.url}`}
-                                                            alt={item.fields.image.fields.title}
-                                                            layout="responsive"
-                                                            objectFit="cover"
-                                                            height="84"
-                                                            width="84"
-                                                        />
-                                                    </span>
-                                                ) : <span className="image"></span>}
-                                                <span>{item.fields?.title ? item.fields.title : ""}</span>
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            ) : ""}
+                        <div className="collection-header__links-wrapper">
+                            <div className="collection-header__links">
+                                {content.fields.menu.fields?.sections ? (
+                                    content.fields.menu.fields.sections.map((item, index) => {
+                                        return (
+                                            <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
+                                                <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
+                                                    {item.fields?.image ? (
+                                                        <span className="image">
+                                                            <Image
+                                                                className="featured"
+                                                                src={`https:${item.fields.image.fields.file.url}`}
+                                                                alt={item.fields.image.fields.title}
+                                                                layout="responsive"
+                                                                objectFit="cover"
+                                                                height="84"
+                                                                width="84"
+                                                            />
+                                                        </span>
+                                                    ) : <span className="image"></span>}
+                                                    <span>{item.fields?.title ? item.fields.title : ""}</span>
+                                                </div>
+                                            </Link>
+                                        )
+                                    })
+                                ) : ""}
+                            </div>
                         </div>
                     ) : ""}
 
