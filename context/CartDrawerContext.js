@@ -57,7 +57,6 @@ export function CartDrawerProvider({ children }) {
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            console.log(response, "response")
             if (response.cart) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)
