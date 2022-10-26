@@ -40,7 +40,7 @@ const DiaperCalculator = ({ props, children }) => {
     const getProduct = async () => {
       await nacelleClient
         .products({
-          handles: ['our-monthly-diaper-bundle'],
+          handles: ['diaper-and-wipe-subscription'],
         })
         .then((response) => {
           setProduct(response[0])
@@ -159,6 +159,7 @@ const DiaperCalculator = ({ props, children }) => {
   }
 
   const handleAddItem = async () => {
+    console.log(product)
     const noWipes = product.variants.filter((obj) => {
       return obj.content.title.includes('No Wipes')
     })

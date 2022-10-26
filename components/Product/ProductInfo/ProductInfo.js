@@ -222,8 +222,6 @@ const ProductInfo = (props) => {
         selectedVariant,
       })
 
-      console.log("cartDrawerContext.shopifyCartId", cartDrawerContext.shopifyCartId)
-
       await cartClient
         .cartLinesAdd({
           cartId: cartDrawerContext.shopifyCartId,

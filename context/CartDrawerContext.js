@@ -51,6 +51,8 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
+      console.log(Cookies.get('shopifyCartId'))
+
       if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
           .cart({
