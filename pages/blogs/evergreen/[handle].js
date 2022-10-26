@@ -29,7 +29,7 @@ function Article({ article }) {
           property="og:image"
           content={
             article.fields.ogImage?.fields?.file.url
-              ? article.fields.ogImage.fields.file.url
+              ? 'https:' + article.fields.ogImage.fields.file.url
               : ''
           }
         />
