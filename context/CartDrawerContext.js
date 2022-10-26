@@ -20,7 +20,7 @@ export function CartDrawerProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
-  const [shopifyCartId, setShopifyCartId] = useState(false)
+  const [shopifyCartId, setShopifyCartId] = useState(undefined)
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -51,23 +51,21 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
-      if (!Cookies.get('shopifyCartId')) {
+      if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
           .cart({
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            // if (response.cart.length) {
-            //   setShopifyCartCartClient(response.cart)
-            //   setShopifyCartId(response.cart.id)
-            // }
+            if (response.cart) {
+              setShopifyCartCartClient(response.cart)
+              setShopifyCartId(response.cart.id)
+            }
           })
       } else {
         const shopifyCart = await cartClient
           .cartCreate({
-            lines,
-            attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-            note: 'Please use a red ribbon for the bow, if possible :)',
+            lines
           })
           .then((response) => {
             if (response) {

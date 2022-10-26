@@ -170,6 +170,7 @@ const CartDrawer = ({ content }) => {
         // note: 'Please use a red ribbon for the bow, if possible :)'
       })
       .then((response) => {
+        console.log(response)
         if (response.cart?.checkoutUrl) {
           window.location.href = response.cart.checkoutUrl
         }
