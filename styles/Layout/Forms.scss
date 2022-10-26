@@ -55,9 +55,18 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 0 10px;
+        @include breakpoint-up('md') {
+            margin: 0 20px;
+        }
 
         &--wrapper {
-            padding: 11px 8px 6px;
+            // padding: 11px 8px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
             border-radius: 100%;
             margin-bottom: 12px;
         }
