@@ -362,7 +362,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               onKeyDown={(e) => handleKeyDown(e)}
               value={searchQuery}
             />
-            <Search />
+            <button className="mobile-menu__search-input-submit-btn" onClick={() => router.push(`/search?query=${searchQuery}`)}>
+              <Search />
+            </button>
           </div>
         </div>
         <SearchMenu

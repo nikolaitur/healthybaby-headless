@@ -64,6 +64,20 @@
         max-width: 520px;
     }
 
+    &__search-input-submit-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background: none;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
     &__search {
         position: absolute;
         z-index: 13;
@@ -89,14 +103,6 @@
             line-height: 17px;
             color: $primaryBrown;
             padding: 0 55px 0 30px;
-        }
-
-        svg {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            right: 15px;
-            top: 15px;
         }
     }
 
