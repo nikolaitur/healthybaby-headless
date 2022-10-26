@@ -222,7 +222,7 @@
             font-size: 32px;
             line-height: 32px;
             color: #A0B0D2;
-
+            margin-left: 5px;
             @include breakpoint-up('xl') {
                 font-size: 36px;
                 line-height: 50px;
