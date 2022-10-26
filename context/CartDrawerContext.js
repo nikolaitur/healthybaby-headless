@@ -20,7 +20,7 @@ export function CartDrawerProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
-  const [shopifyCartId, setShopifyCartId] = useState(false)
+  const [shopifyCartId, setShopifyCartId] = useState(undefined)
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -57,7 +57,8 @@ export function CartDrawerProvider({ children }) {
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            if (response.cart.length) {
+            console.log(response, "response")
+            if (response.cart) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)
             }
@@ -79,7 +80,7 @@ export function CartDrawerProvider({ children }) {
       }
     }
 
-    // getCartClient()
+    getCartClient()
   }, [])
 
   return (

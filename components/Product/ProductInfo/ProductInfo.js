@@ -9,6 +9,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
 
+import * as Cookies from 'es-cookie'
+
 import { dataLayerATC } from '@/utils/dataLayer'
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
@@ -173,6 +175,8 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
+    console.log("cartDrawerContext.shopifyCartId", cartDrawerContext.shopifyCartId)
+
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -217,6 +221,8 @@ const ProductInfo = (props) => {
         nacelleEntryId: selectedVariant.nacelleEntryId,
         selectedVariant,
       })
+
+      console.log("cartDrawerContext.shopifyCartId", cartDrawerContext.shopifyCartId)
 
       await cartClient
         .cartLinesAdd({
