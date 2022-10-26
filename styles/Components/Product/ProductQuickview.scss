@@ -1,9 +1,10 @@
 .product-quickview {
   background: #f5f2f2;
-  max-height: 735px;
-  overflow-y: scroll;
-  padding: 0 30px;
-
+  height: 735px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 36px 30px;
+  overflow-x: hidden;
   @extend .container;
 
   @include breakpoint-down('md') {
@@ -21,10 +22,6 @@
       margin-right: 30px;
       width: 50%;
       display: block;
-    }
-
-    &__slider {
-      overflow: hidden;
     }
   }
 
