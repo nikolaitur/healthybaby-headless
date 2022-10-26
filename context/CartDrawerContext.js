@@ -65,9 +65,7 @@ export function CartDrawerProvider({ children }) {
       } else {
         const shopifyCart = await cartClient
           .cartCreate({
-            lines,
-            // attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-            // note: 'Please use a red ribbon for the bow, if possible :)',
+            lines
           })
           .then((response) => {
             if (response) {
