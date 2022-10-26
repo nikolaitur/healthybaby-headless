@@ -13,15 +13,13 @@ export default function DynamicPage({ page, handle }) {
         <title>{pageTitle}</title>
         <meta
           name="title"
-          content={
-            article.fields.metaTitle ? article.fields.metaTitle : pageTitle
-          }
+          content={page.fields.metaTitle ? page.fields.metaTitle : pageTitle}
         />
         <meta
           name="description"
           content={
-            article.fields.metaDescription
-              ? article.fields.metaDescription
+            page.fields.metaDescription
+              ? page.fields.metaDescription
               : 'the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby'
           }
         />
@@ -30,8 +28,8 @@ export default function DynamicPage({ page, handle }) {
         <meta
           property="og:image"
           content={
-            article.fields.ogImage?.fields?.file.url
-              ? 'https:' + article.fields.ogImage.fields.file.url
+            page.fields.ogImage?.fields?.file.url
+              ? 'https:' + page.fields.ogImage.fields.file.url
               : ''
           }
         />
