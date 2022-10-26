@@ -60,6 +60,7 @@
 
         @include breakpoint-up('md') {
             justify-content: center;
+            margin-bottom: 24px;
         }
     }
 
