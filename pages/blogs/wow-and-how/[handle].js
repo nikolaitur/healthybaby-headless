@@ -7,6 +7,7 @@ import ArticleHeroEverGreen from '../../../components/Article/ArticleHeroEverGre
 import ArticleSocial from '../../../components/Article/ArticleSocial'
 import ArticleSectionsContent from '../../../components/Article/ArticleSectionsContent'
 import ArticlePrevNext from '../../../components/Article/ArticlePrevNext'
+import ArticleHeroHowWow from '@/components/Article/ArticleHeroHowWow'
 
 function Article({ article }) {
   const pageTitle = `${article.title} – Healthybaby`
@@ -15,13 +16,36 @@ function Article({ article }) {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <meta
+          name="title"
+          content={
+            article.fields.metaTitle ? article.fields.metaTitle : pageTitle
+          }
+        />
+        <meta
+          name="description"
+          content={
+            article.fields.metaDescription
+              ? article.fields.metaDescription
+              : 'the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby'
+          }
+        />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content={
+            article.fields.ogImage?.fields?.file.url
+              ? 'https:' + article.fields.ogImage.fields.file.url
+              : ''
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
         <article className="article">
           {article.fields.articleHero ? (
-            <ArticleHeroEverGreen content={article} />
+            <ArticleHeroHowWow content={article} />
           ) : (
             <></>
           )}
@@ -29,7 +53,9 @@ function Article({ article }) {
             <ArticleSocial key="social" />
             <div>
               {article.fields.articleSections ? (
-                <ArticleSectionsContent sections={article.fields.articleSections} />
+                <ArticleSectionsContent
+                  sections={article.fields.articleSections}
+                />
               ) : (
                 <></>
               )}
@@ -55,7 +81,7 @@ export async function getStaticPaths() {
   const articles = await nacelleClient.content({ type: 'article' })
 
   const handles = articles
-    .filter((article) => article.fields.articleType === 'evergreen')
+    .filter((article) => article.fields.articleType === 'Wow-and-How')
     .filter((article) => article.handle)
     .map((article) => ({ params: { handle: article.handle } }))
 
