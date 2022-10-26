@@ -27,7 +27,11 @@ const Upsell = ({ product, variantId }) => {
             .pop() == variantId
         )
       })
-      setSelectedVariant(variant[0])
+
+      if(variant.length) {
+        setSelectedVariant(variant[0])
+        console.log(variant[0])
+      }
     }
   }, [])
 
@@ -51,39 +55,41 @@ const Upsell = ({ product, variantId }) => {
   }
 
   return (
-    <div className="upsell">
-      <div className="upsell__container">
-        <div className="upsell__image">
-          <Image
-            className=""
-            src={`${selectedVariant.content.featuredMedia.src}`}
-            alt={product.content.title}
-            layout="responsive"
-            objectFit="cover"
-            height="90"
-            width="72"
-          />
+    product && selectedVariant ? (
+        <div className="upsell">
+            <div className="upsell__container">
+                <div className="upsell__image">
+                <Image
+                    className=""
+                    src={`${selectedVariant.content.featuredMedia.src}`}
+                    alt={product.content.title}
+                    layout="responsive"
+                    objectFit="cover"
+                    height="90"
+                    width="72"
+                />
+                </div>
+                <div className="upsell__wrapper">
+                <div className="upsell__content">
+                    <div className="upsell__title">{product.content.title}</div>
+                    {selectedVariant.content.title !== 'Default Title' ? (
+                    <div className="upsell__option">
+                        {selectedVariant.content.title}
+                    </div>
+                    ) : (
+                    ''
+                    )}
+                </div>
+                <div className="upsell__add-to-cart">
+                    <div className="upsell__price">${selectedVariant.price}</div>
+                    <button className="btn secondary" onClick={() => handleAddItem()}>
+                    <span>Add</span>
+                    </button>
+                </div>
+                </div>
+            </div>
         </div>
-        <div className="upsell__wrapper">
-          <div className="upsell__content">
-            <div className="upsell__title">{product.content.title}</div>
-            {selectedVariant.content.title !== 'Default Title' ? (
-              <div className="upsell__option">
-                {selectedVariant.content.title}
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div className="upsell__add-to-cart">
-            <div className="upsell__price">${selectedVariant.price}</div>
-            <button className="btn secondary" onClick={() => handleAddItem()}>
-              <span>Add</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    ) : ""
   )
 }
 

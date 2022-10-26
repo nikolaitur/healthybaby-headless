@@ -6,6 +6,7 @@ import cartClient from '../../../services/nacelleClientCart'
 import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 import Image from 'next/image'
+import Link from 'next/link'
 import DatePicker from 'react-datepicker'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
@@ -428,7 +429,7 @@ const DiaperFinder = ({ content }) => {
           {product && selectedVariant ? (
             <div className="diaper-finder__product">
               {!prenatalProduct ? (
-                <div className="diaper-finder__product--banner">SAVE 10%</div>
+                <div className="diaper-finder__product--banner">SAVE 7.5%</div>
               ) : (
                 ''
               )}
@@ -481,8 +482,8 @@ const DiaperFinder = ({ content }) => {
               </div>
             </div>
           ) : (
-            <div className="diaper-finder__product">
-              <p className="large">Please contact customer service message</p>
+            <div className="diaper-finder__product error">
+              <p className="large">Please feel free to reach out to our team at <Link href="mailto:support@healthybaby.com"> support@healthybaby.com.</Link>  We’re always here for you and baby!</p>
             </div>
           )}
         </div>
