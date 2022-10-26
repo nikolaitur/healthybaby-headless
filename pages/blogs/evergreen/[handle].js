@@ -15,7 +15,24 @@ function Article({ article }) {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <meta
+          name="description"
+          content={
+            article.fields.metaDescription
+              ? article.fields.metaDescription
+              : 'the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby'
+          }
+        />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content={
+            article.fields.ogImage?.fields?.file.url
+              ? article.fields.ogImage.fields.file.url
+              : ''
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
@@ -29,7 +46,9 @@ function Article({ article }) {
             <ArticleSocial key="social" />
             <div>
               {article.fields.articleSections ? (
-                <ArticleSectionsContent sections={article.fields.articleSections} />
+                <ArticleSectionsContent
+                  sections={article.fields.articleSections}
+                />
               ) : (
                 <></>
               )}
