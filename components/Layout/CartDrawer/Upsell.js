@@ -52,7 +52,7 @@ const Upsell = ({ product, variantId }) => {
 
   return (
     <div className="upsell">
-      {/* <div className="upsell__container">
+      <div className="upsell__container">
         <div className="upsell__image">
           <Image
             className=""
@@ -82,7 +82,7 @@ const Upsell = ({ product, variantId }) => {
             </button>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

@@ -11,7 +11,24 @@ export default function DynamicPage({ page, handle }) {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <meta
+          name="description"
+          content={
+            article.fields.metaDescription
+              ? article.fields.metaDescription
+              : 'the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby'
+          }
+        />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content={
+            article.fields.ogImage?.fields?.file.url
+              ? 'https:' + article.fields.ogImage.fields.file.url
+              : ''
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
@@ -25,19 +42,20 @@ export default function DynamicPage({ page, handle }) {
 
 export async function getStaticPaths() {
   const basicPages = await nacelleClient.content({
-    type: 'page'
+    type: 'page',
   })
 
-  const handles = [...basicPages].map((page) => ({ params: { handle: page.handle } }))
+  const handles = [...basicPages].map((page) => ({
+    params: { handle: page.handle },
+  }))
 
   return {
     paths: handles,
-    fallback: 'blocking'
+    fallback: 'blocking',
   }
 }
 
 export async function getStaticProps({ params }) {
-
   const pages = await nacelleClient.content({
     handles: [params.handle],
     type: 'page',
@@ -45,15 +63,14 @@ export async function getStaticProps({ params }) {
 
   if (!pages.length) {
     return {
-      notFound: true
+      notFound: true,
     }
   }
 
   return {
     props: {
       page: pages[0],
-      handle: params.handle
-    }
+      handle: params.handle,
+    },
   }
-
 }
