@@ -58,7 +58,7 @@ const CollectionHeader = ({ content }) => {
                                         return (
                                             <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
                                                 <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
-                                                    {item.fields?.image ? (
+                                                    {item?.fields?.image?.fields?.file?.url ? (
                                                         <span className="image">
                                                             <Image
                                                                 className="featured"
@@ -89,7 +89,7 @@ const CollectionHeader = ({ content }) => {
                                     return (
                                         <Link href={`/${item.fields?.url ? item.fields.url : ""}`} key={index}>
                                             <div className={`collection-header__link ${router.pathname == `/${item.url}` ? "active" : ""}`}>
-                                                {item.fields?.image ? (
+                                                {item?.fields?.image?.fields?.file?.url ? (
                                                     <span className="image">
                                                         <Image
                                                             className="featured"

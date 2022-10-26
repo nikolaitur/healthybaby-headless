@@ -11,7 +11,7 @@ const ProductAboutAccordion = ({ item }) => {
     return (
         <div className={`accordion-item ${isActive ? "is-open" : ""}`}>
         <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
-            {item.fields?.image ? (
+            {item?.fields?.image?.fields?.file?.url ? (
                 <>
                     <div className="accordion-image">
                         <Image
@@ -31,8 +31,8 @@ const ProductAboutAccordion = ({ item }) => {
             ) : ""}
             <span className="accordion-arrow"><CaretRight/></span>
         </div>
-        {isActive && 
-            item.fields?.copy ? 
+        {isActive &&
+            item.fields?.copy ?
                 <div className={`accordion-content ${isActive ? "is-open" : ""}`} dangerouslySetInnerHTML={{__html:  documentToHtmlString(item.fields.copy) }}></div>
             : ""
         }
