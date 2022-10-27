@@ -163,18 +163,18 @@ const VitaminFinder = ({ content, refs, index }) => {
         <div className="vitamin-finder item" style={{'maxHeight': maxHeight}}>
             <div className="vitamin-finder__background">
                 <div className="vitamin-finder__background--desktop">
-                    <Image
+                    {backgroundImage?.fields?.file?.url && <Image
                         src={`https:${backgroundImage.fields.file.url}`}
                         alt={header}
                         layout="fill"
-                    />
+                    />}
                 </div>
                 <div className="vitamin-finder__background--mobile">
-                    <Image
+                    {backgroundImageMobile?.fields?.file?.url && <Image
                         src={`https:${backgroundImageMobile.fields.file.url}`}
                         alt={header}
                         layout="fill"
-                    />
+                    />}
                 </div>
             </div>
             <div className="vitamin-finder__content">

@@ -3,19 +3,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ContentCard = ({ content }) => {
-    const { title, topic, stage } = content.fields
-    const image = content.fields.image.fields.file.url
+    const { title, topic, stage, image } = {...content.fields}
     return (
         <div className="content-card">
             <div className="content-card__image">
-                <Link href="/">
+                {image?.fields?.file?.url && <Link href="/">
                     <Image
                         src={`https:${image}`}
                         alt={``}
                         sizes="(min-width: 1080px) 33vw"
                         layout="fill"
                     />
-                </Link>
+                </Link>}
             </div>
             <div className="content-card__content">
                 <div className="content-card__subheader">

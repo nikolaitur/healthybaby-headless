@@ -8,10 +8,10 @@ const ProductIngredients = ({ content }) => {
         <div className="product-ingredients">
             <div className="product-ingredients__container container">
                 <div className="product-ingredients__content">
-                    {content.fields?.subheader ? 
+                    {content.fields?.subheader ?
                         <h6 className="product-ingredients__subheader">{ content.fields.subheader }</h6>
                     : ""}
-                    {content.fields?.header ? 
+                    {content.fields?.header ?
                         <div className="product-ingredients__header" dangerouslySetInnerHTML={{__html:  documentToHtmlString(content.fields.header) }}></div>
                     : ""}
                 </div>
@@ -21,7 +21,7 @@ const ProductIngredients = ({ content }) => {
                             return (
                                 <div key={index} className={`product-ingredients__item`}>
                                     <div className="product-ingredients__item--content">
-                                        {section.fields?.image ? (
+                                        {section.fields?.image?.fields?.file?.url ? (
                                             <>
                                                  <div className="product-ingredients__item--image">
                                                     <Image
@@ -52,7 +52,7 @@ const ProductIngredients = ({ content }) => {
                             )
                         })}
                     </div>
-                ) : ""}        
+                ) : ""}
             </div>
         </div>
     )

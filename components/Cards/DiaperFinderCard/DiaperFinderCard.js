@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import { unlockScroll, lockScroll } from '@/utils/scroll'
+
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
 import DatePicker from "react-datepicker";
@@ -31,6 +33,7 @@ const DiaperFinderCard = ({ content, refs, index }) => {
     }
 
     const openDiaperCalculator = () => {
+        lockScroll()
         diaperCalculatorContext.setIsOpen(true)
     }
 

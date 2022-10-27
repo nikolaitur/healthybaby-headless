@@ -19,8 +19,6 @@ let contentData = {
 }
 
 const ArticleRelated = ({ content }) => {
-    // const { ctaText, ctaUrl } = content.fields
-    // const backgroundImage = content.fields.image.fields.file.url
     return (
         <div className="article-related">
             <div className="article-related__container container">
@@ -38,7 +36,7 @@ const ArticleRelated = ({ content }) => {
                 </div>
             </div>
 
-            
+
         </div>
     )
 }
