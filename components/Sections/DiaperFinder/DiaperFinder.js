@@ -15,6 +15,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import CheckCircle from '../../../svgs/check-circle.svg'
 import DiaperFinderDetail from '../../../svgs/diaper-finder-detail.svg'
+import DiaperFinderDetailMobile from '../../../svgs/diaper-finder-detail-mobile.svg'
 
 const DiaperFinder = ({ content }) => {
   const { image, mobileImage, description, ctaTextColor, ctaHoverTextColor, ctaBackgroundColor, ctaHoverBackgroundColor } = { ...content.fields }
@@ -518,9 +519,14 @@ const DiaperFinder = ({ content }) => {
         </div>
       </div>
       {content.fields.enableBackgroundWave ? (
-        <div className="diaper-finder__detail">
-          <DiaperFinderDetail />
-        </div>
+        <>
+          <div className="diaper-finder__detail-desktop">
+            <DiaperFinderDetail />
+          </div>
+          <div className="diaper-finder__detail-mobile">
+            <DiaperFinderDetailMobile />
+          </div>
+        </>
       ) : (
         ''
       )}
