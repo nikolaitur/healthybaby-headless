@@ -19,6 +19,7 @@ const PressLogos = ({ content }) => {
         className="press-section__items-slider"
         modules={[Lazy, Pagination]}
         slidesPerView={3}
+        threshold={15}
         spaceBetween={0}
         lazy={true}
         pagination={false}

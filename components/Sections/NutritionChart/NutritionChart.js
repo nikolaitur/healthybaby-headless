@@ -47,6 +47,7 @@ const NutritionChart = ({ content }) => {
                             className="nutrition-chart__slider"
                             modules={[EffectFade]}
                             spaceBetween={20}
+                            threshold={15}
                             slidesPerView={1}
                             effect={"fade"}
                             style={{

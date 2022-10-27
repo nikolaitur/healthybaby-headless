@@ -27,6 +27,7 @@ const Press = ({ content }) => {
             className="press-section__items-slider"
             modules={[Lazy, Pagination]}
             slidesPerView={1}
+            threshold={15}
             lazy={true}
             pagination={false}
           >

@@ -84,6 +84,7 @@ const BestSellers = ({ content }) => {
                             className="best-sellers__slider--desktop"
                             modules={[Lazy, Navigation]}
                             spaceBetween={20}
+                            threshold={15}
                             slidesPerView={3}
                             lazy={true}
                             navigation={false}
@@ -103,6 +104,7 @@ const BestSellers = ({ content }) => {
                             modules={[Lazy, Navigation]}
                             spaceBetween={20}
                             slidesPerView={1.1}
+                            threshold={15}
                             lazy={true}
                             navigation={true}
                             breakpoints={{
