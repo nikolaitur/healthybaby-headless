@@ -111,13 +111,15 @@ const DiaperFinder = ({ content }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
-
     if (name == 'baby-name') {
       setBabyName(value)
     } else {
       if (isNaN(value)) {
         setWeight(0)
       } else {
+        if (value.length > 2) {
+          return false;
+        }
         setWeight(Number(value))
       }
     }
@@ -342,18 +344,20 @@ const DiaperFinder = ({ content }) => {
               ></input>
             </span>
             <span>
-              <Select
-                styles={customSelectStyles}
-                className="diaper-finder__select"
-                defaultValue={genderOptions[0]}
-                options={genderOptions}
-                closeMenuOnScroll={true}
-                onChange={(e) => onSelectChange(e)}
-              />
-              <span className="select-line">
-                <span>
+              <div className="diaper-finder__pronoun-text-wrapper">
+                <Select
+                  styles={customSelectStyles}
+                  className="diaper-finder__select"
+                  defaultValue={genderOptions[0]}
+                  options={genderOptions}
+                  closeMenuOnScroll={true}
+                  onChange={(e) => onSelectChange(e)}
+                />
+                <span className="diaper-finder__born-text">
                   {diaperFinderData.gender == 'They' ? 'were' : 'was'} born on{' '}
                 </span>
+              </div>
+              <span className="select-line">
                 <DatePicker
                   dateFormat="MM/dd/yy"
                   selected={startDate}
@@ -363,7 +367,7 @@ const DiaperFinder = ({ content }) => {
               </span>
             </span>
             <span className="weight">
-              <span>& weigh</span>
+              <span>& weighs</span>
               <div className="input-wrapper">
                 <input
                   type="tel"
@@ -382,7 +386,7 @@ const DiaperFinder = ({ content }) => {
             className="diaper-finder__cta"
             onClick={() => showDiaperResults()}
           >
-            <button className="btn secondary">Explore Recommendations</button>
+            <button className="btn">Explore Recommendations</button>
           </div>
           <div
             className={`diaper-finder__clear ${
@@ -483,14 +487,24 @@ const DiaperFinder = ({ content }) => {
             </div>
           ) : (
             <div className="diaper-finder__product error">
-              <p className="large">Please feel free to reach out to our team at <Link href="mailto:support@healthybaby.com"> support@healthybaby.com.</Link>  We’re always here for you and baby!</p>
+              <p className="large">
+                Please feel free to reach out to our team at{' '}
+                <Link href="mailto:support@healthybaby.com">
+                  ( support@healthybaby.com.)
+                </Link>{' '}
+                We’re always here for you and baby!
+              </p>
             </div>
           )}
         </div>
       </div>
-      <div className="diaper-finder__detail">
-        <DiaperFinderDetail />
-      </div>
+      {content.fields.enableBackgroundWave ? (
+        <div className="diaper-finder__detail">
+          <DiaperFinderDetail />
+        </div>
+      ) : (
+        ''
+      )}
     </section>
   )
 }
