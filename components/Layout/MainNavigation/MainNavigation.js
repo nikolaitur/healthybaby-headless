@@ -175,6 +175,13 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     }
   }, [megaMenuIsOpen])
 
+  useEffect(() => {
+    const onRouteChangeComplete = () => {
+      closeMobileMenu()
+    }
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+  }, [router.pathname])
+
   return (
     <>
       <div className="main-nav">
