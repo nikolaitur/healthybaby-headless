@@ -216,6 +216,10 @@
             }
         }
 
+        .react-datepicker-popper {
+            z-index: 2;
+        }
+
         .suffix {
             font-family: $DomaineText;
             font-weight: 500;
