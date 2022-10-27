@@ -169,6 +169,11 @@ const DiaperFinder = ({ content }) => {
   }
 
   const getProductRecommendation = () => {
+
+    if (!startDate) {
+      return false
+    }
+
     let today = new Date()
     let babyMonth = getMonthDifference(startDate, today)
     console.log(getMonthDifference(startDate, today), Number(weight), 'Weight')
@@ -332,7 +337,7 @@ const DiaperFinder = ({ content }) => {
           <h6 className="diaper-finder__subheader">
             LET’S PERSONALIZE YOUR EXPERIENCE
           </h6>
-          <div className="diaper-finder__form">
+          <form className="diaper-finder__form" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
             <span>
               <span>My baby’s name is</span>
               <input
@@ -381,7 +386,7 @@ const DiaperFinder = ({ content }) => {
                 <span className="suffix">lbs</span>
               </div>
             </span>
-          </div>
+          </form>
           <div
             className="diaper-finder__cta"
             onClick={() => showDiaperResults()}>
@@ -502,7 +507,7 @@ const DiaperFinder = ({ content }) => {
               <p className="large">
                 Please feel free to reach out to our team at{' '}
                 <Link href="mailto:support@healthybaby.com">
-                  ( support@healthybaby.com.)
+                  (support@healthybaby.com.)
                 </Link>{' '}
                 We’re always here for you and baby!
               </p>
