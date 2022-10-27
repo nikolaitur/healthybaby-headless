@@ -103,15 +103,21 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 19px 25px;
+        padding: 19px 15px;
         cursor: pointer;
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 22px;
         letter-spacing: 0.02em;
         color: #3D3331;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+            line-height: 22px;
+            padding: 19px 25px;
+        }
 
         &:not(:first-child) {
             margin-top: 20px;
