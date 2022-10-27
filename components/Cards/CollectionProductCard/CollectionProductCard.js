@@ -52,9 +52,9 @@ const CollectionProductCard = forwardRef(
     const cartDrawerContext = useCartDrawerContext()
     const modalContext = useModalContext()
 
-    const handle = content.fields.productHandle.replace('::en-US', '')
-    const product = products.find((product) => product.content.handle === handle)
-    const productPrice = getProductPrice(products.find((product) => product.content.handle === handle))
+    const handle = content.fields.productHandle?.replace('::en-US', '') || undefined
+    const product =  handle && products.find((product) => product.content.handle === handle) || undefined
+    const productPrice = product && getProductPrice(products.find((product) => product.content.handle === handle)) || undefined
 
     const badges = findProductBadges({ content, product, productBadges })
 
@@ -170,6 +170,10 @@ const CollectionProductCard = forwardRef(
     useEffect(() => {
       setHasWindow(true)
     }, [])
+
+    if (!product) {
+      return <></>
+    }
 
     return (
       <div

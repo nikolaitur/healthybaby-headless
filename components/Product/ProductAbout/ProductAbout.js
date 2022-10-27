@@ -10,7 +10,7 @@ const ProductAbout = ({ content }) => {
             <div className="product-about__container container">
                 <div className="product-about__content">
 
-                    {content.fields?.image.fields.file.url ? (
+                    {content.fields?.image?.fields?.file?.url ? (
                         <div className="product-about__image product-about__image--mobile">
                             <Image
                                 src={`https:${content.fields.image.fields.file.url}`}
@@ -28,7 +28,7 @@ const ProductAbout = ({ content }) => {
                     {content.fields?.header ? (
                         <h3 className="product-about__header">{ content.fields.header }</h3>
                     ) : ""}
-                    
+
                     {content.fields?.sections ? (
                         <div className="product-about__wrapper">
                             {content.fields.sections.map((item, index) => {
@@ -38,7 +38,7 @@ const ProductAbout = ({ content }) => {
                     ) : ""}
 
                 </div>
-                {content.fields?.image.fields.file.url ? (
+                {content.fields?.image?.fields?.file?.url ? (
                     <div className="product-about__image about__image--desktop">
                         <Image
                             src={`https:${content.fields.image.fields.file.url}`}
