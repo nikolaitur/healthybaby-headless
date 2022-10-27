@@ -54,10 +54,14 @@ const ProductInfo = (props) => {
   const richTextRenderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        return `<img src=https:${node.data.target.fields.file.url} />`
+        if (node.data.target?.fields?.file?.url) {
+          return `<img src=https:${node.data.target.fields.file.url} />`
+        }
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        return `<img src=https:${node.data.target.fields.file.url} />`
+        if (node.data.target?.fields?.file?.url) {
+          return `<img src=https:${node.data.target.fields.file.url} />`
+        }
       },
     },
   }
