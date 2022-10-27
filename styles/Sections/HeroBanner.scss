@@ -143,6 +143,9 @@
         font-size: 18px;
         line-height: 110%;
         text-transform: none;
+        @include breakpoint-up('sm') {
+            font-size: 38px;
+        }
     }
 
     &__header {
