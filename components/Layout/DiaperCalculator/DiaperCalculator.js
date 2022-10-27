@@ -12,6 +12,7 @@ import IconClose from '../../../svgs/close-icon.svg'
 import DatePicker from 'react-datepicker'
 
 import 'react-datepicker/dist/react-datepicker.css'
+import { unlockScroll } from '@/utils/scroll'
 
 const DiaperCalculator = ({ props, children }) => {
   let intialValues = {
@@ -155,7 +156,9 @@ const DiaperCalculator = ({ props, children }) => {
   }
 
   const closeSlide = () => {
+    unlockScroll()
     diaperCalculatorContext.setIsOpen(false)
+    
   }
 
   const handleAddItem = async () => {
