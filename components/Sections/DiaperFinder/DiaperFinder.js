@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DatePicker from 'react-datepicker'
 
+
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -369,6 +370,7 @@ const DiaperFinder = ({ content }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   placeholderText="MM/DD/YY"
+                  closeOnScroll={false}
                 />
               </span>
             </span>

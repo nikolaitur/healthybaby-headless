@@ -158,7 +158,7 @@ const DiaperCalculator = ({ props, children }) => {
   const closeSlide = () => {
     unlockScroll()
     diaperCalculatorContext.setIsOpen(false)
-    
+
   }
 
   const handleAddItem = async () => {
@@ -252,7 +252,7 @@ const DiaperCalculator = ({ props, children }) => {
               <DatePicker
                 dateFormat="MM/dd/yy"
                 placeholderText="00/00/00"
-                closeOnScroll={true}
+                closeOnScroll={false}
                 onChange={(date) => handleDateChange(date)}
                 selected={diaperCalculatorContext.diaperCalculatorData.birthday}
               />
