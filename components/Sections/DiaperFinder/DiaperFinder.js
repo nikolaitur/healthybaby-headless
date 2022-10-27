@@ -370,7 +370,7 @@ const DiaperFinder = ({ content }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   placeholderText="MM/DD/YY"
-                  readOnly
+                  closeOnScroll={false}
                 />
               </span>
             </span>
