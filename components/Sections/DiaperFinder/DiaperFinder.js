@@ -363,7 +363,7 @@ const DiaperFinder = ({ content }) => {
               </span>
             </span>
             <span className="weight">
-              <span>& weigh</span>
+              <span>& weighs</span>
               <div className="input-wrapper">
                 <input
                   type="tel"
