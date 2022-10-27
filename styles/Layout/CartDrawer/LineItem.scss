@@ -39,32 +39,44 @@
         font-family: $NeutraTextDemi;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 18px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+        }
     }
 
     &__option {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 15px;
         line-height: 18px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
         margin-top: 10px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+        }
     }
 
     &__price {
         font-family: $NeutraText;
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 15px;
         line-height: 18px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
         margin-top: 10px;
+
+        @include breakpoint-up('md') {
+            font-size: 18px;
+        }
 
         .sale {
             color: $primaryGreen;
@@ -72,11 +84,17 @@
     }
 
     &__quantity {
-        position: absolute;
         right: 0px;
         display: flex;
         align-items: center;
-        bottom: 5px;
+        margin-top: 10px;
+        justify-content: flex-end;
+
+        @include breakpoint-up('md') {
+            position: absolute;
+            bottom: 5px;
+            margin-top: 0
+        }
 
         &--wrapper {
             display: flex;

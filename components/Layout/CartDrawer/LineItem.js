@@ -199,7 +199,7 @@ const LineItem = ({ item }) => {
           className="line-item__upgrade"
           onClick={() => upgradeToSubscription()}
         >
-          Upgrade to Subscribe & Save 10%
+          Upgrade to Subscribe & Save 7.5%
         </button>
       ) : (
         ''
