@@ -14,9 +14,7 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
     copy,
     author,
     age,
-    activity,
-    boldTitle,
-    italicTitle,
+    activity
   } = {...content.fields}
   const image = content.fields.image.fields.file.url
 
@@ -25,11 +23,7 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
       <div className="stories-slide__container">
         <div className="stories-slide__content">
           <h6 className="stories-slide__subtitle">{subtitle}</h6>
-          <h3
-            className={`stories-slide__title ${boldTitle ? 'bold' : ''} ${
-              italicTitle ? 'italic' : ''
-            }`}
-          >
+          <h3 className={`stories-slide__title`}>
             {parse(title)}
           </h3>
           <h5 className="stories-slide__copy">{copy}</h5>
