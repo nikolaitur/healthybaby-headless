@@ -18,7 +18,7 @@ import CheckCircle from '../../../svgs/check-circle.svg'
 import DiaperFinderDetail from '../../../svgs/diaper-finder-detail.svg'
 
 const DiaperFinder = ({ content }) => {
-  const { image, mobileImage, description } = { ...content.fields }
+  const { image, mobileImage, description, ctaTextColor, ctaBackgroundColor } = { ...content.fields }
   // const image = content.fields.image.fields.file.url
   // const mobileImage = content.fields.mobileImage.fields.file.url
   const genderOptions = [
@@ -384,9 +384,13 @@ const DiaperFinder = ({ content }) => {
           </div>
           <div
             className="diaper-finder__cta"
-            onClick={() => showDiaperResults()}
-          >
-            <button className="btn">Explore Recommendations</button>
+            onClick={() => showDiaperResults()}>
+            <button
+              className="btn"
+              style={{
+                color: ctaTextColor,
+                backgroundColor: ctaBackgroundColor
+              }}>Explore Recommendations</button>
           </div>
           <div
             className={`diaper-finder__clear ${
