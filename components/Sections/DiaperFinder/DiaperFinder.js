@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import Select, { components } from 'react-select'
 import { nacelleClient } from 'services'
@@ -18,9 +17,10 @@ import CheckCircle from '../../../svgs/check-circle.svg'
 import DiaperFinderDetail from '../../../svgs/diaper-finder-detail.svg'
 
 const DiaperFinder = ({ content }) => {
-  const { image, mobileImage, description, ctaTextColor, ctaBackgroundColor } = { ...content.fields }
+  const { image, mobileImage, description, ctaTextColor, ctaHoverTextColor, ctaBackgroundColor, ctaHoverBackgroundColor } = { ...content.fields }
   // const image = content.fields.image.fields.file.url
   // const mobileImage = content.fields.mobileImage.fields.file.url
+
   const genderOptions = [
     { value: 'He', label: 'He' },
     { value: 'She', label: 'She' },
@@ -386,11 +386,19 @@ const DiaperFinder = ({ content }) => {
             className="diaper-finder__cta"
             onClick={() => showDiaperResults()}>
             <button
-              className="btn"
-              style={{
-                color: ctaTextColor,
-                backgroundColor: ctaBackgroundColor
-              }}>Explore Recommendations</button>
+              className="btn">
+              <style jsx>{`
+                button {
+                  color: ${ctaTextColor};
+                  background-color: ${ctaBackgroundColor};
+                }
+                button:hover {
+                  color: ${ctaHoverTextColor};
+                  background-color: ${ctaHoverBackgroundColor};
+                }
+              `}</style>
+                Explore Recommendations
+              </button>
           </div>
           <div
             className={`diaper-finder__clear ${
