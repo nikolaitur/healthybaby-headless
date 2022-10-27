@@ -81,16 +81,8 @@
         display: block;
       }
 
-      span {
-        padding-left: 27px;
-      }
-
       @include breakpoint-up('md') {
         font-size: 18px;
-
-        span {
-          padding-left: 30px !important;
-        }
       }
     }
   }
