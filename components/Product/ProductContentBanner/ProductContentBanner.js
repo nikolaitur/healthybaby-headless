@@ -1,9 +1,10 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import parse from 'html-react-parser'
 
 const ProductContentBanner = ({ content }) => {
-    const { header, subheader, desktopImage, mobileImage, ctaText, ctaUrl } = content.fields
+    const { header, subheader, image, ctaText, ctaUrl } = {...content.fields}
 
     let styles = {}
     if(content.fields.backgroundColor) {
@@ -16,12 +17,12 @@ const ProductContentBanner = ({ content }) => {
         <div className="content-banner">
             <div className="content-banner__container container" style={styles}>
                 <div className="content-banner__image">
-                    {content.fields?.image ? (
+                    {image?.fields?.file?.url ? (
                         <div className="content-banner__image--desktop">
                             <Image
                                 className=""
-                                src={`https:${content.fields.image.fields.file.url}`}
-                                alt={content.fields.image.fields.title}
+                                src={`https:${image.fields.file.url}`}
+                                alt={image.fields.title}
                                 layout="responsive"
                                 objectFit="cover"
                                 height="512"
@@ -31,17 +32,17 @@ const ProductContentBanner = ({ content }) => {
                     ) : ""}
                 </div>
                 <div className="content-banner__content">
-                    {content.fields?.header ? (
-                        <div className="content-banner__header">{ content.fields.header }</div>
+                    {header ? (
+                        <h2 className="content-banner__header">{ parse(header) }</h2>
                     ) : ""}
-                    {content.fields?.subheader ? (
-                        <div className="content-banner__subheader">{ content.fields.subheader }</div>
+                    {subheader ? (
+                        <p className="content-banner__subheader">{ subheader }</p>
                     ) : ""}
                 </div>
-                {content.fields?.ctaText && content.fields?.ctaUrl ? 
+                {ctaText && ctaUrl ?
                     <div className="content-banner__cta">
-                        <Link href={content.fields.ctaUrl}>
-                            <button className="btn">{ content.fields.ctaText }</button>
+                        <Link href={ctaUrl || ''}>
+                            <button className="btn">{ ctaText }</button>
                         </Link>
                     </div>
                 : ""}

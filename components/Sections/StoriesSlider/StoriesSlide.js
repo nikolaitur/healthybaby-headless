@@ -15,21 +15,15 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
     author,
     age,
     activity,
-    boldTitle,
-    italicTitle,
+    image
   } = {...content.fields}
-  const image = content.fields.image.fields.file.url
 
   return (
     <div className="stories-slide">
       <div className="stories-slide__container">
         <div className="stories-slide__content">
           <h6 className="stories-slide__subtitle">{subtitle}</h6>
-          <h3
-            className={`stories-slide__title ${boldTitle ? 'bold' : ''} ${
-              italicTitle ? 'italic' : ''
-            }`}
-          >
+          <h3 className={`stories-slide__title`}>
             {parse(title)}
           </h3>
           <h5 className="stories-slide__copy">{copy}</h5>
@@ -52,12 +46,12 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
         </div>
         <div className="stories-slide__image-container">
           <div className="stories-slide__image">
-            <Image
-              src={`https:${image}`}
+            {image?.fields?.file?.url && <Image
+              src={`https:${image.fields.file.url}`}
               alt={title}
               sizes="(min-width: 1400px) 1400px"
               layout="fill"
-            />
+            />}
           </div>
         </div>
       </div>

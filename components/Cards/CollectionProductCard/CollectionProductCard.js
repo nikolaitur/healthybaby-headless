@@ -257,6 +257,7 @@ const CollectionProductCard = forwardRef(
               modules={[Lazy, Pagination]}
               spaceBetween={20}
               slidesPerView={1}
+              threshold={15}
               lazy={true}
               pagination={true}
               style={{

@@ -44,6 +44,7 @@ const ProductDetailTabs = ({ content }) => {
                         className="product-detail-tabs__slider"
                         modules={[EffectFade]}
                         spaceBetween={20}
+                        threshold={15}
                         slidesPerView={1}
                         effect={"fade"}
                         style={{
@@ -53,14 +54,14 @@ const ProductDetailTabs = ({ content }) => {
                         onSwiper={(swiper) => setSwiperInstance(swiper)}>
                         {content.fields.sections.map((section, index) => {
                             return (
-                                <SwiperSlide key={index}> 
+                                <SwiperSlide key={index}>
                                     <ProductDetailSlide activeSlide={activeSlide} content={section} />
                                 </SwiperSlide>
                             )
                         })}
                     </Swiper>
                 ) : ""}
-            </div>   
+            </div>
         </section>
     )
 }

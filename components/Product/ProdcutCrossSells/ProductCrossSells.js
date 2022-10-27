@@ -83,6 +83,7 @@ const ProductCrossSells = ({ content, product, productBadges }) => {
               className="product-cross-sells__slider"
               modules={[Lazy]}
               spaceBetween={20}
+              threshold={15}
               slidesPerView={1}
               lazy={true}
               style={{

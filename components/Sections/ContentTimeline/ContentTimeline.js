@@ -7,7 +7,7 @@ import parse from 'html-react-parser'
 import Plus from '../../../svgs/plus.svg'
 
 const ContentTimeline = ({ content }) => {
-    
+
     useEffect(function mount() {
         window.addEventListener("scroll", timeLineScroll);
         window.addEventListener("scroll", fadeIn);
@@ -71,8 +71,8 @@ const ContentTimeline = ({ content }) => {
                 {ctaText && ctaUrl ? (
                     <Link href={ctaUrl}>
                         <div className="content-timeline__link">
-                            <span><Plus /></span>  
-                            <span>{ctaText}</span>  
+                            <span><Plus /></span>
+                            <span>{ctaText}</span>
                         </div>
                     </Link>
                 ) : ""}
@@ -84,7 +84,7 @@ const ContentTimeline = ({ content }) => {
         <section className="content-timeline">
             <div className="content-timeline__container container">
                 <div className="content-timeline__sticky">
-                    {content.fields?.desktopImage ? (
+                    {content.fields?.desktopImage?.fields?.file?.url ? (
                         <div className="content-timeline__image content-timeline__image--desktop">
                             <Image
                                 className=""
@@ -98,7 +98,7 @@ const ContentTimeline = ({ content }) => {
                         </div>
                     ) : ""}
 
-                    {content.fields?.mobileImage ? (
+                    {content.fields?.mobileImage?.fields?.file?.url ? (
                         <div className="content-timeline__image content-timeline__image--mobile">
                             <Image
                                 className="mobile"

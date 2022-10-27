@@ -16,7 +16,7 @@ const ArticleBanner2 = ({ content }) => {
       className="article-banner2"
       style={{
         backgroundColor: backgroundColor,
-        backgroundImage: `url(${backgroundImage.fields.file.url})`,
+        backgroundImage: `url(${backgroundImage?.fields?.file?.url})`,
       }}
     >
       <div className="article-banner2__eyebrow">{eyebrowText}</div>

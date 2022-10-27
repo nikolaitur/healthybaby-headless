@@ -36,6 +36,7 @@ const StoriesSlider = ({ content }) => {
                     <Swiper
                         modules={[Lazy, EffectFade, Autoplay]}
                         spaceBetween={20}
+                        threshold={15}
                         slidesPerView={1}
                         lazy={true}
                         effect={"fade"}

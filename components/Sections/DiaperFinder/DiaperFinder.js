@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DatePicker from 'react-datepicker'
 
+
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -19,8 +20,6 @@ import DiaperFinderDetailMobile from '../../../svgs/diaper-finder-detail-mobile.
 
 const DiaperFinder = ({ content }) => {
   const { image, mobileImage, description, ctaTextColor, ctaHoverTextColor, ctaBackgroundColor, ctaHoverBackgroundColor } = { ...content.fields }
-  // const image = content.fields.image.fields.file.url
-  // const mobileImage = content.fields.mobileImage.fields.file.url
 
   const genderOptions = [
     { value: 'He', label: 'He' },
@@ -371,6 +370,7 @@ const DiaperFinder = ({ content }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   placeholderText="MM/DD/YY"
+                  closeOnScroll={false}
                 />
               </span>
             </span>
@@ -424,26 +424,26 @@ const DiaperFinder = ({ content }) => {
         <div
           className={`diaper-finder__image ${!isActive ? 'is-open' : 'hidden'}`}
         >
-          <div className="diaper-finder__image--desktop">
+          {image?.fields?.file?.url && <div className="diaper-finder__image--desktop">
             <Image
               className=""
-              src={`https:${content.fields.image.fields.file.url}`}
+              src={`https:${image.fields.file.url}`}
               alt="diaper"
               width={1488}
               height={963}
             />
-          </div>
-          <div className="diaper-finder__image--mobile">
+          </div>}
+          {mobileImage.fields?.file?.url && <div className="diaper-finder__image--mobile">
             <Image
               className=""
-              src={`https:${content.fields.mobileImage.fields.file.url}`}
+              src={`https:${mobileImage.fields.file.url}`}
               alt="diaper"
               layout="responsive"
               objectFit="cover"
               width={375}
               height={344}
             />
-          </div>
+          </div>}
         </div>
         <div
           className={`diaper-finder__results ${
