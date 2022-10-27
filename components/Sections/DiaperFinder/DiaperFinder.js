@@ -21,7 +21,6 @@ const DiaperFinder = ({ content }) => {
   const { image, mobileImage, description } = { ...content.fields }
   // const image = content.fields.image.fields.file.url
   // const mobileImage = content.fields.mobileImage.fields.file.url
-  console.log(content)
   const genderOptions = [
     { value: 'He', label: 'He' },
     { value: 'She', label: 'She' },
