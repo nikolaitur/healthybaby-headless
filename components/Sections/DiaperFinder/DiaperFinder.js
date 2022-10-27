@@ -483,14 +483,24 @@ const DiaperFinder = ({ content }) => {
             </div>
           ) : (
             <div className="diaper-finder__product error">
-              <p className="large">Please feel free to reach out to our team at <Link href="mailto:support@healthybaby.com"> support@healthybaby.com.</Link>  We’re always here for you and baby!</p>
+              <p className="large">
+                Please feel free to reach out to our team at{' '}
+                <Link href="mailto:support@healthybaby.com">
+                  ( support@healthybaby.com.)
+                </Link>{' '}
+                We’re always here for you and baby!
+              </p>
             </div>
           )}
         </div>
       </div>
-      <div className="diaper-finder__detail">
-        <DiaperFinderDetail />
-      </div>
+      {content.fields.enableBackgroundWave ? (
+        <div className="diaper-finder__detail">
+          <DiaperFinderDetail />
+        </div>
+      ) : (
+        ''
+      )}
     </section>
   )
 }
