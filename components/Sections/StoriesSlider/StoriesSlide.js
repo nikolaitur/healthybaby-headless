@@ -14,9 +14,9 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
     copy,
     author,
     age,
-    activity
+    activity,
+    image
   } = {...content.fields}
-  const image = content.fields.image.fields.file.url
 
   return (
     <div className="stories-slide">
@@ -46,12 +46,12 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
         </div>
         <div className="stories-slide__image-container">
           <div className="stories-slide__image">
-            <Image
-              src={`https:${image}`}
+            {image?.fields?.file?.url && <Image
+              src={`https:${image.fields.file.url}`}
               alt={title}
               sizes="(min-width: 1400px) 1400px"
               layout="fill"
-            />
+            />}
           </div>
         </div>
       </div>

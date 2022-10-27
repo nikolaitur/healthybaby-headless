@@ -41,11 +41,11 @@ const PressLogos = ({ content }) => {
                   onLogoClick(index)
                 }}
               >
-                <img
+                {pressItem?.fields?.pressLogo?.fields?.file?.url && <img
                   className=""
                   src={`https:${pressItem.fields.pressLogo.fields.file.url}`}
                   alt={`image`}
-                />
+                />}
               </div>
             </SwiperSlide>
           )

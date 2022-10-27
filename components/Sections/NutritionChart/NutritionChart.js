@@ -65,7 +65,7 @@ const NutritionChart = ({ content }) => {
                                             </p>
                                         ) : ""}
 
-                                        {item.fields?.desktopImage ? (
+                                        {item.fields?.desktopImage.fields?.file?.url ? (
                                             <div className="nutrition-chart__image nutrition-chart__image--desktop">
                                                 <Image
                                                     className=""
@@ -79,7 +79,7 @@ const NutritionChart = ({ content }) => {
                                             </div>
                                         ) : ""}
 
-                                        {item.fields?.mobileImage ? (
+                                        {item.fields?.mobileImage.fields?.file?.url ? (
                                             <div className="nutrition-chart__image nutrition-chart__image--mobile">
                                                 <Image
                                                     className="mobile"
