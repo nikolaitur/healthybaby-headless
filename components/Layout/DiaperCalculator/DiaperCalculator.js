@@ -53,19 +53,19 @@ const DiaperCalculator = ({ props, children }) => {
   useEffect(() => {
     const recommendProduct = () => {
       if (diaperCalculatorContext.isOpen) {
-        if (weight < 10) {
-          // size 1
-          setDiaperSize(1)
-        } else if (weight > 10 && weight < 12) {
-          // size 2
-          setDiaperSize(2)
-        } else if (weight > 12 && weight < 18) {
-          // size 3
-          setDiaperSize(3)
-        } else if (weight > 18 && weight < 22) {
-          // size 4
-          setDiaperSize(4)
-        } else if (weight > 22 && weight < 37) {
+        if (weight <= 9.99) {
+            // size 1
+            setDiaperSize(1)
+          } else if (weight >= 10 && weight <= 11.99) {
+            // size 2
+            setDiaperSize(2)
+          } else if (weight > 12 && weight <= 17.99) {
+            // size 3
+            setDiaperSize(3)
+          } else if (weight >= 18 && weight <= 21.99) {
+            // size 4
+            setDiaperSize(4)
+          } else if (weight >= 22 && weight <= 36.99) {
           // size 5
           setDiaperSize(5)
         } else {
