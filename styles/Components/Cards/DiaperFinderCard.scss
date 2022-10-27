@@ -213,6 +213,9 @@
             width: max-content;
             input {
                 width: 125px;
+                @include breakpoint-up('xl') {
+                    width: 160px;
+                }
             }
         }
 
