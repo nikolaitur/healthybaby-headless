@@ -47,7 +47,6 @@ const DiaperFinder = ({ content }) => {
   const cartDrawerContext = useCartDrawerContext()
 
   const showDiaperResults = () => {
-    setIsActive(true)
     getProductRecommendation()
   }
 
@@ -171,7 +170,7 @@ const DiaperFinder = ({ content }) => {
   const getProductRecommendation = () => {
 
     if (!startDate) {
-      return false
+      return false;
     }
 
     let today = new Date()
@@ -192,27 +191,27 @@ const DiaperFinder = ({ content }) => {
       if (babyMonth <= 2 && babyMonth >= 0) {
         getProduct('our-newborn-gift-bundle')
       } else if (babyMonth > 2) {
-        getProduct('our-monthly-diaper-bundle', 'Size 1')
+        getProduct('diaper-and-wipe-subscription', 'Size 1')
         console.log('Monthly Diaper Bundle with wipes- size 1')
       }
     } else if (weight >= 12 && weight <= 14.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 2')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 2')
         console.log('Monthly Diaper Bundle with wipes- size 2')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 3	')
       }
     } else if (weight >= 15 && weight <= 16.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 3')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 3')
         console.log('Monthly Diaper Bundle with wipes- size 3')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 3	')
       }
     } else if (weight >= 17 && weight <= 19.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
+      if (babyMonth <= 28 && babyMonth >= 0) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
         console.log('Monthly Diaper Bundle with wipes- size 3')
       } else if (babyMonth >= 29) {
@@ -220,24 +219,24 @@ const DiaperFinder = ({ content }) => {
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 4')
       }
     } else if (weight >= 20 && weight <= 24.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 4')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 4')
         console.log('Monthly Diaper Bundle with wipes- size 4')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 4')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 4')
       }
     } else if (weight >= 25 && weight <= 30.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 5')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 5')
         console.log('Monthly Diaper Bundle with wipes- size 5')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 5')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 5	')
       }
     } else if (weight >= 31 && weight <= 36.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 6')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 6')
         console.log('Monthly Diaper Bundle with wipes- size 6')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 5')
@@ -246,6 +245,8 @@ const DiaperFinder = ({ content }) => {
     } else if (weight >= 37) {
       getProduct('our-pull-up-style-diaper-bundle', 'Size 6', false)
       console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 6')
+    } else {
+      setIsActive(true)
     }
 
     // console.log(product, selectedVariant)
@@ -277,6 +278,7 @@ const DiaperFinder = ({ content }) => {
 
           // console.log(product, selectedVariant, prenatalProduct, "Product Added", handle)
         }
+        setIsActive(true)
       })
   }
 
