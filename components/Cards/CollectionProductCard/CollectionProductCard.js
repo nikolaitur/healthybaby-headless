@@ -52,9 +52,9 @@ const CollectionProductCard = forwardRef(
     const cartDrawerContext = useCartDrawerContext()
     const modalContext = useModalContext()
 
-    const handle = content.fields.productHandle.replace('::en-US', '')
-    const product = products.find((product) => product.content.handle === handle)
-    const productPrice = getProductPrice(products.find((product) => product.content.handle === handle))
+    const handle = content.fields.productHandle?.replace('::en-US', '') || undefined
+    const product =  handle && products.find((product) => product.content.handle === handle) || undefined
+    const productPrice = product && getProductPrice(products.find((product) => product.content.handle === handle)) || undefined
 
     const badges = findProductBadges({ content, product, productBadges })
 
@@ -171,6 +171,10 @@ const CollectionProductCard = forwardRef(
       setHasWindow(true)
     }, [])
 
+    if (!product) {
+      return <></>
+    }
+
     return (
       <div
         className={`collection-product-card ${
@@ -212,7 +216,7 @@ const CollectionProductCard = forwardRef(
                 : ''
             }`}
           >
-            {content.fields?.image?.fields ? (
+            {content.fields?.image?.fields?.file?.url ? (
               <>
                 <Image
                   className="featured"
@@ -225,7 +229,7 @@ const CollectionProductCard = forwardRef(
                   }
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
-                {content.fields?.imageHover?.fields ? (
+                {content.fields?.imageHover?.fields?.file?.url ? (
                   <Image
                     className="hover"
                     src={`https:${content.fields.imageHover.fields.file.url}`}
@@ -246,7 +250,7 @@ const CollectionProductCard = forwardRef(
             )}
           </div>
         </a>
-        {content.fields?.image && content.fields?.imageHover ? (
+        {content.fields?.image?.fields?.file?.url && content.fields?.imageHover?.fields?.file?.url ? (
           <a onClick={() => handleLink(product)}>
             <Swiper
               className="collection-product-card__slider"
