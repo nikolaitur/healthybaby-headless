@@ -175,7 +175,10 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
-    console.log("cartDrawerContext.shopifyCartId", cartDrawerContext.shopifyCartId)
+    console.log(
+      'cartDrawerContext.shopifyCartId',
+      cartDrawerContext.shopifyCartId
+    )
 
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
@@ -284,12 +287,12 @@ const ProductInfo = (props) => {
     modalContext.setIsOpen(false)
   }
 
-const openSubscribeInfoModal = async () => {
+  const openSubscribeInfoModal = async () => {
     const pages = await nacelleClient.content({
-      handles: ["subscribe-info-modal"]
+      handles: ['subscribe-info-modal'],
     })
 
-    console.log(pages, "PAGE")
+    console.log(pages, 'PAGE')
 
     if (pages) {
       modalContext.setSecondaryModalType('subscribe-info-modal')
@@ -297,10 +300,10 @@ const openSubscribeInfoModal = async () => {
       modalContext.setSecondaryModalContent({
         product: null,
         page: pages[0],
-        className: "subscribe-modal",
+        className: 'subscribe-modal',
       })
     }
-}
+  }
 
   useEffect(() => {
     const sellingPlanAllocations = selectedVariant.metafields.find(
@@ -354,17 +357,21 @@ const openSubscribeInfoModal = async () => {
     getDiaperCount()
     getMessageProduct()
     setHasWindow(true)
-
   }, [])
 
   return product ? (
     <div className="product-info">
       <div className="product-info__sticky">
         <div className="product-info__reviews">
-          {hasWindow && <span
-            className="junip-product-summary"
-            data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
-          ></span>}
+          {hasWindow && (
+            <span
+              className="junip-product-summary"
+              data-product-id={product.sourceEntryId.replace(
+                'gid://shopify/Product/',
+                ''
+              )}
+            ></span>
+          )}
         </div>
 
         {product.content?.title && (
@@ -475,8 +482,15 @@ const openSubscribeInfoModal = async () => {
                 />
                 <label htmlFor="html">
                   Monthly Auto-Ship <br />
-                  <span>Update sizing or cancel anytime</span>
-                  <span className="question-mark" onClick={() => openSubscribeInfoModal()}><QuestionMark /></span>
+                  <span>
+                    Update sizing or cancel anytime
+                    <span
+                      className="question-mark"
+                      onClick={() => openSubscribeInfoModal()}
+                    >
+                      <QuestionMark />
+                    </span>
+                  </span>
                   <span className="price">
                     <s>${selectedVariant.price.toFixed(2)}</s> $
                     {Number(subscriptionPrice).toFixed(2)}
