@@ -54,12 +54,14 @@ const ProductInfo = (props) => {
   const richTextRenderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        // console.log(node, "Node")
-        return `<img src=https:${node.data.target.fields.file.url} />`
+        if (node.data.target?.fields?.file?.url) {
+          return `<img src=https:${node.data.target.fields.file.url} />`
+        }
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        // console.log(node, "Node")
-        return `<img src=https:${node.data.target.fields.file.url} />`
+        if (node.data.target?.fields?.file?.url) {
+          return `<img src=https:${node.data.target.fields.file.url} />`
+        }
       },
     },
   }
@@ -175,11 +177,6 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
-    console.log(
-      'cartDrawerContext.shopifyCartId',
-      cartDrawerContext.shopifyCartId
-    )
-
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -291,8 +288,6 @@ const ProductInfo = (props) => {
     const pages = await nacelleClient.content({
       handles: ['subscribe-info-modal'],
     })
-
-    console.log(pages, 'PAGE')
 
     if (pages) {
       modalContext.setSecondaryModalType('subscribe-info-modal')
@@ -456,12 +451,12 @@ const ProductInfo = (props) => {
               >
                 <input
                   type="radio"
-                  id="html"
+                  id="onetimeOption"
                   name="subscription"
                   value="One Time"
                   checked={isCheckedOneTime}
                 />
-                <label htmlFor="html">
+                <label htmlFor="onetimeOption">
                   Buy One Time{' '}
                   <span className="price">
                     ${selectedVariant.price.toFixed(2)}
@@ -475,12 +470,12 @@ const ProductInfo = (props) => {
               >
                 <input
                   type="radio"
-                  id="html"
+                  id="subscriptionOption"
                   name="subscription"
                   value="Subscription"
                   checked={isCheckedSubscription}
                 />
-                <label htmlFor="html">
+                <label htmlFor="subscriptionOption">
                   Monthly Auto-Ship <br />
                   <span>
                     Update sizing or cancel anytime
