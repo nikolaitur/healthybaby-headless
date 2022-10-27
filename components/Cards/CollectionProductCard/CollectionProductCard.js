@@ -212,7 +212,7 @@ const CollectionProductCard = forwardRef(
                 : ''
             }`}
           >
-            {content.fields?.image?.fields ? (
+            {content.fields?.image?.fields?.file?.url ? (
               <>
                 <Image
                   className="featured"
@@ -225,7 +225,7 @@ const CollectionProductCard = forwardRef(
                   }
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
-                {content.fields?.imageHover?.fields ? (
+                {content.fields?.imageHover?.fields?.file?.url ? (
                   <Image
                     className="hover"
                     src={`https:${content.fields.imageHover.fields.file.url}`}
@@ -246,7 +246,7 @@ const CollectionProductCard = forwardRef(
             )}
           </div>
         </a>
-        {content.fields?.image && content.fields?.imageHover ? (
+        {content.fields?.image?.fields?.file?.url && content.fields?.imageHover?.fields?.file?.url ? (
           <a onClick={() => handleLink(product)}>
             <Swiper
               className="collection-product-card__slider"
