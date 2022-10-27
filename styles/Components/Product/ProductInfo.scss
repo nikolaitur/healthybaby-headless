@@ -315,7 +315,6 @@
 
         span {
           padding-top: 0 !important;
-          padding-left: 0 !important;
         }
       }
 
@@ -356,7 +355,6 @@
 
           @include breakpoint-up('md') {
             width: 18px;
-            transform: none;
           }
         }
 
