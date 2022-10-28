@@ -89,7 +89,6 @@
         }
     }
 
-    &__featured-articles,
     &__featured-products {
         padding: 60px 28px 40px;
 
@@ -98,12 +97,19 @@
         }
     }
 
+    &__featured-articles {
+        padding: 60px 28px 100px;
+
+        @include breakpoint-up('md') {
+            padding: 60px 72px 40px;
+        }
+    }
+
     &__featured-article {
-        background: #FFE7AB;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 19px 25px;
+        padding: 10px 0px;
         cursor: pointer;
         font-family: $NeutraText;
         font-style: normal;
@@ -113,21 +119,36 @@
         letter-spacing: 0.02em;
         color: #3D3331;
 
+        svg {
+            display: none;
+        }
+
+        @include breakpoint-up('md') {
+            background: #FFE7AB;
+            padding: 19px 25px;
+
+            &:nth-child(2) {
+                background: #F0E3E5;
+            }
+    
+            &:nth-child(3) {
+                background: #C7E0E5;
+            }
+    
+            &:nth-child(4) {
+                background: #B7DCF2;
+            }
+
+            svg {
+                display: block;
+            }
+        }
+
         &:not(:first-child) {
             margin-top: 20px;
         }
 
-        &:nth-child(2) {
-            background: #F0E3E5;
-        }
-
-        &:nth-child(3) {
-            background: #C7E0E5;
-        }
-
-        &:nth-child(4) {
-            background: #B7DCF2;
-        }
+        
     }
 
     &__featured-products {

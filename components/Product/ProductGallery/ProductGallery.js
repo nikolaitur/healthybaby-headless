@@ -29,6 +29,10 @@ const ProductGallery = ( props ) => {
                 </div>
             ) : (
                 product.content.media.slice(0, 5).map((image, index) => {
+                    let height = 615;
+                    if (index == 2 || index == 5) {
+                        height = 729
+                    }
                     return (
                         <div className="product-gallery__image" key={index}>
                             <Image
@@ -37,14 +41,14 @@ const ProductGallery = ( props ) => {
                                 alt={`image`}
                                 layout="responsive"
                                 objectFit="cover"
-                                height="615"
+                                height={height}
                                 width="490"
                             />
                         </div>
                     )
                 })
             )}
-                
+
             </div>
             <Swiper
                 className="product-gallery__slider"

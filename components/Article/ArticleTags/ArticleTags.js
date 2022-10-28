@@ -2,8 +2,6 @@ import React from 'react'
 import Link from 'next/link';
 
 const ArticleTags = ({ content }) => {
-    // const { ctaText, ctaUrl } = content.fields
-    // const backgroundImage = content.fields.image.fields.file.url
     return (
         <div className="article-tags">
             <div className="article-tags__title">Posted In:</div>

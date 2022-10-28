@@ -104,6 +104,17 @@
         }
     }
 
+    .best-sellers__slider--mobile {
+        .collection-product-card {
+            .swiper-slide {
+                height: 85vw;
+                @include breakpoint-up('sm') {
+                    height: 45vw;
+                }
+            }
+        }
+    }
+
     .collection-product-card {
         width: 100%;
         max-width: 100%;

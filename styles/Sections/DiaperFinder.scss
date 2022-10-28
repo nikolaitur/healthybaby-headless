@@ -423,8 +423,7 @@
       border-radius: 100%;
       top: -25px;
       right: -50px;
-      display: none;
-
+      // display: none;
       @include breakpoint-up('md') {
         display: block;
       }
@@ -614,11 +613,32 @@
     }
   }
 
-  &__detail {
+  &__detail-desktop,
+  &__detail-mobile {
     position: absolute;
     bottom: -4px;
     right: 0;
     z-index: 0;
+  }
+
+  &__detail-desktop {
+    display: none;
+    @include breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  &__detail-mobile {
+    width: 100%;
+    svg {
+      width: 200%;
+      left: -50%;
+      bottom: -20vw;
+      position: relative;
+    }
+    @include breakpoint-up(md) {
+      display: none;
+    }
   }
 
   ::placeholder {

@@ -24,8 +24,8 @@ const BestSellers = ({ content }) => {
         const getProducts = async () => {
             if(sections) {
                 const productHandles = content.fields.sections.filter(section => {
-                    if (section.fields.handle) return section
-                }).map(section => section.fields.handle.replace('::en-US', ''))
+                    if (section.fields.productHandle) return section
+                }).map(section => section.fields.productHandle.replace('::en-US', ''))
 
                 const productsData = await nacelleClient.products({
                     handles: productHandles
@@ -36,6 +36,8 @@ const BestSellers = ({ content }) => {
         }
         getProducts()
     }, [])
+
+    console.log("products:", products)
 
     return (
         <section className="best-sellers">
@@ -51,39 +53,13 @@ const BestSellers = ({ content }) => {
                         </Link>}
                     </div>
                 </div>
-                {/* {sections && products ? (
-                    <>
-                        <div className="product-cross-sells__items">
-                            {content.fields.sections.map((item, index) => {
-                                return <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
-                            })}
-                        </div>
-                        <Swiper
-                            className="product-cross-sells__slider"
-                            modules={[Lazy]}
-                            spaceBetween={20}
-                            slidesPerView={1}
-                            lazy={true}
-                            style={{
-                                "--swiper-navigation-color": "#fff",
-                                "--swiper-pagination-color": "#fff",
-                            }}
-                        >
-                            {content.fields.sections.map((item, index) => (
-                                <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </>
-
-                ) : ""} */}
                 {sections && products ? (
                     <div className="best-sellers__slider">
                         <Swiper
                             className="best-sellers__slider--desktop"
                             modules={[Lazy, Navigation]}
                             spaceBetween={20}
+                            threshold={15}
                             slidesPerView={3}
                             lazy={true}
                             navigation={false}
@@ -94,7 +70,7 @@ const BestSellers = ({ content }) => {
                         >
                            {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products}/>
+                                    <CollectionProductCard content={item} key={index} products={products} cardWidthOverride={'Normal'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -103,6 +79,7 @@ const BestSellers = ({ content }) => {
                             modules={[Lazy, Navigation]}
                             spaceBetween={20}
                             slidesPerView={1.1}
+                            threshold={15}
                             lazy={true}
                             navigation={true}
                             breakpoints={{
@@ -117,7 +94,7 @@ const BestSellers = ({ content }) => {
                         >
                             {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products}/>
+                                    <CollectionProductCard content={item} key={index} products={products} imageLayout={'fill'} cardWidthOverride={'Normal'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>

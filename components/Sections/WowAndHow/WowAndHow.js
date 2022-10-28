@@ -10,11 +10,7 @@ import ThreeStarsReversesIcon from '@/svgs/three-stars-reverse.svg'
 import OneStarIcon from '@/svgs/one-star.svg'
 
 const WowAndHow = ({ content }) => {
-    const { header, subheader, copy, babyStage, ctaText, ctaUrl, displayStars } = {...content.fields}
-    const imageGrid1 = content.fields.imageGrid1.fields.file.url
-    const imageGrid2 = content.fields.imageGrid2.fields.file.url
-    const imageGrid3 = content.fields.imageGrid3.fields.file.url
-    const imageGrid4 = content.fields.imageGrid4.fields.file.url
+    const { header, subheader, copy, babyStage, ctaText, ctaUrl, displayStars, imageGrid1, imageGrid2, imageGrid3, imageGrid4 } = {...content.fields}
     const router = useRouter()
 
     // if(backgroundColor.indexOf('#') !== 0) {
@@ -48,23 +44,23 @@ const WowAndHow = ({ content }) => {
                             {displayStars && <div className="wow-and-how__stars">
                                 <ThreeStarsReversesIcon />
                             </div>}
-                            <Image
-                                src={`https:${imageGrid1}`}
+                            {imageGrid1?.fields?.file?.url && <Image
+                                src={`https:${imageGrid1.fields.file.url}`}
                                 alt={``}
                                 layout="fill"
                                 sizes="60vw"
-                            />
+                            />}
                         </div>
                         <div className="wow-and-how__grid-image">
                             {displayStars && <div className="wow-and-how__stars">
                                 <TwoStarsIcon />
                             </div>}
-                            <Image
-                                src={`https:${imageGrid2}`}
+                            {imageGrid2?.fields?.file?.url && <Image
+                                src={`https:${imageGrid2.fields.file.url}`}
                                 alt={``}
                                 layout="fill"
                                 sizes="27vw"
-                            />
+                            />}
                         </div>
                     </div>
                     <div className="wow-and-how__lower-grid">
@@ -72,23 +68,23 @@ const WowAndHow = ({ content }) => {
                             {displayStars && <div className="wow-and-how__stars">
                                 <OneStarIcon />
                             </div>}
-                            <Image
-                                src={`https:${imageGrid3}`}
+                            {imageGrid3?.fields?.file?.url && <Image
+                                src={`https:${imageGrid3.fields.file.url}`}
                                 alt={``}
                                 layout="fill"
                                 sizes="27vw"
-                            />
+                            />}
                         </div>
                         <div className="wow-and-how__grid-image">
                             {displayStars && <div className="wow-and-how__stars">
                                 <ThreeStarsIcon />
                             </div>}
-                            <Image
-                                src={`https:${imageGrid4}`}
+                            {imageGrid4 && <Image
+                                src={`https:${imageGrid4.fields.file.url}`}
                                 alt={``}
                                 layout="fill"
                                 sizes="60vw"
-                            />
+                            />}
                         </div>
                     </div>
                 </div>
@@ -104,13 +100,15 @@ const WowAndHow = ({ content }) => {
                     <h6 className="wow-and-how__subheader">{ subheader }</h6>
                     {header && <h2 className="wow-and-how__header">{ parse(header) }</h2>}
                     <h5 className="wow-and-how__copy">{ copy }</h5>
-                    <div className="wow-and-how__cta">
-                        <Link href={ctaUrl}>
-                            <button className="btn">
-                                <span>{ ctaText }</span>
-                            </button>
-                        </Link>
-                    </div>
+                    {/* 
+                        <div className="wow-and-how__cta">
+                            <Link href={ctaUrl}>
+                                <button className="btn">
+                                    <span>{ ctaText }</span>
+                                </button>
+                            </Link>
+                        </div> 
+                    */}
                     {buildImages('mobile')}
                     <div className="wow-and-how__subheader">BROWSE BY STAGE</div>
                     <div className="wow-and-how__stages">

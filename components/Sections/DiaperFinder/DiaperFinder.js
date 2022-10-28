@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DatePicker from 'react-datepicker'
 
+
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -15,11 +16,10 @@ import 'react-datepicker/dist/react-datepicker.css'
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
 import CheckCircle from '../../../svgs/check-circle.svg'
 import DiaperFinderDetail from '../../../svgs/diaper-finder-detail.svg'
+import DiaperFinderDetailMobile from '../../../svgs/diaper-finder-detail-mobile.svg'
 
 const DiaperFinder = ({ content }) => {
   const { image, mobileImage, description, ctaTextColor, ctaHoverTextColor, ctaBackgroundColor, ctaHoverBackgroundColor } = { ...content.fields }
-  // const image = content.fields.image.fields.file.url
-  // const mobileImage = content.fields.mobileImage.fields.file.url
 
   const genderOptions = [
     { value: 'He', label: 'He' },
@@ -47,7 +47,6 @@ const DiaperFinder = ({ content }) => {
   const cartDrawerContext = useCartDrawerContext()
 
   const showDiaperResults = () => {
-    setIsActive(true)
     getProductRecommendation()
   }
 
@@ -169,6 +168,12 @@ const DiaperFinder = ({ content }) => {
   }
 
   const getProductRecommendation = () => {
+
+    if (!startDate) {
+      setIsActive(true)
+      return false;
+    }
+
     let today = new Date()
     let babyMonth = getMonthDifference(startDate, today)
     console.log(getMonthDifference(startDate, today), Number(weight), 'Weight')
@@ -179,60 +184,58 @@ const DiaperFinder = ({ content }) => {
     }
 
     if (weight < 6) {
-      if (babyMonth > 0) {
-        console.log('Contact Customer Service')
+        setIsActive(true)
         // return "Contact Customer Service"
-      }
     } else if (weight >= 6 && weight <= 11.99) {
       if (babyMonth <= 2 && babyMonth >= 0) {
         getProduct('our-newborn-gift-bundle')
       } else if (babyMonth > 2) {
-        getProduct('our-monthly-diaper-bundle', 'Size 1')
+        getProduct('diaper-and-wipe-subscription', 'Size 1')
         console.log('Monthly Diaper Bundle with wipes- size 1')
       }
     } else if (weight >= 12 && weight <= 14.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 2')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 2')
         console.log('Monthly Diaper Bundle with wipes- size 2')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 3	')
       }
     } else if (weight >= 15 && weight <= 16.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 3')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 3')
         console.log('Monthly Diaper Bundle with wipes- size 3')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 3	')
       }
     } else if (weight >= 17 && weight <= 19.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 3')
         console.log('Monthly Diaper Bundle with wipes- size 3')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 4')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 4')
       }
     } else if (weight >= 20 && weight <= 24.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 4')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 4')
         console.log('Monthly Diaper Bundle with wipes- size 4')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 4')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 4')
       }
     } else if (weight >= 25 && weight <= 30.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 5')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 5')
         console.log('Monthly Diaper Bundle with wipes- size 5')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 5')
         console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 5	')
       }
     } else if (weight >= 31 && weight <= 36.99) {
-      if (babyMonth <= 28 && babyMonth > 0) {
-        getProduct('our-monthly-diaper-bundle', 'Size 6')
+      if (babyMonth <= 28 && babyMonth >= 0) {
+        getProduct('diaper-and-wipe-subscription', 'Size 6')
         console.log('Monthly Diaper Bundle with wipes- size 6')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 5')
@@ -241,9 +244,9 @@ const DiaperFinder = ({ content }) => {
     } else if (weight >= 37) {
       getProduct('our-pull-up-style-diaper-bundle', 'Size 6', false)
       console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 6')
+    } else {
+      setIsActive(true)
     }
-
-    // console.log(product, selectedVariant)
   }
 
   const getProduct = async (handle, size = 'Size 1', prenantal = false) => {
@@ -272,6 +275,7 @@ const DiaperFinder = ({ content }) => {
 
           // console.log(product, selectedVariant, prenatalProduct, "Product Added", handle)
         }
+        setIsActive(true)
       })
   }
 
@@ -326,13 +330,13 @@ const DiaperFinder = ({ content }) => {
   }
 
   return (
-    <section className="diaper-finder" data-background-color="blue">
+    <section className="diaper-finder" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
       <div className="diaper-finder__container container">
         <div className="diaper-finder__content">
           <h6 className="diaper-finder__subheader">
             LET’S PERSONALIZE YOUR EXPERIENCE
           </h6>
-          <div className="diaper-finder__form">
+          <form className="diaper-finder__form" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
             <span>
               <span>My baby’s name is</span>
               <input
@@ -363,6 +367,7 @@ const DiaperFinder = ({ content }) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   placeholderText="MM/DD/YY"
+                  closeOnScroll={false}
                 />
               </span>
             </span>
@@ -381,7 +386,7 @@ const DiaperFinder = ({ content }) => {
                 <span className="suffix">lbs</span>
               </div>
             </span>
-          </div>
+          </form>
           <div
             className="diaper-finder__cta"
             onClick={() => showDiaperResults()}>
@@ -416,26 +421,26 @@ const DiaperFinder = ({ content }) => {
         <div
           className={`diaper-finder__image ${!isActive ? 'is-open' : 'hidden'}`}
         >
-          <div className="diaper-finder__image--desktop">
+          {image?.fields?.file?.url && <div className="diaper-finder__image--desktop">
             <Image
               className=""
-              src={`https:${content.fields.image.fields.file.url}`}
+              src={`https:${image.fields.file.url}`}
               alt="diaper"
               width={1488}
               height={963}
             />
-          </div>
-          <div className="diaper-finder__image--mobile">
+          </div>}
+          {mobileImage.fields?.file?.url && <div className="diaper-finder__image--mobile">
             <Image
               className=""
-              src={`https:${content.fields.mobileImage.fields.file.url}`}
+              src={`https:${mobileImage.fields.file.url}`}
               alt="diaper"
               layout="responsive"
               objectFit="cover"
               width={375}
               height={344}
             />
-          </div>
+          </div>}
         </div>
         <div
           className={`diaper-finder__results ${
@@ -502,7 +507,7 @@ const DiaperFinder = ({ content }) => {
               <p className="large">
                 Please feel free to reach out to our team at{' '}
                 <Link href="mailto:support@healthybaby.com">
-                  ( support@healthybaby.com.)
+                  (support@healthybaby.com.)
                 </Link>{' '}
                 We’re always here for you and baby!
               </p>
@@ -511,9 +516,14 @@ const DiaperFinder = ({ content }) => {
         </div>
       </div>
       {content.fields.enableBackgroundWave ? (
-        <div className="diaper-finder__detail">
-          <DiaperFinderDetail />
-        </div>
+        <>
+          <div className="diaper-finder__detail-desktop">
+            <DiaperFinderDetail />
+          </div>
+          <div className="diaper-finder__detail-mobile">
+            <DiaperFinderDetailMobile />
+          </div>
+        </>
       ) : (
         ''
       )}

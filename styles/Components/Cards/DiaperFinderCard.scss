@@ -213,7 +213,14 @@
             width: max-content;
             input {
                 width: 125px;
+                @include breakpoint-up('xl') {
+                    width: 160px;
+                }
             }
+        }
+
+        .react-datepicker-popper {
+            z-index: 2;
         }
 
         .suffix {

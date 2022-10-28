@@ -44,6 +44,8 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         if(lifeStage == "conceive") {
             getResultProduct("our-prenatal-preconception-1st-trimester")
+        } else if (lifeStage == "postpartum"){
+            getResultProduct("our-prenatal-4th-trimester-postnatal")
         } else {
             setProduct(false)
         }
@@ -163,18 +165,18 @@ const VitaminFinder = ({ content, refs, index }) => {
         <div className="vitamin-finder item" style={{'maxHeight': maxHeight}}>
             <div className="vitamin-finder__background">
                 <div className="vitamin-finder__background--desktop">
-                    <Image
+                    {backgroundImage?.fields?.file?.url && <Image
                         src={`https:${backgroundImage.fields.file.url}`}
                         alt={header}
                         layout="fill"
-                    />
+                    />}
                 </div>
                 <div className="vitamin-finder__background--mobile">
-                    <Image
+                    {backgroundImageMobile?.fields?.file?.url && <Image
                         src={`https:${backgroundImageMobile.fields.file.url}`}
                         alt={header}
                         layout="fill"
-                    />
+                    />}
                 </div>
             </div>
             <div className="vitamin-finder__content">
@@ -188,7 +190,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <button className="btn" onClick={() => goToNextStage(2, "pregnant")}>
                         <span>{ ctaText2 }</span>
                     </button>
-                    <button className="btn" onClick={() => goToNextStage(2, "postpartum")}>
+                    <button className="btn" onClick={() => goToNextStage(3, "postpartum")}>
                         <span>{ ctaText3 }</span>
                     </button>
                 </div>
@@ -196,7 +198,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <h6 className="vitamin-finder__subheader">{subheader}</h6>
                     <div className="vitamin-finder__header">{header}</div>
                     <p className="vitamin-finder__copy large">{description}</p>
-                    <DatePicker dateFormat="MM/dd/yy" selected={dueDate}  onChange={(date) => setDueDate(date)} placeholderText="Enter your due date" />
+                    <DatePicker dateFormat="MM/dd/yy" selected={dueDate} closeOnScroll={false} onChange={(date) => setDueDate(date)} placeholderText="Enter your due date" />
                     <button className="btn secondary" onClick={() => showVitaminRestult()}>
                         <span>{ recommendationsText }</span>
                         <span><LongArrowRight /></span>

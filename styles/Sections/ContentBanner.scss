@@ -105,18 +105,20 @@
     &__cta {
         position: relative;
         z-index: 1;
-
+        width: 100%;
+        max-width: 315px;
+        @include breakpoint-up('md') {
+            max-width: 381px;
+        }
         .btn {
-            padding: 19px 100px;
+            display: flex;
+            justify-content: center;
+            padding: 14px 0px;
             border-radius: 60px;
-
+            width: 100%;
+            max-width: 100%;
             @include breakpoint-up('md') {
-                min-width: max-content;
-                padding: 19px 60px;
-            }
-
-            @include breakpoint-up('lg') {
-                padding: 19px 100px;
+                padding: 19px 0px;
             }
         }
     }

@@ -28,7 +28,7 @@ const ProductDetailSlide = ({ content }) => {
                 ) : ""}
             </div>
             <div className="product-detail-slide__column">
-                {content.fields?.image ? (
+                {content.fields?.image?.fields?.file?.url ? (
                     <div className="product-detail-slide__image">
                         <Image
                             className=""
@@ -41,12 +41,11 @@ const ProductDetailSlide = ({ content }) => {
                         />
                     </div>
                 ) : ""}
-                {/* <img src="https://swiperjs.com/demos/images/nature-1.jpg" /> */}
             </div>
             <div className="product-detail-slide__column">
                 {textBlock2 ? (
                     <div className="product-detail-slide__content" dangerouslySetInnerHTML={{__html: textBlock2}}></div>
-                ) : ""} 
+                ) : ""}
             </div>
         </div>
     )

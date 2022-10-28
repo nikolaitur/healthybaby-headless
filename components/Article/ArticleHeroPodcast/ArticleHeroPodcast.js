@@ -23,7 +23,7 @@ const articleHeroPodcast = ({ content }) => {
       <div className="container podcast-hero__content">
         <div className="podcast-hero__image">
           <div className="podcast-hero__image--desktop">
-            {articleHero?.fields?.featuredMedia ? (
+            {articleHero?.fields?.featuredMedia?.fields?.file?.url ? (
               <Image
                 className=""
                 src={`https:${articleHero.fields.featuredMedia.fields.file.url}`}
@@ -64,7 +64,7 @@ const articleHeroPodcast = ({ content }) => {
           </div>
           <div className="podcast-hero__image">
             <div className="podcast-hero__image--mobile">
-              {articleHero?.fields?.featuredMediaMobile ? (
+              {articleHero?.fields?.featuredMediaMobile?.fields?.file?.url ? (
                 <Image
                   className=""
                   src={`https:${articleHero.fields.featuredMediaMobile.fields.file.url}`}

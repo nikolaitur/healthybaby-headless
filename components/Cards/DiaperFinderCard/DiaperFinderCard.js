@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import { unlockScroll, lockScroll } from '@/utils/scroll'
+
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
 import DatePicker from "react-datepicker";
@@ -31,6 +33,7 @@ const DiaperFinderCard = ({ content, refs, index }) => {
     }
 
     const openDiaperCalculator = () => {
+        lockScroll()
         diaperCalculatorContext.setIsOpen(true)
     }
 
@@ -74,7 +77,7 @@ const DiaperFinderCard = ({ content, refs, index }) => {
                     <div className="diaper-finder-card__form">
                         <div className="input-wrapper birthday">
                             <span>{`Baby’s birthday`}</span>
-                            <DatePicker dateFormat="MM/dd/yy" closeOnScroll={true} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="00/00/00" />
+                            <DatePicker dateFormat="MM/dd/yy" closeOnScroll={false} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="00/00/00" />
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby’s weight`}</span>
