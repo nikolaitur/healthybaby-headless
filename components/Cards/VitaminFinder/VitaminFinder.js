@@ -44,6 +44,8 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         if(lifeStage == "conceive") {
             getResultProduct("our-prenatal-preconception-1st-trimester")
+        } else if (lifeStage == "postpartum"){
+            getResultProduct("our-prenatal-4th-trimester-postnatal")
         } else {
             setProduct(false)
         }
@@ -188,7 +190,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <button className="btn" onClick={() => goToNextStage(2, "pregnant")}>
                         <span>{ ctaText2 }</span>
                     </button>
-                    <button className="btn" onClick={() => goToNextStage(2, "postpartum")}>
+                    <button className="btn" onClick={() => goToNextStage(3, "postpartum")}>
                         <span>{ ctaText3 }</span>
                     </button>
                 </div>
