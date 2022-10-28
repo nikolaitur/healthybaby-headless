@@ -161,7 +161,7 @@ const CollectionProductCard = forwardRef(
       if (ctaText) {
         return ctaText
       } else if (product && product.variants.length > 1) {
-        return `Quick View - $${productPrice ? productPrice : '' }`
+        return `Quick Add - $${productPrice ? productPrice : '' }`
       } else {
         return `Add To Cart - $${productPrice ? productPrice : '' }`
       }
@@ -318,7 +318,11 @@ const CollectionProductCard = forwardRef(
             ></span>
           </div>}
           <div className="collection-product-card__cta">
-            {product && product.variants.length > 1 ? (
+            {!product.availableForSale ? (
+              <span className="btn disabled">
+                <span>Out Of Stock</span>
+              </span>
+            ):(product && product.variants.length > 1) ? (
               <button
                 className="btn secondary quickview"
                 onClick={() => openQuickView()}

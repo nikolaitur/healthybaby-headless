@@ -47,7 +47,7 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
     const getCtaText = () => {
         if (product && product.variants.length > 1) {
-            return 'Quick View -'
+            return 'Quick Add -'
         } else {
             return 'Add To Cart - '
         }
@@ -193,7 +193,11 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
                 {showCTA &&
                     <div className="product-card__cta-btn">
-                        {product && product.variants.length > 1 ? (
+                        {!product.availableForSale ? (
+                        <span className="btn disabled">
+                            <span>Out Of Stock</span>
+                        </span>
+                        ): (product && product.variants.length > 1) ? (
                             <button
                                 className="btn secondary quickview"
                                 onClick={() => openQuickView()}
