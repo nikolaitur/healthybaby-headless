@@ -170,6 +170,7 @@ const DiaperFinder = ({ content }) => {
   const getProductRecommendation = () => {
 
     if (!startDate) {
+      setIsActive(true)
       return false;
     }
 
@@ -183,10 +184,8 @@ const DiaperFinder = ({ content }) => {
     }
 
     if (weight < 6) {
-      if (babyMonth > 0) {
         setIsActive(true)
         // return "Contact Customer Service"
-      }
     } else if (weight >= 6 && weight <= 11.99) {
       if (babyMonth <= 2 && babyMonth >= 0) {
         getProduct('our-newborn-gift-bundle')
@@ -212,7 +211,7 @@ const DiaperFinder = ({ content }) => {
       }
     } else if (weight >= 17 && weight <= 19.99) {
       if (babyMonth <= 28 && babyMonth >= 0) {
-        getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
+        getProduct('diaper-and-wipe-subscription', 'Size 3')
         console.log('Monthly Diaper Bundle with wipes- size 3')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 4')

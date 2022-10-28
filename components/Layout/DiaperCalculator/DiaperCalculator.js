@@ -102,7 +102,7 @@ const DiaperCalculator = ({ props, children }) => {
             }
         } else if (weight >= 17 && weight <= 19.99) {
             if (babyMonth <= 28 && babyMonth >= 0) {
-              getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
+              getProduct('diaper-and-wipe-subscription', 'Size 3')
               setDiaperSize(3)
               console.log('Monthly Diaper Bundle with wipes- size 3')
             } else if (babyMonth >= 29) {
