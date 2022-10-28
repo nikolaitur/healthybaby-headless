@@ -230,7 +230,7 @@ const CartDrawer = ({ content }) => {
             <>
               <div className="cart-drawer__items">
                 {cart.map((lineItem, index) => (
-                  <LineItem item={lineItem} key={index} />
+                  <LineItem item={lineItem} content={drawerContent[0]} key={index} />
                 ))}
               </div>
               {drawerContent[0] ? (
