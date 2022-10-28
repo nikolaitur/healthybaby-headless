@@ -457,7 +457,7 @@ const ProductInfo = (props) => {
                   checked={isCheckedOneTime}
                 />
                 <label htmlFor="onetimeOption">
-                  Buy One Time{' '}
+                  One-Time Purchase{' '}
                   <span className="price">
                     ${selectedVariant.price.toFixed(2)}
                   </span>
@@ -476,9 +476,9 @@ const ProductInfo = (props) => {
                   checked={isCheckedSubscription}
                 />
                 <label htmlFor="subscriptionOption">
-                  Monthly Auto-Ship <br />
+                  Auto Delivery <br />
                   <span>
-                    Update sizing or cancel anytime
+                    Update sizing or pause anytime
                     <span
                       className="question-mark"
                       onClick={() => openSubscribeInfoModal()}
@@ -670,6 +670,22 @@ const ProductInfo = (props) => {
                     dangerouslySetInnerHTML={{
                       __html: documentToHtmlString(
                         page.fields.productDetailTabContent3,
+                        richTextRenderOptions
+                      ),
+                    }}
+                  ></div>
+                ) : (
+                  ''
+                )}
+                {page.fields?.productDetailTabTitle4 &&
+                page.fields?.productDetailTabContent4 ? (
+                  <div
+                    className={`product-tabs__tab ${
+                      activeTab == 3 ? 'active' : ''
+                    }`}
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        page.fields.productDetailTabContent4,
                         richTextRenderOptions
                       ),
                     }}
