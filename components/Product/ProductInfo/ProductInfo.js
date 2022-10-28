@@ -627,6 +627,19 @@ const ProductInfo = (props) => {
                 ) : (
                   ''
                 )}
+                {page.fields?.productDetailTabTitle4 &&
+                page.fields?.productDetailTabContent4 ? (
+                  <div
+                    className={`product-tabs__title ${
+                      activeTab == 2 ? 'active' : ''
+                    }`}
+                    onClick={() => setActiveTab(3)}
+                  >
+                    {page.fields.productDetailTabTitle4}
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
               <div className="product-tabs__content">
                 {page.fields?.productDetailTabTitle1 &&

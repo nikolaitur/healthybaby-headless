@@ -75,9 +75,9 @@ const ProductFiftyFifty = ({ content }) => {
                 )}
               </div>
               <div className="article-video__video">
-                {hasWindow && (
+                {hasWindow && content.fields?.videoUrl (
                   <ReactPlayer
-                    url={content.fields?.videoUrl}
+                    url={content.fields.videoUrl}
                     playing={isPlayingMobile}
                     controls={true}
                     className="article-video__video-player"
