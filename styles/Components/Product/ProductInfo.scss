@@ -4,6 +4,34 @@
     padding: 40px 0 0px;
   }
 
+  &__sticky {
+    @include breakpoint-down('md') {
+        display: flex;
+        flex-direction: column;
+  
+        .product-info__reviews {
+          order: 1;
+        }
+  
+        .product-info__title {
+          order: 2;
+        }
+  
+        .product-info__description {
+          order: 4;
+          font-size: 18px;
+        }
+  
+        .product-info__price {
+          order: 3;
+        }
+  
+        .product-form {
+          order: 5;
+        }
+    }
+  }
+
   &__reviews {
     display: flex;
     align-items: center;
@@ -39,7 +67,7 @@
 
   &__title {
     padding: 20px 0 0;
-    font-size: 28px;
+    font-size: 20px;
 
     @include breakpoint-up('md') {
       font-size: 62px;
