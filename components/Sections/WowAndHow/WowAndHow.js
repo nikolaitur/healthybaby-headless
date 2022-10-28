@@ -100,13 +100,15 @@ const WowAndHow = ({ content }) => {
                     <h6 className="wow-and-how__subheader">{ subheader }</h6>
                     {header && <h2 className="wow-and-how__header">{ parse(header) }</h2>}
                     <h5 className="wow-and-how__copy">{ copy }</h5>
-                    <div className="wow-and-how__cta">
-                        <Link href={ctaUrl}>
-                            <button className="btn">
-                                <span>{ ctaText }</span>
-                            </button>
-                        </Link>
-                    </div>
+                    {/* 
+                        <div className="wow-and-how__cta">
+                            <Link href={ctaUrl}>
+                                <button className="btn">
+                                    <span>{ ctaText }</span>
+                                </button>
+                            </Link>
+                        </div> 
+                    */}
                     {buildImages('mobile')}
                     <div className="wow-and-how__subheader">BROWSE BY STAGE</div>
                     <div className="wow-and-how__stages">
