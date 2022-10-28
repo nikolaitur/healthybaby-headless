@@ -41,7 +41,6 @@ const ProductDetailSlide = ({ content }) => {
                         />
                     </div>
                 ) : ""}
-                {/* <img src="https://swiperjs.com/demos/images/nature-1.jpg" /> */}
             </div>
             <div className="product-detail-slide__column">
                 {textBlock2 ? (
