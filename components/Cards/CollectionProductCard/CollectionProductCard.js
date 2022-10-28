@@ -40,7 +40,7 @@ const findProductBadges = ({ content, product, productBadges }) => {
 }
 
 const CollectionProductCard = forwardRef(
-  ({ content, products, productBadges }, ref) => {
+  ({ content, products, productBadges, imageLayout = 'responsive' }, ref) => {
     const router = useRouter()
     const [, { addToCart }] = useCart()
     const [isloading, setIsLoading] = useState(false)
@@ -189,7 +189,7 @@ const CollectionProductCard = forwardRef(
                   <Image
                     src={`https:${badge.file.url}`}
                     alt={badge.title}
-                    layout="responsive"
+                    layout={imageLayout}
                     objectFit="cover"
                     height={100}
                     width={100}
@@ -222,7 +222,7 @@ const CollectionProductCard = forwardRef(
                   className="featured"
                   src={`https:${content.fields.image.fields.file.url}`}
                   alt={content.fields.image.fields.title}
-                  layout="responsive"
+                  layout={imageLayout}
                   objectFit="cover"
                   height={
                     cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
@@ -234,7 +234,7 @@ const CollectionProductCard = forwardRef(
                     className="hover"
                     src={`https:${content.fields.imageHover.fields.file.url}`}
                     alt={content.fields.imageHover.fields.title}
-                    layout="responsive"
+                    layout={imageLayout}
                     objectFit="cover"
                     height={
                       cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
@@ -269,7 +269,7 @@ const CollectionProductCard = forwardRef(
                   className="featured"
                   src={`https:${content.fields.image.fields.file.url}`}
                   alt={content.fields.image.fields.title}
-                  layout="responsive"
+                  layout={imageLayout}
                   objectFit="cover"
                   height={cardWidth == 'Full Width' ? 695 : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}
@@ -280,7 +280,7 @@ const CollectionProductCard = forwardRef(
                   className="hover"
                   src={`https:${content.fields.imageHover.fields.file.url}`}
                   alt={content.fields.imageHover.fields.title}
-                  layout="responsive"
+                  layout={imageLayout}
                   objectFit="cover"
                   height={cardWidth == 'Full Width' ? 695 : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}

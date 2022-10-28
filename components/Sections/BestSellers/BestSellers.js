@@ -51,33 +51,6 @@ const BestSellers = ({ content }) => {
                         </Link>}
                     </div>
                 </div>
-                {/* {sections && products ? (
-                    <>
-                        <div className="product-cross-sells__items">
-                            {content.fields.sections.map((item, index) => {
-                                return <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
-                            })}
-                        </div>
-                        <Swiper
-                            className="product-cross-sells__slider"
-                            modules={[Lazy]}
-                            spaceBetween={20}
-                            slidesPerView={1}
-                            lazy={true}
-                            style={{
-                                "--swiper-navigation-color": "#fff",
-                                "--swiper-pagination-color": "#fff",
-                            }}
-                        >
-                            {content.fields.sections.map((item, index) => (
-                                <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products} crossSell={true}/>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </>
-
-                ) : ""} */}
                 {sections && products ? (
                     <div className="best-sellers__slider">
                         <Swiper
@@ -95,7 +68,7 @@ const BestSellers = ({ content }) => {
                         >
                            {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products}/>
+                                    <CollectionProductCard content={item} key={index} products={products} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -119,7 +92,7 @@ const BestSellers = ({ content }) => {
                         >
                             {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products}/>
+                                    <CollectionProductCard content={item} key={index} products={products} imageLayout={'fill'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
