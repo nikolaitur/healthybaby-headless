@@ -203,7 +203,7 @@ const CartDrawer = ({ content }) => {
           >
             <span className="message">
               {freeShipping ? (
-                <>  
+                <>
                     {cartDrawerContent?.fields.shippingThreshold ? (
                         <span><strong>{cartDrawerContent.fields.shippingThreshold}</strong></span>
                     ) : (
@@ -263,7 +263,7 @@ const CartDrawer = ({ content }) => {
                   className="btn secondary full-width"
                   onClick={handleProcessCheckout}
                 >
-                  <span>{`Checkout - $${cartSubtotal.toFixed(2)}`}</span>
+                  <span>{`Checkout - $${Math.round(cartSubtotal.toFixed(2))}`}</span>
                 </button>
               </div>
             </>

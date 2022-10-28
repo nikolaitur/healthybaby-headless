@@ -158,9 +158,9 @@ const LineItem = ({ item }) => {
               {!item.sellingPlan
                 ? `$${item.variant.price.toFixed(2)}`
                 : item.subscription && item.sellingPlan
-                ? 
+                ?
                 (<>
-                    <span className="sale">${Number(subscriptionPrice).toFixed(2)}</span> <span><s>${item.variant.price.toFixed(2)}</s></span>
+                    <span className="sale">${Math.round(subscriptionPrice)}</span> <span><s>${item.variant.price.toFixed(2)}</s></span>
                 </>)
                 : `$${item.variant.price.toFixed(2)}`}
             </>
