@@ -200,7 +200,7 @@ const LineItem = ({ item, content }) => {
           className="line-item__upgrade"
           onClick={() => upgradeToSubscription()}
         >
-          Upgrade to Subscribe & Save {content.fields?.subscriptionDiscountPercent ? content.fields?.subscriptionDiscountPercent : "7.5"}%
+          Upgrade to Subscribe & Save {content?.fields?.subscriptionDiscountPercent ? content.fields.subscriptionDiscountPercent : "7.5"}%
         </button>
       ) : (
         ''
