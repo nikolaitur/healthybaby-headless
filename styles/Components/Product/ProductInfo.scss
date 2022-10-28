@@ -366,10 +366,22 @@
       .price {
         position: absolute;
         right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
+        font-size: 16px;
+        top: 20px;
+        transform: none;
+
+        s {
+          font-size: 16px;
+        }
 
         @include breakpoint-up('md') {
+          top: 10px;
+          transform: none;
+        }
+
+        @media only screen and (min-width: 1280px) {
+          top: 50%;
+          transform: translateY(-50%);
           font-size: 22px;
 
           s {
