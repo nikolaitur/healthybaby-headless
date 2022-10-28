@@ -1,13 +1,10 @@
-import React from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import parse from 'html-react-parser'
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { useSwiper } from 'swiper/react'
 
 const StoriesSlide = ({ content, slides, activeSlide }) => {
-  const swiper = useSwiper()
-
   const {
     title,
     subtitle,
@@ -17,15 +14,21 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
     activity,
     image
   } = {...content.fields}
+  const swiper = useSwiper()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <div className="stories-slide">
       <div className="stories-slide__container">
         <div className="stories-slide__content">
           <h6 className="stories-slide__subtitle">{subtitle}</h6>
-          <h3 className={`stories-slide__title`}>
+          {mounted && <h3 className={`stories-slide__title`}>
             {parse(title)}
-          </h3>
+          </h3>}
           <h5 className="stories-slide__copy">{copy}</h5>
           <div className="stories-slide__author">{author}</div>
           <div className="stories-slide__age">{age}</div>
