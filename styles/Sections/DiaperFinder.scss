@@ -423,8 +423,7 @@
       border-radius: 100%;
       top: -25px;
       right: -50px;
-      display: none;
-
+      // display: none;
       @include breakpoint-up('md') {
         display: block;
       }
