@@ -9,7 +9,7 @@
         margin-right: 60px;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 0 36px;
+        gap: 0 37px;
     }
 
     &__slider {
@@ -36,6 +36,11 @@
 
             &:nth-child(3) {
                 grid-column: 1 / -1;
+                height: 729px!important;
+
+                img {
+                    height: 729px!important;
+                }
             }
         }
 
