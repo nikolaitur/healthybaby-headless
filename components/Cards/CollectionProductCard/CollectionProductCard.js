@@ -40,14 +40,18 @@ const findProductBadges = ({ content, product, productBadges }) => {
 }
 
 const CollectionProductCard = forwardRef(
-  ({ content, products, productBadges, imageLayout = 'responsive' }, ref) => {
+  ({ content, products, productBadges, imageLayout = 'responsive', cardWidthOverride }, ref) => {
     const router = useRouter()
     const [, { addToCart }] = useCart()
     const [isloading, setIsLoading] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false)
     const [hasWindow, setHasWindow] = useState(false)
-    const { title, cardWidth, ctaText } = {...content.fields}
+    let { title, cardWidth, ctaText } = {...content.fields}
     const isDesktop = useMediaQuery({ minWidth: 1074 })
+
+    if (cardWidthOverride) {
+      cardWidth = cardWidthOverride
+    }
 
     const cartDrawerContext = useCartDrawerContext()
     const modalContext = useModalContext()
