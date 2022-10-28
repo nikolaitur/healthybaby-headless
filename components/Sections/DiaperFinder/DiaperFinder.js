@@ -330,7 +330,7 @@ const DiaperFinder = ({ content }) => {
   }
 
   return (
-    <section className="diaper-finder" data-background-color="blue">
+    <section className="diaper-finder" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
       <div className="diaper-finder__container container">
         <div className="diaper-finder__content">
           <h6 className="diaper-finder__subheader">

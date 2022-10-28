@@ -152,19 +152,25 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
           ></span>
         </div>}
         <div className="collection-product-card__cta">
-          <button
-            className="btn secondary quickview"
-            onClick={() => openQuickView()}
-          >
-            <span>Quick View -</span>
-            {productPrice ? (
-              <>
-                {`\u00A0`} ${productPrice}
-              </>
-            ) : (
-              ''
-            )}
-          </button>
+          {!product.availableForSale ? (
+            <span className="btn disabled">
+              <span>Out Of Stock</span>
+            </span>
+          ):(
+            <button
+              className="btn secondary quickview"
+              onClick={() => openQuickView()}
+            >
+              <span>Quick Add -</span>
+              {productPrice ? (
+                <>
+                  {`\u00A0`} ${productPrice}
+                </>
+              ) : (
+                ''
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

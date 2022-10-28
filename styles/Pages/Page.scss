@@ -20,6 +20,11 @@
         text-align: center;
       }
     }
+    .hero__header {
+      @include breakpoint-down('xs') {
+        font-size: 34px;
+      }
+    }
   }
   .article-content {
     margin-top: 70px;

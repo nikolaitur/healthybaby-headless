@@ -40,14 +40,18 @@ const findProductBadges = ({ content, product, productBadges }) => {
 }
 
 const CollectionProductCard = forwardRef(
-  ({ content, products, productBadges }, ref) => {
+  ({ content, products, productBadges, imageLayout = 'responsive', cardWidthOverride }, ref) => {
     const router = useRouter()
     const [, { addToCart }] = useCart()
     const [isloading, setIsLoading] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false)
     const [hasWindow, setHasWindow] = useState(false)
-    const { title, cardWidth, ctaText } = {...content.fields}
+    let { title, cardWidth, ctaText } = {...content.fields}
     const isDesktop = useMediaQuery({ minWidth: 1074 })
+
+    if (cardWidthOverride) {
+      cardWidth = cardWidthOverride
+    }
 
     const cartDrawerContext = useCartDrawerContext()
     const modalContext = useModalContext()
@@ -161,7 +165,7 @@ const CollectionProductCard = forwardRef(
       if (ctaText) {
         return ctaText
       } else if (product && product.variants.length > 1) {
-        return `Quick View - $${productPrice ? productPrice : '' }`
+        return `Quick Add - $${productPrice ? productPrice : '' }`
       } else {
         return `Add To Cart - $${productPrice ? productPrice : '' }`
       }
@@ -189,7 +193,7 @@ const CollectionProductCard = forwardRef(
                   <Image
                     src={`https:${badge.file.url}`}
                     alt={badge.title}
-                    layout="responsive"
+                    layout={imageLayout}
                     objectFit="cover"
                     height={100}
                     width={100}
@@ -211,7 +215,7 @@ const CollectionProductCard = forwardRef(
         >
           <div
             className={`collection-product-card__image ${
-              content.fields?.image && content.fields?.imageHover
+              content.fields?.image
                 ? 'hide-mobile'
                 : ''
             }`}
@@ -222,7 +226,7 @@ const CollectionProductCard = forwardRef(
                   className="featured"
                   src={`https:${content.fields.image.fields.file.url}`}
                   alt={content.fields.image.fields.title}
-                  layout="responsive"
+                  layout={imageLayout}
                   objectFit="cover"
                   height={
                     cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
@@ -234,7 +238,7 @@ const CollectionProductCard = forwardRef(
                     className="hover"
                     src={`https:${content.fields.imageHover.fields.file.url}`}
                     alt={content.fields.imageHover.fields.title}
-                    layout="responsive"
+                    layout={imageLayout}
                     objectFit="cover"
                     height={
                       cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
@@ -250,7 +254,7 @@ const CollectionProductCard = forwardRef(
             )}
           </div>
         </a>
-        {content.fields?.image?.fields?.file?.url && content.fields?.imageHover?.fields?.file?.url ? (
+        {content.fields?.image?.fields?.file?.url ? (
           <a onClick={() => handleLink(product)}>
             <Swiper
               className="collection-product-card__slider"
@@ -269,23 +273,23 @@ const CollectionProductCard = forwardRef(
                   className="featured"
                   src={`https:${content.fields.image.fields.file.url}`}
                   alt={content.fields.image.fields.title}
-                  layout="responsive"
+                  layout={imageLayout}
                   objectFit="cover"
                   height={cardWidth == 'Full Width' ? 695 : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
               </SwiperSlide>
-              <SwiperSlide>
+              {content.fields?.imageHover?.fields?.file?.url && <SwiperSlide>
                 <Image
                   className="hover"
                   src={`https:${content.fields.imageHover.fields.file.url}`}
                   alt={content.fields.imageHover.fields.title}
-                  layout="responsive"
+                  layout={imageLayout}
                   objectFit="cover"
                   height={cardWidth == 'Full Width' ? 695 : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
-              </SwiperSlide>
+              </SwiperSlide>}
             </Swiper>
           </a>
         ) : (
@@ -318,7 +322,11 @@ const CollectionProductCard = forwardRef(
             ></span>
           </div>}
           <div className="collection-product-card__cta">
-            {product && product.variants.length > 1 ? (
+            {!product.availableForSale ? (
+              <span className="btn disabled">
+                <span>Out Of Stock</span>
+              </span>
+            ):(product && product.variants.length > 1) ? (
               <button
                 className="btn secondary quickview"
                 onClick={() => openQuickView()}
