@@ -184,7 +184,7 @@ const DiaperFinder = ({ content }) => {
 
     if (weight < 6) {
       if (babyMonth > 0) {
-        console.log('Contact Customer Service')
+        setIsActive(true)
         // return "Contact Customer Service"
       }
     } else if (weight >= 6 && weight <= 11.99) {
@@ -248,8 +248,6 @@ const DiaperFinder = ({ content }) => {
     } else {
       setIsActive(true)
     }
-
-    // console.log(product, selectedVariant)
   }
 
   const getProduct = async (handle, size = 'Size 1', prenantal = false) => {

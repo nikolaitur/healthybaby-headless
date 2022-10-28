@@ -15,7 +15,7 @@ import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 import Trash from '../../../svgs/trash.svg'
 
-const LineItem = ({ item }) => {
+const LineItem = ({ item, content }) => {
   const [
     { cart },
     { incrementItem, decrementItem, removeFromCart, addToCart },
@@ -29,6 +29,7 @@ const LineItem = ({ item }) => {
   let hasSubscriptionProduct = false
 
   useEffect(() => {
+    console.log(content)
     if (item.sellingPlan) {
       const sellingPlanPriceValue = JSON.parse(item.sellingPlan.value)
       const sellingPlanPrice =
@@ -199,7 +200,7 @@ const LineItem = ({ item }) => {
           className="line-item__upgrade"
           onClick={() => upgradeToSubscription()}
         >
-          Upgrade to Subscribe & Save 7.5%
+          Upgrade to Subscribe & Save {content.fields?.subscriptionDiscountPercent ? content.fields?.subscriptionDiscountPercent : "7.5"}%
         </button>
       ) : (
         ''
