@@ -215,7 +215,7 @@ const CollectionProductCard = forwardRef(
         >
           <div
             className={`collection-product-card__image ${
-              content.fields?.image && content.fields?.imageHover
+              content.fields?.image
                 ? 'hide-mobile'
                 : ''
             }`}
@@ -254,7 +254,7 @@ const CollectionProductCard = forwardRef(
             )}
           </div>
         </a>
-        {content.fields?.image?.fields?.file?.url && content.fields?.imageHover?.fields?.file?.url ? (
+        {content.fields?.image?.fields?.file?.url ? (
           <a onClick={() => handleLink(product)}>
             <Swiper
               className="collection-product-card__slider"
@@ -279,7 +279,7 @@ const CollectionProductCard = forwardRef(
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
               </SwiperSlide>
-              <SwiperSlide>
+              {content.fields?.imageHover?.fields?.file?.url && <SwiperSlide>
                 <Image
                   className="hover"
                   src={`https:${content.fields.imageHover.fields.file.url}`}
@@ -289,7 +289,7 @@ const CollectionProductCard = forwardRef(
                   height={cardWidth == 'Full Width' ? 695 : 710}
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
-              </SwiperSlide>
+              </SwiperSlide>}
             </Swiper>
           </a>
         ) : (
