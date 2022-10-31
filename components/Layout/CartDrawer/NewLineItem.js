@@ -113,8 +113,6 @@ const NewLineItem = ({ item, content }) => {
   const upgradeToSubscription = async () => {
     if (hasSubscriptionProduct.length > 0) {
      
-    //   const sellingPlanAllocationsValue = JSON.parse(item.sellingPlan.value)
-    //   const sellingPlanId = `${sellingPlanAllocationsValue[0].sellingPlan.id}`
       const sellingPlanId = hasSubscriptionProduct[0].value
 
       let lineItem = {
@@ -148,10 +146,7 @@ const NewLineItem = ({ item, content }) => {
         lines: [lineItem],
       });
 
-      console.log( cart, userErrors, errors )
-
       if(cart) {
-        console.log("Subscription")
         cartDrawerContext.setShopifyCart(cart)
       }
 
@@ -188,7 +183,7 @@ const NewLineItem = ({ item, content }) => {
               {!item.attributes.length ? 
                 `$${Number(item.cost.totalAmount.amount).toFixed(2)}` : 
                 item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription")) && item.cost.compareAtAmountPerQuantity?.amount ? (
-                    <><span className="sale">${Number(item.cost.totalAmount.amount).toFixed(2)}</span> <span><s>${Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2)}</s></span></>
+                    <><span className="sale">${Number(item.cost.totalAmount.amount).toFixed(2)}</span> <span><s>${Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2) * item.quantity}</s></span></>
                 ) : `$${Number(item.cost.totalAmount.amount).toFixed(2)}`
               }
             </>

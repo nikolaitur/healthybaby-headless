@@ -12,6 +12,8 @@ import { useModalContext } from '../../../context/ModalContext'
 
 import DatePicker from "react-datepicker";
 
+import * as Cookies from 'es-cookie'
+
 import "react-datepicker/dist/react-datepicker.css"
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
@@ -96,38 +98,34 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
 
-        if(!sellingPlan) {
-            sellingPlan = false
+        let itemAttributes = []
+
+        if(sellingPlan) {
+            const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+            const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+            itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
         }
 
-        addToCart({
-            product,
-            variant,
-            quantity: 1,
-            sellingPlan,
-            subscription: false,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            selectedVariant
-        })
-
-        await cartClient.cartLinesAdd({
-            cartId: cartDrawerContext.shopifyCartId,
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
             lines: [
-              {
+                {
                 merchandiseId: selectedVariant.nacelleEntryId,
                 nacelleEntryId: selectedVariant.nacelleEntryId,
                 quantity: 1,
-              }
-            ]
-          })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.error(err, "Error")
-          })
+                attributes: itemAttributes
+                },
+            ],
+        });
 
-          cartDrawerContext.setIsOpen(true)
+        console.log( cart, userErrors, errors )
+
+        if(cart) {
+            cartDrawerContext.setShopifyCart(cart)
+        }
+
+        cartDrawerContext.setIsOpen(true)
     }
 
     useEffect(() => {

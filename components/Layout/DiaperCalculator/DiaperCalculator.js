@@ -297,15 +297,15 @@ const DiaperCalculator = ({ props, children }) => {
             }
         }
 
-        addToCart({
-            product,
-            variant,
-            quantity: 1,
-            sellingPlan,
-            subscription: true,
-            nacelleEntryId: selectedVariant[0].nacelleEntryId,
-            selectedVariant: selectedVariant[0],
-        })
+        // addToCart({
+        //     product,
+        //     variant,
+        //     quantity: 1,
+        //     sellingPlan,
+        //     subscription: true,
+        //     nacelleEntryId: selectedVariant[0].nacelleEntryId,
+        //     selectedVariant: selectedVariant[0],
+        // })
 
         await cartClient
             .cartLinesAdd({

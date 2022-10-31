@@ -212,16 +212,6 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ item: newItem })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: true,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
-
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [lineItem],
@@ -251,16 +241,6 @@ const ProductInfo = (props) => {
       }
 
       dataLayerATC({ item: newItem })
-
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
 
       let itemAttributes = [{ key: "_sellingPlan", value: ((sellingPlan) ? "true" : "false")}]
       

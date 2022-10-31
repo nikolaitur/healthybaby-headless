@@ -110,15 +110,15 @@ const CollectionProductCard = forwardRef(
 
       dataLayerATC({ item: newItem })
 
-      addToCart({
-        product,
-        variant,
-        quantity: 1,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+    //   addToCart({
+    //     product,
+    //     variant,
+    //     quantity: 1,
+    //     sellingPlan,
+    //     subscription: false,
+    //     nacelleEntryId: selectedVariant.nacelleEntryId,
+    //     selectedVariant,
+    //   })
 
       await cartClient
         .cartLinesAdd({

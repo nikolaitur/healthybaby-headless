@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DatePicker from 'react-datepicker'
 
+import * as Cookies from 'es-cookie'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
@@ -291,39 +292,33 @@ const DiaperFinder = ({ content }) => {
         (metafield) => metafield.key === 'sellingPlanAllocations'
       )
 
-      if (!sellingPlan) {
-        sellingPlan = false
+      let itemAttributes = []
+      
+      if(sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
       }
 
-      addToCart({
-        product,
-        variant,
-        quantity: 1,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: 1,
+            attributes: itemAttributes
+          },
+        ],
+      });
 
-      console.log(cartDrawerContext.shopifyCartId)
+      console.log( cart, userErrors, errors )
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: 1,
-            },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      if(cart) {
+        console.log("Subscription")
+        cartDrawerContext.setShopifyCart(cart)
+      }
 
       cartDrawerContext.setIsOpen(true)
     }

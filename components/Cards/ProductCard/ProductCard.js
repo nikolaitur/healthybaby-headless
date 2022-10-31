@@ -94,25 +94,25 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
         dataLayerATC({ item: newItem })
 
-        addToCart({
-          product,
-          variant,
-          quantity: 1,
-          sellingPlan,
-          subscription: false,
-          nacelleEntryId: selectedVariant.nacelleEntryId,
-          selectedVariant,
-        })
+        // addToCart({
+        //   product,
+        //   variant,
+        //   quantity: 1,
+        //   sellingPlan,
+        //   subscription: false,
+        //   nacelleEntryId: selectedVariant.nacelleEntryId,
+        //   selectedVariant,
+        // })
 
         await cartClient
           .cartLinesAdd({
               cartId: cartDrawerContext.shopifyCartId,
               lines: [
-              {
-                  merchandiseId: selectedVariant.nacelleEntryId,
-                  nacelleEntryId: selectedVariant.nacelleEntryId,
-                  quantity: 1,
-              },
+                {
+                    merchandiseId: selectedVariant.nacelleEntryId,
+                    nacelleEntryId: selectedVariant.nacelleEntryId,
+                    quantity: 1,
+                },
               ],
           })
           .then((res) => {
