@@ -80,10 +80,10 @@
     }
 
     &__subheader {
-        @include breakpoint-down('md') {
-            line-height: 23px;
-        }
+      @include breakpoint-down('md') {
+        line-height: 23px;
       }
+    }
 
     &__cta {
       min-width: fit-content;
@@ -138,6 +138,7 @@
 @import './ProductAbout.scss';
 @import './ProductIngredients.scss';
 @import './ProductFiftyFifty.scss';
+@import './ActivityPreview.scss';
 @import './ProductCrossSells.scss';
 @import './ProductReviews.scss';
 @import './ProductQuickview.scss';
