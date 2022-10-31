@@ -12,8 +12,6 @@ const ProductGallery = ( props ) => {
 
     const { product, page, quickView } = {...props}
 
-    console.log(page.fields)
-
     return (
         <>
             <div className="product-gallery">
@@ -29,7 +27,7 @@ const ProductGallery = ( props ) => {
                             width="490"
                         />
                     </div>
-                ) : page.fields.productImagesDesktop?.length ? (
+                ) : page.fields?.productImagesDesktop?.length ? (
                     page.fields.productImagesDesktop.map((productImage, index) => {
                         let height = 615;
                         if (index == 2 || index == 5) {
@@ -74,7 +72,7 @@ const ProductGallery = ( props ) => {
                     })
                 )}
             </div>
-            
+
             <Swiper
                 className="product-gallery__slider"
                 modules={[Lazy, Pagination]}
@@ -89,7 +87,7 @@ const ProductGallery = ( props ) => {
                     "--swiper-pagination-bullet-inactive-opacity": "1"
                 }}
             >
-                {page.fields.productImagesMobile?.length ? (
+                {page.fields?.productImagesMobile?.length ? (
                     page.fields.productImagesMobile.map((productImage, index) => {
                         if(productImage.fields?.file?.url) {
                             return (
