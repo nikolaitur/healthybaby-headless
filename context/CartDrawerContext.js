@@ -20,7 +20,8 @@ export function CartDrawerProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
-  const [shopifyCartId, setShopifyCartId] = useState(undefined)
+  const [shopifyCartId, setShopifyCartId] = useState(false)
+  const [shopifyCart, setShopifyCart] = useState(false)
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -51,7 +52,7 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
-      console.log(Cookies.get('shopifyCartId'))
+      console.log(Cookies.get('shopifyCartId'), lines, cart)
 
       if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
@@ -59,20 +60,24 @@ export function CartDrawerProvider({ children }) {
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            if (response.cart) {
+            console.log(Cookies.get('shopifyCartId'), response, "1")
+            if (response) {
               setShopifyCartCartClient(response.cart)
-              setShopifyCartId(response.cart.id)
+              setShopifyCartId(Cookies.get('shopifyCartId'))
+              setShopifyCart(response)
             }
           })
       } else {
-        const shopifyCart = await cartClient
+        cartClient
           .cartCreate({
             lines
           })
           .then((response) => {
+            console.log(Cookies.get('shopifyCartId'), response, "2")
             if (response) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)
+              setShopifyCart(response)
               Cookies.set('shopifyCartId', response.cart.id)
             }
           })
@@ -92,6 +97,8 @@ export function CartDrawerProvider({ children }) {
         setShopifyCartCartClient,
         shopifyCartId,
         setShopifyCartId,
+        shopifyCart,
+        setShopifyCart,
       }}
     >
       {children}

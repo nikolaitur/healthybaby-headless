@@ -222,17 +222,18 @@ const ProductInfo = (props) => {
         selectedVariant,
       })
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [lineItem],
-        })
-        .then((data) => {
-          console.log(data, 'Cart data')
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [lineItem],
+      });
+
+      console.log( cart, userErrors, errors )
+
+      if(cart) {
+        console.log("Subscription")
+        cartDrawerContext.setShopifyCart(cart)
+      }
+
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -261,23 +262,35 @@ const ProductInfo = (props) => {
         selectedVariant,
       })
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
+      let itemAttributes = [{ key: "_sellingPlan", value: ((sellingPlan) ? "true" : "false")}]
+      
+      if(sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+      }
+
+      console.log(itemAttributes)
+
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
             {
               merchandiseId: selectedVariant.nacelleEntryId,
               nacelleEntryId: selectedVariant.nacelleEntryId,
               quantity: quantity,
+              attributes: itemAttributes,
             },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+        ]
+      });
+
+      console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
+
+      if(cart) {
+        console.log("ONE TIME")
+        cartDrawerContext.setShopifyCart(cart)
+      }
     }
 
     cartDrawerContext.setIsOpen(true)

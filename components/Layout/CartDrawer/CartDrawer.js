@@ -10,6 +10,7 @@ import { dataLayerBeginCheckout } from '@/utils/dataLayer'
 import * as Cookies from 'es-cookie'
 
 import LineItem from './LineItem'
+import NewLineItem from './NewLineItem'
 import Upsell from './Upsell'
 
 import IconClose from '../../../svgs/close-icon.svg'
@@ -33,6 +34,7 @@ const CartDrawer = ({ content }) => {
   const [drawerContent, setDrawerContent] = useState(false)
   const [upsells, setUpsells] = useState(false)
   const [upsellsData, setUpsellsData] = useState({ products: [], variants: [] })
+  const [shopifyCartData, setShopifyCartData] = useState(false)
   const cartDrawerContext = useCartDrawerContext()
   const cartDrawerContent = cartDrawerContext.content[0]
 
@@ -53,7 +55,6 @@ const CartDrawer = ({ content }) => {
 
   const cartItemTotal = cart.reduce((sum, lineItem) => {
     return sum + lineItem.quantity
-    // return 0
   }, 0)
 
   let freeShipping = false
@@ -67,26 +68,18 @@ const CartDrawer = ({ content }) => {
   }
 
   useEffect(() => {
-    // const getCartClient = async () => {
-    //     // console.log(cart, "getcartclient", cartClient)
-    //     if(cartClient) {
-    //         const shopifyCart = await cartClient.cartCreate({
-    //             lines: [
-    //                 {
-    //                     merchandiseId: "gid://shopify/ProductVariant/43184331784432",
-    //                     quantity: 1
-    //                 }
-    //             ],
-    //             attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-    //             note: 'Please use a red ribbon for the bow, if possible :)'
-    //         });
-    //        console.log(shopifyCart)
-    //        console.log(cartClient)
-    //     }
-    // }
-    // getCartClient()
-    // console.log(cartDrawerContext, "cartdrawer")
-  }, [])
+    const getCartClient = async () => {
+        const cartData = await cartClient.cart({
+            cartId: Cookies.get('shopifyCartId')
+        });
+
+        cartDrawerContext.setShopifyCart(cartData.cart)
+
+        console.log("DRAWER DATA", cartDrawerContext.shopifyCart)
+    }
+    getCartClient()
+
+  }, [cartDrawerContext.isOpen])
 
   useEffect(() => {
     setDrawerContent(content)
@@ -226,14 +219,14 @@ const CartDrawer = ({ content }) => {
               ></span>
             </span>
           </div>
-          {cart.length ? (
+          {cartDrawerContext.shopifyCart && cartDrawerContext.shopifyCart?.lines ? (
             <>
-              <div className="cart-drawer__items">
-                {cart.map((lineItem, index) => (
-                  <LineItem item={lineItem} content={drawerContent[0]} key={index} />
-                ))}
-              </div>
-              {drawerContent[0] ? (
+                <div className="cart-drawer__items">
+                    {cartDrawerContext.shopifyCart.lines.map((lineItem, index) => (
+                        <NewLineItem item={lineItem} content={drawerContent[0]} key={index} />
+                    ))}
+                </div>
+                {drawerContent[0] ? (
                 drawerContent[0].fields.upsells.length > 1 ? (
                   <div className="cart-drawer__upsells">
                     <div className="cart-drawer__upsells--title">
@@ -251,13 +244,8 @@ const CartDrawer = ({ content }) => {
                         : ''}
                     </div>
                   </div>
-                ) : (
-                  ''
-                )
-              ) : (
-                ''
-              )}
-
+                ) : ('')
+              ) : ('')}
               <div className="cart-drawer__checkout">
                 <button
                   className="btn secondary full-width"
@@ -267,8 +255,52 @@ const CartDrawer = ({ content }) => {
                 </button>
               </div>
             </>
+
           ) : (
             <div className="cart-drawer__empty">Your bag is empty</div>
+          )}
+
+          {cart.length ? (
+            <></>
+            // <>
+            //   <div className="cart-drawer__items">
+            //     {/* {cart.map((lineItem, index) => (
+            //       <LineItem item={lineItem} content={drawerContent[0]} key={index} />
+            //     ))} */}
+                
+            //   </div>
+            //   {drawerContent[0] ? (
+            //     drawerContent[0].fields.upsells.length > 1 ? (
+            //       <div className="cart-drawer__upsells">
+            //         <div className="cart-drawer__upsells--title">
+            //           Pair with these essentials:
+            //         </div>
+            //         <div className="cart-drawer__upsells--wrapper">
+            //           {upsells
+            //             ? upsellsData.products.map((upsell, index) => (
+            //                 <Upsell
+            //                   key={index}
+            //                   product={upsell}
+            //                   variantId={upsellsData.variants[index]}
+            //                 />
+            //               ))
+            //             : ''}
+            //         </div>
+            //       </div>
+            //     ) : ('')
+            //   ) : ('')}
+            //   <div className="cart-drawer__checkout">
+            //     <button
+            //       className="btn secondary full-width"
+            //       onClick={handleProcessCheckout}
+            //     >
+            //       <span>{`Checkout - $${cartSubtotal.toFixed(2)}`}</span>
+            //     </button>
+            //   </div>
+            // </>
+          ) : (
+            <></>
+            // <div className="cart-drawer__empty">Your bag is empty</div>
           )}
         </div>
       </div>
