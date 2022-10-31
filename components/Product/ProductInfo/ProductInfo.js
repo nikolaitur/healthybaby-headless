@@ -397,7 +397,7 @@ const ProductInfo = (props) => {
                     return (
                       <div
                         className="product-form__add-on"
-                        onChange={() => handleCheckBoxChange(option)}
+                        onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
                           {page?.fields?.productAddOnImage ? (
@@ -423,7 +423,7 @@ const ProductInfo = (props) => {
                               : '+$27'}
                           </div>
                         </div>
-                        <input type="checkbox"></input>
+                        <input type="checkbox" checked={selectedCombination}></input>
                       </div>
                     )
                   default:
