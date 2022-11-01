@@ -216,6 +216,8 @@ const VitaminFinder = ({ content, refs, index }) => {
                                 <Image
                                     src={product.content.featuredMedia.src}
                                     alt={header}
+                                    layout="responsive"
+                                    objectFit="cover"
                                     height="315"
                                     width="315"
                                 />
