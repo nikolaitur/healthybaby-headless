@@ -10,7 +10,7 @@ const ArticleVideo = ({ content }) => {
     ...content.fields,
   }
 
-  console.log("verticalVideo:", verticalVideo)
+  console.log('verticalVideo:', verticalVideo)
 
   const [hasWindow, setHasWindow] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -35,22 +35,7 @@ const ArticleVideo = ({ content }) => {
           >
             <PlayIcon />
           </div>
-          <div
-            className={`article-video__image ${isPlaying ? 'hide' : ''}`}
-            onClick={() => playVideo()}
-          >
-            {coverImage ? (
-              <Image
-                className=""
-                src={`https:${coverImage.fields.file.url}`}
-                alt={`video`}
-                layout="fill"
-                objectFit="cover"
-              />
-            ) : (
-              <></>
-            )}
-          </div>
+
           <div className="article-video__video">
             {hasWindow && (
               <ReactPlayer
