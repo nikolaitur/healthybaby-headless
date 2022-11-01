@@ -1,4 +1,5 @@
 .product-main {
+  background: #F5F2F2!important;
   @include breakpoint-up('md') {
     padding: 100px 0 0px;
   }

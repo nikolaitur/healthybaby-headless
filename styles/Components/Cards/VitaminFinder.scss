@@ -108,7 +108,12 @@
     }
 
     &__image {
-        margin: 15px 0 20px;
+        max-width: 300px;
+        margin: 15px auto 20px;
+
+        @include breakpoint-up('xl') {
+            max-width: 375px;
+        }
     }
 
     &__clear {
