@@ -28,8 +28,7 @@ import { unlockScroll, lockScroll } from '@/utils/scroll'
 const MainNavigation = forwardRef(({ props }, ref) => {
   const customerContext = useCustomerContext()
   const modalContext = useModalContext()
-  const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } =
-    useHeaderContext()
+  const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
   const cartDrawerContext = useCartDrawerContext()
 
   const router = useRouter()
@@ -231,8 +230,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               <Baby />
             </div>
           )}
-          <div className="main-nav__item" onClick={() => openCartDrawer()}>
+          <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
+            <span>{ cartDrawerContext.cartCount }</span>
           </div>
           <div className={`main-nav__search ${isSearchOpen ? 'active' : ''}`}>
             <input
@@ -282,8 +282,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               <Baby />
             </div>
           )}
-          <div className="main-nav__item" onClick={() => openCartDrawer()}>
+          <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
+            <span>{ cartDrawerContext.cartCount }</span>
           </div>
         </div>
       </div>
