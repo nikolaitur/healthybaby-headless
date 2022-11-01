@@ -1,120 +1,119 @@
 .product-technology-callout {
-    padding: 70px 0 70px;
-    background:  #D6DED9;
+  padding: 70px 0 70px;
+  background: #d6ded9;
+
+  @include breakpoint-up('md') {
+    padding: 140px 0 80px;
+  }
+
+  &__content {
+    text-align: left;
 
     @include breakpoint-up('md') {
-        padding: 140px 0 80px;
+      text-align: center;
+    }
+  }
+
+  &__description {
+    margin: 15px 0 0;
+  }
+
+  &__items {
+    margin: 50px 0 0;
+
+    @include breakpoint-up('md') {
+      margin: 100px 0 0;
+    }
+  }
+
+  &__item {
+    margin: 0 0 30px;
+
+    @include breakpoint-up('md') {
+      display: flex;
+      align-items: center;
+      margin: 0 0 60px;
     }
 
-    &__content {
-        text-align: left;
+    &.flipped {
+      .product-technology-callout__image {
+        order: 1;
 
         @include breakpoint-up('md') {
-            text-align: center;
+          padding-left: 30px;
         }
-    }
+      }
 
-    &__description {
-        margin: 15px 0 0;
-    }
-
-    &__items {
-        margin: 50px 0 0;
-
+      .product-technology-callout__wrapper {
         @include breakpoint-up('md') {
-            margin: 100px 0 0;
+          padding-left: 30px;
         }
+      }
     }
 
-    &__item {
-        margin: 0 0 30px;
-
-        @include breakpoint-up('md') {
-            display: flex;
-            align-items: center;
-            margin: 0 0 60px;
-        }
-
-        &.flipped {
-            .product-technology-callout__image {
-                order: 1;
-
-                @include breakpoint-up('md') {
-                    padding-left: 30px;
-                }
-            }
-
-            .product-technology-callout__wrapper {
-                @include breakpoint-up('md') {
-                    padding-left: 30px;
-                }
-            }
-        }
-
-        h3 {
-            @include breakpoint-down('md') {
-                font-size: 24px;
-                line-height: 24px;
-            }
-        }
-
-        h4 {
-            @include breakpoint-down('md') {
-                font-size: 18px;
-                line-height: 24px;
-            }
-        }
+    h3 {
+      @include breakpoint-down('sm') {
+        font-size: 24px;
+        line-height: 24px;
+      }
     }
 
-    &__image {
-        position: relative;
-        
-        // margin: 40px auto 0;
+    h4 {
+      @include breakpoint-down('sm') {
+        font-size: 18px;
+        line-height: 24px;
+      }
+    }
+  }
 
-        @include breakpoint-up('md') {
-            width: 50%;
-            padding-right: 30px;
-        }
+  &__image {
+    position: relative;
 
-        &--desktop {
-            display: none!important;
+    // margin: 40px auto 0;
 
-            @include breakpoint-up('md') {
-                display: block!important;
-            }
-        }
-
-        &--mobile {
-            @include breakpoint-up('md') {
-                display: none!important;
-            }
-        }
-
-        span {
-            padding-top: 0!important;
-        }
-
-        img {
-            width: 100%;
-            object-fit: contain;
-            width: 100% !important;
-            position: relative !important;
-            height: 535px !important;
-        }
+    @include breakpoint-up('md') {
+      width: 50%;
+      padding-right: 30px;
     }
 
-    &__wrapper {
-    
-        padding-top: 30px;
+    &--desktop {
+      display: none !important;
 
-        @include breakpoint-up('md') {
-            padding-top: 0;
-            width: 50%;
-            padding-left: 30px;
-        }
-
-        h4 {
-            margin: 20px 0 0;
-        }
+      @include breakpoint-up('md') {
+        display: block !important;
+      }
     }
+
+    &--mobile {
+      @include breakpoint-up('md') {
+        display: none !important;
+      }
+    }
+
+    span {
+      padding-top: 0 !important;
+    }
+
+    img {
+      width: 100%;
+      object-fit: contain;
+      width: 100% !important;
+      position: relative !important;
+      height: 535px !important;
+    }
+  }
+
+  &__wrapper {
+    padding-top: 30px;
+
+    @include breakpoint-up('md') {
+      padding-top: 0;
+      width: 50%;
+      padding-left: 30px;
+    }
+
+    h4 {
+      margin: 20px 0 0;
+    }
+  }
 }

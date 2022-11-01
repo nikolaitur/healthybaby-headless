@@ -5,30 +5,30 @@
   }
 
   &__sticky {
-    @include breakpoint-down('md') {
-        display: flex;
-        flex-direction: column;
+    @include breakpoint-down('sm') {
+      display: flex;
+      flex-direction: column;
 
-        .product-info__reviews {
-          order: 1;
-        }
+      .product-info__reviews {
+        order: 1;
+      }
 
-        .product-info__title {
-          order: 2;
-        }
+      .product-info__title {
+        order: 2;
+      }
 
-        .product-info__description {
-          order: 4;
-          font-size: 18px;
-        }
+      .product-info__description {
+        order: 4;
+        font-size: 18px;
+      }
 
-        .product-info__price {
-          order: 3;
-        }
+      .product-info__price {
+        order: 3;
+      }
 
-        .product-form {
-          order: 5;
-        }
+      .product-form {
+        order: 5;
+      }
     }
   }
 
@@ -83,23 +83,14 @@
     letter-spacing: -0.01em;
     color: $primaryBrown;
     padding: 20px 0 0;
-
-    @include breakpoint-up('md') {
-      font-size: 26px;
-      line-height: 29px;
-    }
   }
 
   &__price {
     padding: 20px 0 0;
-    font-size: 20px;
+    font-size: 18px;
 
     @include breakpoint-up('md') {
-        font-size: fontsize(28px);
-    }
-
-    @include breakpoint-up('xl') {
-        font-size: fontsize(32px);
+      font-size: 20px;
     }
   }
 }
@@ -114,11 +105,19 @@
     margin-top: 30px;
   }
 
+  &__submit {
+    font-size: 18px;
+
+    @include breakpoint-up('md') {
+      font-size: 20px;
+    }
+  }
+
   &__label {
     font-family: $NeutraText;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 20px;
     letter-spacing: -0.01em;
     color: $primaryBrown;
@@ -129,7 +128,7 @@
 
     @include breakpoint-up('md') {
       margin: 0 0 20px;
-      font-size: 22px;
+      font-size: 20px;
       line-height: 31px;
     }
 
@@ -159,6 +158,11 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
     gap: 10px 10px;
+    font-size: 18px;
+
+    @include breakpoint-up('md') {
+      font-size: 20px;
+    }
   }
 
   &__option {
@@ -166,7 +170,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
-    line-height: 18px;
+    line-height: 20px;
     letter-spacing: -0.01em;
     color: $primaryBrown;
     flex: 0 0 33.333333%;
@@ -174,6 +178,10 @@
     border: 1px solid rgb(0 0 0 / 10%);
     padding: 18px 10px;
     cursor: pointer;
+
+    @include breakpoint-up('md') {
+      font-size: 20px;
+    }
 
     &.active {
       background: $primaryGreen;
@@ -185,7 +193,7 @@
     font-family: $NeutraTextDemi;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 18px;
     letter-spacing: -0.01em;
     color: $primaryBrown;
@@ -195,7 +203,7 @@
     text-align: center;
 
     @include breakpoint-up('md') {
-      font-size: 22px;
+      font-size: 20px;
       line-height: 31px;
       text-align: left;
     }
@@ -240,7 +248,7 @@
       color: $primaryBrown;
 
       @include breakpoint-up('md') {
-        font-size: 22px;
+        font-size: 20px;
         line-height: 31px;
       }
     }
@@ -249,13 +257,13 @@
       font-family: $NeutraText;
       font-style: normal;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 22px;
       letter-spacing: -0.01em;
       color: $primaryBrown;
 
       @include breakpoint-up('md') {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 24px;
       }
     }
@@ -333,13 +341,13 @@
       font-family: $NeutraText;
       font-style: normal;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 22px;
       letter-spacing: -0.01em;
       color: $primaryBrown;
 
       @include breakpoint-up('md') {
-        font-size: 22px;
+        font-size: 20px;
       }
 
       @media only screen and (min-width: 1840px) {
@@ -367,23 +375,24 @@
       .price {
         position: absolute;
         right: 10px;
-        font-size: 16px;
+        font-size: 18px;
         top: 20px;
         transform: none;
 
         s {
-          font-size: 16px;
+          font-size: 18px;
         }
 
         @include breakpoint-up('md') {
           top: 10px;
+          font-size: 20px;
           transform: none;
         }
 
         @media only screen and (min-width: 1280px) {
           top: 50%;
           transform: translateY(-50%);
-          font-size: 22px;
+          font-size: 20px;
 
           s {
             font-size: 20px;
@@ -540,7 +549,7 @@
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
-        display: none;  /* Safari and Chrome */
+      display: none; /* Safari and Chrome */
     }
   }
 
@@ -560,12 +569,12 @@
     min-width: max-content;
 
     @include breakpoint-up('md') {
-      font-size: 26px;
+      font-size: 20px;
       line-height: 36px;
     }
 
     // &:nth-child(2) {
-    //   
+    //
     // }
 
     &.active {
@@ -599,7 +608,7 @@
     }
 
     b {
-        font-family: $NeutraTextDemi;
+      font-family: $NeutraTextDemi;
     }
   }
 
