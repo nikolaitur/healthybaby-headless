@@ -219,7 +219,7 @@ const CartDrawer = ({ content }) => {
               ></span>
             </span>
           </div>
-          {cartDrawerContext.shopifyCart && cartDrawerContext.shopifyCart?.lines.length ? (
+          {cartDrawerContext.shopifyCart && cartDrawerContext.shopifyCart?.lines?.length ? (
             <>
                 <div className="cart-drawer__items">
                     {cartDrawerContext.shopifyCart.lines.map((lineItem, index) => (
@@ -258,49 +258,6 @@ const CartDrawer = ({ content }) => {
 
           ) : (
             <div className="cart-drawer__empty">Your bag is empty</div>
-          )}
-
-          {cart.length ? (
-            <></>
-            // <>
-            //   <div className="cart-drawer__items">
-            //     {/* {cart.map((lineItem, index) => (
-            //       <LineItem item={lineItem} content={drawerContent[0]} key={index} />
-            //     ))} */}
-                
-            //   </div>
-            //   {drawerContent[0] ? (
-            //     drawerContent[0].fields.upsells.length > 1 ? (
-            //       <div className="cart-drawer__upsells">
-            //         <div className="cart-drawer__upsells--title">
-            //           Pair with these essentials:
-            //         </div>
-            //         <div className="cart-drawer__upsells--wrapper">
-            //           {upsells
-            //             ? upsellsData.products.map((upsell, index) => (
-            //                 <Upsell
-            //                   key={index}
-            //                   product={upsell}
-            //                   variantId={upsellsData.variants[index]}
-            //                 />
-            //               ))
-            //             : ''}
-            //         </div>
-            //       </div>
-            //     ) : ('')
-            //   ) : ('')}
-            //   <div className="cart-drawer__checkout">
-            //     <button
-            //       className="btn secondary full-width"
-            //       onClick={handleProcessCheckout}
-            //     >
-            //       <span>{`Checkout - $${cartSubtotal.toFixed(2)}`}</span>
-            //     </button>
-            //   </div>
-            // </>
-          ) : (
-            <></>
-            // <div className="cart-drawer__empty">Your bag is empty</div>
           )}
         </div>
       </div>
