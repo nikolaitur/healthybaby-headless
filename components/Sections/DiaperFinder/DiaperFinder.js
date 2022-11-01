@@ -179,7 +179,7 @@ const DiaperFinder = ({ content }) => {
     let babyMonth = getMonthDifference(startDate, today)
     console.log(getMonthDifference(startDate, today), Number(weight), 'Weight')
 
-    if (babyMonth < 0) {
+    if (babyMonth <= 0) {
       getPrenantalRecommendation()
       return
     }
