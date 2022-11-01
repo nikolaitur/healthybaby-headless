@@ -49,7 +49,7 @@ const SearchMenu = ({
             console.log(products)
             if (products.length) {
               setSearchProducts(products)
-              dataLayerViewSearchResults({ products: results[0].hits })
+              dataLayerViewSearchResults({ products })
               document.body.classList.add('searchmenu-is-active')
             }
           })

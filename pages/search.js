@@ -41,12 +41,12 @@ const SearchResultsPage = ({ productBadges }) => {
       } else if (!results[0]) {
         setSearchProducts([])
       } else {
-        dataLayerViewSearchResults({ products: results[0].hits })
         nacelleClient.products({
           handles: results[0].hits.map(product => product.Handle)
         }).then(products => {
           if (products.length) {
             setSearchProducts(products)
+            dataLayerViewSearchResults({ products })
           }
         })
 
