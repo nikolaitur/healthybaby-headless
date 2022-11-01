@@ -48,8 +48,11 @@ function AppContainer({
       gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
     })
 
-    onRountChangeComplete()
     router.events.on('routeChangeComplete', onRountChangeComplete)
+
+    return () => {
+      router.events.off('routeChangeComplete', onRountChangeComplete)
+    }
   })
 
   return (
