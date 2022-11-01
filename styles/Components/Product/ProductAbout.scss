@@ -1,310 +1,303 @@
 .product-about {
-    padding: 40px 0;
+  padding: 40px 0;
+
+  @include breakpoint-up('md') {
+    padding: 100px 0;
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include breakpoint-up('md') {
+      flex-direction: row;
+    }
+  }
+
+  &__content {
+    order: 1;
 
     @include breakpoint-up('md') {
-        padding: 100px 0;
+      order: 0;
+      padding-right: 60px;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  &__image {
+    order: 0;
+    margin-bottom: 40px;
+
+    @include breakpoint-up('md') {
+      width: 50%;
+      padding-left: 120px;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: flex-end;
     }
 
-    &__container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        @include breakpoint-up('md') {
-            flex-direction: row;
-        }
+    &--desktop {
+      display: none;
+
+      @include breakpoint-up('md') {
+        display: block;
+      }
     }
 
-    &__content {
-        order: 1;
+    &--mobile {
+      display: block;
 
-        @include breakpoint-up('md') {
-            order: 0;
-            padding-right: 60px;
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+      @include breakpoint-up('md') {
+        display: none;
+      }
     }
 
-    &__image {
-        order: 0;
-        margin-bottom: 40px;
+    img {
+      height: 400px !important;
+      object-fit: cover;
 
-        @include breakpoint-up('md') {
-            width: 50%;
-            padding-left: 120px;
-            margin-bottom: 0;
-            display: flex;
-            justify-content: flex-end;
-        }
+      @include breakpoint-up('md') {
+        height: 960px !important;
+        max-width: 870px !important;
+      }
+    }
+  }
 
-        &--desktop {
-            display: none;
+  &__header {
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
+    color: $primaryBrown;
+    margin-bottom: 40px;
 
-            @include breakpoint-up('md') {
-                display: block;
-            }
-        }
+    @include breakpoint-up('md') {
+      font-size: 62px;
+      line-height: 62px;
+      margin-bottom: 60px;
+    }
+  }
 
-        &--mobile {
-            display: block;
+  &__subheader {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $primaryBrown;
 
-            @include breakpoint-up('md') {
-                display: none;
-            }
-        }
+    @include breakpoint-up('md') {
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
 
-        img {
-            height: 400px!important;
-            object-fit: cover;
+  &__copy {
+    margin-bottom: 40px;
 
-            @include breakpoint-up('md') {
-                height: 960px!important;
-                max-width: 870px!important;
-            }
-        }
+    @include breakpoint-up('md') {
+      margin-bottom: 70px;
+    }
+  }
+
+  &__link,
+  .prod {
+    border-top: 1px solid rgba(61, 51, 49, 0.2);
+
+    &:last-child {
+      border-bottom: 1px solid rgba(61, 51, 49, 0.2);
+    }
+  }
+
+  &__button {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    letter-spacing: 0.02em;
+    color: #3d3331;
+    padding: 30px 0;
+    cursor: pointer;
+
+    @include breakpoint-up('md') {
+      max-width: 100%;
+      margin-bottom: 0px;
     }
 
-    &__header {
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
-        color: $primaryBrown;
-        margin-bottom: 40px;
+    span:last-child {
+      margin-left: 20px;
+    }
+  }
 
-        @include breakpoint-up('md') {
-            font-size: 62px;
-            line-height: 62px;
-            margin-bottom: 60px;
-        }
+  &__title {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 29px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-top: 15px;
+  }
+
+  &__subtitle {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+  }
+
+  .accordion-item {
+    position: relative;
+    padding: 24px 0px;
+
+    &.is-open {
+      svg {
+        transform: rotateX(0deg);
+      }
     }
 
-    &__subheader {
-        font-family: $NeutraText;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 100%;
+      height: 1px;
+      transform: translateX(-50%);
+      background: #d0d8e9;
+    }
+  }
+
+  .accordion-title {
+    display: flex;
+    align-items: center;
+    font-family: $DomaineText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
+    letter-spacing: 0.02em;
+    color: #3d3331;
+    position: relative;
+    cursor: pointer;
+
+    .accordion-image {
+      width: 60px;
+      margin-right: 20px;
+    }
+
+    .accordion-arrow {
+      position: absolute;
+      right: 0;
+    }
+
+    svg {
+      transition: 0.3s;
+      transform: rotateX(180deg);
+    }
+
+    h4 {
+      font-family: $DomaineText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: fontsize(22px);
+      line-height: 100%;
+      color: $primaryBrown;
+
+      @include breakpoint-up('md') {
+        font-size: fontsize(32px);
+      }
+
+      @include breakpoint-up('lg') {
+        font-size: fontsize(32px);
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: fontsize(32px);
+      }
+    }
+  }
+
+  .accordion-content {
+    padding: 30px 0 10px;
+    list-style: none;
+
+    li:not(:last-child) {
+      margin-bottom: 18px;
+    }
+
+    a {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      color: #3d3331;
+      text-decoration: none;
+    }
+
+    p {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: fontsize(18px);
+      line-height: 140%;
+      letter-spacing: -0.01em;
+      color: $primaryBrown;
+
+      @include breakpoint-up('md') {
+        font-size: fontsize(20px);
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: fontsize(22px);
+      }
+    }
+
+    ul {
+      padding-top: 10px;
+
+      @include breakpoint-up('md') {
+        padding-top: 20px;
+      }
+
+      li {
+        list-style: none;
+
+        &:not(last-child) {
+          margin-top: 20px;
+        }
+      }
+
+      p {
+        list-style: none;
+        font-family: $NeutraTextDemi;
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
-        line-height: 16px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: $primaryBrown;
-
-        @include breakpoint-up('md') {
-            font-size: 18px;
-            line-height: 18px;
-        }
-    }
-
-    &__copy {
-        margin-bottom: 40px;
-
-        @include breakpoint-up('md') {
-            margin-bottom: 70px;
-        }
-    }
-
-    &__link,
-    .prod {
-        border-top: 1px solid rgba(61, 51, 49, 0.2);
-
-        &:last-child {
-            border-bottom: 1px solid rgba(61, 51, 49, 0.2);
-        }
-    }
-
-    &__button {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
         line-height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-        padding: 30px 0;
-        cursor: pointer;
+        letter-spacing: -0.01em;
+        color: $primaryBrown;
 
         @include breakpoint-up('md') {
-            max-width: 100%;
-            margin-bottom: 0px;
+          font-size: 26px;
+          line-height: 36px;
         }
-
-        span:last-child {
-            margin-left: 20px;
-        }
+      }
     }
-
-    &__title {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 26px;
-        line-height: 29px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 15px;
-    }
-
-    &__subtitle {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 20px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-    }
-
-    .accordion-item {
-        position: relative;
-        padding: 24px 0px;
-
-        &.is-open {
-
-            svg {
-                transform: rotateX(0deg);
-            }
-        }
-
-        &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 100%;
-            height: 1px;
-            transform: translateX(-50%);
-            background: #D0D8E9;;
-        }
-    }
-
-    .accordion-title {
-        display: flex;
-        align-items: center;
-        font-family: $DomaineText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 32px;
-        letter-spacing: 0.02em;
-        color: #3D3331;
-        position: relative;
-        cursor: pointer;
-
-        .accordion-image {
-            width: 40px;
-            margin-right: 20px;
-
-            @include breakpoint-up('md') {
-                width: 56px;
-            }
-        };
-
-        .accordion-arrow {
-            position: absolute;
-            right: 0
-        }
-
-        svg {
-            transition: 0.3s;
-            transform: rotateX(180deg);
-        }
-
-        h4 {
-            font-family: $DomaineText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: fontsize(22px);
-            line-height: 100%;
-            color: $primaryBrown;
-
-            @include breakpoint-up('md') {
-                font-size: fontsize(32px);
-            }
-
-            @include breakpoint-up('lg') {
-                font-size: fontsize(32px);
-            }
-
-            @include breakpoint-up('xl') {
-                font-size: fontsize(32px);
-            }
-        }
-    }
-
-    .accordion-content {
-        padding: 30px 0 10px; 
-        list-style: none;
-
-        li:not(:last-child) {
-            margin-bottom: 18px;
-        }
-
-        
-
-        a {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 22px;
-            color: #3D3331;
-            text-decoration: none;
-        }
-
-        p {
-            font-family: $NeutraText;
-            font-style: normal;
-            font-weight: 500;
-            font-size: fontsize(18px);
-            line-height: 140%;
-            letter-spacing: -0.01em;
-            color: $primaryBrown;
-        
-            @include breakpoint-up('md') {
-                font-size: fontsize(20px);
-            }
-        
-            @include breakpoint-up('xl') {
-                font-size: fontsize(22px);
-            }
-        }
-
-        ul {
-            padding-top: 10px;
-
-            @include breakpoint-up('md') {
-                padding-top: 20px;
-            }
-
-            li {
-                list-style: none;
-
-                &:not(last-child) {
-                    margin-top: 20px;
-                }
-            }
-
-            p {
-                list-style: none;
-                font-family: $NeutraTextDemi;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 22px;
-                letter-spacing: -0.01em;
-                color: $primaryBrown;
-            
-                @include breakpoint-up('md') {
-                    font-size: 26px;
-                    line-height: 36px;
-                }
-            }
-        }
-    }
+  }
 }
