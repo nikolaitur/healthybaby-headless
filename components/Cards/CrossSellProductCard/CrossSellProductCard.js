@@ -72,7 +72,7 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
   }, [])
 
   const handleLink = (product) => {
-    dataLayerSelectProduct({ product, url: router.pathname })
+    dataLayerSelectProduct({ product, url: router.asPath })
     router.push(`/products/${handle}`)
   }
 
@@ -99,7 +99,7 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
       modalContext.setIsOpen(true)
       modalContext.setContent({
         product,
-        page: pages[0]
+        page: pages[0],
       })
     }
   }
@@ -145,18 +145,23 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
           </div>
         </a>
 
-        {hasWindow && <div className="collection-product-card__reviews">
-          <span
-            className="junip-product-summary"
-            data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
-          ></span>
-        </div>}
+        {hasWindow && (
+          <div className="collection-product-card__reviews">
+            <span
+              className="junip-product-summary"
+              data-product-id={product.sourceEntryId.replace(
+                'gid://shopify/Product/',
+                ''
+              )}
+            ></span>
+          </div>
+        )}
         <div className="collection-product-card__cta">
           {!product.availableForSale ? (
             <span className="btn disabled">
               <span>Out Of Stock</span>
             </span>
-          ):(
+          ) : (
             <button
               className="btn secondary quickview"
               onClick={() => openQuickView()}

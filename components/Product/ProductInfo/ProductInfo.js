@@ -213,7 +213,7 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem, url: router.pathname })
+      dataLayerATC({ item: newItem, url: router.asPath })
 
       addToCart({
         product,
@@ -252,7 +252,7 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem, url: router.pathname })
+      dataLayerATC({ item: newItem, url: router.asPath })
 
       addToCart({
         product,

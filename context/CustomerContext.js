@@ -44,7 +44,7 @@ export function CustomerProvider({ children }) {
       getCustomer({ accessToken: customerAccessToken })
     } else {
       dataLayerUserData({
-        url: router.pathname,
+        url: router.asPath,
         cart: cart,
       })
       setCustomerLoading(false)

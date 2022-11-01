@@ -97,6 +97,10 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
 
 export const dataLayerATC = ({ item, url }) => {
   console.log('dl_add_to_cart')
+  const category = url.includes('/collections/')
+    ? url.replace('/collections/', '')
+    : ''
+  console.log(category)
   const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
@@ -112,7 +116,7 @@ export const dataLayerATC = ({ item, url }) => {
               id: item.variant.sku, // SKU
               name: item.variant.productTitle, // Product title
               brand: 'Healthy Baby',
-              category: '',
+              category: category,
               variant: item.variant.title,
               price: item.variant.price.toString(),
               quantity: '1',
@@ -258,7 +262,7 @@ export const dataLayerViewCart = ({ cart, url }) => {
         currencyCode: 'USD',
         actionField: { list: 'Shopping Cart' },
         impressions: buildProductData(
-          cart.map((item) => item.product),
+          cart.map((item) => item.variant.product),
           'collection',
           url
         ),

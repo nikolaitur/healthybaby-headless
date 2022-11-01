@@ -112,7 +112,7 @@ const CreateAccountForm = () => {
         modalContext.setIsOpen(false)
         dataLayerSignup({
           customer: response.data.customer,
-          url: router.pathname,
+          url: router.asPath,
         })
         router.push('/account')
       }

@@ -97,7 +97,7 @@ const LineItem = ({ item, content }) => {
         quantity: 1,
       }
 
-      dataLayerATC({ item: newItem, url: router.pathname })
+      dataLayerATC({ item: newItem, url: router.asPath })
 
       addToCart({
         merchandiseId: item.nacelleEntryId,

@@ -49,7 +49,7 @@ const Upsell = ({ product, variantId }) => {
       quantity: 1,
     }
 
-    dataLayerATC({ item: newItem, url: router.pathname })
+    dataLayerATC({ item: newItem, url: router.asPath })
     addToCart({
       variant,
       quantity: 1,

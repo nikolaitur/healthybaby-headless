@@ -81,7 +81,7 @@ const CollectionProductCard = forwardRef(
     const badges = findProductBadges({ content, product, productBadges })
 
     const handleLink = (product) => {
-      dataLayerSelectProduct({ product, url: router.pathname })
+      dataLayerSelectProduct({ product, url: router.asPath })
       router.push(`/products/${handle}`)
     }
 
