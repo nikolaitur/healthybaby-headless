@@ -242,7 +242,7 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ item: newItem })
 
-      let itemAttributes = [{ key: "_sellingPlan", value: ((sellingPlan) ? "true" : "false")}]
+      let itemAttributes = []
       
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)

@@ -119,7 +119,7 @@ const VitaminFinder = ({ content, refs, index }) => {
             ],
         });
 
-        console.log( cart, userErrors, errors )
+        // console.log( cart, userErrors, errors )
 
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)

@@ -12,6 +12,8 @@ import IconClose from '../../../svgs/close-icon.svg'
 
 import DatePicker from 'react-datepicker'
 
+import * as Cookies from 'es-cookie'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import { unlockScroll } from '@/utils/scroll'
 
@@ -297,27 +299,16 @@ const DiaperCalculator = ({ props, children }) => {
             }
         }
 
-        // addToCart({
-        //     product,
-        //     variant,
-        //     quantity: 1,
-        //     sellingPlan,
-        //     subscription: true,
-        //     nacelleEntryId: selectedVariant[0].nacelleEntryId,
-        //     selectedVariant: selectedVariant[0],
-        // })
-
-        await cartClient
-            .cartLinesAdd({
-                cartId: cartDrawerContext.shopifyCartId,
-                lines: [lineItem],
-            })
-            .then((data) => {
-                console.log(data, 'Cart data')
-            })
-            .catch((err) => {
-                console.error(err, 'Error')
-            })
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
+            lines: [lineItem],
+        });
+    
+        // console.log( cart, userErrors, errors )
+    
+        if(cart) {
+            cartDrawerContext.setShopifyCart(cart)
+        }
 
         cartDrawerContext.setIsOpen(true)
     }
