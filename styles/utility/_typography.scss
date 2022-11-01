@@ -72,7 +72,6 @@ h1,
 
   i {
     font-family: $DomaineTextItalic;
-    font-style: italic;
   }
 
 
@@ -93,7 +92,6 @@ h2,
 
   i {
     font-family: $DomaineTextItalic;
-    font-style: italic;
   }
 
   @include breakpoint-up('md') {
@@ -113,7 +111,6 @@ h3,
 
   i {
     font-family: $DomaineTextItalic;
-    font-style: italic;
   }
 
   @include breakpoint-up('md') {
@@ -141,7 +138,6 @@ h4,
 
   i {
     font-family: $NeutraTextItalic;
-    font-style: italic;
   }
 
 
@@ -165,7 +161,6 @@ h5,
 
   i {
     font-family: $DomaineTextItalic;
-    font-style: italic;
   }
 
   @include breakpoint-up('md') {
@@ -195,7 +190,6 @@ h6,
 
     i {
       font-family: $NeutraTextItalic;
-      font-style: italic;
     }
 
   @include breakpoint-up('md') {
