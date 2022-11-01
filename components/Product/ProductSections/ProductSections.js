@@ -12,7 +12,6 @@ import FAQGroup from '../../Sections/FAQGroup'
 // import ProductReviews from '../../Product/ProdcutReviews'
 
 const ProductSections =  ({ content, product, productBadges }) => {
-    console.log(content.fields.sections)
     return (
         <div className="product-main__sections">
             {content.fields?.sections ? (
