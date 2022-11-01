@@ -423,7 +423,7 @@ const ProductInfo = (props) => {
                               : '+$27'}
                           </div>
                         </div>
-                        <input type="checkbox" checked={selectedCombination}></input>
+                        <input type="checkbox" checked={!selectedCombination}></input>
                       </div>
                     )
                   default:

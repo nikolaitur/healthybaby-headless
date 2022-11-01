@@ -27,7 +27,7 @@ const ProductGallery = ( props ) => {
                             width="490"
                         />
                     </div>
-                ) : page.fields?.productImagesDesktop?.length ? (
+                ) : page.fields?.productImagesDesktop ? (
                     page.fields.productImagesDesktop.map((productImage, index) => {
                         let height = 615;
                         if (index == 2 || index == 5) {
@@ -87,7 +87,7 @@ const ProductGallery = ( props ) => {
                     "--swiper-pagination-bullet-inactive-opacity": "1"
                 }}
             >
-                {page.fields?.productImagesMobile?.length ? (
+                {page.fields?.productImagesMobile ? (
                     page.fields.productImagesMobile.map((productImage, index) => {
                         if(productImage.fields?.file?.url) {
                             return (

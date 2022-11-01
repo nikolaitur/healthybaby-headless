@@ -208,6 +208,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row-reverse;
+    cursor: pointer;
 
     @include breakpoint-up('md') {
       padding: 6px 15px 6px 6px;
@@ -595,6 +596,10 @@
 
     &.active {
       display: block;
+    }
+
+    b {
+        font-family: $NeutraTextDemi;
     }
   }
 
