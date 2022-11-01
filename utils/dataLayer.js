@@ -37,6 +37,30 @@ function buildProductData(products, type, url) {
   })
 }
 
+function buildProductDataWithVariantOption(product, variantOption) {
+  const filterdVariants = product.variants.filter((item) => {
+    return item.content.title.includes(variantOption)
+  })
+  const variant = filterdVariants[0]
+  return {
+    id: variant.sku, // SKU
+    name: product.content.title, // Product title
+    brand: 'Healthy Baby',
+    category: '',
+    variant: variant.content.title,
+    price: variant.price.toString(),
+    quantity: '1',
+    product_id: product.sourceEntryId.replace('gid://shopify/Product/', ''), // The product_id
+    variant_id: variant.sourceEntryId.replace(
+      'gid://shopify/ProductVariant/',
+      ''
+    ), // id or variant_id
+    inventory: variant.quantityAvailable?.toString(),
+    compare_at_price: variant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
+    image: variant.content.featuredMedia?.src || '', // If available, otherwise use an empty string
+  }
+}
+
 // TODO: make this also fire on every page load
 export const dataLayerUserData = ({ cart, customer, url }) => {
   const uniqueKey = uuidv4()
@@ -374,7 +398,7 @@ export const dataLayerLogin = ({ customer, url }) => {
   })
 }
 
-export const dataLayerViewProduct = ({ product, url }) => {
+export const dataLayerViewProduct = ({ product, url, variantOption }) => {
   const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
@@ -386,7 +410,9 @@ export const dataLayerViewProduct = ({ product, url }) => {
         currencyCode: 'USD',
         detail: {
           actionField: { list: url, action: 'detail' },
-          products: buildProductData([product]),
+          products: variantOption
+            ? buildProductDataWithVariantOption(product, variantOption)
+            : buildProductData([product], 'product', url),
         },
       },
       // TODO: add user_properties object

@@ -438,6 +438,7 @@ const ProductInfo = (props) => {
                         option={option}
                         handleOptionChange={handleOptionChange}
                         diaperAmount={diaperAmount}
+                        product={product}
                         key={oIndex}
                       />
                     )
