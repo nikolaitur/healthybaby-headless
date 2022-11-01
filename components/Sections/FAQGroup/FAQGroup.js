@@ -2,7 +2,7 @@ import { useState } from 'react'
 import FAQItem from "./FAQItem"
 import parse from 'html-react-parser'
 
-const FAQGroup = ({content}) => {
+const FAQGroup = ({content, classes}) => {
   const { faqItems, title } = {...content.fields}
   const [visibleItems, setVisibleItems] = useState(faqItems.slice(0, 4))
   const [hideBtn, setHideBtn] = useState(false)
@@ -13,7 +13,7 @@ const FAQGroup = ({content}) => {
   }
 
   return (
-    <div className="faq-group">
+    <div className={`faq-group ${classes ? classes : ""}`}>
       <h3>{parse(title)}</h3>
       <ul className="faq-items">
         {visibleItems.map(item => {

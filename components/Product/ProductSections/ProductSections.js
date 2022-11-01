@@ -7,10 +7,12 @@ import ProductAbout from '../../Product/ProductAbout'
 import ProductFiftyFifty from '../../Product/ProductFiftyFifty'
 import ProductDetail from '../../Product/ProductDetail'
 import ProductCrossSells from '../../Product/ProdcutCrossSells'
+import FAQGroup from '../../Sections/FAQGroup'
 
 // import ProductReviews from '../../Product/ProdcutReviews'
 
 const ProductSections =  ({ content, product, productBadges }) => {
+    console.log(content.fields.sections)
     return (
         <div className="product-main__sections">
             {content.fields?.sections ? (
@@ -33,7 +35,9 @@ const ProductSections =  ({ content, product, productBadges }) => {
                         case 'productTechnology':
                             return <ProductTechnologyCallout content={section} key={index} />;
                         case 'productCrossSells':
-                                return <ProductCrossSells content={section} product={product} key={index} productBadges={productBadges} />;
+                            return <ProductCrossSells content={section} product={product} key={index} productBadges={productBadges} />;
+                        case 'faqGroup':
+                            return <FAQGroup content={section} key={index} classes={"container"} />
                         default:
                         return null
                     }
