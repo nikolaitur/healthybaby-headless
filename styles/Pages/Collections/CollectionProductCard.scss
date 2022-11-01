@@ -1,274 +1,272 @@
 .collection-product-card {
-    flex-grow: 1;
+  flex-grow: 1;
+  width: 100%;
+  position: relative;
+  margin-bottom: 40px;
+  width: calc(50% - 5px);
+  max-width: calc(50% - 5px);
+  position: relative;
+  &:nth-last-child(-n + 2) {
+    margin-bottom: 0;
+    @include breakpoint-up('md') {
+      margin-bottom: 40px;
+    }
+  }
+  &.full-width {
     width: 100%;
-    position: relative;
+    max-width: 100%;
     margin-bottom: 40px;
-    width: calc(50% - 5px);
-    max-width: calc(50% - 5px);
-    position: relative;
-    &:nth-last-child(-n+2) {
-        margin-bottom: 0;
-        @include breakpoint-up('md') {
-            margin-bottom: 40px;
-        }
-    }
-    &.full-width {
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 40px;
-    }
+  }
 
-    // @include breakpoint-up('md') {
-    //     width: calc(50% - 20px);
-    //     max-width: calc(50% - 20px);
-    // }
+  // @include breakpoint-up('md') {
+  //     width: calc(50% - 20px);
+  //     max-width: calc(50% - 20px);
+  // }
+
+  @include breakpoint-up('md') {
+    width: calc(33.33% - 13.33px);
+    max-width: calc(33.33% - 13.33px);
+
+    &.full-width {
+      width: calc(50% - 10px);
+      max-width: calc(50% - 10px);
+
+      .btn {
+        width: calc(100% - 200px);
+        max-width: 416px;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  @include breakpoint-up('lg') {
+    width: calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+
+    &.full-width {
+      width: calc(50% - 15px);
+      max-width: calc(50% - 15px);
+    }
+  }
+
+  &__title {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: $primaryGreen;
+    }
 
     @include breakpoint-up('md') {
-        width: calc(33.33% - 13.33px);
-        max-width: calc(33.33% - 13.33px);
+      font-size: 20px;
+      line-height: 29px;
+    }
+  }
 
-        &.full-width {
-            width: calc(50% - 10px);
-            max-width: calc(50% - 10px);
+  &__subtitle {
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-top: 5px;
 
-            .btn {
-                width: calc(100% - 200px);
-                max-width: 416px;
-                text-align: center;
-                justify-content: center;
+    @include breakpoint-up('md') {
+      font-size: 22px;
+      line-height: 31px;
+    }
+  }
 
-            }
-        }
+  &__badge-list {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    z-index: 2;
+    list-style: none;
+    pointer-events: none;
+    @include breakpoint-up('sm') {
+      top: 15px;
+    }
+  }
 
+  &__badge {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    @include breakpoint-up('sm') {
+      width: 80px;
+      height: 80px;
+      margin-right: 15px;
+    }
+  }
+
+  &__reviews {
+    margin-top: 10px;
+
+    .junip-product-summary-star-ratings-container {
+      align-items: flex-start;
+      display: flex;
+      margin-left: -1px;
+      justify-content: flex-start;
     }
 
-    @include breakpoint-up('lg') {
-        width: calc(33.33% - 20px);
-        max-width: calc(33.33% - 20px);
+    .junip-product-summary-review-count {
+      font-family: $NeutraTextDemi;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 17px;
+      letter-spacing: -0.01em;
+      color: $primaryGreen;
+      margin-left: 6px;
+      padding-top: 2px;
 
-        &.full-width {
-            width: calc(50% - 15px);
-            max-width: calc(50% - 15px);
-        }
-    }
-
-    &__title {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 19px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        cursor: pointer;
-        transition: 0.3s;
-
-        &:hover {
-            color: $primaryGreen
-        }
-
-        @include breakpoint-up('md') {
-            font-size: 20px;
-            line-height: 29px;
-        }
-    }
-
-    &__subtitle {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 17px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 5px;
-
-        @include breakpoint-up('md') {
-            font-size: 22px;
-            line-height: 31px;
-        }
-    }
-
-    &__badge-list {
-        display: flex;
-        position: absolute;
-        top: 10px;
-        right: 0;
-        z-index: 2;
-        list-style: none;
-        pointer-events: none;
-        @include breakpoint-up('sm') {
-            top: 15px;
-        }
-    }
-
-    &__badge {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
-        @include breakpoint-up('sm') {
-            width: 80px;
-            height: 80px;
-            margin-right: 15px;
-        }
-    }
-
-    &__reviews {
-        margin-top: 10px;
-
-        .junip-product-summary-star-ratings-container {
-            align-items: flex-start;
-            display: flex;
-            margin-left: -1px;
-            justify-content: flex-start;
-        }
-
-        .junip-product-summary-review-count {
-            font-family: $NeutraTextDemi;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 17px;
-            letter-spacing: -0.01em;;
-            color: $primaryGreen;
-            margin-left: 6px;
-            padding-top: 2px;
-
-            @include breakpoint-up('md') {
-                font-size: 18px;
-                line-height: 25px;
-            }
-        }
-
-        .junip-product-summary-star {
-            svg {
-                width: 12px;
-                height: 12px;
-
-                @include breakpoint-up('md') {
-                    width: 16px;
-                    height: 16px;
-                }
-
-                path {
-                    fill: $primaryGreen;
-                }
-            }
-        }
-    }
-
-    &__image {
-        // height: 710px;
-        border-radius: 3px;
-        margin-bottom: 15px;
-        // animation: colorfultext 2s linear infinite;
-        // background: radial-gradient(circle farthest-corner, white, #e6e4e4);
-        background: #fff;
-        background-size: 200% auto;
-        position: relative;
-        cursor: pointer;
-
-        @include breakpoint-up('md') {
-            margin-bottom: 30px;
-        }
-
-        &.hide-mobile {
-            @include breakpoint-down('sm') {
-                display: none;
-            }
-        }
-
-        &:hover {
-            // Featured Image
-            > span {
-                opacity: 0!important;
-
-                &:only-child {
-                    opacity: 1!important;
-                }
-            }
-
-            // Hover Image
-            > span + span {
-                opacity: 1!important;
-            }
-        }
-
-        // Featured Image
-        > span {
-            transition: 0.3s;
-        }
-
-        // Hover Image
-        > span + span {
-            transition: 0.3s;
-            opacity: 0 !important;
-            height: 100%!important;
-            width: 100%!important;
-            top: 0;
-            position: absolute!important;
-        }
-
-        .placeholder {
-            height: 310px;
-
-            @include breakpoint-up('md') {
-                height: 610px;
-            }
-        }
-
-        img {
-            // object-fit: contain;
-            // object-fit: contain;
-            // width: 100% !important;
-            // position: relative !important;
-            // height: 660px!important;
-            // top: 0!important;
-            // min-height: auto!important;
-            // max-height: auto!important;
-        }
-    }
-
-    &__cta {
-        margin-top: 10px;
-
-        .btn {
-            padding: 9px 20px;
-            @include breakpoint-up('md') {
-                padding: 19px 50px;
-            }
-        }
-    }
-
-    &__price {
-        display: none;
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
+      @include breakpoint-up('md') {
         font-size: 18px;
         line-height: 25px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        margin-top: 5px;
-
-        @include breakpoint-up('md') {
-            font-size: 22px;
-            line-height: 27px;
-        }
+      }
     }
 
-    &__slider {
-        margin-bottom: 15px;
-        cursor: pointer;
+    .junip-product-summary-star {
+      svg {
+        width: 12px;
+        height: 12px;
 
         @include breakpoint-up('md') {
-            display: none;
+          width: 16px;
+          height: 16px;
         }
+
+        path {
+          fill: $primaryGreen;
+        }
+      }
     }
+  }
+
+  &__image {
+    // height: 710px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    // animation: colorfultext 2s linear infinite;
+    // background: radial-gradient(circle farthest-corner, white, #e6e4e4);
+    background: #fff;
+    background-size: 200% auto;
+    position: relative;
+    cursor: pointer;
+
+    @include breakpoint-up('md') {
+      margin-bottom: 30px;
+    }
+
+    &.hide-mobile {
+      @include breakpoint-down('sm') {
+        display: none;
+      }
+    }
+
+    &:hover {
+      // Featured Image
+      > span {
+        opacity: 0 !important;
+
+        &:only-child {
+          opacity: 1 !important;
+        }
+      }
+
+      // Hover Image
+      > span + span {
+        opacity: 1 !important;
+      }
+    }
+
+    // Featured Image
+    > span {
+      transition: 0.3s;
+    }
+
+    // Hover Image
+    > span + span {
+      transition: 0.3s;
+      opacity: 0 !important;
+      height: 100% !important;
+      width: 100% !important;
+      top: 0;
+      position: absolute !important;
+    }
+
+    .placeholder {
+      height: 310px;
+
+      @include breakpoint-up('md') {
+        height: 610px;
+      }
+    }
+
+    img {
+      // object-fit: contain;
+      // object-fit: contain;
+      // width: 100% !important;
+      // position: relative !important;
+      // height: 660px!important;
+      // top: 0!important;
+      // min-height: auto!important;
+      // max-height: auto!important;
+    }
+  }
+
+  &__cta {
+    margin-top: 10px;
+
+    .btn {
+      padding: 15px 20px;
+      @include breakpoint-up('md') {
+        padding: 19px 50px;
+      }
+    }
+  }
+
+  &__price {
+    display: none;
+    font-family: $NeutraText;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.01em;
+    color: $primaryBrown;
+    margin-top: 5px;
+
+    @include breakpoint-up('md') {
+      font-size: 22px;
+      line-height: 27px;
+    }
+  }
+
+  &__slider {
+    margin-bottom: 15px;
+    cursor: pointer;
+
+    @include breakpoint-up('md') {
+      display: none;
+    }
+  }
 }
 
 @keyframes colorfultext {
-    to {
-        background-position: 200% center;
-    }
+  to {
+    background-position: 200% center;
+  }
 }
