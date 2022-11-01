@@ -13,6 +13,8 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
+import * as Cookies from 'es-cookie'
+
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 import Trash from '../../../svgs/trash.svg'
@@ -65,9 +67,21 @@ const LineItem = ({ item, content }) => {
     }
   }
 
-  const remove = () => {
+  const remove = async () => {
     dataLayerRFC({ customer, item })
     removeFromCart(item)
+
+    const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
+        cartId: Cookies.get('shopifyCartId'),
+        lineIds: [item.id]
+    });
+
+    if(cart) {
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+    }
   }
 
   const upgradeToSubscription = async () => {
@@ -133,18 +147,16 @@ const LineItem = ({ item, content }) => {
       <div className="line-item__wrapper">
         <div className="line-item__image">
           {item.variant.featuredMedia?.src ? (
-            <Image
-              className=""
-              src={`${item.variant.featuredMedia.src}`}
-              alt={item.variant.productTitle}
-              layout="responsive"
-              objectFit="cover"
-              height="132"
-              width="108"
-            />
-          ) : (
-            ''
-          )}
+              <Image
+                  className=""
+                  src={`${item.variant.featuredMedia.src}`}
+                  alt={ item.variant.productTitle }
+                  layout="responsive"
+                  objectFit="cover"
+                  height="132"
+                  width="108"
+              />
+          ) : ""}
         </div>
         <div className="line-item__content">
           <div className="line-item__title">{item.variant.productTitle}</div>

@@ -9,6 +9,8 @@ import { useMediaQuery } from 'react-responsive'
 import { getProductPrice } from '@/utils/getProductPrice'
 import Script from 'next/script'
 
+import * as Cookies from 'es-cookie'
+
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
@@ -117,10 +119,6 @@ const CollectionProductCard = forwardRef(
         (metafield) => metafield.key === 'sellingPlanAllocations'
       )
 
-      if (!sellingPlan) {
-        sellingPlan = false
-      }
-
       const newItem = {
         product,
         variant,
@@ -130,53 +128,44 @@ const CollectionProductCard = forwardRef(
 
       dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-      addToCart({
-        product,
-        variant,
-        quantity: 1,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+    //   addToCart({
+    //     product,
+    //     variant,
+    //     quantity: 1,
+    //     sellingPlan,
+    //     subscription: false,
+    //     nacelleEntryId: selectedVariant.nacelleEntryId,
+    //     selectedVariant,
+    //   })
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
+      let itemAttributes = []
+      
+      if(sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+      }
+
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
             {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: 1,
+                merchandiseId: selectedVariant.nacelleEntryId,
+                nacelleEntryId: selectedVariant.nacelleEntryId,
+                quantity: 1,
+                attributes: itemAttributes
             },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+        ],
+      });
 
-      cartDrawerContext.setIsOpen(true)
-
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: 1,
-            },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      if(cart) {
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+      }
 
       cartDrawerContext.setIsOpen(true)
     }

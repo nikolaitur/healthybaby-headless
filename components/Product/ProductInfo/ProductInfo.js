@@ -217,27 +217,22 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: true,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [lineItem],
+      });
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [lineItem],
-        })
-        .then((data) => {
-          console.log(data, 'Cart data')
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      console.log( cart, userErrors, errors )
+
+      if(cart) {
+        console.log("Subscription")
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+      }
+
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -256,33 +251,39 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+      let itemAttributes = []
+      
+      if(sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
+        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+      }
+
+      // console.log(itemAttributes)
+
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
             {
               merchandiseId: selectedVariant.nacelleEntryId,
               nacelleEntryId: selectedVariant.nacelleEntryId,
               quantity: quantity,
+              attributes: itemAttributes,
             },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+        ]
+      });
+
+      // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
+
+      if(cart) {
+        console.log("ONE TIME")
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+      }
     }
 
     cartDrawerContext.setIsOpen(true)

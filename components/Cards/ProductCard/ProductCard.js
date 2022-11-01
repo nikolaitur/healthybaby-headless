@@ -89,10 +89,6 @@ const ProductCard = ({
       (metafield) => metafield.key === 'sellingPlanAllocations'
     )
 
-    if (!sellingPlan) {
-      sellingPlan = false
-    }
-
     const newItem = {
       product,
       variant,
@@ -102,53 +98,37 @@ const ProductCard = ({
 
     dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-    addToCart({
-      product,
-      variant,
-      quantity: 1,
-      sellingPlan,
-      subscription: false,
-      nacelleEntryId: selectedVariant.nacelleEntryId,
-      selectedVariant,
-    })
+    let itemAttributes = []
 
-    await cartClient
-      .cartLinesAdd({
-        cartId: cartDrawerContext.shopifyCartId,
-        lines: [
-          {
-            merchandiseId: selectedVariant.nacelleEntryId,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            quantity: 1,
-          },
-        ],
-      })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.error(err, 'Error')
-      })
+    if(sellingPlan) {
+      const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+      const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-    cartDrawerContext.setIsOpen(true)
+      itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+    }
 
-    await cartClient
-      .cartLinesAdd({
-        cartId: cartDrawerContext.shopifyCartId,
-        lines: [
-          {
-            merchandiseId: selectedVariant.nacelleEntryId,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            quantity: 1,
-          },
-        ],
-      })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.error(err, 'Error')
-      })
+    const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+      cartId: Cookies.get('shopifyCartId'),
+      lines: [
+        {
+          merchandiseId: selectedVariant.nacelleEntryId,
+          nacelleEntryId: selectedVariant.nacelleEntryId,
+          quantity: 1,
+          attributes: itemAttributes
+        },
+      ],
+    });
+
+    // console.log( cart, userErrors, errors )
+
+    if(cart) {
+      // console.log("Subscription")
+      cartDrawerContext.setShopifyCart(cart)
+      cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+      cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+          return sum + line.quantity
+      }, 0))
+    }
 
     cartDrawerContext.setIsOpen(true)
   }

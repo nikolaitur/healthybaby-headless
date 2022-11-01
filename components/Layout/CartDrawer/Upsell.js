@@ -3,15 +3,21 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import * as Cookies from 'es-cookie'
+
 import { nacelleClient } from 'services'
+import cartClient from 'services/nacelleClientCart'
 import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 import { useCustomerContext } from '@/context/CustomerContext'
+
+import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import { dataLayerATC } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 const Upsell = ({ product, variantId }) => {
+  const cartDrawerContext = useCartDrawerContext()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [{ cart }, { addToCart }] = useCart()
   const router = useRouter()
@@ -34,16 +40,17 @@ const Upsell = ({ product, variantId }) => {
 
       if (variant.length) {
         setSelectedVariant(variant[0])
-        console.log(variant[0])
+        // console.log(variant[0])
       }
     }
   }, [])
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
     const variant = getCartVariant({
       product,
       variant: selectedVariant,
     })
+
     const newItem = {
       product,
       variant,
@@ -52,10 +59,39 @@ const Upsell = ({ product, variantId }) => {
     }
 
     dataLayerATC({ customer, item: newItem, url: router.asPath })
-    addToCart({
-      variant,
-      quantity: 1,
-    })
+
+    let itemAttributes = []
+
+    let sellingPlan = selectedVariant.metafields.find(
+        (metafield) => metafield.key === 'sellingPlanAllocations'
+    )
+
+    if(sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+    }
+
+    const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
+            {
+              merchandiseId: selectedVariant.nacelleEntryId,
+              nacelleEntryId: selectedVariant.nacelleEntryId,
+              quantity: 1,
+              attributes: itemAttributes,
+            },
+        ]
+    });
+
+    if(cart) {
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+    }
   }
 
   return product && selectedVariant ? (
