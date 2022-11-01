@@ -22,6 +22,8 @@ export function CartDrawerProvider({ children }) {
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
   const [shopifyCartId, setShopifyCartId] = useState(false)
   const [shopifyCart, setShopifyCart] = useState(false)
+  const [cartTotal, setCartTotal] = useState(0)
+  const [cartCount, setCartCount] = useState(0)
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -99,6 +101,10 @@ export function CartDrawerProvider({ children }) {
         setShopifyCartId,
         shopifyCart,
         setShopifyCart,
+        cartTotal,
+        setCartTotal,
+        cartCount,
+        setCartCount
       }}
     >
       {children}

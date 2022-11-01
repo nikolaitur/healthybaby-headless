@@ -222,6 +222,10 @@ const ProductInfo = (props) => {
       if(cart) {
         console.log("Subscription")
         cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
       }
 
     } else {
@@ -251,7 +255,7 @@ const ProductInfo = (props) => {
         itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
       }
 
-      console.log(itemAttributes)
+      // console.log(itemAttributes)
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
@@ -265,11 +269,15 @@ const ProductInfo = (props) => {
         ]
       });
 
-      console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
+      // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
 
       if(cart) {
         console.log("ONE TIME")
         cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
       }
     }
 

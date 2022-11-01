@@ -90,16 +90,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
         dataLayerATC({ item: newItem })
 
-        // addToCart({
-        //   product,
-        //   variant,
-        //   quantity: 1,
-        //   sellingPlan,
-        //   subscription: false,
-        //   nacelleEntryId: selectedVariant.nacelleEntryId,
-        //   selectedVariant,
-        // })
-
         let itemAttributes = []
       
         if(sellingPlan) {
@@ -124,8 +114,12 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
         // console.log( cart, userErrors, errors )
   
         if(cart) {
-          console.log("Subscription")
+          // console.log("Subscription")
           cartDrawerContext.setShopifyCart(cart)
+          cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+          cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+              return sum + line.quantity
+          }, 0))
         }
 
         cartDrawerContext.setIsOpen(true)

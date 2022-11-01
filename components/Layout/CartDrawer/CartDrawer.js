@@ -60,10 +60,10 @@ const CartDrawer = ({ content }) => {
   let freeShipping = false
   const freeShippingLimit = 100
   const freeShippingDistance = Math.abs(
-    cartSubtotal - freeShippingLimit + freeShippingLimit
+    Number(cartDrawerContext.cartTotal) - freeShippingLimit + freeShippingLimit
   )
 
-  if (cartSubtotal > freeShippingLimit) {
+  if (Number(cartDrawerContext.cartTotal) > freeShippingLimit) {
     freeShipping = true
   }
 
@@ -74,8 +74,12 @@ const CartDrawer = ({ content }) => {
         });
 
         cartDrawerContext.setShopifyCart(cartData.cart)
+        cartDrawerContext.setCartTotal(cartData.cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cartData.cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
 
-        console.log("DRAWER DATA", cartDrawerContext.shopifyCart)
+        // console.log("DRAWER DATA", cartDrawerContext.shopifyCart, cartDrawerContext.cartCount)
     }
     getCartClient()
 
@@ -134,24 +138,25 @@ const CartDrawer = ({ content }) => {
 
     dataLayerBeginCheckout({ cart })
 
-    const cartItems = cart.map((lineItem) => {
-      const returnItem = {
-        merchandiseId: lineItem.nacelleEntryId,
-        nacelleEntryId: lineItem.nacelleEntryId,
-        quantity: lineItem.quantity,
-      }
+    const cartItems = cartDrawerContext.shopifyCart.lines.map((lineItem) => {
+        const returnItem = {
+            merchandiseId: lineItem.merchandise.nacelleEntryId,
+            nacelleEntryId: lineItem.merchandise.nacelleEntryId,
+            quantity: lineItem.quantity,
+        }
 
-      if (lineItem.subscription) {
-        const sellingPlanAllocationsValue = JSON.parse(
-          lineItem.sellingPlan.value
-        )
-        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        let subscription = lineItem.attributes.filter(attribute => {
+            if (Object.values(attribute).includes("subscription")) { return attribute } else return false
+        })
 
-        returnItem.sellingPlanId = sellingPlanId
-        // returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
-      }
+        if(subscription[0]) {
+            const sellingPlanId = subscription[0].value
 
-      return returnItem
+            returnItem.sellingPlanId = sellingPlanId
+            returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
+        }   
+
+        return returnItem
     })
 
     const lines = cartItems
@@ -159,8 +164,6 @@ const CartDrawer = ({ content }) => {
     const shopifyCart = await cartClient
       .cartCreate({
         lines,
-        // attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-        // note: 'Please use a red ribbon for the bow, if possible :)'
       })
       .then((response) => {
         console.log(response)
@@ -185,7 +188,7 @@ const CartDrawer = ({ content }) => {
 
           <div className="cart-drawer__header">
             <div className="cart-drawer__title">
-              Your Bag <span>{cartItemTotal}</span>
+              Your Bag <span>{cartDrawerContext.cartCount}</span>
             </div>
             <div className="cart-drawer__close" onClick={() => closeSlide()}>
               <IconClose />
@@ -206,7 +209,7 @@ const CartDrawer = ({ content }) => {
               ) : (
                 <span>
                   <strong>
-                    ${(freeShippingLimit - cartSubtotal).toFixed(2)}
+                    ${(freeShippingLimit - Number(cartDrawerContext.cartTotal)).toFixed(2)}
                   </strong>{' '}
                   away from complimentary shipping
                 </span>
@@ -251,7 +254,7 @@ const CartDrawer = ({ content }) => {
                   className="btn secondary full-width"
                   onClick={handleProcessCheckout}
                 >
-                  <span>{`Checkout - $${cartSubtotal.toFixed(2)}`}</span>
+                  <span>{`Checkout - $${Number(cartDrawerContext.cartTotal).toFixed(2)}`}</span>
                 </button>
               </div>
             </>

@@ -70,7 +70,14 @@ const LineItem = ({ item, content }) => {
     const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
         cartId: Cookies.get('shopifyCartId'),
         lineIds: [item.id]
-      });
+    });
+
+    if(cart) {
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+    }
   }
 
   const upgradeToSubscription = async () => {

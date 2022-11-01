@@ -123,6 +123,10 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)
+            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                return sum + line.quantity
+            }, 0))
         }
 
         cartDrawerContext.setIsOpen(true)

@@ -47,6 +47,8 @@ const NewLineItem = ({ item, content }) => {
         if (Object.values(attribute).includes("subscription")) { return attribute } else return false
     }))
 
+    // console.log(isSubscription, hasSubscriptionProduct, item.merchandise.product.title)
+
   }, [])
 
   const getOptions = () => {
@@ -71,6 +73,10 @@ const NewLineItem = ({ item, content }) => {
 
     if(cart) {
         cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
     }
   }
 
@@ -92,6 +98,10 @@ const NewLineItem = ({ item, content }) => {
     
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)
+            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                return sum + line.quantity
+            }, 0))
         }
     }
   }
@@ -106,8 +116,12 @@ const NewLineItem = ({ item, content }) => {
     });
 
     if(cart) {
-        console.log(cart, "remove cart")
+        // console.log(cart, "remove cart")
         cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
         return cart
     }
   }
@@ -150,8 +164,12 @@ const NewLineItem = ({ item, content }) => {
                 });
             
                 if(cart) {
-                    console.log(cart, "cart")
+                    // console.log(cart, "cart")
                     cartDrawerContext.setShopifyCart(cart)
+                    cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+                    cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                        return sum + line.quantity
+                    }, 0))
                 }
             }
         

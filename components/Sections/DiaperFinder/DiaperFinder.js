@@ -318,6 +318,10 @@ const DiaperFinder = ({ content }) => {
       if(cart) {
         console.log("Subscription")
         cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
       }
 
       cartDrawerContext.setIsOpen(true)
