@@ -12,6 +12,8 @@ import { useModalContext } from '../../../context/ModalContext'
 
 import DatePicker from "react-datepicker";
 
+import * as Cookies from 'es-cookie'
+
 import "react-datepicker/dist/react-datepicker.css"
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
@@ -44,6 +46,8 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         if(lifeStage == "conceive") {
             getResultProduct("our-prenatal-preconception-1st-trimester")
+        } else if (lifeStage == "postpartum"){
+            getResultProduct("our-prenatal-4th-trimester-postnatal")
         } else {
             setProduct(false)
         }
@@ -94,38 +98,38 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
 
-        if(!sellingPlan) {
-            sellingPlan = false
+        let itemAttributes = []
+
+        if(sellingPlan) {
+            const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+            const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+            itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
         }
 
-        addToCart({
-            product,
-            variant,
-            quantity: 1,
-            sellingPlan,
-            subscription: false,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            selectedVariant
-        })
-
-        await cartClient.cartLinesAdd({
-            cartId: cartDrawerContext.shopifyCartId,
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
             lines: [
-              {
+                {
                 merchandiseId: selectedVariant.nacelleEntryId,
                 nacelleEntryId: selectedVariant.nacelleEntryId,
                 quantity: 1,
-              }
-            ]
-          })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.error(err, "Error")
-          })
+                attributes: itemAttributes
+                },
+            ],
+        });
 
-          cartDrawerContext.setIsOpen(true)
+        // console.log( cart, userErrors, errors )
+
+        if(cart) {
+            cartDrawerContext.setShopifyCart(cart)
+            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                return sum + line.quantity
+            }, 0))
+        }
+
+        cartDrawerContext.setIsOpen(true)
     }
 
     useEffect(() => {
@@ -163,18 +167,18 @@ const VitaminFinder = ({ content, refs, index }) => {
         <div className="vitamin-finder item" style={{'maxHeight': maxHeight}}>
             <div className="vitamin-finder__background">
                 <div className="vitamin-finder__background--desktop">
-                    <Image
+                    {backgroundImage?.fields?.file?.url && <Image
                         src={`https:${backgroundImage.fields.file.url}`}
                         alt={header}
                         layout="fill"
-                    />
+                    />}
                 </div>
                 <div className="vitamin-finder__background--mobile">
-                    <Image
+                    {backgroundImageMobile?.fields?.file?.url && <Image
                         src={`https:${backgroundImageMobile.fields.file.url}`}
                         alt={header}
                         layout="fill"
-                    />
+                    />}
                 </div>
             </div>
             <div className="vitamin-finder__content">
@@ -188,7 +192,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <button className="btn" onClick={() => goToNextStage(2, "pregnant")}>
                         <span>{ ctaText2 }</span>
                     </button>
-                    <button className="btn" onClick={() => goToNextStage(2, "postpartum")}>
+                    <button className="btn" onClick={() => goToNextStage(3, "postpartum")}>
                         <span>{ ctaText3 }</span>
                     </button>
                 </div>
@@ -196,7 +200,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <h6 className="vitamin-finder__subheader">{subheader}</h6>
                     <div className="vitamin-finder__header">{header}</div>
                     <p className="vitamin-finder__copy large">{description}</p>
-                    <DatePicker dateFormat="MM/dd/yy" selected={dueDate}  onChange={(date) => setDueDate(date)} placeholderText="Enter your due date" />
+                    <DatePicker dateFormat="MM/dd/yy" selected={dueDate} closeOnScroll={false} onChange={(date) => setDueDate(date)} placeholderText="Enter your due date" />
                     <button className="btn secondary" onClick={() => showVitaminRestult()}>
                         <span>{ recommendationsText }</span>
                         <span><LongArrowRight /></span>
@@ -214,6 +218,8 @@ const VitaminFinder = ({ content, refs, index }) => {
                                 <Image
                                     src={product.content.featuredMedia.src}
                                     alt={header}
+                                    layout="responsive"
+                                    objectFit="cover"
                                     height="315"
                                     width="315"
                                 />

@@ -3,6 +3,7 @@ import { nacelleClient } from 'services'
 import cartClient from '../../../services/nacelleClientCart'
 import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
+import Link from 'next/link'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
@@ -11,7 +12,10 @@ import IconClose from '../../../svgs/close-icon.svg'
 
 import DatePicker from 'react-datepicker'
 
+import * as Cookies from 'es-cookie'
+
 import 'react-datepicker/dist/react-datepicker.css'
+import { unlockScroll } from '@/utils/scroll'
 
 const DiaperCalculator = ({ props, children }) => {
   let intialValues = {
@@ -21,16 +25,25 @@ const DiaperCalculator = ({ props, children }) => {
 
   const [, { addToCart }] = useCart()
   const [product, setProduct] = useState(null)
+  const [selectedVariant, setSelectedVariant] = useState(false)
+  const [isActive, setIsActive] = useState(null)
+  const [startDate, setStartDate] = useState(null)
   const [birthday, setBirthday] = useState(null)
   const [diaperSize, setDiaperSize] = useState(1)
-  // const [weight, setWeight] = useState(Number(diaperCalculatorContext.diaperCalculatorData.weight))
   const [weight, setWeight] = useState(0)
   const [measurement, setMeasurement] = useState('lbs')
   const [diaperFinderData, setDiaperFinderData] = useState(intialValues)
-  const [selectedVariant, setSelectedVariant] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
   const diaperCalculatorContext = useDiaperCalculatorContext()
+
+  const getMonthDifference = (startDate, endDate) => {
+    return (
+      endDate.getMonth() -
+      startDate.getMonth() +
+      12 * (endDate.getFullYear() - startDate.getFullYear())
+    )
+  }
 
   useEffect(() => {
     if (diaperCalculatorContext.isOpen) {
@@ -40,7 +53,7 @@ const DiaperCalculator = ({ props, children }) => {
     const getProduct = async () => {
       await nacelleClient
         .products({
-          handles: ['our-monthly-diaper-bundle'],
+          handles: ['diaper-and-wipe-subscription'],
         })
         .then((response) => {
           setProduct(response[0])
@@ -53,25 +66,87 @@ const DiaperCalculator = ({ props, children }) => {
   useEffect(() => {
     const recommendProduct = () => {
       if (diaperCalculatorContext.isOpen) {
-        if (weight < 10) {
-          // size 1
-          setDiaperSize(1)
-        } else if (weight > 10 && weight < 12) {
-          // size 2
-          setDiaperSize(2)
-        } else if (weight > 12 && weight < 18) {
-          // size 3
-          setDiaperSize(3)
-        } else if (weight > 18 && weight < 22) {
-          // size 4
-          setDiaperSize(4)
-        } else if (weight > 22 && weight < 37) {
-          // size 5
-          setDiaperSize(5)
-        } else {
-          // size 6
-          setDiaperSize(6)
+        if (!diaperCalculatorContext.diaperCalculatorData.birthday) {
+            setIsActive(false)
+            return false;
         }
+
+        let today = new Date()
+        let babyMonth = getMonthDifference(diaperCalculatorContext.diaperCalculatorData.birthday, today)
+        console.log(getMonthDifference(diaperCalculatorContext.diaperCalculatorData.birthday, today), Number(weight), 'Weight')
+
+        if (weight < 6) {
+            console.log('Contact Customer Service')
+            setIsActive(false)
+        } else if (weight >= 6 && weight <= 11.99) {
+            getProduct('diaper-and-wipe-subscription', 'Size 1')
+            setDiaperSize(1)
+            console.log('Monthly Diaper Bundle with wipes- size 1')
+        } else if (weight >= 12 && weight <= 14.99) {
+            if (babyMonth <= 28 && babyMonth >= 0) {
+              getProduct('diaper-and-wipe-subscription', 'Size 2')
+              setDiaperSize(2)
+              console.log('Monthly Diaper Bundle with wipes- size 2')
+            } else if (babyMonth >= 29) {
+              getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
+              setDiaperSize(3)
+              console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 3')
+            }
+        } else if (weight >= 15 && weight <= 16.99) {
+            if (babyMonth <= 28 && babyMonth >= 0) {
+              getProduct('diaper-and-wipe-subscription', 'Size 3')
+              setDiaperSize(3)
+              console.log('Monthly Diaper Bundle with wipes- size 3')
+            } else if (babyMonth >= 29) {
+              getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
+              setDiaperSize(3)
+              console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 3	')
+            }
+        } else if (weight >= 17 && weight <= 19.99) {
+            if (babyMonth <= 28 && babyMonth >= 0) {
+              getProduct('diaper-and-wipe-subscription', 'Size 3')
+              setDiaperSize(3)
+              console.log('Monthly Diaper Bundle with wipes- size 3')
+            } else if (babyMonth >= 29) {
+              getProduct('our-pull-up-style-diaper-bundle', 'Size 4')
+              setDiaperSize(4)
+              console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 4')
+            }
+        } else if (weight >= 20 && weight <= 24.99) {
+            if (babyMonth <= 28 && babyMonth >= 0) {
+              getProduct('diaper-and-wipe-subscription', 'Size 4')
+              setDiaperSize(4)
+              console.log('Monthly Diaper Bundle with wipes- size 4')
+            } else if (babyMonth >= 29) {
+              getProduct('our-pull-up-style-diaper-bundle', 'Size 4')
+              setDiaperSize(4)
+              console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 4')
+            }
+        } else if (weight >= 25 && weight <= 30.99) {
+            if (babyMonth <= 28 && babyMonth >= 0) {
+              getProduct('diaper-and-wipe-subscription', 'Size 5')
+              setDiaperSize(5)
+              console.log('Monthly Diaper Bundle with wipes- size 5')
+            } else if (babyMonth >= 29) {
+              getProduct('our-pull-up-style-diaper-bundle', 'Size 5')
+              setDiaperSize(5)
+              console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 5	')
+            }
+        } else if (weight >= 31 && weight <= 36.99) {
+            if (babyMonth <= 28 && babyMonth >= 0) {
+              getProduct('diaper-and-wipe-subscription', 'Size 6')
+              setDiaperSize(6)
+              console.log('Monthly Diaper Bundle with wipes- size 6')
+            } else if (babyMonth >= 29) {
+              getProduct('our-pull-up-style-diaper-bundle', 'Size 5')
+              setDiaperSize(5)
+              console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 5')
+            }
+        } else if (weight >= 37) {
+            getProduct('our-pull-up-style-diaper-bundle', 'Size 6')
+            setDiaperSize(6)
+            console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 6')
+        } 
 
         let data = {
           birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
@@ -83,7 +158,29 @@ const DiaperCalculator = ({ props, children }) => {
     }
 
     recommendProduct()
-  }, [weight, diaperSize])
+  }, [weight, diaperSize, diaperCalculatorContext.diaperCalculatorData.birthday])
+  
+  const getProduct = async (handle, size = 'Size 1') => {
+    await nacelleClient
+      .products({
+        handles: [handle],
+      })
+      .then((response) => {
+        if (response && handle) {
+          setProduct(response[0])
+          const wipes = response[0].variants.filter((obj) => {
+            return obj.content.title.includes('Wipes (x4)')
+          })
+
+          let variant = wipes.filter((obj) => {
+            return obj.content.selectedOptions[0].value.includes(size)
+          })
+
+          setSelectedVariant(variant)
+          setIsActive(true)
+        }
+      })
+  }
 
   const sizeGuideData = [
     {
@@ -150,76 +247,65 @@ const DiaperCalculator = ({ props, children }) => {
     diaperCalculatorContext.setDiaperCalculatorData(data)
   }
 
-  const toggleMeasurement = (e) => {
-    setMeasurement(e)
-  }
+//   const toggleMeasurement = (e) => {
+//     setMeasurement(e)
+//   }
 
   const closeSlide = () => {
+    unlockScroll()
     diaperCalculatorContext.setIsOpen(false)
+
   }
 
   const handleAddItem = async () => {
-    const noWipes = product.variants.filter((obj) => {
-      return obj.content.title.includes('No Wipes')
-    })
+    // console.log(product, selectedVariant)
+    
+    if (product && selectedVariant) {
 
-    const selectedVariant = noWipes.filter((obj) => {
-      return obj.content.selectedOptions[0].value.includes(`Size ${diaperSize}`)
-    })
+        const variant = getCartVariant({
+            product,
+            variant: selectedVariant[0],
+        })
 
-    const variant = getCartVariant({
-      product,
-      variant: selectedVariant[0],
-    })
+        let sellingPlan = selectedVariant[0].metafields.find(
+            (metafield) => metafield.key === 'sellingPlanAllocations'
+        )
 
-    let sellingPlan = selectedVariant[0].metafields.find(
-      (metafield) => metafield.key === 'sellingPlanAllocations'
-    )
+        let lineItem = {
+            merchandiseId: selectedVariant[0].nacelleEntryId,
+            nacelleEntryId: selectedVariant[0].nacelleEntryId,
+            quantity: 1,
+        }
 
-    let lineItem = {
-      merchandiseId: selectedVariant[0].nacelleEntryId,
-      nacelleEntryId: selectedVariant[0].nacelleEntryId,
-      quantity: 1,
+        if (!sellingPlan) {
+            sellingPlan = false
+        } else {
+            const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+            const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+            lineItem = {
+                merchandiseId: selectedVariant[0].nacelleEntryId,
+                nacelleEntryId: selectedVariant[0].nacelleEntryId,
+                quantity: 1,
+                sellingPlanId,
+                attributes: [{ key: '_sellingPlan', value: sellingPlanId }],
+            }
+        }
+
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
+            lines: [lineItem],
+        });
+    
+        if(cart) {
+            cartDrawerContext.setShopifyCart(cart)
+            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                return sum + line.quantity
+            }, 0))
+            cartDrawerContext.setIsOpen(true)
+        }
     }
-
-    if (!sellingPlan) {
-      sellingPlan = false
-    } else {
-      const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
-      const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
-
-      lineItem = {
-        merchandiseId: selectedVariant[0].nacelleEntryId,
-        nacelleEntryId: selectedVariant[0].nacelleEntryId,
-        quantity: 1,
-        sellingPlanId,
-        attributes: [{ key: 'subscription', value: sellingPlanId }],
-      }
-    }
-
-    addToCart({
-      product,
-      variant,
-      quantity: 1,
-      sellingPlan,
-      subscription: true,
-      nacelleEntryId: selectedVariant[0].nacelleEntryId,
-      selectedVariant: selectedVariant[0],
-    })
-
-    await cartClient
-      .cartLinesAdd({
-        cartId: cartDrawerContext.shopifyCartId,
-        lines: [lineItem],
-      })
-      .then((data) => {
-        console.log(data, 'Cart data')
-      })
-      .catch((err) => {
-        console.error(err, 'Error')
-      })
-
-    cartDrawerContext.setIsOpen(true)
   }
 
   return (
@@ -248,7 +334,7 @@ const DiaperCalculator = ({ props, children }) => {
               <DatePicker
                 dateFormat="MM/dd/yy"
                 placeholderText="00/00/00"
-                closeOnScroll={true}
+                closeOnScroll={false}
                 onChange={(date) => handleDateChange(date)}
                 selected={diaperCalculatorContext.diaperCalculatorData.birthday}
               />
@@ -273,9 +359,19 @@ const DiaperCalculator = ({ props, children }) => {
                 {sizeGuideData[diaperSize - 1].lbs}lbs
               </span>
             </div>
+            {!isActive && isActive !== null ? (
+                <p className="diaper-calculator__error">
+                    Please feel free to reach out to our team at{' '}
+                    <Link href="mailto:support@healthybaby.com">
+                    (support@healthybaby.com.)
+                    </Link>{' '}
+                    <br/>
+                    We’re always here for you and baby!
+                </p>
+            ) : ""}
             <div className="input-wrapper">
               <button
-                className="btn secondary full-width"
+                className={`btn secondary full-width ${!isActive && isActive !== null ? "disabled" : ""}`}
                 onClick={handleAddItem}
               >
                 <span>Add to Cart</span>

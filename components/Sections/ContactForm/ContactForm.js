@@ -182,7 +182,7 @@ const ContactForm = ({content}) => {
               const imageWidth = icon?.fields?.file?.details?.image?.width || 40
               const imageHeight = icon?.fields?.file?.details?.image?.height || 40
               return <li className="contact-information-item" key={item.nacelleEntryId}>
-                {icon && <div className="contact-information-item__image">
+                {icon?.fields?.file?.url && <div className="contact-information-item__image">
                   <Image src={`https:${icon.fields.file.url}`} width={imageWidth} height={imageHeight} alt={icon.fields.title} />
                 </div>}
                 {text && <div className="contact-information-item__text">

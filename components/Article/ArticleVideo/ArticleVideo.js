@@ -35,7 +35,6 @@ const ArticleVideo = ({ content }) => {
           >
             <PlayIcon />
           </div>
-
           <div className="article-video__video">
             {hasWindow && (
               <ReactPlayer

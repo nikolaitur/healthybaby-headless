@@ -25,7 +25,7 @@ const StoriesSlider = ({ content }) => {
     const displayStars = content.fields.displayStars
     const contentAlignment = content.fields.contentAlignment
     return (
-        <section className="stories-slider">
+        <section className="stories-slider" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
             <div className="stories-slider__container container">
                 <div className={`stories-slider__slider stories-slider__slider-content-alignment--${contentAlignment ? contentAlignment.toLowerCase() : 'left'}`}>
                     {displayStars && <div className="stories-slider__image-top-stars">
@@ -36,6 +36,7 @@ const StoriesSlider = ({ content }) => {
                     <Swiper
                         modules={[Lazy, EffectFade, Autoplay]}
                         spaceBetween={20}
+                        threshold={15}
                         slidesPerView={1}
                         lazy={true}
                         effect={"fade"}

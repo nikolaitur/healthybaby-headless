@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 
+import { unlockScroll, lockScroll } from '@/utils/scroll'
+
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 
 const ProductOptions = ( props ) => {
@@ -16,10 +18,15 @@ const ProductOptions = ( props ) => {
         setActiveOption(index)
     }
 
+    const openDiaperCalculator = () => {
+        lockScroll()
+        diaperCalculatorContext.setIsOpen(true)
+    }
+
     return (
         <>
             <div className="product-form__label">
-                <span>Choose {option.name}:</span> {option.name == "Size" ? <span className="calculator" onClick={() => diaperCalculatorContext.setIsOpen(true)}>Diaper calculator</span> : ""}
+                <span>Choose {option.name}:</span> {option.name == "Size" ? <span className="calculator" onClick={() => openDiaperCalculator()}>Diaper calculator</span> : ""}
             </div>
             <div className="product-form__items">
                 {option.values.map((value, vIndex) => (

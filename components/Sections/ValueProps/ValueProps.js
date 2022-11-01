@@ -17,7 +17,7 @@ const ValueProps = ({ content }) => {
                     </div>
                 ) : ("")}
                 <div className="value-props__wrapper">
-                    {(content.fields?.valuePropText1 && content.fields?.valuePropImage1) ? (
+                    {(content.fields?.valuePropText1 && content.fields?.valuePropImage1?.fields?.file?.url) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
                                 <Image
@@ -35,7 +35,7 @@ const ValueProps = ({ content }) => {
                             </p>
                         </div>
                     ) : ("")}
-                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2) ? (
+                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2?.file?.url) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
                              <Image
@@ -53,7 +53,7 @@ const ValueProps = ({ content }) => {
                             </p>
                         </div>
                     ) : ("")}
-                    {(content.fields?.valuePropText3 && content.fields?.valuePropImage3) ? (
+                    {(content.fields?.valuePropText3 && content.fields?.valuePropImage3?.fields?.file?.url) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
                                 <Image

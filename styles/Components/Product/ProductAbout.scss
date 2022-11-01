@@ -35,6 +35,8 @@
             width: 50%;
             padding-left: 120px;
             margin-bottom: 0;
+            display: flex;
+            justify-content: flex-end;
         }
 
         &--desktop {
@@ -59,6 +61,7 @@
 
             @include breakpoint-up('md') {
                 height: 960px!important;
+                max-width: 870px!important;
             }
         }
     }
@@ -164,7 +167,7 @@
         &.is-open {
 
             svg {
-                transform: rotateX(180deg);
+                transform: rotateX(0deg);
             }
         }
 
@@ -209,6 +212,7 @@
 
         svg {
             transition: 0.3s;
+            transform: rotateX(180deg);
         }
 
         h4 {

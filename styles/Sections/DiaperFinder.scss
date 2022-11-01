@@ -69,12 +69,14 @@
       border: none;
       border-bottom: 1px dashed #a0b0d2;
       margin-top: 5px;
+      width: 100%;
 
       @include breakpoint-up('md') {
         font-size: 38px;
         line-height: 38px;
         margin-left: 8px;
         margin-top: 0;
+
       }
 
       @media only screen and (min-width: 1200px) {
@@ -108,7 +110,10 @@
       }
 
       &[name='weight'] {
-        width: 170px;
+        width: 40px;
+        @include breakpoint-up('sm') {
+          width: 80px;
+        }
 
         &:before {
           content: 'lbs';
@@ -140,7 +145,10 @@
 
     .react-datepicker-wrapper {
       input {
-        width: 350px;
+        width: 100%;
+        @include breakpoint-up('sm') {
+          width: 350px;
+        }
       }
     }
 
@@ -151,31 +159,26 @@
       font-size: 32px;
       line-height: 32px;
       color: #a0b0d2;
-      transform: translate(-80px, 6px);
-      position: absolute;
-
+      border-bottom: 1px dashed #a0b0d2;
+      margin-left: 2px;
       @include breakpoint-up('md') {
         font-size: 38px;
         line-height: 38px;
-        transform: translate(-80px, 1px);
       }
 
       @media only screen and (min-width: 1200px) {
         font-size: 40px;
         line-height: 40px;
-        transform: translate(-80px, 1px);
       }
 
       @media only screen and (min-width: 1300px) {
         font-size: 42px;
         line-height: 42px;
-        transform: translate(-80px, 0px);
       }
 
       @media only screen and (min-width: 1400px) {
         font-size: 52px;
         line-height: 52px;
-        transform: translate(-80px, 1px);
       }
 
       @include breakpoint-up('xl') {
@@ -230,12 +233,25 @@
     }
   }
 
+  &__pronoun-text-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__born-text {
+    white-space: nowrap;
+    margin-left: -12px;
+  }
+
   &__select {
     display: inline-block;
     position: absolute;
     // max-width: 100px;
     left: -12px;
     min-width: fit-content;
+    [class*="-SingleValue"] {
+      font-family: $DomaineTextItalic;
+    }
   }
 
   .select-line {
@@ -327,6 +343,7 @@
     }
 
     &--mobile {
+      margin: 0 -30px;
       img {
         width: 100%;
         object-fit: contain;
@@ -406,8 +423,7 @@
       border-radius: 100%;
       top: -25px;
       right: -50px;
-      display: none;
-
+      // display: none;
       @include breakpoint-up('md') {
         display: block;
       }
@@ -534,6 +550,14 @@
         padding: 0 15px;
       }
     }
+
+    &.error {
+        a {
+            color: $primaryGreen;
+            border-bottom: 1px solid $primaryGreen;
+            cursor: pointer;
+        }
+    }
   }
 
   &__title {
@@ -589,11 +613,32 @@
     }
   }
 
-  &__detail {
+  &__detail-desktop,
+  &__detail-mobile {
     position: absolute;
     bottom: -4px;
     right: 0;
     z-index: 0;
+  }
+
+  &__detail-desktop {
+    display: none;
+    @include breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  &__detail-mobile {
+    width: 100%;
+    svg {
+      width: 200%;
+      left: -50%;
+      bottom: -20vw;
+      position: relative;
+    }
+    @include breakpoint-up(md) {
+      display: none;
+    }
   }
 
   ::placeholder {

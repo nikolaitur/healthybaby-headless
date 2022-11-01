@@ -1,13 +1,10 @@
-import React from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import parse from 'html-react-parser'
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { useSwiper } from 'swiper/react'
 
 const StoriesSlide = ({ content, slides, activeSlide }) => {
-  const swiper = useSwiper()
-
   const {
     title,
     subtitle,
@@ -15,23 +12,23 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
     author,
     age,
     activity,
-    boldTitle,
-    italicTitle,
+    image
   } = {...content.fields}
-  const image = content.fields.image.fields.file.url
+  const swiper = useSwiper()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <div className="stories-slide">
       <div className="stories-slide__container">
         <div className="stories-slide__content">
           <h6 className="stories-slide__subtitle">{subtitle}</h6>
-          <h3
-            className={`stories-slide__title ${boldTitle ? 'bold' : ''} ${
-              italicTitle ? 'italic' : ''
-            }`}
-          >
+          {mounted && <h3 className={`stories-slide__title`}>
             {parse(title)}
-          </h3>
+          </h3>}
           <h5 className="stories-slide__copy">{copy}</h5>
           <div className="stories-slide__author">{author}</div>
           <div className="stories-slide__age">{age}</div>
@@ -52,12 +49,12 @@ const StoriesSlide = ({ content, slides, activeSlide }) => {
         </div>
         <div className="stories-slide__image-container">
           <div className="stories-slide__image">
-            <Image
-              src={`https:${image}`}
+            {image?.fields?.file?.url && <Image
+              src={`https:${image.fields.file.url}`}
               alt={title}
               sizes="(min-width: 1400px) 1400px"
               layout="fill"
-            />
+            />}
           </div>
         </div>
       </div>

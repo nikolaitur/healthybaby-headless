@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
@@ -30,11 +30,16 @@ const findProductBadges = ({ product, productBadges }) => {
 
 const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-width: 768px) 100vw, (min-width: 1080) 40vw, 600px" }) => {
 
+    const [hasWindow, setHasWindow] = useState(false)
     const [, { addToCart }] = useCart()
     const modalContext = useModalContext()
     const cartDrawerContext = useCartDrawerContext()
     const { title, featuredMedia, handle } = {...product.content}
     const productPrice = getProductPrice(product)
+
+    useEffect(() => {
+        setHasWindow(true)
+    }, [])
 
     if (!featuredMedia) {
         return <></>
@@ -42,7 +47,7 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
     const getCtaText = () => {
         if (product && product.variants.length > 1) {
-            return 'Quick View -'
+            return 'Quick Add -'
         } else {
             return 'Add To Cart - '
         }
@@ -76,10 +81,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
           (metafield) => metafield.key === 'sellingPlanAllocations'
         )
 
-        if (!sellingPlan) {
-          sellingPlan = false
-        }
-
         const newItem = {
           product,
           variant,
@@ -89,53 +90,37 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
         dataLayerATC({ item: newItem })
 
-        addToCart({
-          product,
-          variant,
-          quantity: 1,
-          sellingPlan,
-          subscription: false,
-          nacelleEntryId: selectedVariant.nacelleEntryId,
-          selectedVariant,
-        })
-
-        await cartClient
-          .cartLinesAdd({
-              cartId: cartDrawerContext.shopifyCartId,
-              lines: [
-              {
-                  merchandiseId: selectedVariant.nacelleEntryId,
-                  nacelleEntryId: selectedVariant.nacelleEntryId,
-                  quantity: 1,
-              },
-              ],
-          })
-          .then((res) => {
-              console.log(res)
-          })
-          .catch((err) => {
-              console.error(err, 'Error')
-          })
-
-        cartDrawerContext.setIsOpen(true)
-
-        await cartClient
-          .cartLinesAdd({
-            cartId: cartDrawerContext.shopifyCartId,
-            lines: [
-              {
-                merchandiseId: selectedVariant.nacelleEntryId,
-                nacelleEntryId: selectedVariant.nacelleEntryId,
-                quantity: 1,
-              },
-            ],
-          })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.error(err, 'Error')
-          })
+        let itemAttributes = []
+      
+        if(sellingPlan) {
+          const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+          const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+  
+          itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+        }
+  
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+          cartId: Cookies.get('shopifyCartId'),
+          lines: [
+            {
+              merchandiseId: selectedVariant.nacelleEntryId,
+              nacelleEntryId: selectedVariant.nacelleEntryId,
+              quantity: 1,
+              attributes: itemAttributes
+            },
+          ],
+        });
+  
+        // console.log( cart, userErrors, errors )
+  
+        if(cart) {
+          // console.log("Subscription")
+          cartDrawerContext.setShopifyCart(cart)
+          cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+          cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+              return sum + line.quantity
+          }, 0))
+        }
 
         cartDrawerContext.setIsOpen(true)
       }
@@ -178,21 +163,21 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
                     <Link href={`/products/${handle}`}>{ title }</Link>
                 </div>
                 {/* <div className="product-card__subtitle">6 sizes available — Made with our patented magic channels</div> */}
-                <div className="product-card__reviews">
-                    <span
-                        className="junip-store-key"
-                        data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-                    ></span>
+                {hasWindow && <div className="product-card__reviews">
                     <span
                         className="junip-product-summary"
                         data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
                     ></span>
-                </div>
+                </div>}
                 {!showCTA && <div className="product-card__price">${productPrice}</div> }
 
                 {showCTA &&
                     <div className="product-card__cta-btn">
-                        {product && product.variants.length > 1 ? (
+                        {!product.availableForSale ? (
+                        <span className="btn disabled">
+                            <span>Out Of Stock</span>
+                        </span>
+                        ): (product && product.variants.length > 1) ? (
                             <button
                                 className="btn secondary quickview"
                                 onClick={() => openQuickView()}

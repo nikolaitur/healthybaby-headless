@@ -8,10 +8,11 @@ import LongArrowRight from '@/svgs/long-arrow-right.svg'
 import ArrowRightMobile from '@/svgs/arrow-right-mobile.svg'
 
 const About = ({ content }) => {
-    const { header, subheader, copy, links, imageTitle, imageSubtitle, displayStars } = {...content.fields}
-    const image = content.fields.image.fields.file.url
+    const { header, subheader, copy, links, imageTitle, imageSubtitle, displayStars, image } = {...content.fields}
+
+    console.log(content.fields)
     return (
-        <section className="about">
+        <section className="about" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
             <div className="about__container container">
                 <div className="about__content">
                     <h6 className="about__subheader">{ subheader }</h6>
@@ -25,12 +26,12 @@ const About = ({ content }) => {
                                     <ThreeStarsIcon />
                                 </div>
                             </div>}
-                            <Image
-                                src={`https:${image}`}
+                            {image?.fields?.file?.url && <Image
+                                src={`https:${image.fields.file.url}`}
                                 alt={subheader}
                                 sizes="(min-width: 1080px) 75vw, (min-width: 1400px) 1200px"
                                 layout="fill"
-                            />
+                            />}
                             {displayStars && <div className="about__image-bottom-stars">
                                 <div className="about__image-one-star">
                                     <OneStarIcon />
@@ -67,12 +68,12 @@ const About = ({ content }) => {
                                 <ThreeStarsIcon />
                             </div>
                         </div>}
-                        <Image
-                            src={`https:${image}`}
+                        {image?.fields?.file?.url &&<Image
+                            src={`https:${image.fields.file.url}`}
                             alt={subheader}
                             sizes="(min-width: 1080px) 75vw, (min-width: 1400px) 1200px"
                             layout="fill"
-                        />
+                        />}
                         {displayStars && <div className="about__image-bottom-stars">
                             <div className="about__image-one-star">
                                 <OneStarIcon />

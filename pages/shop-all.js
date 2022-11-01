@@ -9,10 +9,9 @@ import ValueProps from '../components/Sections/ValueProps'
 
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
-export default function ShopAll({ pages, products, productBadges }) {
+export default function ShopAll({ page, products, productBadges }) {
     const router = useRouter()
-    const shopAll = pages[0].fields
-    const shopAllSections = shopAll.sections
+    const shopAllSections = page.fields.sections
 
     useEffect(() => {
       dataLayerViewProductList({
@@ -61,7 +60,7 @@ export default function ShopAll({ pages, products, productBadges }) {
             </Head>
             <>
                 <div className="shop-all">
-                    <CollectionHeader content={shopAll} />
+                    <CollectionHeader content={page} />
 
                     {/* TO do Add swtich to apply different section types */}
                     {shopAllSections.map((section, index) => {
@@ -113,7 +112,7 @@ export async function getStaticProps({ previewData }) {
   if(products.length) {
       return {
         props: {
-          pages,
+          page: pages[0],
           products,
           productBadges,
         }

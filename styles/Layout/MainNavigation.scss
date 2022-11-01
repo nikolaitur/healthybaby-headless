@@ -116,6 +116,28 @@
         }
     }
 
+    &__item-cart {
+        span {
+            position: absolute;
+            font-size: 12px;
+            background: #A0B0D2;
+            color: #fff;
+            padding: 5px 6px;
+            border-radius: 100%;
+            line-height: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            left: 10px;
+            top: -9px;
+
+            @include breakpoint-up('md') {
+                top: 5px;
+                left: 23px;
+            }
+        }
+    }
+
     &__item-search {
         svg {
             width: 24px;

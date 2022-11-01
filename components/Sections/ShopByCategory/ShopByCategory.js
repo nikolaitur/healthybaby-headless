@@ -38,6 +38,7 @@ const ShopByCategory = ({ content }) => {
                         slidesPerView={3.4}
                         lazy={true}
                         navigation={true}
+                        threshold={15}
                         style={{
                             "--swiper-navigation-color": "#fff",
                             "--swiper-pagination-color": "#fff",
@@ -58,6 +59,7 @@ const ShopByCategory = ({ content }) => {
                         slidesPerView={1.125}
                         lazy={true}
                         navigation={true}
+                        threshold={15}
                         style={{
                             "--swiper-navigation-color": "#fff",
                             "--swiper-pagination-color": "#fff",

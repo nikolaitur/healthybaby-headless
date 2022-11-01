@@ -11,11 +11,13 @@ import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
 
+import * as Cookies from 'es-cookie'
+
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 import Trash from '../../../svgs/trash.svg'
 
-const LineItem = ({ item }) => {
+const LineItem = ({ item, content }) => {
   const [
     { cart },
     { incrementItem, decrementItem, removeFromCart, addToCart },
@@ -29,6 +31,7 @@ const LineItem = ({ item }) => {
   let hasSubscriptionProduct = false
 
   useEffect(() => {
+    console.log(content)
     if (item.sellingPlan) {
       const sellingPlanPriceValue = JSON.parse(item.sellingPlan.value)
       const sellingPlanPrice =
@@ -60,9 +63,21 @@ const LineItem = ({ item }) => {
     }
   }
 
-  const remove = () => {
+  const remove = async () => {
     dataLayerRFC({ item })
     removeFromCart(item)
+
+    const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
+        cartId: Cookies.get('shopifyCartId'),
+        lineIds: [item.id]
+    });
+
+    if(cart) {
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+    }
   }
 
   const upgradeToSubscription = async () => {
@@ -128,15 +143,15 @@ const LineItem = ({ item }) => {
       <div className="line-item__wrapper">
         <div className="line-item__image">
             {item.variant.featuredMedia?.src ? (
-                    <Image
-                        className=""
-                        src={`${item.variant.featuredMedia.src}`}
-                        alt={ item.variant.productTitle }
-                        layout="responsive"
-                        objectFit="cover"
-                        height="132"
-                        width="108"
-                    />
+                <Image
+                    className=""
+                    src={`${item.variant.featuredMedia.src}`}
+                    alt={ item.variant.productTitle }
+                    layout="responsive"
+                    objectFit="cover"
+                    height="132"
+                    width="108"
+                />
             ) : ""}
         </div>
         <div className="line-item__content">
@@ -199,7 +214,7 @@ const LineItem = ({ item }) => {
           className="line-item__upgrade"
           onClick={() => upgradeToSubscription()}
         >
-          Upgrade to Subscribe & Save 10%
+          Upgrade to Subscribe & Save {content?.fields?.subscriptionDiscountPercent ? content.fields.subscriptionDiscountPercent : "7.5"}%
         </button>
       ) : (
         ''

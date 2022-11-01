@@ -143,6 +143,9 @@
         font-size: 18px;
         line-height: 110%;
         text-transform: none;
+        @include breakpoint-up('sm') {
+            font-size: 24px;
+        }
     }
 
     &__header {
@@ -188,17 +191,18 @@
         letter-spacing: 0.02em;
         color: $primaryBrown;
         background: #fff;
-        padding: 14px 60px;
+        padding: 14px 0;
         width: auto;
         border-radius: 60px;
         cursor: pointer;
-
+        width: 100%;
+        max-width: 315px;
         @include breakpoint-up('md') {
             font-size: 18px;
             line-height: 22px;
-            justify-content: flex-start;
-            padding: 19px 100px;
-            max-width: max-content;
+            justify-content: center;
+            padding: 19px 0;
+            max-width: 430px;
         }
 
         span:last-child {

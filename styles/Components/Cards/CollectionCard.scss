@@ -6,7 +6,7 @@
         &__cta {
             max-width: 232px;
             @include breakpoint-up('md') {
-                max-width: 352px;
+                max-width: 412px;
             }
             .btn {
                 padding: 12px 30px;
@@ -59,7 +59,7 @@
             bottom: 40px;
             padding: 0 30px;
             width: 100%;
-            max-width: 447px;
+            max-width: 507px;
         }
 
         .btn {

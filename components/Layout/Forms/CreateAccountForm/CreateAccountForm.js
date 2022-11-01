@@ -193,7 +193,7 @@ const CreateAccountForm = () => {
         <div className="account-form__group">
           <DatePicker
             dateFormat="MM/dd/yy"
-            closeOnScroll={true}
+            closeOnScroll={false}
             onChange={(date) =>
               setbabyBirthday1(moment(date).format('MM/DD/YYYY'))
             }
@@ -213,7 +213,7 @@ const CreateAccountForm = () => {
           <div className="account-form__group">
             <DatePicker
               dateFormat="MM/dd/yy"
-              closeOnScroll={true}
+              closeOnScroll={false}
               onChange={(date) =>
                 setbabyBirthday2(moment(date).format('MM/DD/YYYY'))
               }
@@ -234,7 +234,7 @@ const CreateAccountForm = () => {
           <div className="account-form__group">
             <DatePicker
               dateFormat="MM/dd/yy"
-              closeOnScroll={true}
+              closeOnScroll={false}
               onChange={(date) =>
                 setbabyBirthday3(moment(date).format('MM/DD/YYYY'))
               }

@@ -13,8 +13,6 @@ import ArticleHowAndWow from '../../../components/Article/ArticleHowAndWow'
 import ArticleActivityHeader from '../../../components/Article/ArticleActivityHeader'
 
 const ArticleSectionsContent = ({ sections }) => {
-  // const { ctaText, ctaUrl } = content.fields
-  // const backgroundImage = content.fields.image.fields.file.url
   console.log(sections)
   return (
     <>

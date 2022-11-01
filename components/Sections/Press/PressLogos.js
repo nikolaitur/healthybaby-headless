@@ -19,6 +19,7 @@ const PressLogos = ({ content }) => {
         className="press-section__items-slider"
         modules={[Lazy, Pagination]}
         slidesPerView={3}
+        threshold={15}
         spaceBetween={0}
         lazy={true}
         pagination={false}
@@ -40,11 +41,11 @@ const PressLogos = ({ content }) => {
                   onLogoClick(index)
                 }}
               >
-                <img
+                {pressItem?.fields?.pressLogo?.fields?.file?.url && <img
                   className=""
                   src={`https:${pressItem.fields.pressLogo.fields.file.url}`}
                   alt={`image`}
-                />
+                />}
               </div>
             </SwiperSlide>
           )

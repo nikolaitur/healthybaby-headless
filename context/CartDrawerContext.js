@@ -21,6 +21,9 @@ export function CartDrawerProvider({ children }) {
   const [content, setContent] = useState('')
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
   const [shopifyCartId, setShopifyCartId] = useState(false)
+  const [shopifyCart, setShopifyCart] = useState(false)
+  const [cartTotal, setCartTotal] = useState(0)
+  const [cartCount, setCartCount] = useState(0)
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -51,28 +54,32 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
-      if (!Cookies.get('shopifyCartId')) {
+      console.log(Cookies.get('shopifyCartId'), lines, cart)
+
+      if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
           .cart({
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            // if (response.cart.length) {
-            //   setShopifyCartCartClient(response.cart)
-            //   setShopifyCartId(response.cart.id)
-            // }
+            console.log(Cookies.get('shopifyCartId'), response, "1")
+            if (response) {
+              setShopifyCartCartClient(response.cart)
+              setShopifyCartId(Cookies.get('shopifyCartId'))
+              setShopifyCart(response)
+            }
           })
       } else {
-        const shopifyCart = await cartClient
+        cartClient
           .cartCreate({
-            lines,
-            attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-            note: 'Please use a red ribbon for the bow, if possible :)',
+            lines
           })
           .then((response) => {
+            console.log(Cookies.get('shopifyCartId'), response, "2")
             if (response) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)
+              setShopifyCart(response)
               Cookies.set('shopifyCartId', response.cart.id)
             }
           })
@@ -92,6 +99,12 @@ export function CartDrawerProvider({ children }) {
         setShopifyCartCartClient,
         shopifyCartId,
         setShopifyCartId,
+        shopifyCart,
+        setShopifyCart,
+        cartTotal,
+        setCartTotal,
+        cartCount,
+        setCartCount
       }}
     >
       {children}

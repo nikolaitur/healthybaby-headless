@@ -10,20 +10,20 @@ const ContentBanner = ({ content }) => {
         <section className="content-banner">
             <div className="content-banner__container container" style={{'backgroundColor': (backgroundColor || '#ECDCDE')}}>
                 <div className="content-banner__image">
-                    <Image
+                    {desktopImage?.fields?.file?.url && <Image
                         className="content-banner__image--desktop"
                         src={`https:${desktopImage.fields.file.url}`}
                         alt={header}
                         height="144px"
                         width="185px"
-                    />
-                    <Image
+                    />}
+                    {mobileImage?.fields?.file?.url && <Image
                         className="content-banner__image--mobile"
                         src={`https:${mobileImage.fields.file.url}`}
                         alt={header}
                         height="322px"
                         width="280px"
-                    />
+                    />}
                 </div>
                 <div className="content-banner__content">
                     {header ? (

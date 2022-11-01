@@ -6,7 +6,7 @@ const ArticleAuthorSpotlight = ({ content }) => {
   return (
     <div className="article-author">
       <div className="article-author__photo">
-        {photo ? (
+        {photo?.fields?.file?.url ? (
           <Image
             className=""
             src={`https:${photo.fields.file.url}`}

@@ -26,7 +26,7 @@ const Experts = ({ content }) => {
           >
             {content.fields.sections.map((item, index) => (
               <div className="experts__expert" key={index}>
-                {item.fields?.image ? (
+                {item?.fields?.image?.fields?.file?.url ? (
                   <div className="experts__image">
                     <Image
                       className=""

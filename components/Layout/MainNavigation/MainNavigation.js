@@ -28,8 +28,7 @@ import { unlockScroll, lockScroll } from '@/utils/scroll'
 const MainNavigation = forwardRef(({ props }, ref) => {
   const customerContext = useCustomerContext()
   const modalContext = useModalContext()
-  const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } =
-    useHeaderContext()
+  const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
   const cartDrawerContext = useCartDrawerContext()
 
   const router = useRouter()
@@ -175,6 +174,13 @@ const MainNavigation = forwardRef(({ props }, ref) => {
     }
   }, [megaMenuIsOpen])
 
+  useEffect(() => {
+    const onRouteChangeComplete = () => {
+      closeMobileMenu()
+    }
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+  }, [router.pathname])
+
   return (
     <>
       <div className="main-nav">
@@ -224,8 +230,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               <Baby />
             </div>
           )}
-          <div className="main-nav__item" onClick={() => openCartDrawer()}>
+          <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
+            <span>{ cartDrawerContext.cartCount }</span>
           </div>
           <div className={`main-nav__search ${isSearchOpen ? 'active' : ''}`}>
             <input
@@ -275,8 +282,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               <Baby />
             </div>
           )}
-          <div className="main-nav__item" onClick={() => openCartDrawer()}>
+          <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
+            <span>{ cartDrawerContext.cartCount }</span>
           </div>
         </div>
       </div>
@@ -362,7 +370,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               onKeyDown={(e) => handleKeyDown(e)}
               value={searchQuery}
             />
-            <Search />
+            <button className="mobile-menu__search-input-submit-btn" onClick={() => router.push(`/search?query=${searchQuery}`)}>
+              <Search />
+            </button>
           </div>
         </div>
         <SearchMenu

@@ -51,7 +51,7 @@
         position: relative;
         width: 100%;
         max-width: 525px;
-        padding: 30px 12px;
+        padding: 30px 12px 100px;
         height: 100vh;
         background: #E7EBF4;
         transform: translateX(100vw);
@@ -218,6 +218,16 @@
         border-top: 1px solid rgba(61, 51, 49, 0.1);
     }
 
+    &__error {
+        margin-top: 30px;
+        font-size: 18px;
+        line-height: 20px;
+
+        a {
+            color: $primaryGreen;
+        }
+    }
+
     &__recommendation {
         display: flex;
         display: flex;
@@ -249,8 +259,6 @@
         .weight {
             transform: translateY(1.5px);
         }
-
-
     }
 
     &__select {

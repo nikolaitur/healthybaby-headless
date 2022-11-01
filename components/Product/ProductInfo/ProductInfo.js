@@ -9,6 +9,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
 
+import * as Cookies from 'es-cookie'
+
 import { dataLayerATC } from '@/utils/dataLayer'
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
@@ -44,6 +46,7 @@ const ProductInfo = (props) => {
   const [quantity, setQuantity] = useState(1)
   const [diaperAmount, setDiaperAmount] = useState(false)
   const [messageProduct, setMessageProduct] = useState(false)
+  const [hasWindow, setHasWindow] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
@@ -51,12 +54,14 @@ const ProductInfo = (props) => {
   const richTextRenderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        // console.log(node, "Node")
-        return `<img src=https:${node.data.target.fields.file.url} />`
+        if (node.data.target?.fields?.file?.url) {
+          return `<img src=https:${node.data.target.fields.file.url} />`
+        }
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        // console.log(node, "Node")
-        return `<img src=https:${node.data.target.fields.file.url} />`
+        if (node.data.target?.fields?.file?.url) {
+          return `<img src=https:${node.data.target.fields.file.url} />`
+        }
       },
     },
   }
@@ -207,27 +212,22 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ item: newItem })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: true,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [lineItem],
+      });
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [lineItem],
-        })
-        .then((data) => {
-          console.log(data, 'Cart data')
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      console.log( cart, userErrors, errors )
+
+      if(cart) {
+        console.log("Subscription")
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+      }
+
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -246,45 +246,49 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ item: newItem })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
-      })
+      let itemAttributes = []
+      
+      if(sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
+        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+      }
+
+      // console.log(itemAttributes)
+
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
             {
               merchandiseId: selectedVariant.nacelleEntryId,
               nacelleEntryId: selectedVariant.nacelleEntryId,
               quantity: quantity,
+              attributes: itemAttributes,
             },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+        ]
+      });
+
+      // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
+
+      if(cart) {
+        console.log("ONE TIME")
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+      }
     }
 
     cartDrawerContext.setIsOpen(true)
     modalContext.setIsOpen(false)
   }
 
-const openSubscribeInfoModal = async () => {
+  const openSubscribeInfoModal = async () => {
     const pages = await nacelleClient.content({
-      handles: ["subscribe-info-modal"]
+      handles: ['subscribe-info-modal'],
     })
-
-    console.log(pages, "PAGE")
 
     if (pages) {
       modalContext.setSecondaryModalType('subscribe-info-modal')
@@ -292,10 +296,10 @@ const openSubscribeInfoModal = async () => {
       modalContext.setSecondaryModalContent({
         product: null,
         page: pages[0],
-        className: "subscribe-modal",
+        className: 'subscribe-modal',
       })
     }
-}
+  }
 
   useEffect(() => {
     const sellingPlanAllocations = selectedVariant.metafields.find(
@@ -348,23 +352,22 @@ const openSubscribeInfoModal = async () => {
 
     getDiaperCount()
     getMessageProduct()
+    setHasWindow(true)
   }, [])
 
   return product ? (
     <div className="product-info">
       <div className="product-info__sticky">
         <div className="product-info__reviews">
-          <>
-            <span
-              className="junip-store-key"
-              data-store-key="8Y8nYkJkWCVANh2xkZy7L5xL"
-            ></span>
+          {hasWindow && (
             <span
               className="junip-product-summary"
-              data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
+              data-product-id={product.sourceEntryId.replace(
+                'gid://shopify/Product/',
+                ''
+              )}
             ></span>
-            {/* <span class="junip-product-summary" data-product-id={product.sourceEntryId.split("gid://shopify/Product/").pop()}></span> */}
-          </>
+          )}
         </div>
 
         {product.content?.title && (
@@ -395,10 +398,10 @@ const openSubscribeInfoModal = async () => {
                     return (
                       <div
                         className="product-form__add-on"
-                        onChange={() => handleCheckBoxChange(option)}
+                        onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page?.fields?.productAddOnImage ? (
+                          {page?.fields?.productAddOnImage?.file ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
@@ -421,7 +424,10 @@ const openSubscribeInfoModal = async () => {
                               : '+$27'}
                           </div>
                         </div>
-                        <input type="checkbox"></input>
+                        <input
+                          type="checkbox"
+                          checked={!selectedCombination}
+                        ></input>
                       </div>
                     )
                   default:
@@ -449,13 +455,13 @@ const openSubscribeInfoModal = async () => {
               >
                 <input
                   type="radio"
-                  id="html"
+                  id="onetimeOption"
                   name="subscription"
                   value="One Time"
                   checked={isCheckedOneTime}
                 />
-                <label htmlFor="html">
-                  Buy One Time{' '}
+                <label htmlFor="onetimeOption">
+                  One-Time Purchase{' '}
                   <span className="price">
                     ${selectedVariant.price.toFixed(2)}
                   </span>
@@ -468,15 +474,22 @@ const openSubscribeInfoModal = async () => {
               >
                 <input
                   type="radio"
-                  id="html"
+                  id="subscriptionOption"
                   name="subscription"
                   value="Subscription"
                   checked={isCheckedSubscription}
                 />
-                <label htmlFor="html">
-                  Monthly Auto-Ship <br />
-                  <span>Update sizing or cancel anytime</span>
-                  <span className="question-mark" onClick={() => openSubscribeInfoModal()}><QuestionMark /></span>
+                <label htmlFor="subscriptionOption">
+                  Auto Delivery <br />
+                  <span>
+                    Update sizing or pause anytime
+                    <span
+                      className="question-mark"
+                      onClick={() => openSubscribeInfoModal()}
+                    >
+                      <QuestionMark />
+                    </span>
+                  </span>
                   <span className="price">
                     <s>${selectedVariant.price.toFixed(2)}</s> $
                     {Number(subscriptionPrice).toFixed(2)}
@@ -618,6 +631,19 @@ const openSubscribeInfoModal = async () => {
                 ) : (
                   ''
                 )}
+                {page.fields?.productDetailTabTitle4 &&
+                page.fields?.productDetailTabContent4 ? (
+                  <div
+                    className={`product-tabs__title ${
+                      activeTab == 2 ? 'active' : ''
+                    }`}
+                    onClick={() => setActiveTab(3)}
+                  >
+                    {page.fields.productDetailTabTitle4}
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
               <div className="product-tabs__content">
                 {page.fields?.productDetailTabTitle1 &&
@@ -661,6 +687,22 @@ const openSubscribeInfoModal = async () => {
                     dangerouslySetInnerHTML={{
                       __html: documentToHtmlString(
                         page.fields.productDetailTabContent3,
+                        richTextRenderOptions
+                      ),
+                    }}
+                  ></div>
+                ) : (
+                  ''
+                )}
+                {page.fields?.productDetailTabTitle4 &&
+                page.fields?.productDetailTabContent4 ? (
+                  <div
+                    className={`product-tabs__tab ${
+                      activeTab == 3 ? 'active' : ''
+                    }`}
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        page.fields.productDetailTabContent4,
                         richTextRenderOptions
                       ),
                     }}

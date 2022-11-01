@@ -1,12 +1,12 @@
 .collection-header {
-    text-align: left;
     padding-top: 60px;
-    
+
     @include breakpoint-up('md') {
         text-align: center;
         padding-top: 100px;
         padding-bottom: 0px;
     }
+
 
     &__container {
         @include breakpoint-down('md') {
@@ -15,6 +15,10 @@
     }
 
     &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         padding-bottom: 40px;
         border-bottom: 1px solid rgba(61, 51, 49, 0.15);
 
@@ -22,16 +26,41 @@
             text-align: center;
             padding-bottom: 60px;
         }
+
+        &.left-desktop {
+            @include breakpoint-up('md') {
+                text-align: left;
+                align-items: flex-start;
+            }
+            .collection-header__links-wrapper {
+                @include breakpoint-up('md') {
+                    justify-content: flex-start;
+                }
+            }
+        }
+
+
+        &.left-mobile {
+            @include breakpoint-down('xs') {
+                text-align: left;
+                align-items: flex-start;
+            }
+            .collection-header__links-wrapper {
+                @include breakpoint-down('md') {
+                    justify-content: flex-start;
+                }
+            }
+        }
     }
 
     &__breadcrumbs {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
         margin-bottom: 10px;
 
         @include breakpoint-up('md') {
             justify-content: center;
+            margin-bottom: 24px;
         }
     }
 
@@ -52,6 +81,7 @@
     }
 
     &__title {
+        margin-bottom: 10px;
         @include breakpoint-down('md') {
             &.center-mobile {
                 text-align: center;
@@ -61,30 +91,13 @@
             }
         }
         @include breakpoint-up('md') {
+            margin-bottom: 20px;
             &.center-desktop {
                 text-align: center;
             }
             &.left-desktop {
                 text-align: left;
             }
-        }
-    }
-
-    &__subheader {
-        font-family: $NeutraText;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 25px;
-        letter-spacing: -0.01em;
-        color: $primaryBrown;
-        max-width: 870px;
-        margin: 30px 0 20px;
-
-        @include breakpoint-up('md') {
-            font-size: 24px;
-            line-height: 26px;
-            margin: 30px auto 20px;
         }
     }
 
@@ -97,12 +110,12 @@
         letter-spacing: -0.01em;
         color: $primaryBrown;
         max-width: 870px;
-        margin: 30px 0 20px;
+        margin: 0 0 15px;
 
         @include breakpoint-up('md') {
             font-size: 24px;
             line-height: 26px;
-            margin: 30px auto 20px;
+            margin: 0 0 56px;
         }
 
         b {
@@ -126,12 +139,15 @@
             letter-spacing: -0.01em;
             color: $primaryBrown;
             max-width: 870px;
-            margin: 30px 0 20px;
+            margin: 0 0 20px;
 
             @include breakpoint-up('md') {
                 font-size: 24px;
                 line-height: 26px;
-                margin: 30px auto 20px;
+            }
+
+            &:last-child {
+                margin: 0;
             }
 
             b {
@@ -148,15 +164,21 @@
         }
     }
 
+    &__links-wrapper {
+        display: flex;
+        margin: 0;
+        justify-content: center;
+        width: 100%;
+    }
+
     &__links {
         display: flex;
-        justify-content: flex-start;
         overflow: hidden;
         overflow-x: scroll;
-
+        margin: 0 -15px;
         @include breakpoint-up('md') {
-            justify-content: center;
             overflow: visible;
+            margin: 0;
         }
     }
 
@@ -168,17 +190,16 @@
         line-height: 20px;
         letter-spacing: -0.01em;
         color: $primaryBrown;
-        margin: 30px 20px 0;
+        margin: 0 20px 0;
         cursor: pointer;
         text-align: center;
         justify-content: center;
         align-items: center;
         display: flex;
         flex-direction: column;
-        margin-left: 0;
 
         @include breakpoint-up('md') {
-            
+
         }
 
         @include breakpoint-up('md') {
@@ -203,6 +224,9 @@
             @include breakpoint-up('md') {
                 width: 85px;
                 height: 85px;
+            }
+            img {
+                border-radius: 100%;
             }
         }
     }
