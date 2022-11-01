@@ -26,6 +26,7 @@ export function CartDrawerProvider({ children }) {
   const [shopifyCart, setShopifyCart] = useState(false)
   const [cartTotal, setCartTotal] = useState(0)
   const [cartCount, setCartCount] = useState(0)
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
