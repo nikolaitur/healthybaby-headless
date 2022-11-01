@@ -13,7 +13,6 @@ function getUserProperties(customer)  {
       Cookies.set('elevar_user_id', elevarUserId, {path: '/'})
       return elevarUserId
     })()
-    // user_id : "XXXXX" // This is a unique user id. It should be persisted as long as possible ideally between user sessions
   }
   if (customer) {
     customerProps = {
@@ -69,7 +68,11 @@ function getMarketingData() {
     ttclid: Cookies.get('ttclid') || '',// TikTok cookie ID if using TikTok
     crto_mapped_user_id: Cookies.get('crto_mapped_user_id') || '', // Criteo cookie id if using Criteo
     crto_is_user_optout: 'false', // Criteo opt out status
-    user_id: 'bc574dca-c842-4de7-98a1-dd9529729456', // UUID uniqe per user, should be persisted as long as possible and kept consistent between sessions
+    user_id: Cookies.get('elevar_user_id') || (() => {
+      const elevarUserId = uuidv4()
+      Cookies.set('elevar_user_id', elevarUserId, {path: '/'})
+      return elevarUserId
+    })()
   }
   console.log("dl marketing properties:", marketingProps)
   return marketingProps
