@@ -81,10 +81,6 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
           (metafield) => metafield.key === 'sellingPlanAllocations'
         )
 
-        if (!sellingPlan) {
-          sellingPlan = false
-        }
-
         const newItem = {
           product,
           variant,
@@ -94,53 +90,37 @@ const ProductCard = ({ product, productBadges, showCTA = false, sizes = "(min-wi
 
         dataLayerATC({ item: newItem })
 
-        addToCart({
-          product,
-          variant,
-          quantity: 1,
-          sellingPlan,
-          subscription: false,
-          nacelleEntryId: selectedVariant.nacelleEntryId,
-          selectedVariant,
-        })
-
-        await cartClient
-          .cartLinesAdd({
-              cartId: cartDrawerContext.shopifyCartId,
-              lines: [
-              {
-                  merchandiseId: selectedVariant.nacelleEntryId,
-                  nacelleEntryId: selectedVariant.nacelleEntryId,
-                  quantity: 1,
-              },
-              ],
-          })
-          .then((res) => {
-              console.log(res)
-          })
-          .catch((err) => {
-              console.error(err, 'Error')
-          })
-
-        cartDrawerContext.setIsOpen(true)
-
-        await cartClient
-          .cartLinesAdd({
-            cartId: cartDrawerContext.shopifyCartId,
-            lines: [
-              {
-                merchandiseId: selectedVariant.nacelleEntryId,
-                nacelleEntryId: selectedVariant.nacelleEntryId,
-                quantity: 1,
-              },
-            ],
-          })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.error(err, 'Error')
-          })
+        let itemAttributes = []
+      
+        if(sellingPlan) {
+          const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+          const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+  
+          itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+        }
+  
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+          cartId: Cookies.get('shopifyCartId'),
+          lines: [
+            {
+              merchandiseId: selectedVariant.nacelleEntryId,
+              nacelleEntryId: selectedVariant.nacelleEntryId,
+              quantity: 1,
+              attributes: itemAttributes
+            },
+          ],
+        });
+  
+        // console.log( cart, userErrors, errors )
+  
+        if(cart) {
+          // console.log("Subscription")
+          cartDrawerContext.setShopifyCart(cart)
+          cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+          cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+              return sum + line.quantity
+          }, 0))
+        }
 
         cartDrawerContext.setIsOpen(true)
       }

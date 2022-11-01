@@ -12,6 +12,8 @@ import IconClose from '../../../svgs/close-icon.svg'
 
 import DatePicker from 'react-datepicker'
 
+import * as Cookies from 'es-cookie'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import { unlockScroll } from '@/utils/scroll'
 
@@ -141,7 +143,7 @@ const DiaperCalculator = ({ props, children }) => {
               console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 5')
             }
         } else if (weight >= 37) {
-            getProduct('our-pull-up-style-diaper-bundle', 'Size 6', false)
+            getProduct('our-pull-up-style-diaper-bundle', 'Size 6')
             setDiaperSize(6)
             console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 6')
         } 
@@ -256,14 +258,7 @@ const DiaperCalculator = ({ props, children }) => {
   }
 
   const handleAddItem = async () => {
-    console.log(product, selectedVariant)
-    // const noWipes = product.variants.filter((obj) => {
-    //   return obj.content.title.includes('No Wipes')
-    // })
-
-    // const selectedVariant = noWipes.filter((obj) => {
-    //   return obj.content.selectedOptions[0].value.includes(`Size ${diaperSize}`)
-    // })
+    // console.log(product, selectedVariant)
     
     if (product && selectedVariant) {
 
@@ -293,33 +288,23 @@ const DiaperCalculator = ({ props, children }) => {
                 nacelleEntryId: selectedVariant[0].nacelleEntryId,
                 quantity: 1,
                 sellingPlanId,
-                attributes: [{ key: 'subscription', value: sellingPlanId }],
+                attributes: [{ key: '_sellingPlan', value: sellingPlanId }],
             }
         }
 
-        addToCart({
-            product,
-            variant,
-            quantity: 1,
-            sellingPlan,
-            subscription: true,
-            nacelleEntryId: selectedVariant[0].nacelleEntryId,
-            selectedVariant: selectedVariant[0],
-        })
-
-        await cartClient
-            .cartLinesAdd({
-                cartId: cartDrawerContext.shopifyCartId,
-                lines: [lineItem],
-            })
-            .then((data) => {
-                console.log(data, 'Cart data')
-            })
-            .catch((err) => {
-                console.error(err, 'Error')
-            })
-
-        cartDrawerContext.setIsOpen(true)
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
+            lines: [lineItem],
+        });
+    
+        if(cart) {
+            cartDrawerContext.setShopifyCart(cart)
+            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                return sum + line.quantity
+            }, 0))
+            cartDrawerContext.setIsOpen(true)
+        }
     }
   }
 

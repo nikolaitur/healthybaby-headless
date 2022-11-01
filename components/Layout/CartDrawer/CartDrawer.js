@@ -10,6 +10,7 @@ import { dataLayerBeginCheckout } from '@/utils/dataLayer'
 import * as Cookies from 'es-cookie'
 
 import LineItem from './LineItem'
+import NewLineItem from './NewLineItem'
 import Upsell from './Upsell'
 
 import IconClose from '../../../svgs/close-icon.svg'
@@ -33,6 +34,7 @@ const CartDrawer = ({ content }) => {
   const [drawerContent, setDrawerContent] = useState(false)
   const [upsells, setUpsells] = useState(false)
   const [upsellsData, setUpsellsData] = useState({ products: [], variants: [] })
+  const [shopifyCartData, setShopifyCartData] = useState(false)
   const cartDrawerContext = useCartDrawerContext()
   const cartDrawerContent = cartDrawerContext.content[0]
 
@@ -53,40 +55,35 @@ const CartDrawer = ({ content }) => {
 
   const cartItemTotal = cart.reduce((sum, lineItem) => {
     return sum + lineItem.quantity
-    // return 0
   }, 0)
 
   let freeShipping = false
   const freeShippingLimit = 100
   const freeShippingDistance = Math.abs(
-    cartSubtotal - freeShippingLimit + freeShippingLimit
+    Number(cartDrawerContext.cartTotal) - freeShippingLimit + freeShippingLimit
   )
 
-  if (cartSubtotal > freeShippingLimit) {
+  if (Number(cartDrawerContext.cartTotal) > freeShippingLimit) {
     freeShipping = true
   }
 
   useEffect(() => {
-    // const getCartClient = async () => {
-    //     // console.log(cart, "getcartclient", cartClient)
-    //     if(cartClient) {
-    //         const shopifyCart = await cartClient.cartCreate({
-    //             lines: [
-    //                 {
-    //                     merchandiseId: "gid://shopify/ProductVariant/43184331784432",
-    //                     quantity: 1
-    //                 }
-    //             ],
-    //             attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-    //             note: 'Please use a red ribbon for the bow, if possible :)'
-    //         });
-    //        console.log(shopifyCart)
-    //        console.log(cartClient)
-    //     }
-    // }
-    // getCartClient()
-    // console.log(cartDrawerContext, "cartdrawer")
-  }, [])
+    const getCartClient = async () => {
+        const cartData = await cartClient.cart({
+            cartId: Cookies.get('shopifyCartId')
+        });
+
+        cartDrawerContext.setShopifyCart(cartData.cart)
+        cartDrawerContext.setCartTotal(cartData.cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cartData.cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+
+        // console.log("DRAWER DATA", cartDrawerContext.shopifyCart, cartDrawerContext.cartCount)
+    }
+    getCartClient()
+
+  }, [cartDrawerContext.isOpen])
 
   useEffect(() => {
     setDrawerContent(content)
@@ -141,24 +138,25 @@ const CartDrawer = ({ content }) => {
 
     dataLayerBeginCheckout({ cart })
 
-    const cartItems = cart.map((lineItem) => {
-      const returnItem = {
-        merchandiseId: lineItem.nacelleEntryId,
-        nacelleEntryId: lineItem.nacelleEntryId,
-        quantity: lineItem.quantity,
-      }
+    const cartItems = cartDrawerContext.shopifyCart.lines.map((lineItem) => {
+        const returnItem = {
+            merchandiseId: lineItem.merchandise.nacelleEntryId,
+            nacelleEntryId: lineItem.merchandise.nacelleEntryId,
+            quantity: lineItem.quantity,
+        }
 
-      if (lineItem.subscription) {
-        const sellingPlanAllocationsValue = JSON.parse(
-          lineItem.sellingPlan.value
-        )
-        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        let subscription = lineItem.attributes.filter(attribute => {
+            if (Object.values(attribute).includes("subscription")) { return attribute } else return false
+        })
 
-        returnItem.sellingPlanId = sellingPlanId
-        // returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
-      }
+        if(subscription[0]) {
+            const sellingPlanId = subscription[0].value
 
-      return returnItem
+            returnItem.sellingPlanId = sellingPlanId
+            returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
+        }   
+
+        return returnItem
     })
 
     const lines = cartItems
@@ -166,8 +164,6 @@ const CartDrawer = ({ content }) => {
     const shopifyCart = await cartClient
       .cartCreate({
         lines,
-        // attributes: [{ key: 'gift_options', value: 'in box with bow' }],
-        // note: 'Please use a red ribbon for the bow, if possible :)'
       })
       .then((response) => {
         console.log(response)
@@ -192,7 +188,7 @@ const CartDrawer = ({ content }) => {
 
           <div className="cart-drawer__header">
             <div className="cart-drawer__title">
-              Your Bag <span>{cartItemTotal}</span>
+              Your Bag <span>{cartDrawerContext.cartCount}</span>
             </div>
             <div className="cart-drawer__close" onClick={() => closeSlide()}>
               <IconClose />
@@ -213,7 +209,7 @@ const CartDrawer = ({ content }) => {
               ) : (
                 <span>
                   <strong>
-                    ${(freeShippingLimit - cartSubtotal).toFixed(2)}
+                    ${(freeShippingLimit - Number(cartDrawerContext.cartTotal)).toFixed(2)}
                   </strong>{' '}
                   away from complimentary shipping
                 </span>
@@ -226,14 +222,14 @@ const CartDrawer = ({ content }) => {
               ></span>
             </span>
           </div>
-          {cart.length ? (
+          {cartDrawerContext.shopifyCart && cartDrawerContext.shopifyCart?.lines?.length ? (
             <>
-              <div className="cart-drawer__items">
-                {cart.map((lineItem, index) => (
-                  <LineItem item={lineItem} content={drawerContent[0]} key={index} />
-                ))}
-              </div>
-              {drawerContent[0] ? (
+                <div className="cart-drawer__items">
+                    {cartDrawerContext.shopifyCart.lines.map((lineItem, index) => (
+                        <NewLineItem item={lineItem} content={drawerContent[0]} key={index} />
+                    ))}
+                </div>
+                {drawerContent[0] ? (
                 drawerContent[0].fields.upsells.length > 1 ? (
                   <div className="cart-drawer__upsells">
                     <div className="cart-drawer__upsells--title">
@@ -251,22 +247,18 @@ const CartDrawer = ({ content }) => {
                         : ''}
                     </div>
                   </div>
-                ) : (
-                  ''
-                )
-              ) : (
-                ''
-              )}
-
+                ) : ('')
+              ) : ('')}
               <div className="cart-drawer__checkout">
                 <button
                   className="btn secondary full-width"
                   onClick={handleProcessCheckout}
                 >
-                  <span>{`Checkout - $${cartSubtotal.toFixed(2)}`}</span>
+                  <span>{`Checkout - $${Number(cartDrawerContext.cartTotal).toFixed(2)}`}</span>
                 </button>
               </div>
             </>
+
           ) : (
             <div className="cart-drawer__empty">Your bag is empty</div>
           )}
