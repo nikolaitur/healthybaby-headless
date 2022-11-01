@@ -1,19 +1,14 @@
 import { useEffect, useState, forwardRef } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
-import cartClient from 'services/nacelleClientCart'
-import { getCartVariant } from 'utils/getCartVariant'
 import { useMediaQuery } from 'react-responsive'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Lazy, Pagination } from 'swiper'
-
-import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
+import { dataLayerSelectProduct } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 import 'swiper/css'
@@ -39,6 +34,7 @@ const findProductBadges = ({ product, productBadges }) => {
 
 const CrossSellProductCard = forwardRef(({ product }, ref) => {
   const router = useRouter()
+  const { customer } = useCustomerContext()
   const [, { addToCart }] = useCart()
   const [hasWindow, setHasWindow] = useState(false)
   const [isloading, setIsLoading] = useState(false)
@@ -72,7 +68,7 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
   }, [])
 
   const handleLink = (product) => {
-    dataLayerSelectProduct({ product, url: router.asPath })
+    dataLayerSelectProduct({ customer, product, url: router.asPath })
     router.push(`/products/${handle}`)
   }
 

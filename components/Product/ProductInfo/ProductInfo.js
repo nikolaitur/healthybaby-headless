@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@nacelle/react-hooks'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -51,6 +52,7 @@ const ProductInfo = (props) => {
   const [messageProduct, setMessageProduct] = useState(false)
   const [hasWindow, setHasWindow] = useState(false)
 
+  const { customer } = useCustomerContext()
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
@@ -213,7 +215,7 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem, url: router.asPath })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       addToCart({
         product,
@@ -252,7 +254,7 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem, url: router.asPath })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       addToCart({
         product,

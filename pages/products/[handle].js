@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { nacelleClient } from 'services'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import { useCustomerContext } from '@/context/CustomerContext'
 import Head from 'next/head'
 
 import ProductGallery from '../../components/Product/ProductGallery'
@@ -11,12 +12,15 @@ import ProductReviews from '../../components/Product/ProductReviews'
 
 function Product({ product, page, productBadges }) {
   const router = useRouter()
+  const { customer, customerLoading } = useCustomerContext()
   useEffect(() => {
-    setTimeout(
-      dataLayerViewProduct({ product: product, url: router.asPath }),
-      1000
-    )
-  }, [])
+    if (typeof customerLoading === 'boolean' && !customerLoading) {
+      setTimeout(
+        dataLayerViewProduct({customer, product: product, url: router.asPath }),
+        1000
+      )
+    }
+  }, [customerLoading])
 
   const pageTitle = `${product.content.title} – Healthybaby`
 

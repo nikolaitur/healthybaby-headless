@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
+import { useCustomerContext } from '@/context/CustomerContext'
 import SearchIcon from '@/svgs/search.svg'
 import ProductCard from '@/components/Cards/ProductCard'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
@@ -16,6 +17,7 @@ const searchClient = algoliasearch(
 const SearchResultsPage = ({ productBadges }) => {
 
   const router = useRouter()
+  const { customer } = useCustomerContext()
   const [searchQuery, setSearchQuery] = useState()
   const [searchProducts, setSearchProducts] = useState([])
 
@@ -41,7 +43,7 @@ const SearchResultsPage = ({ productBadges }) => {
       setSearchProducts([])
       return
     }
-    
+
     searchClient.multipleQueries(queries).then(({ results }) => {
       if (!results[0]) {
         setSearchProducts([])
@@ -51,14 +53,14 @@ const SearchResultsPage = ({ productBadges }) => {
         }).then(products => {
           if (products.length) {
             setSearchProducts(products)
-            dataLayerViewSearchResults({ products })
+            dataLayerViewSearchResults({ customer, products })
           }
         })
 
       }
     })
   }
-  
+
   const debounce = useCallback(
     _.debounce((_searchVal) => {
       performSearch(_searchVal)

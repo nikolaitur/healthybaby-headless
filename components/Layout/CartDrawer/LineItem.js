@@ -8,6 +8,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
@@ -27,6 +28,7 @@ const LineItem = ({ item, content }) => {
   const [subscriptionPrice, setSubscriptionPrice] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
+  const { customer } = useCustomerContext()
 
   let isSubscription = false
   let hasSubscriptionProduct = false
@@ -56,7 +58,7 @@ const LineItem = ({ item, content }) => {
 
   const decrement = () => {
     if (item.quantity <= 1) {
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
       removeFromCart(item)
     } else {
       decrementItem(item)
@@ -64,7 +66,7 @@ const LineItem = ({ item, content }) => {
   }
 
   const remove = () => {
-    dataLayerRFC({ item })
+    dataLayerRFC({ customer, item })
     removeFromCart(item)
   }
 
@@ -81,7 +83,7 @@ const LineItem = ({ item, content }) => {
         // attributes: [{ key: 'subscription', value: sellingPlanId }]
       }
 
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
 
       removeFromCart(item)
 
@@ -97,7 +99,7 @@ const LineItem = ({ item, content }) => {
         quantity: 1,
       }
 
-      dataLayerATC({ item: newItem, url: router.asPath })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       addToCart({
         merchandiseId: item.nacelleEntryId,

@@ -9,8 +9,6 @@ import ArrowRightMobile from '@/svgs/arrow-right-mobile.svg'
 
 const About = ({ content }) => {
     const { header, subheader, copy, links, imageTitle, imageSubtitle, displayStars, image } = {...content.fields}
-
-    console.log(content.fields)
     return (
         <section className="about" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
             <div className="about__container container">

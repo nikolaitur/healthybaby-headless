@@ -5,6 +5,7 @@ import { unlockScroll, lockScroll } from '@/utils/scroll'
 
 import { useDiaperCalculatorContext } from '../../../context/DiaperCalculatorContext'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { useRouter } from 'next/router'
 
 const ProductOptions = (props) => {
@@ -15,6 +16,7 @@ const ProductOptions = (props) => {
   const [activeOption, setActiveOption] = useState(0)
 
   const diaperCalculatorContext = useDiaperCalculatorContext()
+  const { customer } = useCustomerContext()
 
   const handleOptionChange = (
     optionName,
@@ -24,6 +26,7 @@ const ProductOptions = (props) => {
     props.handleOptionChange(optionName, optionValue, index)
     setActiveOption(index)
     dataLayerViewProduct({
+      customer,
       product: product,
       url: router.asPath,
       variantOption: optionValue,

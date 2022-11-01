@@ -9,8 +9,6 @@ import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { CustomerProvider } from '../context/CustomerContext'
-import { useCart } from '@nacelle/react-hooks'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)

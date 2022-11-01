@@ -26,23 +26,21 @@ function Layout({ children, headerSettings, footerSettings }) {
   }, [completed, clearCheckoutData, clearCart])
 
   return (
-    <>
+    <CustomerProvider>
       <CartDrawerProvider>
-        <CustomerProvider>
-          <DiaperCalculatorProvider>
-            <ModalProvider>
-              <HeaderProvider
-                content={headerSettings}
-                pageHandle={children.props.handle}
-              >
-                <main>{children}</main>
-                <Footer content={footerSettings} />
-              </HeaderProvider>
-            </ModalProvider>
-          </DiaperCalculatorProvider>
-        </CustomerProvider>
+        <DiaperCalculatorProvider>
+          <ModalProvider>
+            <HeaderProvider
+              content={headerSettings}
+              pageHandle={children.props.handle}
+            >
+              <main>{children}</main>
+              <Footer content={footerSettings} />
+            </HeaderProvider>
+          </ModalProvider>
+        </DiaperCalculatorProvider>
       </CartDrawerProvider>
-    </>
+    </CustomerProvider>
   )
 }
 

@@ -11,6 +11,7 @@ import Script from 'next/script'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
@@ -64,6 +65,7 @@ const CollectionProductCard = forwardRef(
 
     const cartDrawerContext = useCartDrawerContext()
     const modalContext = useModalContext()
+    const { customer } = useCustomerContext()
 
     const handle =
       content.fields.productHandle?.replace('::en-US', '') || undefined
@@ -81,7 +83,7 @@ const CollectionProductCard = forwardRef(
     const badges = findProductBadges({ content, product, productBadges })
 
     const handleLink = (product) => {
-      dataLayerSelectProduct({ product, url: router.asPath })
+      dataLayerSelectProduct({ customer, product, url: router.asPath })
       router.push(`/products/${handle}`)
     }
 
@@ -126,7 +128,7 @@ const CollectionProductCard = forwardRef(
         quantity: 1,
       }
 
-      dataLayerATC({ item: newItem, url: router.pathname })
+      dataLayerATC({ customer, item: newItem, url: router.pathname })
 
       addToCart({
         product,

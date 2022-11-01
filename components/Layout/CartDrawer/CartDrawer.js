@@ -6,6 +6,7 @@ import { NacelleCartInput, CartResponse } from '@nacelle/shopify-cart'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { dataLayerBeginCheckout } from '@/utils/dataLayer'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import * as Cookies from 'es-cookie'
 
@@ -33,6 +34,7 @@ const CartDrawer = ({ content }) => {
   const [drawerContent, setDrawerContent] = useState(false)
   const [upsells, setUpsells] = useState(false)
   const [upsellsData, setUpsellsData] = useState({ products: [], variants: [] })
+  const { customer } = useCustomerContext()
   const cartDrawerContext = useCartDrawerContext()
   const cartDrawerContent = cartDrawerContext.content[0]
 
@@ -139,7 +141,7 @@ const CartDrawer = ({ content }) => {
     //     console.error(err)
     //   })
 
-    dataLayerBeginCheckout({ cart })
+    dataLayerBeginCheckout({ customer, cart })
 
     const cartItems = cart.map((lineItem) => {
       const returnItem = {
@@ -203,7 +205,7 @@ const CartDrawer = ({ content }) => {
           >
             <span className="message">
               {freeShipping ? (
-                <>  
+                <>
                     {cartDrawerContent?.fields.shippingThreshold ? (
                         <span><strong>{cartDrawerContent.fields.shippingThreshold}</strong></span>
                     ) : (

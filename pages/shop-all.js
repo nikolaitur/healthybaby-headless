@@ -6,22 +6,27 @@ import Head from 'next/head'
 import CollectionGrid from '../components/Sections/CollectionGrid'
 import CollectionHeader from '../components/Sections/CollectionHeader'
 import ValueProps from '../components/Sections/ValueProps'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
 export default function ShopAll({ page, products, productBadges }) {
   const router = useRouter()
   const shopAllSections = page.fields.sections
+  const { customer, customerLoading } = useCustomerContext()
 
   useEffect(() => {
-    setTimeout(
-      dataLayerViewProductList({
-        products: products,
-        url: router.asPath,
-      }),
-      1000
-    )
-  })
+    if (typeof customerLoading === 'boolean' && !customerLoading) {
+      setTimeout(
+        dataLayerViewProductList({
+          customer,
+          products: products,
+          url: router.asPath,
+        }),
+        1000
+      )
+    }
+  }, [customerLoading])
 
   useEffect(function mount() {
     window.addEventListener('scroll', backgroundColorChange)

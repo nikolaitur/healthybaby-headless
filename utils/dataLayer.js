@@ -2,6 +2,78 @@ import TagManager from 'react-gtm-module'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
 import { formatPrice } from './formatPrice'
+import * as Cookies from 'es-cookie'
+
+function getUserProperties(customer)  {
+  let customerProps = {
+    user_consent: '',
+    visitor_type: 'guest',
+    user_id: Cookies.get('elevar_user_id') || (() => {
+      const elevarUserId = uuidv4()
+      Cookies.set('elevar_user_id', elevarUserId, {path: '/'})
+      return elevarUserId
+    })()
+    // user_id : "XXXXX" // This is a unique user id. It should be persisted as long as possible ideally between user sessions
+  }
+  if (customer) {
+    customerProps = {
+      ...customerProps,
+      customer_email: customer.email,
+      customer_id: customer.id.replace('gid://shopify/Customer/', ''),
+      customer_first_name: customer.firstName,
+      customer_last_name: customer.lastName,
+      customer_tags: customer.tags || [],
+      visitor_type: 'logged_in'
+    }
+  }
+
+  if (customer?.orders?.edges?.length) {
+    let orderTotal = 0
+    for (var i = 0; i < customer.orders?.edges?.length; i++) {
+      orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
+    }
+    customerProps = {
+      ...customerProps,
+      customer_order_count: customer.orders.length.toString(),
+      customer_total_spent: orderTotal.toString(),
+    }
+  }
+
+  if (customer?.defaultAddress) {
+    customerProps = {
+      ...customerProps,
+      customer_address_1: customer.defaultAddress.address1,
+      customer_address_2: customer.defaultAddress.address2,
+      customer_city: customer.defaultAddress.city,
+      customer_country: customer.defaultAddress.country,
+      customer_phone: customer.phone || '',
+      customer_province: customer.defaultAddress.province,
+      customer_province_code: customer.defaultAddress.provinceCode,
+      customer_zip: customer.defaultAddress.zip
+    }
+  }
+  console.log("dl user properties:", customerProps)
+  return customerProps
+}
+
+function getMarketingData() {
+  const marketingProps = {
+    // This is the GA4 cookie ID. The XXX... portion of the cookie will differ for every client
+    _ga_T2Z4QVLW4Q: Cookies.get('_ga_T2Z4QVLW4Q') || '', // GA4 Cookie ID
+    _fbp: Cookies.get('_fbp') || '', // FB cookie id
+    _fbc:  Cookies.get('_fbp') || '',// FB cookie id if available
+    _ga: Cookies.get('_ga') || '', // GA cookie id
+    _gaexp: Cookies.get('_gaexp') || '',// Optimize cookie id if available
+    _gid:  Cookies.get('_gid') || '',// GA cookie id if available
+    __utma:  Cookies.get('__utma') || '',// GA cookie id if available
+    ttclid: Cookies.get('ttclid') || '',// TikTok cookie ID if using TikTok
+    crto_mapped_user_id: Cookies.get('crto_mapped_user_id') || '', // Criteo cookie id if using Criteo
+    crto_is_user_optout: 'false', // Criteo opt out status
+    user_id: 'bc574dca-c842-4de7-98a1-dd9529729456', // UUID uniqe per user, should be persisted as long as possible and kept consistent between sessions
+  }
+  console.log("dl marketing properties:", marketingProps)
+  return marketingProps
+}
 
 function buildProductData(products, type, url) {
   let category = ''
@@ -70,34 +142,9 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
     language: window.navigator.language,
     colors: `${window.screen.colorDepth}-bit`,
   }
-
   const uniqueKey = uuidv4()
-  let user_properties = {
-    visitor_type: 'guest',
-    user_consent: '',
-    user_id: uniqueKey.toString(),
-    // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
-  }
+  const user_properties = getUserProperties(customer)
 
-  if (customer) {
-    let orderTotal = 0
-    for (var i = 0; i < customer.orders?.edges?.length; i++) {
-      orderTotal += parseFloat(
-        customer.orders.edges[i].node.totalPriceV2.amount
-      )
-    }
-
-    user_properties = {
-      customer_id: customer.id,
-      customer_email: customer.email,
-      customer_order_count: customer.orders.length.toString(),
-      customer_total_spent: orderTotal.toString(),
-      visitor_type: 'logged_in',
-      user_consent: '',
-      user_id: customer.id,
-      // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
-    }
-  }
   const cartSubtotal = cart.reduce((sum, lineItem) => {
     if (lineItem.sellingPlan) {
       const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
@@ -117,7 +164,8 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
       event: 'dl_user_data',
       device,
       event_id: uniqueKey.toString(),
-      user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       cart_total: cartSubtotal.toString(),
       page: {
@@ -133,16 +181,16 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
           ),
         },
       },
-      // TODO: Add marketing object
     },
   })
 }
 
-export const dataLayerATC = ({ item, url }) => {
+export const dataLayerATC = ({ customer, item, url }) => {
   const category = url.includes('/collections/')
     ? url.replace('/collections/', '')
     : ''
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_add_to_cart',
@@ -172,8 +220,8 @@ export const dataLayerATC = ({ item, url }) => {
           ],
         },
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
+      user_properties,
+      marketing: getMarketingData(),
     },
   })
 }
@@ -181,8 +229,9 @@ export const dataLayerATC = ({ item, url }) => {
 /*
   - this is for removing from cart
 */
-export const dataLayerRFC = ({ item }) => {
+export const dataLayerRFC = ({ customer, item }) => {
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_remove_from_cart',
@@ -212,36 +261,38 @@ export const dataLayerRFC = ({ item }) => {
           ],
         },
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
+      user_properties,
+      marketing: getMarketingData(),
     },
   })
 }
 
-export const dataLayerViewProductList = ({ products, url }) => {
+export const dataLayerViewProductList = ({ customer, products, url }) => {
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event_id: uniqueKey.toString(),
       event: 'dl_view_item_list',
-      // user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
         currencyCode: 'USD',
         impressions: buildProductData([...products], 'collection', url),
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
     },
   })
 }
 
-export const dataLayerViewSearchResults = ({ products }) => {
+export const dataLayerViewSearchResults = ({ customer, products }) => {
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_view_search_results',
-      // user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_id: uniqueKey.toString(), // unique uuid for FB conversion API
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
@@ -266,8 +317,6 @@ export const dataLayerViewSearchResults = ({ products }) => {
           }
         }),
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
     },
   })
 }
@@ -275,12 +324,14 @@ export const dataLayerViewSearchResults = ({ products }) => {
 /*
   Use this for selecting products from collections/search results
 */
-export const dataLayerSelectProduct = ({ product, url }) => {
+export const dataLayerSelectProduct = ({ customer, product, url }) => {
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_select_item',
-      // user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_id: uniqueKey.toString(), // unique uuid for FB conversion API
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
@@ -290,13 +341,11 @@ export const dataLayerSelectProduct = ({ product, url }) => {
           products: buildProductData([product], 'collection', url),
         },
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
     },
   })
 }
 
-export const dataLayerViewCart = ({ cart, url }) => {
+export const dataLayerViewCart = ({ customer, cart, url }) => {
   const cartSubtotal = cart.reduce((sum, lineItem) => {
     if (lineItem.sellingPlan) {
       const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
@@ -312,6 +361,7 @@ export const dataLayerViewCart = ({ cart, url }) => {
     }
   }, 0)
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   if (!cart.length) {
     return false
   }
@@ -319,7 +369,8 @@ export const dataLayerViewCart = ({ cart, url }) => {
     dataLayer: {
       event: 'dl_view_cart',
       event_id: uniqueKey.toString(),
-      // user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       cart_total: cartSubtotal.toString(),
       ecommerce: {
@@ -331,19 +382,19 @@ export const dataLayerViewCart = ({ cart, url }) => {
           url
         ),
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
     },
   })
 }
 
-export const dataLayerBeginCheckout = ({ cart }) => {
+export const dataLayerBeginCheckout = ({ customer, cart }) => {
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_begin_checkout',
       event_id: uniqueKey.toString(),
-      // user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
         checkout: {
@@ -351,47 +402,30 @@ export const dataLayerBeginCheckout = ({ cart }) => {
         },
         products: buildProductData(cart.map((item) => item.product)),
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerSignup = ({ customer, url }) => {
   const uniqueKey = uuidv4()
-  let orderTotal = 0
-  for (var i = 0; i < customer.orders?.edges?.length; i++) {
-    orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
-  }
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_sign_up',
       event_id: uniqueKey.toString(),
-      user_properties: {
-        customer_id: customer.id,
-        customer_email: customer.email,
-        customer_order_count: customer.orders.length.toString(),
-        customer_total_spent: orderTotal.toString(),
-        visitor_type: 'logged_in',
-        user_consent: '',
-        user_id: customer.id,
-        // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
-      },
+      user_properties,
+      marketing: getMarketingData(),
       page: {
         url: url,
       },
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerLogin = ({ customer, url }) => {
   const uniqueKey = uuidv4()
-  let orderTotal = 0
-  for (var i = 0; i < customer.orders?.edges?.length; i++) {
-    orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
-  }
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event_id: uniqueKey.toString(),
@@ -399,28 +433,21 @@ export const dataLayerLogin = ({ customer, url }) => {
       page: {
         url: url,
       },
-      user_properties: {
-        customer_id: customer.id,
-        customer_email: customer.email,
-        customer_order_count: customer.orders.length.toString(),
-        customer_total_spent: orderTotal.toString(),
-        visitor_type: 'logged_in',
-        user_consent: '',
-        user_id: customer.id,
-        // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
-      },
+      user_properties,
+      marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      // TODO: add marketing object
     },
   })
 }
 
-export const dataLayerViewProduct = ({ product, url, variantOption }) => {
+export const dataLayerViewProduct = ({ customer, product, url, variantOption }) => {
   const uniqueKey = uuidv4()
+  const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_view_item',
-      // user_properties: user_properties,
+      user_properties,
+      marketing: getMarketingData(),
       event_id: uniqueKey.toString(), // unique uuid for FB conversion API
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
@@ -432,8 +459,6 @@ export const dataLayerViewProduct = ({ product, url, variantOption }) => {
             : buildProductData([product], 'product', url),
         },
       },
-      // TODO: add user_properties object
-      // TODO: add marketing object
     },
   })
 }

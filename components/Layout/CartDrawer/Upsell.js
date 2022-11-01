@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { nacelleClient } from 'services'
 import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerATC } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
@@ -14,6 +15,7 @@ const Upsell = ({ product, variantId }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [{ cart }, { addToCart }] = useCart()
   const router = useRouter()
+  const { customer } = useCustomerContext()
 
   let options = null
   if (product?.content?.options?.some((option) => option.values.length > 1)) {
@@ -49,7 +51,7 @@ const Upsell = ({ product, variantId }) => {
       quantity: 1,
     }
 
-    dataLayerATC({ item: newItem, url: router.asPath })
+    dataLayerATC({ customer, item: newItem, url: router.asPath })
     addToCart({
       variant,
       quantity: 1,

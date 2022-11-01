@@ -8,6 +8,7 @@ import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
 import { dataLayerATC } from '@/utils/dataLayer'
 import { useCartDrawerContext } from '@/context/CartDrawerContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 
@@ -42,6 +43,7 @@ const ProductCard = ({
   const { title, featuredMedia, handle } = { ...product.content }
   const productPrice = getProductPrice(product)
   const router = useRouter()
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     setHasWindow(true)
@@ -98,7 +100,7 @@ const ProductCard = ({
       quantity: 1,
     }
 
-    dataLayerATC({ item: newItem, url: router.pathname })
+    dataLayerATC({ customer, item: newItem, url: router.pathname })
 
     addToCart({
       product,

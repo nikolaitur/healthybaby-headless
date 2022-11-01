@@ -124,13 +124,13 @@ export function CustomerProvider({ children }) {
       customer.metafields = []
     }
 
-    if (enableLoadingState) {
-      setCustomerLoading(false)
-    }
 
     dataLayerUserData({ customer: customer, url: router.pathname, cart: cart })
 
     dataLayerLogin({ customer: customer, url: router.pathname })
+    if (enableLoadingState) {
+      setCustomerLoading(false)
+    }
     setCustomer(customer)
     return { data }
   }

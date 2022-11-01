@@ -5,6 +5,7 @@ import { useCart, useCheckout } from '@nacelle/react-hooks'
 import CartDrawer from '../components/Layout/CartDrawer'
 import { useRouter } from 'next/router'
 import { dataLayerViewCart } from '@/utils/dataLayer'
+import { useCustomerContext } from './CustomerContext'
 
 import * as Cookies from 'es-cookie'
 
@@ -22,6 +23,7 @@ export function CartDrawerProvider({ children }) {
   const [content, setContent] = useState('')
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
   const [shopifyCartId, setShopifyCartId] = useState(undefined)
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -38,7 +40,7 @@ export function CartDrawerProvider({ children }) {
 
   useEffect(() => {
     if (isOpen) {
-      dataLayerViewCart({ cart: cart, url: router.asPath })
+      dataLayerViewCart({ customer, cart: cart, url: router.asPath })
     }
   }, [isOpen])
 

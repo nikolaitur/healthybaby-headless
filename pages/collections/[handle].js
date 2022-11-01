@@ -6,21 +6,26 @@ import Head from 'next/head'
 import CollectionHeader from '../../components/Sections/CollectionHeader'
 import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
 function Collection(props) {
   const router = useRouter()
   const { collection, products, productBadges } = { ...props }
+  const { customer, customerLoading} = useCustomerContext()
 
   useEffect(() => {
-    if(products) {
-      dataLayerViewProductList({
-        products: products,
-        url: router.asPath,
-      })
+    if (typeof customerLoading === 'boolean' && !customerLoading) {
+      if(products) {
+        dataLayerViewProductList({
+          customer,
+          products: products,
+          url: router.asPath,
+        })
+      }
     }
-  }, [products])
+  }, [products, customerLoading])
 
   const pageTitle = `${collection.title} – Healthybaby`
 

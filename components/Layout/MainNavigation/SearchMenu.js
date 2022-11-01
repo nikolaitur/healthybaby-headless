@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 import _ from 'lodash'
 
@@ -21,6 +22,7 @@ const SearchMenu = ({
   isSearchOpen,
 }) => {
   const router = useRouter()
+  const { customer } = useCustomerContext()
   const [searchProducts, setSearchProducts] = useState({ hits: [], total: 0 })
 
   const performSearch = (_searchVal) => {
@@ -52,7 +54,7 @@ const SearchMenu = ({
           .then((products) => {
             if (products.length) {
               setSearchProducts(products)
-              dataLayerViewSearchResults({ products })
+              dataLayerViewSearchResults({ customer, products })
               document.body.classList.add('searchmenu-is-active')
             }
           })
