@@ -20,7 +20,7 @@ function Collection(props) {
         url: router.asPath,
       })
     }
-  })
+  }, [products])
 
   const pageTitle = `${collection.title} – Healthybaby`
 

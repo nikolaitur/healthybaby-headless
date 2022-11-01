@@ -30,15 +30,15 @@ function buildProductData(products, type, url) {
 
     if (type === 'collection') {
       data['list'] = url // The list the product was discovered from or is displayed in
-      data['position'] = index.toString() // position in the list of search results, collection views and position in cart indexed starting at 1
+      data['position'] = (index + 1).toString() // position in the list of search results, collection views and position in cart indexed starting at 1
     }
 
     return data
   })
 }
 
+// TODO: make this also fire on every page load
 export const dataLayerUserData = ({ cart, customer, url }) => {
-  console.log('dl_user_data')
   const uniqueKey = uuidv4()
   let user_properties = {
     visitor_type: 'guest',
@@ -51,7 +51,8 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
       customer_id: customer.id,
       customer_email: customer.email,
       customer_order_count: customer.orders.length.toString(),
-      customer_total_spent: orderTotal.toString(),
+      // TODO: get customer_total_spent
+      // customer_total_spent: orderTotal.toString(),
       visitor_type: 'logged_in',
       user_consent: '',
       user_id: customer.id,
@@ -82,8 +83,8 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
         url: url,
       },
       ecommerce: {
+        currencyCode: 'USD',
         cart_contents: {
-          currencyCode: 'USD',
           products: buildProductData(
             cart.map((item) => item.product),
             'collection',
@@ -91,24 +92,24 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
           ),
         },
       },
+      // TODO: Add device object
+      // TODO: Add marketing object
     },
   })
 }
 
 export const dataLayerATC = ({ item, url }) => {
-  console.log('dl_add_to_cart')
   const category = url.includes('/collections/')
     ? url.replace('/collections/', '')
     : ''
-  console.log(category)
   const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_add_to_cart',
       event_id: uniqueKey.toString(),
-      currencyCode: 'USD',
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
+        currencyCode: 'USD',
         add: {
           actionField: { list: url },
           products: [
@@ -131,6 +132,8 @@ export const dataLayerATC = ({ item, url }) => {
           ],
         },
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
@@ -139,7 +142,6 @@ export const dataLayerATC = ({ item, url }) => {
   - this is for removing from cart
 */
 export const dataLayerRFC = ({ item }) => {
-  console.log('dl_remove_from_cart')
   const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
@@ -148,15 +150,35 @@ export const dataLayerRFC = ({ item }) => {
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
         remove: {
-          products: [item.product],
+          products: [
+            {
+              id: item.variant.sku, // SKU
+              name: item.variant.productTitle, // Product title
+              brand: 'Healthy Baby',
+              category: '',
+              variant: item.variant.title,
+              price: item.variant.price.toString(),
+              quantity: '0',
+              product_id: item.product.sourceEntryId.replace(
+                'gid://shopify/Product/',
+                ''
+              ),
+              variant_id: item.variant.id
+                .split('gid://shopify/ProductVariant/')
+                .pop(), // id or variant_id
+              compare_at_price: item.variant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
+              image: item.variant.featuredMedia?.src || '', // If available, otherwise use an empty string
+            },
+          ],
         },
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerViewProductList = ({ products, url }) => {
-  console.log('dl_view_item_list')
   const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
@@ -164,17 +186,17 @@ export const dataLayerViewProductList = ({ products, url }) => {
       event: 'dl_view_item_list',
       // user_properties: user_properties,
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-
       ecommerce: {
         currencyCode: 'USD',
         impressions: buildProductData([...products], 'collection', url),
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerViewSearchResults = ({ products }) => {
-  console.log('dl_view_search_results')
   const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
@@ -187,23 +209,25 @@ export const dataLayerViewSearchResults = ({ products }) => {
         actionField: { list: 'search results' },
         impressions: products.map((item, index) => {
           return {
-            name: item.Title, // Product title
+            name: item.content.title, // Product title
             brand: 'Healthy Baby',
             category: '',
             product_id: item.sourceEntryId
               .split('gid://shopify/Product/')
               .pop(), // The product_id
-            id: item.sourceEntryId.split('gid://shopify/Product/').pop(),
-            price: item.variants[0].price,
+            id: item.variants[0].sku,
+            price: item.variants[0].price.toString(),
             variant_id: item.variants[0].sourceEntryId
               .split('gid://shopify/ProductVariant/')
               .pop(), // id or variant_id
             image: item.content?.featuredMedia?.src || '', // If available, otherwise use an empty string
-            list: '/shop-all',
-            position: index.toString(),
+            list: '/search',
+            position: (index + 1).toString(),
           }
         }),
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
@@ -213,7 +237,6 @@ export const dataLayerViewSearchResults = ({ products }) => {
 */
 export const dataLayerSelectProduct = ({ product, url }) => {
   const uniqueKey = uuidv4()
-  console.log('dl_select_item')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_select_item',
@@ -227,12 +250,13 @@ export const dataLayerSelectProduct = ({ product, url }) => {
           products: buildProductData([product], 'collection', url),
         },
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerViewCart = ({ cart, url }) => {
-  console.log('dl_view_cart')
   const cartSubtotal = cart.reduce((sum, lineItem) => {
     if (lineItem.sellingPlan) {
       const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
@@ -267,31 +291,33 @@ export const dataLayerViewCart = ({ cart, url }) => {
           url
         ),
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerBeginCheckout = ({ cart }) => {
-  console.log('dl_begin_checkout')
+  const uniqueKey = uuidv4()
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_begin_checkout',
+      event_id: uniqueKey.toString(),
       // user_properties: user_properties,
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: formatPrice(cart.order_total).toString(),
       ecommerce: {
         checkout: {
-          actionField: { step: 'Final', action: 'checkout' },
+          actionField: { step: '1', action: 'checkout' },
         },
         products: buildProductData(cart.map((item) => item.product)),
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerSignup = ({ customer, url }) => {
-  console.log('dl sign up')
-  console.log(customer)
   const uniqueKey = uuidv4()
   let orderTotal = 0
   for (var i = 0; i < customer.orders?.edges?.length; i++) {
@@ -309,19 +335,19 @@ export const dataLayerSignup = ({ customer, url }) => {
         visitor_type: 'logged_in',
         user_consent: '',
         user_id: customer.id,
+        // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
       },
-
       page: {
         url: url,
       },
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerLogin = ({ customer, url }) => {
   const uniqueKey = uuidv4()
-  console.log('dl_login')
   let orderTotal = 0
   for (var i = 0; i < customer.orders?.edges?.length; i++) {
     orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
@@ -343,13 +369,13 @@ export const dataLayerLogin = ({ customer, url }) => {
         user_id: customer.id,
       },
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerViewProduct = ({ product, url }) => {
   const uniqueKey = uuidv4()
-  console.log('dl_view_item')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_view_item',
@@ -363,12 +389,13 @@ export const dataLayerViewProduct = ({ product, url }) => {
           products: buildProductData([product]),
         },
       },
+      // TODO: add user_properties object
+      // TODO: add marketing object
     },
   })
 }
 
 export const dataLayerRouteChange = ({ url }) => {
-  console.log('dl_route_change')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_route_change',

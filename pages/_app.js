@@ -39,7 +39,7 @@ function AppContainer({
 
   const onRountChangeComplete = (newUrl) => {
     if (TagManager) {
-      dataLayerRouteChange({ url: router.asPath })
+      dataLayerRouteChange({ url: newUrl })
     }
   }
 
@@ -47,7 +47,7 @@ function AppContainer({
     TagManager.initialize({
       gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
     })
-    onRountChangeComplete()
+    onRountChangeComplete(router.asPath)
     router.events.on('routeChangeComplete', onRountChangeComplete)
     return () => {
       router.events.off('routeChangeComplete', onRountChangeComplete)
