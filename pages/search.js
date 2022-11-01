@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 import SearchIcon from '@/svgs/search.svg'
@@ -6,6 +6,7 @@ import ProductCard from '@/components/Cards/ProductCard'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 
 import algoliasearch from 'algoliasearch'
+import _ from 'lodash'
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALOGLIA_APPLICATION_ID,
@@ -28,17 +29,21 @@ const SearchResultsPage = ({ productBadges }) => {
     }
   }, [])
 
-  useEffect(() => {
+  const performSearch = (_searchVal) => {
     const queries = [
       {
         indexName: 'shopify_products',
-        query: searchQuery,
+        query: _searchVal,
       }
     ]
+
+    if (_searchVal == '') {
+      setSearchProducts([])
+      return
+    }
+    
     searchClient.multipleQueries(queries).then(({ results }) => {
-      if (searchQuery == '') {
-        setSearchProducts([])
-      } else if (!results[0]) {
+      if (!results[0]) {
         setSearchProducts([])
       } else {
         nacelleClient.products({
@@ -52,7 +57,16 @@ const SearchResultsPage = ({ productBadges }) => {
 
       }
     })
-  }, [searchQuery])
+  }
+  
+  const debounce = useCallback(
+    _.debounce((_searchVal) => {
+      performSearch(_searchVal)
+    }, 500),
+    []
+  )
+
+  useEffect(() => debounce(searchQuery), [searchQuery])
 
   return (
     <div className="search-results-page">
@@ -69,7 +83,7 @@ const SearchResultsPage = ({ productBadges }) => {
               type="text"
               placeholder="search products"
               onChange={handleSearchChange}
-              value={searchQuery}
+              value={searchQuery || ''}
             />
             <SearchIcon />
           </div>

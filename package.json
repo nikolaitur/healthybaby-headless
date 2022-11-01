@@ -26,6 +26,7 @@
     "html-react-parser": "^3.0.4",
     "idb-keyval": "^6.2.0",
     "js-base64": "^3.7.2",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "multipass-js": "^0.1.6",
     "next": "12.2.0",

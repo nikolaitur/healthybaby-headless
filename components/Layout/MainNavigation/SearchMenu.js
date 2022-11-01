@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
+import _ from 'lodash'
 
 import ProductCard from '../../Cards/ProductCard'
 import CloseIcon from '../../../svgs/close-icon.svg'
@@ -22,22 +23,25 @@ const SearchMenu = ({
   const router = useRouter()
   const [searchProducts, setSearchProducts] = useState({ hits: [], total: 0 })
 
-  const queries = [
-    {
-      indexName: 'shopify_products',
-      query: searchQuery,
-      params: {
-        hitsPerPage: 4,
+  const performSearch = (_searchVal) => {
+    const queries = [
+      {
+        indexName: 'shopify_products',
+        query: _searchVal,
+        params: {
+          hitsPerPage: 4,
+        },
       },
-    },
-  ]
+    ]
 
-  useEffect(() => {
+    if (_searchVal == '') {
+      setSearchProducts([])
+      document.body.classList.remove('searchmenu-is-active')
+      return
+    }
+
     searchClient.multipleQueries(queries).then(({ results }) => {
-      if (searchQuery == '') {
-        setSearchProducts([])
-        document.body.classList.remove('searchmenu-is-active')
-      } else if (!results[0]) {
+      if (!results[0]) {
         setSearchProducts([])
         document.body.classList.remove('searchmenu-is-active')
       } else {
@@ -46,7 +50,6 @@ const SearchMenu = ({
             handles: results[0].hits.map((product) => product.Handle),
           })
           .then((products) => {
-            console.log(products)
             if (products.length) {
               setSearchProducts(products)
               dataLayerViewSearchResults({ products })
@@ -55,7 +58,16 @@ const SearchMenu = ({
           })
       }
     })
-  }, [searchQuery])
+  }
+
+  const debounce = useCallback(
+    _.debounce((_searchVal) => {
+      performSearch(_searchVal)
+    }, 500),
+    []
+  )
+
+  useEffect(() => debounce(searchQuery), [searchQuery])
 
   useEffect(() => {
     const onRouteChangeComplete = () => {
