@@ -106,7 +106,9 @@ const NewLineItem = ({ item, content }) => {
     });
 
     if(cart) {
+        console.log(cart, "remove cart")
         cartDrawerContext.setShopifyCart(cart)
+        return cart
     }
   }
 
@@ -126,30 +128,35 @@ const NewLineItem = ({ item, content }) => {
       dataLayerRFC({ item })
 
       remove()
+        .then((cartResponse) => {
+            const variant = getCartVariant({
+                product: item.merchandise.product,
+                variant: item.selectedVariant,
+            })
+        
+            const newItem = {
+                product: item.product,
+                variant,
+                variantId: item.merchandise.sourceEntryId.replace('gid://shopify/ProductVariant/', ''),
+                quantity: 1,
+            }
+        
+            // dataLayerATC({ item: newItem })
 
-      const variant = getCartVariant({
-        product: item.merchandise.product,
-        variant: item.selectedVariant,
-      })
-
-      const newItem = {
-        product: item.product,
-        variant,
-        variantId: item.merchandise.sourceEntryId.replace('gid://shopify/ProductVariant/', ''),
-        quantity: 1,
-      }
-
-      // dataLayerATC({ item: newItem })
-
-      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
-        cartId: Cookies.get('shopifyCartId'),
-        lines: [lineItem],
-      });
-
-      if(cart) {
-        cartDrawerContext.setShopifyCart(cart)
-      }
-
+            const addItem = async () => {
+                const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+                    cartId: Cookies.get('shopifyCartId'),
+                    lines: [lineItem],
+                });
+            
+                if(cart) {
+                    console.log(cart, "cart")
+                    cartDrawerContext.setShopifyCart(cart)
+                }
+            }
+        
+            addItem()
+        })
     }
   }
 

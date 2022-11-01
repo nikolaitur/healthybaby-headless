@@ -219,7 +219,7 @@ const CartDrawer = ({ content }) => {
               ></span>
             </span>
           </div>
-          {cartDrawerContext.shopifyCart && cartDrawerContext.shopifyCart?.lines ? (
+          {cartDrawerContext.shopifyCart && cartDrawerContext.shopifyCart?.lines.length ? (
             <>
                 <div className="cart-drawer__items">
                     {cartDrawerContext.shopifyCart.lines.map((lineItem, index) => (
