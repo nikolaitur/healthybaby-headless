@@ -401,7 +401,7 @@ const ProductInfo = (props) => {
                         onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page?.fields?.productAddOnImage?.file ? (
+                          {page?.fields?.productAddOnImage?.fields?.file?.url ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
