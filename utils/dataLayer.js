@@ -63,23 +63,39 @@ function buildProductDataWithVariantOption(product, variantOption) {
 
 // TODO: make this also fire on every page load
 export const dataLayerUserData = ({ cart, customer, url }) => {
+  const device = {
+    screen_resolution: `${window.screen.width}x${window.screen.height}`,
+    viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+    encoding: document.characterSet,
+    language: window.navigator.language,
+    colors: `${window.screen.colorDepth}-bit`,
+  }
+
   const uniqueKey = uuidv4()
   let user_properties = {
     visitor_type: 'guest',
     user_consent: '',
     user_id: uniqueKey.toString(),
+    // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
   }
 
   if (customer) {
+    let orderTotal = 0
+    for (var i = 0; i < customer.orders?.edges?.length; i++) {
+      orderTotal += parseFloat(
+        customer.orders.edges[i].node.totalPriceV2.amount
+      )
+    }
+
     user_properties = {
       customer_id: customer.id,
       customer_email: customer.email,
       customer_order_count: customer.orders.length.toString(),
-      // TODO: get customer_total_spent
-      // customer_total_spent: orderTotal.toString(),
+      customer_total_spent: orderTotal.toString(),
       visitor_type: 'logged_in',
       user_consent: '',
       user_id: customer.id,
+      // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
     }
   }
   const cartSubtotal = cart.reduce((sum, lineItem) => {
@@ -99,6 +115,7 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_user_data',
+      device,
       event_id: uniqueKey.toString(),
       user_properties: user_properties,
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
@@ -116,7 +133,6 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
           ),
         },
       },
-      // TODO: Add device object
       // TODO: Add marketing object
     },
   })
@@ -391,6 +407,7 @@ export const dataLayerLogin = ({ customer, url }) => {
         visitor_type: 'logged_in',
         user_consent: '',
         user_id: customer.id,
+        // TODO: The user_id should be a uuid stored in session and should be persisted as long as possible ideally between user sessions
       },
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       // TODO: add marketing object
