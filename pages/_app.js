@@ -9,6 +9,8 @@ import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { CustomerProvider } from '../context/CustomerContext'
+import { useCart } from '@nacelle/react-hooks'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)
@@ -54,7 +56,10 @@ function AppContainer({
     <CartProvider>
       <CheckoutProvider checkoutClient={checkoutClient}>
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+          />
         </Head>
         <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
           <Component {...pageProps} />

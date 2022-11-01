@@ -13,7 +13,12 @@ const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALOGLIA_WRITE_API_KEY
 )
 
-const SearchMenu = ({ searchQuery, setSearchQuery, setSearchOpen, isSearchOpen }) => {
+const SearchMenu = ({
+  searchQuery,
+  setSearchQuery,
+  setSearchOpen,
+  isSearchOpen,
+}) => {
   const router = useRouter()
   const [searchProducts, setSearchProducts] = useState({ hits: [], total: 0 })
 
@@ -24,7 +29,7 @@ const SearchMenu = ({ searchQuery, setSearchQuery, setSearchOpen, isSearchOpen }
       params: {
         hitsPerPage: 4,
       },
-    }
+    },
   ]
 
   useEffect(() => {
@@ -36,15 +41,18 @@ const SearchMenu = ({ searchQuery, setSearchQuery, setSearchOpen, isSearchOpen }
         setSearchProducts([])
         document.body.classList.remove('searchmenu-is-active')
       } else {
-        dataLayerViewSearchResults({ products: results[0].hits })
-        nacelleClient.products({
-          handles: results[0].hits.map(product => product.Handle)
-        }).then(products => {
-          if (products.length) {
-            setSearchProducts(products)
-            document.body.classList.add('searchmenu-is-active')
-          }
-        })
+        nacelleClient
+          .products({
+            handles: results[0].hits.map((product) => product.Handle),
+          })
+          .then((products) => {
+            console.log(products)
+            if (products.length) {
+              setSearchProducts(products)
+              dataLayerViewSearchResults({ products: results[0].hits })
+              document.body.classList.add('searchmenu-is-active')
+            }
+          })
       }
     })
   }, [searchQuery])

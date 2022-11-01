@@ -12,6 +12,7 @@ import Script from 'next/script'
 import * as Cookies from 'es-cookie'
 
 import { dataLayerATC } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
@@ -29,6 +30,8 @@ import QuestionMark from '../../../svgs/question-mark.svg'
 
 const ProductInfo = (props) => {
   const { product, page } = { ...props }
+
+  const router = useRouter()
 
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -210,7 +213,7 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ item: newItem, url: router.pathname })
 
       addToCart({
         product,
@@ -249,7 +252,7 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ item: newItem, url: router.pathname })
 
       addToCart({
         product,

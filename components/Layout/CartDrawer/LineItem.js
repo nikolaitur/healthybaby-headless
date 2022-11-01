@@ -10,6 +10,7 @@ import { getCartVariant } from 'utils/getCartVariant'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
@@ -20,6 +21,8 @@ const LineItem = ({ item, content }) => {
     { cart },
     { incrementItem, decrementItem, removeFromCart, addToCart },
   ] = useCart()
+
+  const router = useRouter()
 
   const [subscriptionPrice, setSubscriptionPrice] = useState(false)
 
@@ -95,7 +98,7 @@ const LineItem = ({ item, content }) => {
         quantity: 1,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ item: newItem, url: router.pathname })
 
       addToCart({
         merchandiseId: item.nacelleEntryId,
@@ -128,17 +131,19 @@ const LineItem = ({ item, content }) => {
     <div className="line-item">
       <div className="line-item__wrapper">
         <div className="line-item__image">
-            {item.variant.featuredMedia?.src ? (
-                    <Image
-                        className=""
-                        src={`${item.variant.featuredMedia.src}`}
-                        alt={ item.variant.productTitle }
-                        layout="responsive"
-                        objectFit="cover"
-                        height="132"
-                        width="108"
-                    />
-            ) : ""}
+          {item.variant.featuredMedia?.src ? (
+            <Image
+              className=""
+              src={`${item.variant.featuredMedia.src}`}
+              alt={item.variant.productTitle}
+              layout="responsive"
+              objectFit="cover"
+              height="132"
+              width="108"
+            />
+          ) : (
+            ''
+          )}
         </div>
         <div className="line-item__content">
           <div className="line-item__title">{item.variant.productTitle}</div>
@@ -156,14 +161,20 @@ const LineItem = ({ item, content }) => {
           )}
           <div className="line-item__price">
             <>
-              {!item.sellingPlan
-                ? `$${item.variant.price.toFixed(2)}`
-                : item.subscription && item.sellingPlan
-                ? 
-                (<>
-                    <span className="sale">${Number(subscriptionPrice).toFixed(2)}</span> <span><s>${item.variant.price.toFixed(2)}</s></span>
-                </>)
-                : `$${item.variant.price.toFixed(2)}`}
+              {!item.sellingPlan ? (
+                `$${item.variant.price.toFixed(2)}`
+              ) : item.subscription && item.sellingPlan ? (
+                <>
+                  <span className="sale">
+                    ${Number(subscriptionPrice).toFixed(2)}
+                  </span>{' '}
+                  <span>
+                    <s>${item.variant.price.toFixed(2)}</s>
+                  </span>
+                </>
+              ) : (
+                `$${item.variant.price.toFixed(2)}`
+              )}
             </>
           </div>
           <div className="line-item__quantity">
@@ -200,7 +211,11 @@ const LineItem = ({ item, content }) => {
           className="line-item__upgrade"
           onClick={() => upgradeToSubscription()}
         >
-          Upgrade to Subscribe & Save {content?.fields?.subscriptionDiscountPercent ? content.fields.subscriptionDiscountPercent : "7.5"}%
+          Upgrade to Subscribe & Save{' '}
+          {content?.fields?.subscriptionDiscountPercent
+            ? content.fields.subscriptionDiscountPercent
+            : '7.5'}
+          %
         </button>
       ) : (
         ''

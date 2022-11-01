@@ -2,12 +2,12 @@ import { nacelleClient } from 'services'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useEffect } from 'react'
 
-import { CustomerProvider } from '../context/CustomerContext';
-import { ModalProvider } from '../context/ModalContext';
-import { CartDrawerProvider } from '../context/CartDrawerContext';
-import { HeaderProvider } from '../context/HeaderContext';
-import { DiaperCalculatorProvider } from '../context/DiaperCalculatorContext';
-import Footer from './Layout/Footer';
+import { CustomerProvider } from '../context/CustomerContext'
+import { ModalProvider } from '../context/ModalContext'
+import { CartDrawerProvider } from '../context/CartDrawerContext'
+import { HeaderProvider } from '../context/HeaderContext'
+import { DiaperCalculatorProvider } from '../context/DiaperCalculatorContext'
+import Footer from './Layout/Footer'
 
 // This component utilizes `useCart` and `useCheckout` hooks from
 // `@nacelle/react-hooks` to clear cart and checkout data if the
@@ -30,12 +30,15 @@ function Layout({ children, headerSettings, footerSettings }) {
       <CartDrawerProvider>
         <CustomerProvider>
           <DiaperCalculatorProvider>
-              <ModalProvider>
-                <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                    <main>{children}</main>
-                    <Footer content={footerSettings} />
-                </HeaderProvider>
-              </ModalProvider>
+            <ModalProvider>
+              <HeaderProvider
+                content={headerSettings}
+                pageHandle={children.props.handle}
+              >
+                <main>{children}</main>
+                <Footer content={footerSettings} />
+              </HeaderProvider>
+            </ModalProvider>
           </DiaperCalculatorProvider>
         </CustomerProvider>
       </CartDrawerProvider>

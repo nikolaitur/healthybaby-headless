@@ -37,7 +37,7 @@ export function CartDrawerProvider({ children }) {
 
   useEffect(() => {
     if (isOpen) {
-      dataLayerViewCart({ cart })
+      dataLayerViewCart({ cart: cart, url: router.asPath })
     }
   }, [isOpen])
 
@@ -67,7 +67,7 @@ export function CartDrawerProvider({ children }) {
       } else {
         const shopifyCart = await cartClient
           .cartCreate({
-            lines
+            lines,
           })
           .then((response) => {
             if (response) {

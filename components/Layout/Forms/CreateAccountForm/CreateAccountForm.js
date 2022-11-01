@@ -52,7 +52,7 @@ const CreateAccountForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    dataLayerSignup({ url: router.pathname })
+
     const formData = {
       firstName: firstNameRef.current.value,
       email: emailRef.current.value,
@@ -110,6 +110,10 @@ const CreateAccountForm = () => {
         }
         setIsLoading(false)
         modalContext.setIsOpen(false)
+        dataLayerSignup({
+          customer: response.data.customer,
+          url: router.pathname,
+        })
         router.push('/account')
       }
     }
