@@ -32,7 +32,6 @@ const LineItem = ({ item, content }) => {
   let hasSubscriptionProduct = false
 
   useEffect(() => {
-    console.log(content)
     if (item.sellingPlan) {
       const sellingPlanPriceValue = JSON.parse(item.sellingPlan.value)
       const sellingPlanPrice =

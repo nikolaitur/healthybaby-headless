@@ -3,7 +3,7 @@ import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import CartDrawer from '../components/Layout/CartDrawer'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { dataLayerViewCart } from '@/utils/dataLayer'
 
 import * as Cookies from 'es-cookie'
@@ -16,6 +16,7 @@ export function useCartDrawerContext() {
 
 export function CartDrawerProvider({ children }) {
   const [{ cart }] = useCart()
+  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
@@ -50,8 +51,6 @@ export function CartDrawerProvider({ children }) {
       }))
 
       const lines = cartItems
-
-      console.log(Cookies.get('shopifyCartId'))
 
       if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient

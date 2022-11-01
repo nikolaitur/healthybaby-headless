@@ -12,7 +12,10 @@ import ProductReviews from '../../components/Product/ProductReviews'
 function Product({ product, page, productBadges }) {
   const router = useRouter()
   useEffect(() => {
-    dataLayerViewProduct({ product: product, url: router.asPath })
+    setTimeout(
+      dataLayerViewProduct({ product: product, url: router.asPath }),
+      1000
+    )
   }, [])
 
   const pageTitle = `${product.content.title} – Healthybaby`

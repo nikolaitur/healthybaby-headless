@@ -23,7 +23,7 @@ function buildProductData(products, type, url) {
         'gid://shopify/ProductVariant/',
         ''
       ), // id or variant_id
-      inventory: firstVariant.quantityAvailable.toString(),
+      inventory: firstVariant.quantityAvailable?.toString(),
       compare_at_price: firstVariant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
       image: firstVariant.content.featuredMedia?.src || '', // If available, otherwise use an empty string
     }
@@ -317,7 +317,7 @@ export const dataLayerSignup = ({ customer, url }) => {
 
 export const dataLayerLogin = ({ customer, url }) => {
   const uniqueKey = uuidv4()
-  console.log(customer)
+  console.log('dl_login')
   let orderTotal = 0
   for (var i = 0; i < customer.orders?.edges?.length; i++) {
     orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
@@ -345,7 +345,7 @@ export const dataLayerLogin = ({ customer, url }) => {
 
 export const dataLayerViewProduct = ({ product, url }) => {
   const uniqueKey = uuidv4()
-  console.log(product)
+  console.log('dl_view_item')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_view_item',
@@ -364,6 +364,7 @@ export const dataLayerViewProduct = ({ product, url }) => {
 }
 
 export const dataLayerRouteChange = ({ url }) => {
+  console.log('dl_route_change')
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_route_change',
