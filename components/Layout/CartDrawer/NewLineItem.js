@@ -8,6 +8,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
 
@@ -28,6 +29,7 @@ const NewLineItem = ({ item, content }) => {
   const [hasSubscriptionProduct, sethasSubscriptionProduct] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     if (item.sellingPlan) {
@@ -82,7 +84,7 @@ const NewLineItem = ({ item, content }) => {
 
   const decrement = async () => {
     if (item.quantity <= 1) {
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
       remove()
     } else {
         const { cart, userErrors, errors } = await cartClient.cartLinesUpdate({
@@ -107,7 +109,7 @@ const NewLineItem = ({ item, content }) => {
   }
 
   const remove = async () => {
-    dataLayerRFC({ item })
+    dataLayerRFC({ customer, item })
     removeFromCart(item)
 
     const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
@@ -139,24 +141,10 @@ const NewLineItem = ({ item, content }) => {
         attributes: [{ key: 'subscription', value: sellingPlanId }]
       }
 
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
 
       remove()
         .then((cartResponse) => {
-            const variant = getCartVariant({
-                product: item.merchandise.product,
-                variant: item.selectedVariant,
-            })
-        
-            const newItem = {
-                product: item.product,
-                variant,
-                variantId: item.merchandise.sourceEntryId.replace('gid://shopify/ProductVariant/', ''),
-                quantity: 1,
-            }
-        
-            // dataLayerATC({ item: newItem })
-
             const addItem = async () => {
                 const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
                     cartId: Cookies.get('shopifyCartId'),
