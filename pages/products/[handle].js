@@ -47,6 +47,10 @@ function Product({ product, page, productBadges }) {
               productBadges={productBadges}
             />
             <ProductReviews product={product} />
+            {console.log(product)}
+            {page.fields?.legalDisclaimer ? (
+              <p className="container">* {page.fields.legalDisclaimer}</p>
+            ) : ""}
           </section>
         </>
       </>
