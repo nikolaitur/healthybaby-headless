@@ -125,9 +125,9 @@ export function CustomerProvider({ children }) {
     }
 
 
-    dataLayerUserData({ customer: customer, url: router.pathname, cart: cart })
+    dataLayerUserData({ customer: customer, url: router.asPath, cart: cart })
 
-    dataLayerLogin({ customer: customer, url: router.pathname })
+    dataLayerLogin({ customer: customer, url: router.asPath })
     if (enableLoadingState) {
       setCustomerLoading(false)
     }
