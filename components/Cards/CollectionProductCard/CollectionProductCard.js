@@ -13,6 +13,7 @@ import * as Cookies from 'es-cookie'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
@@ -42,13 +43,22 @@ const findProductBadges = ({ content, product, productBadges }) => {
 }
 
 const CollectionProductCard = forwardRef(
-  ({ content, products, productBadges, imageLayout = 'responsive', cardWidthOverride }, ref) => {
+  (
+    {
+      content,
+      products,
+      productBadges,
+      imageLayout = 'responsive',
+      cardWidthOverride,
+    },
+    ref
+  ) => {
     const router = useRouter()
     const [, { addToCart }] = useCart()
     const [isloading, setIsLoading] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false)
     const [hasWindow, setHasWindow] = useState(false)
-    let { title, cardWidth, ctaText } = {...content.fields}
+    let { title, cardWidth, ctaText } = { ...content.fields }
     const isDesktop = useMediaQuery({ minWidth: 1074 })
 
     if (cardWidthOverride) {
@@ -57,15 +67,25 @@ const CollectionProductCard = forwardRef(
 
     const cartDrawerContext = useCartDrawerContext()
     const modalContext = useModalContext()
+    const { customer } = useCustomerContext()
 
-    const handle = content.fields.productHandle?.replace('::en-US', '') || undefined
-    const product =  handle && products.find((product) => product.content.handle === handle) || undefined
-    const productPrice = product && getProductPrice(products.find((product) => product.content.handle === handle)) || undefined
+    const handle =
+      content.fields.productHandle?.replace('::en-US', '') || undefined
+    const product =
+      (handle &&
+        products.find((product) => product.content.handle === handle)) ||
+      undefined
+    const productPrice =
+      (product &&
+        getProductPrice(
+          products.find((product) => product.content.handle === handle)
+        )) ||
+      undefined
 
     const badges = findProductBadges({ content, product, productBadges })
 
     const handleLink = (product) => {
-      dataLayerSelectProduct({ product, url: router.pathname })
+      dataLayerSelectProduct({ customer, product, url: router.asPath })
       router.push(`/products/${handle}`)
     }
 
@@ -106,25 +126,14 @@ const CollectionProductCard = forwardRef(
         quantity: 1,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-    //   addToCart({
-    //     product,
-    //     variant,
-    //     quantity: 1,
-    //     sellingPlan,
-    //     subscription: false,
-    //     nacelleEntryId: selectedVariant.nacelleEntryId,
-    //     selectedVariant,
-    //   })
-
-      let itemAttributes = []
+      let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
       
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
-
-        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+        itemAttributes.push({ key: "_sellingPlan", value: sellingPlanId})
       }
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
@@ -154,9 +163,9 @@ const CollectionProductCard = forwardRef(
       if (ctaText) {
         return ctaText
       } else if (product && product.variants.length > 1) {
-        return `Quick Add - $${productPrice ? productPrice : '' }`
+        return `Quick Add - $${productPrice ? productPrice : ''}`
       } else {
-        return `Add To Cart - $${productPrice ? productPrice : '' }`
+        return `Add To Cart - $${productPrice ? productPrice : ''}`
       }
     }
 
@@ -204,9 +213,7 @@ const CollectionProductCard = forwardRef(
         >
           <div
             className={`collection-product-card__image ${
-              content.fields?.image
-                ? 'hide-mobile'
-                : ''
+              content.fields?.image ? 'hide-mobile' : ''
             }`}
           >
             {content.fields?.image?.fields?.file?.url ? (
@@ -268,17 +275,19 @@ const CollectionProductCard = forwardRef(
                   width={cardWidth == 'Full Width' ? 870 : 570}
                 />
               </SwiperSlide>
-              {content.fields?.imageHover?.fields?.file?.url && <SwiperSlide>
-                <Image
-                  className="hover"
-                  src={`https:${content.fields.imageHover.fields.file.url}`}
-                  alt={content.fields.imageHover.fields.title}
-                  layout={imageLayout}
-                  objectFit="cover"
-                  height={cardWidth == 'Full Width' ? 695 : 710}
-                  width={cardWidth == 'Full Width' ? 870 : 570}
-                />
-              </SwiperSlide>}
+              {content.fields?.imageHover?.fields?.file?.url && (
+                <SwiperSlide>
+                  <Image
+                    className="hover"
+                    src={`https:${content.fields.imageHover.fields.file.url}`}
+                    alt={content.fields.imageHover.fields.title}
+                    layout={imageLayout}
+                    objectFit="cover"
+                    height={cardWidth == 'Full Width' ? 695 : 710}
+                    width={cardWidth == 'Full Width' ? 870 : 570}
+                  />
+                </SwiperSlide>
+              )}
             </Swiper>
           </a>
         ) : (
@@ -304,18 +313,23 @@ const CollectionProductCard = forwardRef(
           {/* {product.content?.description ? (
             <p className="collection-product-card__subtitle">{ product.content.description  }</p>
         ) : ""} */}
-          {hasWindow && <div className="collection-product-card__reviews">
-            <span
-              className="junip-product-summary"
-              data-product-id={product?.sourceEntryId?.replace('gid://shopify/Product/', '')}
-            ></span>
-          </div>}
+          {hasWindow && (
+            <div className="collection-product-card__reviews">
+              <span
+                className="junip-product-summary"
+                data-product-id={product?.sourceEntryId?.replace(
+                  'gid://shopify/Product/',
+                  ''
+                )}
+              ></span>
+            </div>
+          )}
           <div className="collection-product-card__cta">
             {!product.availableForSale ? (
               <span className="btn disabled">
                 <span>Out Of Stock</span>
               </span>
-            ):(product && product.variants.length > 1) ? (
+            ) : product && product.variants.length > 1 ? (
               <button
                 className="btn secondary quickview"
                 onClick={() => openQuickView()}

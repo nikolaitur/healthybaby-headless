@@ -17,8 +17,9 @@ import {
 } from '../gql/index.js'
 import { Multipass } from 'multipass-js'
 import { encode } from 'js-base64'
-import { dataLayerLogin } from '@/utils/dataLayer'
+import { dataLayerLogin, dataLayerUserData } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
+import { useCart } from '@nacelle/react-hooks'
 
 const multipass = new Multipass(
   process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET
@@ -35,12 +36,17 @@ export function CustomerProvider({ children }) {
   const [customer, setCustomer] = useState(null)
   const [customerLoading, setCustomerLoading] = useState(true)
   const router = useRouter()
+  const [{ cart }] = useCart()
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
     if (customerAccessToken) {
       getCustomer({ accessToken: customerAccessToken })
     } else {
+      dataLayerUserData({
+        url: router.asPath,
+        cart: cart,
+      })
       setCustomerLoading(false)
     }
   }, [])
@@ -118,10 +124,13 @@ export function CustomerProvider({ children }) {
       customer.metafields = []
     }
 
+
+    dataLayerUserData({ customer: customer, url: router.asPath, cart: cart })
+
+    dataLayerLogin({ customer: customer, url: router.asPath })
     if (enableLoadingState) {
       setCustomerLoading(false)
     }
-    dataLayerLogin({ url: router.pathname })
     setCustomer(customer)
     return { data }
   }

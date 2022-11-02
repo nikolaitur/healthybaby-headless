@@ -6,6 +6,7 @@ import { NacelleCartInput, CartResponse } from '@nacelle/shopify-cart'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { dataLayerBeginCheckout } from '@/utils/dataLayer'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import * as Cookies from 'es-cookie'
 
@@ -34,6 +35,7 @@ const CartDrawer = ({ content }) => {
   const [drawerContent, setDrawerContent] = useState(false)
   const [upsells, setUpsells] = useState(false)
   const [upsellsData, setUpsellsData] = useState({ products: [], variants: [] })
+  const { customer } = useCustomerContext()
   const [shopifyCartData, setShopifyCartData] = useState(false)
   const cartDrawerContext = useCartDrawerContext()
   const cartDrawerContent = cartDrawerContext.content[0]
@@ -74,15 +76,12 @@ const CartDrawer = ({ content }) => {
         });
 
         cartDrawerContext.setShopifyCart(cartData.cart)
-        cartDrawerContext.setCartTotal(cartData.cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cartData.cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartTotal(cartData.cart?.cost?.totalAmount?.amount || 0)
+        cartDrawerContext.setCartCount(cartData.cart?.lines?.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
-
-        // console.log("DRAWER DATA", cartDrawerContext.shopifyCart, cartDrawerContext.cartCount)
+        }, 0) || 0)
     }
     getCartClient()
-
   }, [cartDrawerContext.isOpen])
 
   useEffect(() => {
@@ -120,23 +119,63 @@ const CartDrawer = ({ content }) => {
     cartDrawerContext.setIsOpen(false)
   }
 
-  const handleProcessCheckout = async () => {
-    // `processCheckout` utilizes the Shopify Checkout client to create
-    // a checkout using the provided `cartItems` array. If successful,
-    // a URL and completed state are returned, which can then be used to
-    // redirect the user to the Shopify checkout.
-    // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
-    // await processCheckout({ cartItems })
-    //   .then(({ url, completed }) => {
-    //     if (url && !completed) {
-    //       window.location = url
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error(err)
-    //   })
+  const getUtmAttributes = () => {
+    const trackingObj = {}
+    const utmVars = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+      'gclid',
+      'fbclid',
+      'ttclid',
+      'irclickid'
+    ]
+    utmVars.forEach((key) => {
+      const item = localStorage.getItem(key)
+      if (item) {
+        trackingObj[key] = item
+      }
+    })
+    return trackingObj
+  }
 
-    dataLayerBeginCheckout({ cart })
+  const getCartAttributes = () => {
+    const metafields = []
+
+    metafields.push({
+      key: "_elevar_visitor_info",
+      value: JSON.stringify(getUtmAttributes())
+    },)
+
+    if (Cookies.get('_fbp')) {
+      metafields.push({ key: '_elevar__fbp', value: Cookies.get('_fbp') })
+    }
+    if (Cookies.get('_fbc')) {
+      metafields.push({ key: '_elevar__fbc', value: Cookies.get('_fbc') })
+    }
+    if (Cookies.get('_ga')) {
+      metafields.push({ key: '_elevar__ga', value: Cookies.get('_ga') })
+    }
+    const gaSuffix = 'T2Z4QVLW4Q'
+    if (Cookies.get(`_ga_${gaSuffix}`)) {
+      metafields.push({
+        key: `_elevar__ga_${gaSuffix}`,
+        value: Cookies.get(`_ga_${gaSuffix}`)
+      })
+    }
+
+    return metafields
+  }
+
+  const handleProcessCheckout = async () => {
+    const attributes = getCartAttributes()
+    
+    dataLayerBeginCheckout({
+      customer,
+      cart: cartDrawerContext.shopifyCart
+    })
 
     const cartItems = cartDrawerContext.shopifyCart.lines.map((lineItem) => {
         const returnItem = {
@@ -154,19 +193,19 @@ const CartDrawer = ({ content }) => {
 
             returnItem.sellingPlanId = sellingPlanId
             returnItem.attributes = [{ key: 'subscription', value: sellingPlanId }]
-        }   
+        }
 
         return returnItem
     })
 
     const lines = cartItems
 
-    const shopifyCart = await cartClient
+    await cartClient
       .cartCreate({
         lines,
+        attributes
       })
       .then((response) => {
-        console.log(response)
         if (response.cart?.checkoutUrl) {
           window.location.href = response.cart.checkoutUrl
         }
@@ -199,7 +238,7 @@ const CartDrawer = ({ content }) => {
           >
             <span className="message">
               {freeShipping ? (
-                <>  
+                <>
                     {cartDrawerContent?.fields.shippingThreshold ? (
                         <span><strong>{cartDrawerContent.fields.shippingThreshold}</strong></span>
                     ) : (

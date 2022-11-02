@@ -8,6 +8,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
 
@@ -28,6 +29,7 @@ const NewLineItem = ({ item, content }) => {
   const [hasSubscriptionProduct, sethasSubscriptionProduct] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     if (item.sellingPlan) {
@@ -46,9 +48,6 @@ const NewLineItem = ({ item, content }) => {
     setIsSubscription(item.attributes.filter(attribute => {
         if (Object.values(attribute).includes("subscription")) { return attribute } else return false
     }))
-
-    // console.log(isSubscription, hasSubscriptionProduct, item.merchandise.product.title)
-
   }, [])
 
   const getOptions = () => {
@@ -82,7 +81,7 @@ const NewLineItem = ({ item, content }) => {
 
   const decrement = async () => {
     if (item.quantity <= 1) {
-      dataLayerRFC({ item })
+      // dataLayerRFC({ customer, item })
       remove()
     } else {
         const { cart, userErrors, errors } = await cartClient.cartLinesUpdate({
@@ -107,7 +106,7 @@ const NewLineItem = ({ item, content }) => {
   }
 
   const remove = async () => {
-    dataLayerRFC({ item })
+    dataLayerRFC({ customer, item })
     removeFromCart(item)
 
     const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
@@ -116,7 +115,6 @@ const NewLineItem = ({ item, content }) => {
     });
 
     if(cart) {
-        // console.log(cart, "remove cart")
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
@@ -131,32 +129,30 @@ const NewLineItem = ({ item, content }) => {
      
       const sellingPlanId = hasSubscriptionProduct[0].value
 
+      let variantSku = item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
+      })
+
+      let productId = item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_productId")) { return attribute } else return false
+      })
+
       let lineItem = {
         merchandiseId: item.merchandise.nacelleEntryId,
         nacelleEntryId: item.merchandise.nacelleEntryId,
         quantity: 1,
         sellingPlanId,
-        attributes: [{ key: 'subscription', value: sellingPlanId }]
+        attributes: [
+          { key: 'subscription', value: sellingPlanId },
+          { key: "_variantSku", value: variantSku[0].value},
+          { key: "_productId", value: productId[0].value}
+        ]
       }
 
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
 
       remove()
         .then((cartResponse) => {
-            const variant = getCartVariant({
-                product: item.merchandise.product,
-                variant: item.selectedVariant,
-            })
-        
-            const newItem = {
-                product: item.product,
-                variant,
-                variantId: item.merchandise.sourceEntryId.replace('gid://shopify/ProductVariant/', ''),
-                quantity: 1,
-            }
-        
-            // dataLayerATC({ item: newItem })
-
             const addItem = async () => {
                 const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
                     cartId: Cookies.get('shopifyCartId'),
@@ -164,7 +160,6 @@ const NewLineItem = ({ item, content }) => {
                 });
             
                 if(cart) {
-                    // console.log(cart, "cart")
                     cartDrawerContext.setShopifyCart(cart)
                     cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
                     cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {

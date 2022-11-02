@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@nacelle/react-hooks'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -12,6 +13,7 @@ import Script from 'next/script'
 import * as Cookies from 'es-cookie'
 
 import { dataLayerATC } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
@@ -29,6 +31,8 @@ import QuestionMark from '../../../svgs/question-mark.svg'
 
 const ProductInfo = (props) => {
   const { product, page } = { ...props }
+
+  const router = useRouter()
 
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -48,6 +52,7 @@ const ProductInfo = (props) => {
   const [messageProduct, setMessageProduct] = useState(false)
   const [hasWindow, setHasWindow] = useState(false)
 
+  const { customer } = useCustomerContext()
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
@@ -199,7 +204,11 @@ const ProductInfo = (props) => {
           nacelleEntryId: selectedVariant.nacelleEntryId,
           quantity: quantity,
           sellingPlanId,
-          attributes: [{ key: 'subscription', value: sellingPlanId }],
+          attributes: [
+            { key: 'subscription', value: sellingPlanId },
+            { key: '_variantSku', value: variant.sku },
+            { key: '_productId', value: product.sourceEntryId },
+          ],
         }
       }
 
@@ -210,17 +219,14 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [lineItem],
       })
 
-      console.log(cart, userErrors, errors)
-
       if (cart) {
-        console.log('Subscription')
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(
@@ -245,18 +251,19 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      let itemAttributes = []
+      let itemAttributes = [
+        { key: '_variantSku', value: variant.sku },
+        { key: '_productId', value: product.sourceEntryId },
+      ]
 
       if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-        itemAttributes = [{ key: '_sellingPlan', value: sellingPlanId }]
+        itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
       }
-
-      // console.log(itemAttributes)
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
@@ -270,10 +277,7 @@ const ProductInfo = (props) => {
         ],
       })
 
-      // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
-
       if (cart) {
-        console.log('ONE TIME')
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(
@@ -440,6 +444,7 @@ const ProductInfo = (props) => {
                         option={option}
                         handleOptionChange={handleOptionChange}
                         diaperAmount={diaperAmount}
+                        product={product}
                         key={oIndex}
                       />
                     )
