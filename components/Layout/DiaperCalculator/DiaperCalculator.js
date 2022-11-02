@@ -146,7 +146,7 @@ const DiaperCalculator = ({ props, children }) => {
             getProduct('our-pull-up-style-diaper-bundle', 'Size 6')
             setDiaperSize(6)
             console.log('Monthly Pull-Up Style Diaper Bundle with wipes- size 6')
-        } 
+        }
 
         let data = {
           birthday: diaperCalculatorContext.diaperCalculatorData.birthday,
@@ -159,7 +159,7 @@ const DiaperCalculator = ({ props, children }) => {
 
     recommendProduct()
   }, [weight, diaperSize, diaperCalculatorContext.diaperCalculatorData.birthday])
-  
+
   const getProduct = async (handle, size = 'Size 1') => {
     await nacelleClient
       .products({
@@ -259,7 +259,7 @@ const DiaperCalculator = ({ props, children }) => {
 
   const handleAddItem = async () => {
     // console.log(product, selectedVariant)
-    
+
     if (product && selectedVariant) {
 
         const variant = getCartVariant({
@@ -296,7 +296,7 @@ const DiaperCalculator = ({ props, children }) => {
             cartId: Cookies.get('shopifyCartId'),
             lines: [lineItem],
         });
-    
+
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)
             cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
@@ -333,7 +333,7 @@ const DiaperCalculator = ({ props, children }) => {
               <span>{`Baby’s birthday`}</span>
               <DatePicker
                 dateFormat="MM/dd/yy"
-                placeholderText="00/00/00"
+                placeholderText="MM/DD/YY"
                 closeOnScroll={false}
                 onChange={(date) => handleDateChange(date)}
                 selected={diaperCalculatorContext.diaperCalculatorData.birthday}

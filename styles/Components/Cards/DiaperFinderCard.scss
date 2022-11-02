@@ -114,8 +114,8 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 28px;
-        line-height: 28px;
+        font-size: 24px;
+        line-height: 24px;
         color: $primaryBrown;
         margin-top: 25px;
         padding-top: 25px;
@@ -132,7 +132,7 @@
             background: transparent;
             font-family: $DomaineText;
             font-weight: 500;
-            font-size: 28px;
+            font-size: 24px;
             line-height: 1;
             color: #A0B0D2;
             border: none;
@@ -212,7 +212,7 @@
         .react-datepicker-wrapper {
             width: max-content;
             input {
-                width: 125px;
+                width: 130px;
                 @include breakpoint-up('xl') {
                     width: 160px;
                 }
@@ -226,8 +226,8 @@
         .suffix {
             font-family: $DomaineText;
             font-weight: 500;
-            font-size: 32px;
-            line-height: 32px;
+            font-size: 24px;
+            line-height: 24px;
             color: #A0B0D2;
             margin-left: 5px;
             @include breakpoint-up('xl') {
