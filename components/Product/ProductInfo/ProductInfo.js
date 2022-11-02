@@ -182,8 +182,6 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
-    console.log("add", purchaseSubscription)
-
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'

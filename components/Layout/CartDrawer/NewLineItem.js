@@ -54,9 +54,7 @@ const NewLineItem = ({ item, content }) => {
     setSubscriptionDiscount(item.attributes.filter(attribute => {
         if (Object.values(attribute).includes("_subscriptionDiscount")) { return attribute } else return false
     }))
-
-    console.log(item)
-  }, [])
+  }, [cartDrawerContext.shopifyCart])
 
   const getOptions = () => {
     if(item.merchandise.title == 'Default Title') {
@@ -167,22 +165,24 @@ const NewLineItem = ({ item, content }) => {
 
       remove()
         .then((cartResponse) => {
-            const addItem = async () => {
-                const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
-                    cartId: Cookies.get('shopifyCartId'),
-                    lines: [lineItem],
-                });
-
-                if(cart) {
-                    cartDrawerContext.setShopifyCart(cart)
-                    cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-                    cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
-                        return sum + line.quantity
-                    }, 0))
+            if(cartResponse) {
+                const addItem = async () => {
+                    const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+                        cartId: Cookies.get('shopifyCartId'),
+                        lines: [lineItem],
+                    });
+    
+                    if(cart) {
+                        cartDrawerContext.setShopifyCart(cart)
+                        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+                        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                            return sum + line.quantity
+                        }, 0))
+                    }
                 }
+    
+                addItem()
             }
-
-            addItem()
         })
     }
   }
@@ -222,24 +222,24 @@ const NewLineItem = ({ item, content }) => {
 
         remove()
             .then((cartResponse) => {
-                const addItem = async () => {
-                    const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
-                        cartId: Cookies.get('shopifyCartId'),
-                        lines: [lineItem],
-                    });
-
-                    console.log(cart, userErrors, errors)
-
-                    if(cart) {
-                        cartDrawerContext.setShopifyCart(cart)
-                        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-                        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
-                            return sum + line.quantity
-                        }, 0))
+                if(cartResponse) {
+                    const addItem = async () => {
+                        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+                            cartId: Cookies.get('shopifyCartId'),
+                            lines: [lineItem],
+                        });
+    
+                        if(cart) {
+                            cartDrawerContext.setShopifyCart(cart)
+                            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+                            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                                return sum + line.quantity
+                            }, 0))
+                        }
                     }
+    
+                    addItem()
                 }
-
-                addItem()
         })
     }
   }
