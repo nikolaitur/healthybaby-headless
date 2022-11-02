@@ -205,9 +205,9 @@ const ProductInfo = (props) => {
           quantity: quantity,
           sellingPlanId,
           attributes: [
-            { key: 'subscription', value: sellingPlanId }, 
-            { key: "_variantSku", value: variant.sku},
-            { key: "_productId", value: product.sourceEntryId}
+            { key: 'subscription', value: sellingPlanId },
+            { key: '_variantSku', value: variant.sku },
+            { key: '_productId', value: product.sourceEntryId },
           ],
         }
       }
@@ -224,16 +224,17 @@ const ProductInfo = (props) => {
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [lineItem],
-      });
+      })
 
-      if(cart) {
+      if (cart) {
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
-
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -252,33 +253,38 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
-      
-      if(sellingPlan) {
+      let itemAttributes = [
+        { key: '_variantSku', value: variant.sku },
+        { key: '_productId', value: product.sourceEntryId },
+      ]
+
+      if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-        itemAttributes.push({ key: "_sellingPlan", value: sellingPlanId})
+        itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
       }
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: quantity,
-              attributes: itemAttributes,
-            },
-        ]
-      });
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: quantity,
+            attributes: itemAttributes,
+          },
+        ],
+      })
 
-      if(cart) {
+      if (cart) {
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
     }
 
@@ -402,7 +408,8 @@ const ProductInfo = (props) => {
                         onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page?.fields?.productAddOnImage?.file ? (
+                          {page?.fields?.productAddOnImage?.fields?.file
+                            ?.url ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
@@ -637,7 +644,7 @@ const ProductInfo = (props) => {
                 page.fields?.productDetailTabContent4 ? (
                   <div
                     className={`product-tabs__title ${
-                      activeTab == 2 ? 'active' : ''
+                      activeTab == 3 ? 'active' : ''
                     }`}
                     onClick={() => setActiveTab(3)}
                   >

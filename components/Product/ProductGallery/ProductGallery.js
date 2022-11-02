@@ -87,7 +87,7 @@ const ProductGallery = ( props ) => {
                     "--swiper-pagination-bullet-inactive-opacity": "1"
                 }}
             >
-                {page.fields?.productImagesMobile ? (
+                {page?.fields?.productImagesMobile ? (
                     page.fields.productImagesMobile.map((productImage, index) => {
                         if(productImage.fields?.file?.url) {
                             return (

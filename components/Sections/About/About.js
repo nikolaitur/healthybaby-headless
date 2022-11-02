@@ -40,9 +40,9 @@ const About = ({ content }) => {
                             </div>}
                         </div>
                     </div>
-                    <h5 className="about__copy">
+                    <h4 className="about__copy">
                         { copy }
-                    </h5>
+                    </h4>
                     <div className="about__links">
                         {links.map((link, index) => {
                             return (
