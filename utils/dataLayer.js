@@ -398,7 +398,7 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
   })
 }
 
-export const dataLayerBeginCheckout = ({ customer, cart, cartTotal }) => {
+export const dataLayerBeginCheckout = ({ customer, cart }) => {
   const products = buildProductCartData(cart)
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
@@ -409,6 +409,7 @@ export const dataLayerBeginCheckout = ({ customer, cart, cartTotal }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
       ecommerce: {
         checkout: {
           actionField: { step: '1', action: 'checkout' },
