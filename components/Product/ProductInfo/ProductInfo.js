@@ -215,19 +215,20 @@ const ProductInfo = (props) => {
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [lineItem],
-      });
+      })
 
-      console.log( cart, userErrors, errors )
+      console.log(cart, userErrors, errors)
 
-      if(cart) {
-        console.log("Subscription")
+      if (cart) {
+        console.log('Subscription')
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
-
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -247,12 +248,12 @@ const ProductInfo = (props) => {
       dataLayerATC({ item: newItem })
 
       let itemAttributes = []
-      
-      if(sellingPlan) {
+
+      if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+        itemAttributes = [{ key: '_sellingPlan', value: sellingPlanId }]
       }
 
       // console.log(itemAttributes)
@@ -260,24 +261,26 @@ const ProductInfo = (props) => {
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: quantity,
-              attributes: itemAttributes,
-            },
-        ]
-      });
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: quantity,
+            attributes: itemAttributes,
+          },
+        ],
+      })
 
       // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
 
-      if(cart) {
-        console.log("ONE TIME")
+      if (cart) {
+        console.log('ONE TIME')
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
     }
 
@@ -401,7 +404,8 @@ const ProductInfo = (props) => {
                         onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page?.fields?.productAddOnImage?.fields?.file?.url ? (
+                          {page?.fields?.productAddOnImage?.fields?.file
+                            ?.url ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
@@ -635,7 +639,7 @@ const ProductInfo = (props) => {
                 page.fields?.productDetailTabContent4 ? (
                   <div
                     className={`product-tabs__title ${
-                      activeTab == 2 ? 'active' : ''
+                      activeTab == 3 ? 'active' : ''
                     }`}
                     onClick={() => setActiveTab(3)}
                   >
