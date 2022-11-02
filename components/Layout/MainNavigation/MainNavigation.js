@@ -232,7 +232,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           )}
           <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
-            <span>{ cartDrawerContext.cartCount }</span>
+            {cartDrawerContext.cartCount > 0 ? (
+              <span>{ cartDrawerContext.cartCount }</span>
+            ) : ""}
           </div>
           <div className={`main-nav__search ${isSearchOpen ? 'active' : ''}`}>
             <input
@@ -284,7 +286,9 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           )}
           <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
-            <span>{ cartDrawerContext.cartCount }</span>
+            {cartDrawerContext.cartCount > 0 ? (
+              <span>{ cartDrawerContext.cartCount }</span>
+            ) : ""}
           </div>
         </div>
       </div>
