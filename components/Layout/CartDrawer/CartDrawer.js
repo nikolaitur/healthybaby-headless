@@ -119,7 +119,59 @@ const CartDrawer = ({ content }) => {
     cartDrawerContext.setIsOpen(false)
   }
 
+  const getUtmAttributes = () => {
+    const trackingObj = {}
+    const utmVars = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+      'gclid',
+      'fbclid',
+      'ttclid',
+      'irclickid'
+    ]
+    utmVars.forEach((key) => {
+      const item = localStorage.getItem(key)
+      if (item) {
+        trackingObj[key] = item
+      }
+    })
+    return trackingObj
+  }
+
+  const getCartAttributes = () => {
+    const metafields = []
+
+    metafields.push({
+      key: "_elevar_visitor_info",
+      value: JSON.stringify(getUtmAttributes())
+    },)
+
+    if (Cookies.get('_fbp')) {
+      metafields.push({ key: '_elevar__fbp', value: Cookies.get('_fbp') })
+    }
+    if (Cookies.get('_fbc')) {
+      metafields.push({ key: '_elevar__fbc', value: Cookies.get('_fbc') })
+    }
+    if (Cookies.get('_ga')) {
+      metafields.push({ key: '_elevar__ga', value: Cookies.get('_ga') })
+    }
+    const gaSuffix = 'T2Z4QVLW4Q'
+    if (Cookies.get(`_ga_${gaSuffix}`)) {
+      metafields.push({
+        key: `_elevar__ga_${gaSuffix}`,
+        value: Cookies.get(`_ga_${gaSuffix}`)
+      })
+    }
+
+    return metafields
+  }
+
   const handleProcessCheckout = async () => {
+    const attributes = getCartAttributes()
+    
     dataLayerBeginCheckout({
       customer,
       cart: cartDrawerContext.shopifyCart
@@ -151,6 +203,7 @@ const CartDrawer = ({ content }) => {
     await cartClient
       .cartCreate({
         lines,
+        attributes
       })
       .then((response) => {
         if (response.cart?.checkoutUrl) {
