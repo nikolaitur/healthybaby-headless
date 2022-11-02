@@ -275,6 +275,7 @@ const DiaperCalculator = ({ props, children }) => {
             merchandiseId: selectedVariant[0].nacelleEntryId,
             nacelleEntryId: selectedVariant[0].nacelleEntryId,
             quantity: 1,
+            attributes: [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
         }
 
         if (!sellingPlan) {
@@ -283,13 +284,8 @@ const DiaperCalculator = ({ props, children }) => {
             const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
             const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-            lineItem = {
-                merchandiseId: selectedVariant[0].nacelleEntryId,
-                nacelleEntryId: selectedVariant[0].nacelleEntryId,
-                quantity: 1,
-                sellingPlanId,
-                attributes: [{ key: '_sellingPlan', value: sellingPlanId }],
-            }
+            lineItem.sellingPlanId = sellingPlanId
+            lineItem.attributes.push({ key: '_sellingPlan', value: sellingPlanId })
         }
 
         const { cart, userErrors, errors } = await cartClient.cartLinesAdd({

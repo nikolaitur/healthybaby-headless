@@ -48,8 +48,6 @@ const NewLineItem = ({ item, content }) => {
     setIsSubscription(item.attributes.filter(attribute => {
         if (Object.values(attribute).includes("subscription")) { return attribute } else return false
     }))
-
-
   }, [])
 
   const getOptions = () => {
@@ -131,12 +129,24 @@ const NewLineItem = ({ item, content }) => {
      
       const sellingPlanId = hasSubscriptionProduct[0].value
 
+      let variantSku = item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
+      })
+
+      let productId = item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_productId")) { return attribute } else return false
+      })
+
       let lineItem = {
         merchandiseId: item.merchandise.nacelleEntryId,
         nacelleEntryId: item.merchandise.nacelleEntryId,
         quantity: 1,
         sellingPlanId,
-        attributes: [{ key: 'subscription', value: sellingPlanId }]
+        attributes: [
+          { key: 'subscription', value: sellingPlanId },
+          { key: "_variantSku", value: variantSku[0].value},
+          { key: "_productId", value: productId[0].value}
+        ]
       }
 
       dataLayerRFC({ customer, item })

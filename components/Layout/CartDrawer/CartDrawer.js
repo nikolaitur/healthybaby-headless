@@ -120,22 +120,10 @@ const CartDrawer = ({ content }) => {
   }
 
   const handleProcessCheckout = async () => {
-    // `processCheckout` utilizes the Shopify Checkout client to create
-    // a checkout using the provided `cartItems` array. If successful,
-    // a URL and completed state are returned, which can then be used to
-    // redirect the user to the Shopify checkout.
-    // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
-    // await processCheckout({ cartItems })
-    //   .then(({ url, completed }) => {
-    //     if (url && !completed) {
-    //       window.location = url
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error(err)
-    //   })
-
-    dataLayerBeginCheckout({ customer, cart })
+    dataLayerBeginCheckout({
+      customer,
+      cart: cartDrawerContext.shopifyCart
+    })
 
     const cartItems = cartDrawerContext.shopifyCart.lines.map((lineItem) => {
         const returnItem = {
@@ -160,12 +148,11 @@ const CartDrawer = ({ content }) => {
 
     const lines = cartItems
 
-    const shopifyCart = await cartClient
+    await cartClient
       .cartCreate({
         lines,
       })
       .then((response) => {
-        console.log(response)
         if (response.cart?.checkoutUrl) {
           window.location.href = response.cart.checkoutUrl
         }

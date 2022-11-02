@@ -98,13 +98,12 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
 
-        let itemAttributes = []
+        let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
 
         if(sellingPlan) {
             const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
             const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
-
-            itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+            itemAttributes.push({ key: "_sellingPlan", value: sellingPlanId})
         }
 
         const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
@@ -118,8 +117,6 @@ const VitaminFinder = ({ content, refs, index }) => {
                 },
             ],
         });
-
-        // console.log( cart, userErrors, errors )
 
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)

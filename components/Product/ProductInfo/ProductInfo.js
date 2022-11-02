@@ -204,7 +204,11 @@ const ProductInfo = (props) => {
           nacelleEntryId: selectedVariant.nacelleEntryId,
           quantity: quantity,
           sellingPlanId,
-          attributes: [{ key: 'subscription', value: sellingPlanId }],
+          attributes: [
+            { key: 'subscription', value: sellingPlanId }, 
+            { key: "_variantSku", value: variant.sku},
+            { key: "_productId", value: product.sourceEntryId}
+          ],
         }
       }
 
@@ -222,10 +226,7 @@ const ProductInfo = (props) => {
         lines: [lineItem],
       });
 
-      console.log( cart, userErrors, errors )
-
       if(cart) {
-        console.log("Subscription")
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
@@ -251,16 +252,14 @@ const ProductInfo = (props) => {
 
       dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      let itemAttributes = []
+      let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
       
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
 
-        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+        itemAttributes.push({ key: "_sellingPlan", value: sellingPlanId})
       }
-
-      // console.log(itemAttributes)
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
@@ -274,10 +273,7 @@ const ProductInfo = (props) => {
         ]
       });
 
-      // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
-
       if(cart) {
-        console.log("ONE TIME")
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {

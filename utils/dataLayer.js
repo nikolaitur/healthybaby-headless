@@ -119,6 +119,39 @@ function buildProductData(products, type, url) {
   })
 }
 
+function buildProductCartData(cart) {
+  const lineItems = cart.lines
+  return lineItems.map((line, index) => {
+
+    let variantSku = line.attributes.filter(attribute => {
+      if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
+    })
+
+    let productId = line.attributes.filter(attribute => {
+      if (Object.values(attribute).includes("_productId")) { return attribute } else return false
+    })
+
+    const data = {
+      id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
+      name: line.merchandise.product.title, // Product title
+      brand: 'Healthy Baby',
+      category: '',
+      variant: line.merchandise.title,
+      price: line.cost.totalAmount.amount.toString(),
+      quantity: '1',
+      product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
+      variant_id: line.merchandise.sourceEntryId.replace(
+        'gid://shopify/ProductVariant/',
+        ''
+      ), // id or variant_id
+      compare_at_price: line.cost?.compareAtAmountPerQuantity?.amount.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
+      image: line.merchandise.image?.url || '', // If available, otherwise use an empty string
+    }
+
+    return data
+  })
+}
+
 function buildProductDataWithVariantOption(product, variantOption) {
   const filterdVariants = product.variants.filter((item) => {
     return item.content.title.includes(variantOption)
@@ -240,6 +273,14 @@ export const dataLayerATC = ({ customer, item, url }) => {
   - this is for removing from cart
 */
 export const dataLayerRFC = ({ customer, item }) => {
+  let variantSku = item.attributes.filter(attribute => {
+    if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
+  })
+
+  let productId = item.attributes.filter(attribute => {
+    if (Object.values(attribute).includes("_productId")) { return attribute } else return false
+  })
+  
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -251,19 +292,14 @@ export const dataLayerRFC = ({ customer, item }) => {
         remove: {
           products: [
             {
-              // TODO: Bring this back
-              // id: item.variant.sku, // SKU
+              id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
               name: item.merchandise.product.title, // Product title
               brand: 'Healthy Baby',
               category: '',
               variant: item.merchandise.title,
               price: item.cost.amountPerQuantity.amount.toString(),
               quantity: '0',
-              // TODO: Bring this back too
-              // product_id: item.product.sourceEntryId.replace(
-              //   'gid://shopify/Product/',
-              //   ''
-              // ),
+              product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
               variant_id: item.merchandise.sourceEntryId
                 .split('gid://shopify/ProductVariant/')
                 .pop(), // id or variant_id
@@ -398,7 +434,8 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
   })
 }
 
-export const dataLayerBeginCheckout = ({ customer, cart }) => {
+export const dataLayerBeginCheckout = ({ customer, cart, cartTotal }) => {
+  const products = buildProductCartData(cart)
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -412,7 +449,7 @@ export const dataLayerBeginCheckout = ({ customer, cart }) => {
         checkout: {
           actionField: { step: '1', action: 'checkout' },
         },
-        products: buildProductData(cart.map((item) => item.product)),
+        products
       },
     },
   })
