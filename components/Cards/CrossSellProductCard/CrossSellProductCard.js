@@ -8,7 +8,7 @@ import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 
-import { dataLayerSelectProduct } from '@/utils/dataLayer'
+import { dataLayerSelectProduct, dataLayerViewProduct } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 import 'swiper/css'
@@ -32,7 +32,7 @@ const findProductBadges = ({ product, productBadges }) => {
   return null
 }
 
-const CrossSellProductCard = forwardRef(({ product }, ref) => {
+const CrossSellProductCard = forwardRef(({ product, index }, ref) => {
   const router = useRouter()
   const { customer } = useCustomerContext()
   const [, { addToCart }] = useCart()
@@ -68,7 +68,8 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
   }, [])
 
   const handleLink = (product) => {
-    dataLayerSelectProduct({ customer, product, url: router.asPath })
+    dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+    dataLayerViewProduct({ customer, product, url: router.asPath, index })
     router.push(`/products/${handle}`)
   }
 
@@ -97,6 +98,8 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
         product,
         page: pages[0],
       })
+      dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+      dataLayerViewProduct({ customer, product, url: router.asPath, index })
     }
   }
 

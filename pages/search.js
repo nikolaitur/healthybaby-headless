@@ -99,7 +99,7 @@ const SearchResultsPage = ({ productBadges }) => {
         <div className="search-results-page__main">
           {searchProducts.length > 0
             ? searchProducts.map((product, index) => (
-                <ProductCard product={product} key={index} productBadges={productBadges} showCTA={true} />
+                <ProductCard product={product} key={index} index={index} productBadges={productBadges} showCTA={true} />
               ))
             : ''}
         </div>

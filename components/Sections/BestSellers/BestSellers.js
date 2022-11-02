@@ -68,7 +68,7 @@ const BestSellers = ({ content }) => {
                         >
                            {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products} cardWidthOverride={'Normal'} />
+                                    <CollectionProductCard content={item} key={index} index={index} products={products} cardWidthOverride={'Normal'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -92,7 +92,7 @@ const BestSellers = ({ content }) => {
                         >
                             {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products} imageLayout={'fill'} cardWidthOverride={'Normal'} />
+                                    <CollectionProductCard content={item} key={index} index={index} products={products} imageLayout={'fill'} cardWidthOverride={'Normal'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>

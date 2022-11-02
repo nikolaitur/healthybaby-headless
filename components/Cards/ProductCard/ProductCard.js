@@ -6,7 +6,7 @@ import { useModalContext } from '@/context/ModalContext'
 import { getProductPrice } from '@/utils/getProductPrice'
 import cartClient from 'services/nacelleClientCart'
 import { getCartVariant } from 'utils/getCartVariant'
-import { dataLayerATC } from '@/utils/dataLayer'
+import { dataLayerATC, dataLayerSelectProduct, dataLayerViewProduct } from '@/utils/dataLayer'
 import { useCartDrawerContext } from '@/context/CartDrawerContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { nacelleClient } from 'services'
@@ -31,6 +31,7 @@ const findProductBadges = ({ product, productBadges }) => {
 }
 
 const ProductCard = ({
+  index,
   product,
   productBadges,
   showCTA = false,
@@ -74,6 +75,8 @@ const ProductCard = ({
         product,
         page: pages[0],
       })
+      dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+      dataLayerViewProduct({ customer, product, url: router.asPath, index })
     }
   }
 

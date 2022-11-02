@@ -18,7 +18,7 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
 
-import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
+import { dataLayerATC, dataLayerSelectProduct, dataLayerViewProduct } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 import 'swiper/css'
@@ -50,6 +50,7 @@ const CollectionProductCard = forwardRef(
       productBadges,
       imageLayout = 'responsive',
       cardWidthOverride,
+      index
     },
     ref
   ) => {
@@ -85,7 +86,8 @@ const CollectionProductCard = forwardRef(
     const badges = findProductBadges({ content, product, productBadges })
 
     const handleLink = (product) => {
-      dataLayerSelectProduct({ customer, product, url: router.asPath })
+      dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+      dataLayerViewProduct({ customer, product, url: router.asPath, index })
       router.push(`/products/${handle}`)
     }
 
@@ -104,6 +106,8 @@ const CollectionProductCard = forwardRef(
           page: pages[0],
           className: 'quickview',
         })
+        dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+        dataLayerViewProduct({ customer, product, url: router.asPath, index })
       }
     }
 

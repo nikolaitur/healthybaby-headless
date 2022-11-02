@@ -83,7 +83,7 @@ function getMarketingData() {
   return marketingProps
 }
 
-function buildProductData(products, type, url) {
+function buildProductData(products, type, url, forceIndex) {
   return products.map((product, index) => {
     const firstVariant = product.variants[0]
     const data = {
@@ -106,7 +106,7 @@ function buildProductData(products, type, url) {
 
     if (type === 'collection') {
       data['list'] = url // The list the product was discovered from or is displayed in
-      data['position'] = index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
+      data['position'] = forceIndex || index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
     }
 
     return data
@@ -371,7 +371,7 @@ export const dataLayerViewSearchResults = ({ customer, products }) => {
 /*
   Use this for selecting products from collections/search results
 */
-export const dataLayerSelectProduct = ({ customer, product, url }) => {
+export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -385,7 +385,7 @@ export const dataLayerSelectProduct = ({ customer, product, url }) => {
         currencyCode: 'USD',
         click: {
           actionField: { list: url, action: 'click' }, // this should be the collection page URL
-          products: buildProductData([product], 'collection', url),
+          products: buildProductData([product], 'collection', url, index),
         },
       },
     },
@@ -488,7 +488,7 @@ export const dataLayerLogin = ({ customer, url }) => {
   })
 }
 
-export const dataLayerViewProduct = ({ customer, product, url, variantOption }) => {
+export const dataLayerViewProduct = ({ customer, product, url, variantOption, index }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -504,7 +504,7 @@ export const dataLayerViewProduct = ({ customer, product, url, variantOption }) 
           actionField: { list: url, action: 'detail' },
           products: variantOption
             ? buildProductDataWithVariantOption(product, variantOption)
-            : buildProductData([product], 'product', url),
+            : buildProductData([product], 'product', url, index),
         },
       },
     },

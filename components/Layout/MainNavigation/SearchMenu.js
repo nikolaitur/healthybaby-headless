@@ -106,7 +106,7 @@ const SearchMenu = ({
             <div className="search-menu__wrapper">
               {searchProducts.length > 0
                 ? searchProducts.map((product, index) => (
-                    <ProductCard product={product} key={index} sizes="600px" />
+                    <ProductCard product={product} key={index} index={index} sizes="600px" />
                   ))
                 : ''}
             </div>
