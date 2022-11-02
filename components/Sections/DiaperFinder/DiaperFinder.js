@@ -307,8 +307,10 @@ const DiaperFinder = ({ content }) => {
       if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
         itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+        itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
       }
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({

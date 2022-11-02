@@ -182,6 +182,8 @@ const ProductInfo = (props) => {
       variant: selectedVariant,
     })
 
+    console.log("add", purchaseSubscription)
+
     if (purchaseSubscription === 'Subscription') {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -198,6 +200,7 @@ const ProductInfo = (props) => {
       } else {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
         lineItem = {
           merchandiseId: selectedVariant.nacelleEntryId,
@@ -205,7 +208,8 @@ const ProductInfo = (props) => {
           quantity: quantity,
           sellingPlanId,
           attributes: [
-            { key: 'subscription', value: sellingPlanId },
+            { key: '_subscription', value: sellingPlanId },
+            { key: '_subscriptionDiscount', value: sellingPlanDiscount },
             { key: '_variantSku', value: variant.sku },
             { key: '_productId', value: product.sourceEntryId },
           ],
@@ -261,8 +265,10 @@ const ProductInfo = (props) => {
       if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
         itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+        itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
       }
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({

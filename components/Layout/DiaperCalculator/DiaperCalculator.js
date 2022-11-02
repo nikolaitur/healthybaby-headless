@@ -283,9 +283,11 @@ const DiaperCalculator = ({ props, children }) => {
         } else {
             const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
             const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+            const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
             lineItem.sellingPlanId = sellingPlanId
-            lineItem.attributes.push({ key: '_sellingPlan', value: sellingPlanId })
+            itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+            itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
         }
 
         const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
