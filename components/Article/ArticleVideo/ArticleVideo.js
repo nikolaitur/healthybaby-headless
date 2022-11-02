@@ -29,7 +29,7 @@ const ArticleVideo = ({ content }) => {
     <>
       {videoLink ? (
         <div className={`article-video ${verticalVideo ? 'vertical' : ''}`}>
-          {videoLink.includes('youtu') ? (
+          {!videoLink.includes('youtu') ? (
             <div
               className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
               onClick={() => playVideo()}
