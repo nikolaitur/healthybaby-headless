@@ -271,7 +271,9 @@ const NewLineItem = ({ item, content }) => {
             <>
               {!item.attributes.length ?
                 `$${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}` :
-                item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription")) && item.cost.compareAtAmountPerQuantity?.amount ? (
+                item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription")) 
+                && item.cost.compareAtAmountPerQuantity?.amount
+                && item.cost.compareAtAmountPerQuantity?.amount != item.cost.totalAmount.amount ? (
                     <><span className="sale">${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}</span> <span><s>${Math.round(Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2)) * item.quantity}</s></span></>
                 ) : `$${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}`
               }
@@ -305,7 +307,9 @@ const NewLineItem = ({ item, content }) => {
                         Upgrade to Subscribe & Save {' '}
                         {subscriptionDiscount ? `${subscriptionDiscount[0].value}` : content?.fields?.subscriptionDiscountPercent ? content.fields.subscriptionDiscountPercent : "7.5"}%
                     </span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                    {content?.fields?.subscriptionDiscountCopy ? (
+                        <p>{content.fields.subscriptionDiscountCopy}</p>
+                    ) : ""}
                 </div>
             </div>          
         </div>
