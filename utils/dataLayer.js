@@ -174,7 +174,6 @@ function buildProductDataWithVariantOption(product, variantOption) {
   }
 }
 
-// TODO: make this also fire on every page load
 export const dataLayerUserData = ({ cart, customer, url }) => {
   const device = {
     screen_resolution: `${window.screen.width}x${window.screen.height}`,
@@ -185,21 +184,7 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
   }
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-
-  const cartSubtotal = cart.reduce((sum, lineItem) => {
-    if (lineItem.sellingPlan) {
-      const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
-      const sellingPlanPrice =
-        sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-      return (
-        sum +
-        sellingPlanPriceValue[0].priceAdjustments[0].price.amount *
-          lineItem.quantity
-      )
-    } else {
-      return sum + lineItem.variant.price * lineItem.quantity
-    }
-  }, 0)
+  const products = buildProductCartData(cart)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_user_data',
@@ -208,18 +193,14 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: cartSubtotal.toString(),
+      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
       page: {
         url: url,
       },
       ecommerce: {
         currencyCode: 'USD',
         cart_contents: {
-          products: buildProductData(
-            cart.map((item) => item.product),
-            'collection',
-            url
-          ),
+          products
         },
       },
     },
@@ -396,21 +377,6 @@ export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
 }
 
 export const dataLayerViewCart = ({ customer, cart, url }) => {
-  // const cartSubtotal = cart.reduce((sum, lineItem) => {
-  //   if (lineItem.sellingPlan) {
-  //     const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
-  //     const sellingPlanPrice =
-  //       sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-  //     return (
-  //       sum +
-  //       sellingPlanPriceValue[0].priceAdjustments[0].price.amount *
-  //         lineItem.quantity
-  //     )
-  //   } else {
-  //     return sum + lineItem.variant.price * lineItem.quantity
-  //   }
-  // }, 0)
-  console.log("cart:", cart)
   const products = buildProductCartData(cart)
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
@@ -422,7 +388,7 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: '',
+      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
       ecommerce: {
         currencyCode: 'USD',
         actionField: { list: 'Shopping Cart' },
