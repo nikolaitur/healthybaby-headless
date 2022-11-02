@@ -396,8 +396,8 @@ const ProductInfo = (props) => {
         <h4 className="product-info__price">
           <>
             {purchaseSubscription === 'Subscription'
-              ? `$${Number(subscriptionPrice).toFixed(2)}`
-              : `$${selectedVariant.price.toFixed(2)}`}
+              ? `$${Math.round(subscriptionPrice)}`
+              : `$${Math.round(selectedVariant.price)}`}
           </>
         </h4>
         <div className="product-form">
@@ -478,7 +478,7 @@ const ProductInfo = (props) => {
                 <label htmlFor="onetimeOption">
                   One-Time Purchase{' '}
                   <span className="price">
-                    ${selectedVariant.price.toFixed(2)}
+                    ${Math.round(selectedVariant.price)}
                   </span>
                 </label>
               </div>
@@ -507,9 +507,9 @@ const ProductInfo = (props) => {
                   </span>
                   <span className="price">
                     {selectedVariant.price !== subscriptionPrice ? (
-                      <><s>${selectedVariant.price.toFixed(2)}</s>{" "}</>
+                      <><s>${Math.round(selectedVariant.price)}</s>{" "}</>
                     ) : ""}
-                    ${Number(subscriptionPrice).toFixed(2)}
+                    ${Math.round(subscriptionPrice)}
                   </span>
                 </label>
               </div>

@@ -175,18 +175,18 @@ const LineItem = ({ item, content }) => {
           <div className="line-item__price">
             <>
               {!item.sellingPlan ? (
-                `$${item.variant.price.toFixed(2)}`
+                `$${Math.round(item.variant.price)}`
               ) : item.subscription && item.sellingPlan ? (
                 <>
                   <span className="sale">
-                    ${Math.round(Number(subscriptionPrice).toFixed(2))}
+                    ${Math.round(subscriptionPrice)}
                   </span>{' '}
                   <span>
-                    <s>${item.variant.price.toFixed(2)}</s>
+                    <s>${Math.round(item.variant.price)}</s>
                   </span>
                 </>
               ) : (
-                `$${item.variant.price.toFixed(2)}`
+                `$${Math.round(item.variant.price)}`
               )}
             </>
           </div>
