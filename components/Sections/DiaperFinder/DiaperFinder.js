@@ -305,11 +305,21 @@ const DiaperFinder = ({ content }) => {
         { key: '_productId', value: product.sourceEntryId },
       ]
 
+      let lineItem = {
+        merchandiseId: selectedVariant[0].nacelleEntryId,
+        nacelleEntryId: selectedVariant[0].nacelleEntryId,
+        quantity: 1,
+        attributes: itemAttributes
+      }
+
       if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
-        itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+        lineItem.sellingPlanId = sellingPlanId
+        itemAttributes.push({ key: '_subscription', value: sellingPlanId })
+        itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
       }
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
