@@ -209,7 +209,7 @@ const ProductInfo = (props) => {
           sellingPlanId,
           attributes: [
             { key: '_subscription', value: sellingPlanId },
-            { key: '_subscriptionDiscount', value: sellingPlanDiscount },
+            { key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() },
             { key: '_variantSku', value: variant.sku },
             { key: '_productId', value: product.sourceEntryId },
           ],
@@ -229,6 +229,8 @@ const ProductInfo = (props) => {
         cartId: Cookies.get('shopifyCartId'),
         lines: [lineItem],
       })
+
+      console.log(cart, userErrors, errors)
 
       if (cart) {
         cartDrawerContext.setShopifyCart(cart)
@@ -506,8 +508,10 @@ const ProductInfo = (props) => {
                     </span>
                   </span>
                   <span className="price">
-                    <s>${selectedVariant.price.toFixed(2)}</s> $
-                    {Number(subscriptionPrice).toFixed(2)}
+                    {selectedVariant.price !== subscriptionPrice ? (
+                      <><s>${selectedVariant.price.toFixed(2)}</s>{" "}</>
+                    ) : ""}
+                    ${Number(subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
               </div>
