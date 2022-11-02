@@ -44,13 +44,11 @@ export function CustomerProvider({ children }) {
     } else {
       getCartData()
         .then(cart => {
-          if (cart) {
-            dataLayerUserData({
-              url: router.asPath,
-              cart: cart,
-            })
-            setCustomerLoading(false)
-          }
+          dataLayerUserData({
+            url: router.asPath,
+            cart: cart,
+          })
+          setCustomerLoading(false)
         })
     }
   }, [])
@@ -58,13 +56,11 @@ export function CustomerProvider({ children }) {
   const onRountChangeComplete = () => {
     getCartData()
     .then(cart => {
-      if (cart) {
-        dataLayerUserData({
-          url: router.asPath,
-          cart: cart,
-        })
-        setCustomerLoading(false)
-      }
+      dataLayerUserData({
+        url: router.asPath,
+        cart: cart,
+      })
+      setCustomerLoading(false)
     })
   }
 
