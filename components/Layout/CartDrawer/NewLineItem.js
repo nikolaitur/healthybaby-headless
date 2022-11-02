@@ -49,7 +49,6 @@ const NewLineItem = ({ item, content }) => {
         if (Object.values(attribute).includes("subscription")) { return attribute } else return false
     }))
 
-    // console.log(isSubscription, hasSubscriptionProduct, item.merchandise.product.title)
 
   }, [])
 
@@ -84,7 +83,7 @@ const NewLineItem = ({ item, content }) => {
 
   const decrement = async () => {
     if (item.quantity <= 1) {
-      dataLayerRFC({ customer, item })
+      // dataLayerRFC({ customer, item })
       remove()
     } else {
         const { cart, userErrors, errors } = await cartClient.cartLinesUpdate({
@@ -118,7 +117,6 @@ const NewLineItem = ({ item, content }) => {
     });
 
     if(cart) {
-        // console.log(cart, "remove cart")
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
@@ -152,7 +150,6 @@ const NewLineItem = ({ item, content }) => {
                 });
             
                 if(cart) {
-                    // console.log(cart, "cart")
                     cartDrawerContext.setShopifyCart(cart)
                     cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
                     cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
