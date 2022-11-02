@@ -113,7 +113,7 @@ function buildProductData(products, type, url, forceIndex) {
   })
 }
 
-function buildProductCartData(cart) {
+function buildProductCartData(cart, dataType = 'products') {
   const lineItems = cart.lines
   return lineItems.map((line, index) => {
 
@@ -129,7 +129,7 @@ function buildProductCartData(cart) {
       if (Object.values(attribute).includes("_productType")) { return attribute } else return false
     })
 
-    const data = {
+    let data = {
       id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
       name: line.merchandise.product.title, // Product title
       brand: 'Healthy Baby',
@@ -144,6 +144,24 @@ function buildProductCartData(cart) {
       ), // id or variant_id
       compare_at_price: line.cost?.compareAtAmountPerQuantity?.amount.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
       image: line.merchandise.image?.url || '', // If available, otherwise use an empty string
+    }
+
+    if (dataType === 'impressions') {
+      data = {
+        name: line.merchandise.product.title, // Product title
+        brand: 'Healthy Baby',
+        category: category ? category[0].value : '',
+        product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
+        id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
+        price: line.cost.totalAmount.amount.toString(),
+        variant_id: line.merchandise.sourceEntryId.replace(
+          'gid://shopify/ProductVariant/',
+          ''
+        ), // id or variant_id
+        image: line.merchandise.image?.url || '', // If available, otherwise use an empty string
+        list: 'Shopping Cart',
+        position: (index + 1).toString(),
+      }
     }
 
     return data
@@ -377,7 +395,7 @@ export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
 }
 
 export const dataLayerViewCart = ({ customer, cart, url }) => {
-  const products = buildProductCartData(cart)
+  const products = buildProductCartData(cart, 'impressions')
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
 
