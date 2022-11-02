@@ -129,7 +129,7 @@ const CollectionProductCard = forwardRef(
       dataLayerATC({ customer, item: newItem, url: router.pathname })
 
       let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
-      
+
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
@@ -249,7 +249,17 @@ const CollectionProductCard = forwardRef(
                 )}
               </>
             ) : (
-              <div className="placeholder"></div>
+              <Image
+                  className="featured"
+                  src={'https://via.placeholder.com/999x999.jpg'}
+                  alt={'This is a placeholder Image'}
+                  layout={imageLayout}
+                  objectFit="cover"
+                  height={
+                    cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
+                  }
+                  width={cardWidth == 'Full Width' ? 870 : 570}
+                />
             )}
           </div>
         </a>
