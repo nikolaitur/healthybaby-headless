@@ -51,22 +51,11 @@ function getUserProperties(customer)  {
       customer_zip: customer.defaultAddress.zip
     }
   }
-  // console.log("dl user properties:", customerProps)
   return customerProps
 }
 
 function getMarketingData() {
   const marketingProps = {
-    // This is the GA4 cookie ID. The XXX... portion of the cookie will differ for every client
-    _ga_T2Z4QVLW4Q: Cookies.get('_ga_T2Z4QVLW4Q') || '', // GA4 Cookie ID
-    _fbp: Cookies.get('_fbp') || '', // FB cookie id
-    _fbc:  Cookies.get('_fbp') || '',// FB cookie id if available
-    _ga: Cookies.get('_ga') || '', // GA cookie id
-    _gaexp: Cookies.get('_gaexp') || '',// Optimize cookie id if available
-    _gid:  Cookies.get('_gid') || '',// GA cookie id if available
-    __utma:  Cookies.get('__utma') || '',// GA cookie id if available
-    ttclid: Cookies.get('ttclid') || '',// TikTok cookie ID if using TikTok
-    crto_mapped_user_id: Cookies.get('crto_mapped_user_id') || '', // Criteo cookie id if using Criteo
     crto_is_user_optout: 'false', // Criteo opt out status
     user_id: Cookies.get('elevar_user_id') || (() => {
       const elevarUserId = uuidv4()
@@ -74,7 +63,25 @@ function getMarketingData() {
       return elevarUserId
     })()
   }
-  // console.log("dl marketing properties:", marketingProps)
+
+  const cookieArray = [
+    '_ga_T2Z4QVLW4Q', // GA4 Cookie ID
+    '_fbp', // FB cookie id
+    '_fbc', // FB cookie id if available
+    '_ga', // GA cookie id
+    '_gaexp', // Optimize cookie id if available
+    '_gid', // GA cookie id if available
+    '__utma', // GA cookie id if available
+    'ttclid', // TikTok cookie ID if using TikTok
+    'crto_mapped_user_id' // Criteo cookie id if using Criteo
+  ]
+  cookieArray.forEach(item => {
+    const cookieVal = Cookies.get(item) || ''
+    if (cookieVal) {
+      marketingProps[item] = cookieVal
+    }
+  })
+
   return marketingProps
 }
 
