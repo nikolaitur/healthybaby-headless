@@ -94,7 +94,7 @@ const NewLineItem = ({ item, content }) => {
               }
             ]
         });
-    
+
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)
             cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
@@ -126,7 +126,7 @@ const NewLineItem = ({ item, content }) => {
 
   const upgradeToSubscription = async () => {
     if (hasSubscriptionProduct.length > 0) {
-     
+
       const sellingPlanId = hasSubscriptionProduct[0].value
 
       let variantSku = item.attributes.filter(attribute => {
@@ -158,7 +158,7 @@ const NewLineItem = ({ item, content }) => {
                     cartId: Cookies.get('shopifyCartId'),
                     lines: [lineItem],
                 });
-            
+
                 if(cart) {
                     cartDrawerContext.setShopifyCart(cart)
                     cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
@@ -167,7 +167,7 @@ const NewLineItem = ({ item, content }) => {
                     }, 0))
                 }
             }
-        
+
             addItem()
         })
     }
@@ -200,11 +200,11 @@ const NewLineItem = ({ item, content }) => {
           ) : ('')}
           <div className="line-item__price">
             <>
-              {!item.attributes.length ? 
-                `$${Number(item.cost.totalAmount.amount).toFixed(2)}` : 
+              {!item.attributes.length ?
+                `$${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}` :
                 item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription")) && item.cost.compareAtAmountPerQuantity?.amount ? (
-                    <><span className="sale">${Number(item.cost.totalAmount.amount).toFixed(2)}</span> <span><s>${Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2) * item.quantity}</s></span></>
-                ) : `$${Number(item.cost.totalAmount.amount).toFixed(2)}`
+                    <><span className="sale">${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}</span> <span><s>${Math.round(Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2)) * item.quantity}</s></span></>
+                ) : `$${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}`
               }
             </>
           </div>
@@ -220,7 +220,7 @@ const NewLineItem = ({ item, content }) => {
                 <Plus />
               </button>
             </div>
-            <button onClick={() => { remove() }} className="line-item__trash"> 
+            <button onClick={() => { remove() }} className="line-item__trash">
               <Trash />
             </button>
           </div>

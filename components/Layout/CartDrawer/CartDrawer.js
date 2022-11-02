@@ -171,7 +171,7 @@ const CartDrawer = ({ content }) => {
 
   const handleProcessCheckout = async () => {
     const attributes = getCartAttributes()
-    
+
     dataLayerBeginCheckout({
       customer,
       cart: cartDrawerContext.shopifyCart
@@ -293,7 +293,7 @@ const CartDrawer = ({ content }) => {
                   className="btn secondary full-width"
                   onClick={handleProcessCheckout}
                 >
-                  <span>{`Checkout - $${Number(cartDrawerContext.cartTotal).toFixed(2)}`}</span>
+                  <span>{`Checkout - $${Math.round(Number(cartDrawerContext.cartTotal).toFixed(2))}`}</span>
                 </button>
               </div>
             </>

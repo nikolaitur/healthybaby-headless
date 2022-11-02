@@ -156,7 +156,7 @@ const ProductInfo = (props) => {
         sellingPlanPriceValue[0].sellingPlan.priceAdjustments
 
       setSubscriptionPrice(
-        sellingPlanPriceValue[0].priceAdjustments[0].price.amount
+        Math.round(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
       )
     }
   }

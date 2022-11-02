@@ -179,7 +179,7 @@ const LineItem = ({ item, content }) => {
               ) : item.subscription && item.sellingPlan ? (
                 <>
                   <span className="sale">
-                    ${Number(subscriptionPrice).toFixed(2)}
+                    ${Math.round(Number(subscriptionPrice).toFixed(2))}
                   </span>{' '}
                   <span>
                     <s>${item.variant.price.toFixed(2)}</s>
