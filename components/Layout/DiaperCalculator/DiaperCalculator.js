@@ -271,11 +271,16 @@ const DiaperCalculator = ({ props, children }) => {
             (metafield) => metafield.key === 'sellingPlanAllocations'
         )
 
+        let itemAttributes = [
+          { key: '_variantSku', value: variant.sku },
+          { key: '_productId', value: product.sourceEntryId },
+        ]
+
         let lineItem = {
             merchandiseId: selectedVariant[0].nacelleEntryId,
             nacelleEntryId: selectedVariant[0].nacelleEntryId,
             quantity: 1,
-            attributes: [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
+            attributes: itemAttributes
         }
 
         if (!sellingPlan) {
@@ -286,7 +291,7 @@ const DiaperCalculator = ({ props, children }) => {
             const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
             lineItem.sellingPlanId = sellingPlanId
-            itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+            itemAttributes.push({ key: '_subscription', value: sellingPlanId })
             itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
         }
 

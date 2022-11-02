@@ -54,6 +54,8 @@ const NewLineItem = ({ item, content }) => {
     setSubscriptionDiscount(item.attributes.filter(attribute => {
         if (Object.values(attribute).includes("_subscriptionDiscount")) { return attribute } else return false
     }))
+
+    console.log(item)
   }, [])
 
   const getOptions = () => {
