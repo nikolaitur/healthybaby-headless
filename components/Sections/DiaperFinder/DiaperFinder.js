@@ -293,7 +293,7 @@ const DiaperFinder = ({ content }) => {
       )
 
       let itemAttributes = []
-      
+
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
@@ -448,11 +448,9 @@ const DiaperFinder = ({ content }) => {
         >
           {product && selectedVariant ? (
             <div className="diaper-finder__product">
-              {!prenatalProduct ? (
+
                 <div className="diaper-finder__product--banner">SAVE 7.5%</div>
-              ) : (
-                ''
-              )}
+
               <div className="diaper-finder__product--container">
                 <div className="diaper-finder__product--content">
                   <div className="diaper-finder__title">
