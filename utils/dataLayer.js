@@ -136,7 +136,7 @@ function buildProductCartData(cart) {
       category: category ? category[0].value : '',
       variant: line.merchandise.title,
       price: line.cost.totalAmount.amount.toString(),
-      quantity: '1',
+      quantity: line.quantity.toString(),
       product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
       variant_id: line.merchandise.sourceEntryId.replace(
         'gid://shopify/ProductVariant/',
@@ -246,7 +246,7 @@ export const dataLayerATC = ({ customer, item, url }) => {
               category: item.product.productType,
               variant: item.variant.title,
               price: item.variant.price.toString(),
-              quantity: '1',
+              quantity: item.quantity,
               product_id: item.product.sourceEntryId.replace(
                 'gid://shopify/Product/',
                 ''
@@ -282,13 +282,16 @@ export const dataLayerRFC = ({ customer, item }) => {
 
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
+
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_remove_from_cart',
       event_id: uniqueKey.toString(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
+        currencyCode: 'USD',
         remove: {
+          actionField: { list: location.pathname, 'action': 'remove' },
           products: [
             {
               id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
@@ -297,7 +300,7 @@ export const dataLayerRFC = ({ customer, item }) => {
               category: category ? category[0].value : '',
               variant: item.merchandise.title,
               price: item.cost.amountPerQuantity.amount.toString(),
-              quantity: '0',
+              quantity: item.quantity,
               product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
               variant_id: item.merchandise.sourceEntryId
                 .split('gid://shopify/ProductVariant/')
@@ -393,25 +396,25 @@ export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
 }
 
 export const dataLayerViewCart = ({ customer, cart, url }) => {
-  const cartSubtotal = cart.reduce((sum, lineItem) => {
-    if (lineItem.sellingPlan) {
-      const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
-      const sellingPlanPrice =
-        sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-      return (
-        sum +
-        sellingPlanPriceValue[0].priceAdjustments[0].price.amount *
-          lineItem.quantity
-      )
-    } else {
-      return sum + lineItem.variant.price * lineItem.quantity
-    }
-  }, 0)
+  // const cartSubtotal = cart.reduce((sum, lineItem) => {
+  //   if (lineItem.sellingPlan) {
+  //     const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
+  //     const sellingPlanPrice =
+  //       sellingPlanPriceValue[0].sellingPlan.priceAdjustments
+  //     return (
+  //       sum +
+  //       sellingPlanPriceValue[0].priceAdjustments[0].price.amount *
+  //         lineItem.quantity
+  //     )
+  //   } else {
+  //     return sum + lineItem.variant.price * lineItem.quantity
+  //   }
+  // }, 0)
+  console.log("cart:", cart)
+  const products = buildProductCartData(cart)
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-  if (!cart.length) {
-    return false
-  }
+
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_view_cart',
@@ -419,15 +422,11 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: cartSubtotal.toString(),
+      cart_total: '',
       ecommerce: {
         currencyCode: 'USD',
         actionField: { list: 'Shopping Cart' },
-        impressions: buildProductData(
-          cart.map((item) => item.variant.product),
-          'collection',
-          url
-        ),
+        products
       },
     },
   })
