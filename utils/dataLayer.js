@@ -392,7 +392,7 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
       ecommerce: {
         currencyCode: 'USD',
         actionField: { list: 'Shopping Cart' },
-        products
+        impressions: products
       },
     },
   })
