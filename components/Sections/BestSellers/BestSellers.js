@@ -24,8 +24,8 @@ const BestSellers = ({ content }) => {
         const getProducts = async () => {
             if(sections) {
                 const productHandles = content.fields.sections.filter(section => {
-                    if (section.fields.handle) return section
-                }).map(section => section.fields.handle.replace('::en-US', ''))
+                    if (section.fields.productHandle) return section
+                }).map(section => section.fields.productHandle.replace('::en-US', ''))
 
                 const productsData = await nacelleClient.products({
                     handles: productHandles
@@ -68,7 +68,7 @@ const BestSellers = ({ content }) => {
                         >
                            {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products} />
+                                    <CollectionProductCard content={item} key={index} products={products} cardWidthOverride={'Normal'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -92,7 +92,7 @@ const BestSellers = ({ content }) => {
                         >
                             {sections.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} products={products} imageLayout={'fill'} />
+                                    <CollectionProductCard content={item} key={index} products={products} imageLayout={'fill'} cardWidthOverride={'Normal'} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>

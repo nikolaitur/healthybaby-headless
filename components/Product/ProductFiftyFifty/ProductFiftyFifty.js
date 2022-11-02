@@ -75,16 +75,17 @@ const ProductFiftyFifty = ({ content }) => {
                 )}
               </div>
               <div className="article-video__video">
-                {hasWindow && (
-                  <ReactPlayer
-                    url={content.fields?.videoUrl}
-                    playing={isPlayingMobile}
-                    controls={true}
-                    className="article-video__video-player"
-                    width="100%"
-                    height="100%"
-                  />
-                )}
+                {hasWindow &&
+                  content.fields?.videoUrl(
+                    <ReactPlayer
+                      url={content.fields.videoUrl}
+                      playing={isPlayingMobile}
+                      controls={true}
+                      className="article-video__video-player"
+                      width="100%"
+                      height="100%"
+                    />
+                  )}
               </div>
             </div>
           ) : mobileImage?.fields?.file?.url ? (
@@ -178,7 +179,7 @@ const ProductFiftyFifty = ({ content }) => {
                 )}
               </div>
             </div>
-          ) : mobileImage ? (
+          ) : mobileImage && content.fields?.image?.fields?.file ? (
             <Image
               src={`https:${content.fields.image.fields.file.url}`}
               alt={content.fields.image.fields.title}

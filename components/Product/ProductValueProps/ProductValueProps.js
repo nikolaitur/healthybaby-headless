@@ -15,52 +15,72 @@ const ProductValueProps = ({ content }) => {
     return (
        <div className="value-props">
             <div className="value-props__wrapper container">
-                {(content.fields?.valuePropText1) ? (
+                {(content.fields?.valuePropText1 && content.fields?.valuePropImage1?.fields?.file?.url) ? (
                     <div className="value-props__item">
-                        <div className="value-props__image desktop">
-                            <ValuePropSvg1 />
-                        </div>
-                        <div className="value-props__image mobile">
-                            <ValuePropSvgMobile1 />
+                        <div className="value-props__image">
+                            <Image
+                                className="featured"
+                                src={`https:${content.fields.valuePropImage1.fields.file.url}`}
+                                alt={content.fields.valuePropText1}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="108"
+                                width="108"
+                            />
                         </div>
                         <p className="value-props__copy">
                             { content.fields.valuePropText1 }
                         </p>
                     </div>
                 ) : ("")}
-                {(content.fields?.valuePropText2) ? (
+                {(content.fields?.valuePropText2 && content.fields?.valuePropImage2?.fields?.file?.url) ? (
                     <div className="value-props__item">
-                         <div className="value-props__image desktop">
-                            <ValuePropSvg2 />
-                        </div>
-                        <div className="value-props__image mobile">
-                            <ValuePropSvgMobile2 />
+                        <div className="value-props__image">
+                            <Image
+                                className="featured"
+                                src={`https:${content.fields.valuePropImage2.fields.file.url}`}
+                                alt={content.fields.valuePropText2}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="108"
+                                width="108"
+                            />
                         </div>
                         <p className="value-props__copy">
                             { content.fields.valuePropText2 }
                         </p>
                     </div>
                 ) : ("")}
-                {(content.fields?.valuePropText3) ? (
+                {(content.fields?.valuePropText3 && content.fields?.valuePropImage3?.fields?.file?.url) ? (
                     <div className="value-props__item">
-                         <div className="value-props__image desktop">
-                            <ValuePropSvg3 />
-                        </div>
-                        <div className="value-props__image mobile">
-                            <ValuePropSvgMobile3 />
+                        <div className="value-props__image">
+                            <Image
+                                className="featured"
+                                src={`https:${content.fields.valuePropImage3.fields.file.url}`}
+                                alt={content.fields.valuePropText3}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="108"
+                                width="108"
+                            />
                         </div>
                         <p className="value-props__copy">
                             { content.fields.valuePropText3 }
                         </p>
                     </div>
                 ) : ("")}
-                {(content.fields?.valuePropText4) ? (
+                {(content.fields?.valuePropText4 && content.fields?.valuePropImage4?.fields?.file?.url) ? (
                     <div className="value-props__item">
-                         <div className="value-props__image desktop">
-                            <ValuePropSvg4 />
-                        </div>
-                        <div className="value-props__image mobile">
-                            <ValuePropSvgMobile4 />
+                        <div className="value-props__image">
+                            <Image
+                                className="featured"
+                                src={`https:${content.fields.valuePropImage4.fields.file.url}`}
+                                alt={content.fields.valuePropText4}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="108"
+                                width="108"
+                            />
                         </div>
                         <p className="value-props__copy">
                             { content.fields.valuePropText4 }

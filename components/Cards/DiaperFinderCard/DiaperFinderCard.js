@@ -77,7 +77,7 @@ const DiaperFinderCard = ({ content, refs, index }) => {
                     <div className="diaper-finder-card__form">
                         <div className="input-wrapper birthday">
                             <span>{`Baby’s birthday`}</span>
-                            <DatePicker dateFormat="MM/dd/yy" closeOnScroll={false} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="00/00/00" />
+                            <DatePicker dateFormat="MM/dd/yy" closeOnScroll={false} selected={diaperCalculatorContext.diaperCalculatorData.birthday} onChange={(date) => handleDateChange(date)} placeholderText="MM/DD/YY" />
                         </div>
                         <div className="input-wrapper weight">
                             <span>{`Baby’s weight`}</span>

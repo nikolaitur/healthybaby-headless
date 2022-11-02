@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { nacelleClient } from 'services'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import { useCustomerContext } from '@/context/CustomerContext'
 import Head from 'next/head'
 
 import ProductGallery from '../../components/Product/ProductGallery'
@@ -9,27 +11,41 @@ import ProductSections from '../../components/Product/ProductSections'
 import ProductReviews from '../../components/Product/ProductReviews'
 
 function Product({ product, page, productBadges }) {
+  const router = useRouter()
+  const { customer, customerLoading } = useCustomerContext()
   useEffect(() => {
-    dataLayerViewProduct({ product })
-  }, [])
+    if (typeof customerLoading === 'boolean' && !customerLoading) {
+      setTimeout(
+        dataLayerViewProduct({customer, product: product, url: router.asPath }),
+        1000
+      )
+    }
+  }, [customerLoading])
 
   const pageTitle = `${product.content.title} – Healthybaby`
-  
+
   return (
     product && (
       <>
         <Head>
           <title>{pageTitle}</title>
-          <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+          <meta
+            name="description"
+            content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby"
+          />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <>
           <section className="product-main">
             <div className="product-main__container container">
-                <ProductGallery product={product} page={page} />
-                <ProductInfo product={product} page={page} />
+              <ProductGallery product={product} page={page} />
+              <ProductInfo product={product} page={page} />
             </div>
-            <ProductSections content={page} product={product} productBadges={productBadges} />
+            <ProductSections
+              content={page}
+              product={product}
+              productBadges={productBadges}
+            />
             <ProductReviews product={product} />
           </section>
         </>
@@ -67,7 +83,7 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.handle],
-    type: "product"
+    type: 'product',
   })
 
   let pageData = pages[0]
@@ -78,22 +94,21 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  if(!pages.length) {
-      pageData = [
-        {
-          "content": {
-            "fields": {
-              "sections": []
-            }
-          }
-        }
-      ]
+  if (!pages.length) {
+    pageData = [
+      {
+        content: {
+          fields: {
+            sections: [],
+          },
+        },
+      },
+    ]
   }
 
   const productBadges = await nacelleClient.content({
     type: 'productBadge',
   })
-
 
   return {
     props: {
@@ -149,6 +164,7 @@ const PAGE_QUERY = `
         sourceEntryId
         sku
         availableForSale
+        quantityAvailable
         price
         compareAtPrice
         metafields {

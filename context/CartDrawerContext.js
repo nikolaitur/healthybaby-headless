@@ -3,8 +3,9 @@ import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { useCart, useCheckout } from '@nacelle/react-hooks'
 import CartDrawer from '../components/Layout/CartDrawer'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { dataLayerViewCart } from '@/utils/dataLayer'
+import { useCustomerContext } from './CustomerContext'
 
 import * as Cookies from 'es-cookie'
 
@@ -16,11 +17,16 @@ export function useCartDrawerContext() {
 
 export function CartDrawerProvider({ children }) {
   const [{ cart }] = useCart()
+  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
   const [shopifyCartClient, setShopifyCartCartClient] = useState('')
-  const [shopifyCartId, setShopifyCartId] = useState(undefined)
+  const [shopifyCartId, setShopifyCartId] = useState(false)
+  const [shopifyCart, setShopifyCart] = useState(false)
+  const [cartTotal, setCartTotal] = useState(0)
+  const [cartCount, setCartCount] = useState(0)
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     const getCartDrawerContent = async () => {
@@ -37,7 +43,7 @@ export function CartDrawerProvider({ children }) {
 
   useEffect(() => {
     if (isOpen) {
-      dataLayerViewCart({ cart })
+      dataLayerViewCart({ customer, cart: cart, url: router.asPath })
     }
   }, [isOpen])
 
@@ -51,7 +57,7 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
-      console.log(Cookies.get('shopifyCartId'))
+      // console.log(Cookies.get('shopifyCartId'), lines, cart)
 
       if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
@@ -59,20 +65,24 @@ export function CartDrawerProvider({ children }) {
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            if (response.cart) {
+            // console.log(Cookies.get('shopifyCartId'), response, "1")
+            if (response) {
               setShopifyCartCartClient(response.cart)
-              setShopifyCartId(response.cart.id)
+              setShopifyCartId(Cookies.get('shopifyCartId'))
+              setShopifyCart(response)
             }
           })
       } else {
-        const shopifyCart = await cartClient
+        cartClient
           .cartCreate({
-            lines
+            lines,
           })
           .then((response) => {
+            // console.log(Cookies.get('shopifyCartId'), response, "2")
             if (response) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)
+              setShopifyCart(response)
               Cookies.set('shopifyCartId', response.cart.id)
             }
           })
@@ -92,6 +102,12 @@ export function CartDrawerProvider({ children }) {
         setShopifyCartCartClient,
         shopifyCartId,
         setShopifyCartId,
+        shopifyCart,
+        setShopifyCart,
+        cartTotal,
+        setCartTotal,
+        cartCount,
+        setCartCount
       }}
     >
       {children}

@@ -12,12 +12,12 @@ const FooterAccordion = ({ title, links }) => {
         <span>{title}</span>
         <span><CaretRight/></span>
       </div>
-      {isActive && 
+      {isActive &&
         <ul className={`accordion-content ${isActive ? "is-open" : ""}`}>
             {links.map((link, index) => (
                 <li className="accordion-link" key={index}>
-                     <Link href={link.fields.url}>
-                        {link.fields.title}
+                     <Link href={link?.fields?.url || ''}>
+                        {link?.fields?.title || ''}
                      </Link>
                 </li>
             ))}

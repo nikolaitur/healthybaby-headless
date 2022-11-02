@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DatePicker from 'react-datepicker'
 
+import * as Cookies from 'es-cookie'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 
@@ -19,7 +20,15 @@ import DiaperFinderDetail from '../../../svgs/diaper-finder-detail.svg'
 import DiaperFinderDetailMobile from '../../../svgs/diaper-finder-detail-mobile.svg'
 
 const DiaperFinder = ({ content }) => {
-  const { image, mobileImage, description, ctaTextColor, ctaHoverTextColor, ctaBackgroundColor, ctaHoverBackgroundColor } = { ...content.fields }
+  const {
+    image,
+    mobileImage,
+    description,
+    ctaTextColor,
+    ctaHoverTextColor,
+    ctaBackgroundColor,
+    ctaHoverBackgroundColor,
+  } = { ...content.fields }
 
   const genderOptions = [
     { value: 'He', label: 'He' },
@@ -117,7 +126,7 @@ const DiaperFinder = ({ content }) => {
         setWeight(0)
       } else {
         if (value.length > 2) {
-          return false;
+          return false
         }
         setWeight(Number(value))
       }
@@ -168,25 +177,23 @@ const DiaperFinder = ({ content }) => {
   }
 
   const getProductRecommendation = () => {
-
     if (!startDate) {
-      return false;
+      setIsActive(true)
+      return false
     }
 
     let today = new Date()
     let babyMonth = getMonthDifference(startDate, today)
     console.log(getMonthDifference(startDate, today), Number(weight), 'Weight')
 
-    if (babyMonth < 0) {
+    if (babyMonth <= 0) {
       getPrenantalRecommendation()
       return
     }
 
     if (weight < 6) {
-      if (babyMonth > 0) {
-        console.log('Contact Customer Service')
-        // return "Contact Customer Service"
-      }
+      setIsActive(true)
+      // return "Contact Customer Service"
     } else if (weight >= 6 && weight <= 11.99) {
       if (babyMonth <= 2 && babyMonth >= 0) {
         getProduct('our-newborn-gift-bundle')
@@ -212,7 +219,7 @@ const DiaperFinder = ({ content }) => {
       }
     } else if (weight >= 17 && weight <= 19.99) {
       if (babyMonth <= 28 && babyMonth >= 0) {
-        getProduct('our-pull-up-style-diaper-bundle', 'Size 3')
+        getProduct('diaper-and-wipe-subscription', 'Size 3')
         console.log('Monthly Diaper Bundle with wipes- size 3')
       } else if (babyMonth >= 29) {
         getProduct('our-pull-up-style-diaper-bundle', 'Size 4')
@@ -248,8 +255,6 @@ const DiaperFinder = ({ content }) => {
     } else {
       setIsActive(true)
     }
-
-    // console.log(product, selectedVariant)
   }
 
   const getProduct = async (handle, size = 'Size 1', prenantal = false) => {
@@ -294,52 +299,66 @@ const DiaperFinder = ({ content }) => {
         (metafield) => metafield.key === 'sellingPlanAllocations'
       )
 
-      if (!sellingPlan) {
-        sellingPlan = false
+      let itemAttributes = [
+        { key: '_variantSku', value: variant.sku },
+        { key: '_productId', value: product.sourceEntryId },
+      ]
+
+      if (sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+        itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
       }
 
-      addToCart({
-        product,
-        variant,
-        quantity: 1,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: 1,
+            attributes: itemAttributes,
+          },
+        ],
       })
 
-      console.log(cartDrawerContext.shopifyCartId)
+      console.log(cart, userErrors, errors)
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: 1,
-            },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      if (cart) {
+        console.log('Subscription')
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+          }, 0)
+        )
+      }
 
       cartDrawerContext.setIsOpen(true)
     }
   }
 
   return (
-    <section className="diaper-finder" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
+    <section
+      className="diaper-finder"
+      data-background-color={
+        content.fields?.backgroundColor
+          ? content.fields.backgroundColor.toLowerCase()
+          : ''
+      }
+    >
       <div className="diaper-finder__container container">
         <div className="diaper-finder__content">
           <h6 className="diaper-finder__subheader">
             LET’S PERSONALIZE YOUR EXPERIENCE
           </h6>
-          <form className="diaper-finder__form" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="diaper-finder__form"
+            autoComplete="off"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <span>
               <span>My baby’s name is</span>
               <input
@@ -392,9 +411,9 @@ const DiaperFinder = ({ content }) => {
           </form>
           <div
             className="diaper-finder__cta"
-            onClick={() => showDiaperResults()}>
-            <button
-              className="btn">
+            onClick={() => showDiaperResults()}
+          >
+            <button className="btn">
               <style jsx>{`
                 button {
                   color: ${ctaTextColor};
@@ -405,8 +424,8 @@ const DiaperFinder = ({ content }) => {
                   background-color: ${ctaHoverBackgroundColor};
                 }
               `}</style>
-                Explore Recommendations
-              </button>
+              Explore Recommendations
+            </button>
           </div>
           <div
             className={`diaper-finder__clear ${
@@ -424,26 +443,30 @@ const DiaperFinder = ({ content }) => {
         <div
           className={`diaper-finder__image ${!isActive ? 'is-open' : 'hidden'}`}
         >
-          {image?.fields?.file?.url && <div className="diaper-finder__image--desktop">
-            <Image
-              className=""
-              src={`https:${image.fields.file.url}`}
-              alt="diaper"
-              width={1488}
-              height={963}
-            />
-          </div>}
-          {mobileImage.fields?.file?.url && <div className="diaper-finder__image--mobile">
-            <Image
-              className=""
-              src={`https:${mobileImage.fields.file.url}`}
-              alt="diaper"
-              layout="responsive"
-              objectFit="cover"
-              width={375}
-              height={344}
-            />
-          </div>}
+          {image?.fields?.file?.url && (
+            <div className="diaper-finder__image--desktop">
+              <Image
+                className=""
+                src={`https:${image.fields.file.url}`}
+                alt="diaper"
+                width={1488}
+                height={963}
+              />
+            </div>
+          )}
+          {mobileImage.fields?.file?.url && (
+            <div className="diaper-finder__image--mobile">
+              <Image
+                className=""
+                src={`https:${mobileImage.fields.file.url}`}
+                alt="diaper"
+                layout="responsive"
+                objectFit="cover"
+                width={375}
+                height={344}
+              />
+            </div>
+          )}
         </div>
         <div
           className={`diaper-finder__results ${
@@ -452,11 +475,8 @@ const DiaperFinder = ({ content }) => {
         >
           {product && selectedVariant ? (
             <div className="diaper-finder__product">
-              {!prenatalProduct ? (
-                <div className="diaper-finder__product--banner">SAVE 7.5%</div>
-              ) : (
-                ''
-              )}
+              <div className="diaper-finder__product--banner">SAVE 7.5%</div>
+
               <div className="diaper-finder__product--container">
                 <div className="diaper-finder__product--content">
                   <div className="diaper-finder__title">

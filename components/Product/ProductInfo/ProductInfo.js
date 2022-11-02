@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@nacelle/react-hooks'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -12,6 +13,7 @@ import Script from 'next/script'
 import * as Cookies from 'es-cookie'
 
 import { dataLayerATC } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
@@ -29,6 +31,8 @@ import QuestionMark from '../../../svgs/question-mark.svg'
 
 const ProductInfo = (props) => {
   const { product, page } = { ...props }
+
+  const router = useRouter()
 
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -48,6 +52,7 @@ const ProductInfo = (props) => {
   const [messageProduct, setMessageProduct] = useState(false)
   const [hasWindow, setHasWindow] = useState(false)
 
+  const { customer } = useCustomerContext()
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
@@ -199,7 +204,11 @@ const ProductInfo = (props) => {
           nacelleEntryId: selectedVariant.nacelleEntryId,
           quantity: quantity,
           sellingPlanId,
-          attributes: [{ key: 'subscription', value: sellingPlanId }],
+          attributes: [
+            { key: 'subscription', value: sellingPlanId },
+            { key: '_variantSku', value: variant.sku },
+            { key: '_productId', value: product.sourceEntryId },
+          ],
         }
       }
 
@@ -210,29 +219,22 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: true,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [lineItem],
       })
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [lineItem],
-        })
-        .then((data) => {
-          console.log(data, 'Cart data')
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      if (cart) {
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+          }, 0)
+        )
+      }
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -249,35 +251,41 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      addToCart({
-        product,
-        variant,
-        quantity,
-        sellingPlan,
-        subscription: false,
-        nacelleEntryId: selectedVariant.nacelleEntryId,
-        selectedVariant,
+      let itemAttributes = [
+        { key: '_variantSku', value: variant.sku },
+        { key: '_productId', value: product.sourceEntryId },
+      ]
+
+      if (sellingPlan) {
+        const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+        const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+
+        itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+      }
+
+      const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+        cartId: Cookies.get('shopifyCartId'),
+        lines: [
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: quantity,
+            attributes: itemAttributes,
+          },
+        ],
       })
 
-      await cartClient
-        .cartLinesAdd({
-          cartId: cartDrawerContext.shopifyCartId,
-          lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: quantity,
-            },
-          ],
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.error(err, 'Error')
-        })
+      if (cart) {
+        cartDrawerContext.setShopifyCart(cart)
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+          }, 0)
+        )
+      }
     }
 
     cartDrawerContext.setIsOpen(true)
@@ -397,10 +405,11 @@ const ProductInfo = (props) => {
                     return (
                       <div
                         className="product-form__add-on"
-                        onChange={() => handleCheckBoxChange(option)}
+                        onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page?.fields?.productAddOnImage ? (
+                          {page?.fields?.productAddOnImage?.fields?.file
+                            ?.url ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
@@ -423,7 +432,10 @@ const ProductInfo = (props) => {
                               : '+$27'}
                           </div>
                         </div>
-                        <input type="checkbox"></input>
+                        <input
+                          type="checkbox"
+                          checked={!selectedCombination}
+                        ></input>
                       </div>
                     )
                   default:
@@ -432,6 +444,7 @@ const ProductInfo = (props) => {
                         option={option}
                         handleOptionChange={handleOptionChange}
                         diaperAmount={diaperAmount}
+                        product={product}
                         key={oIndex}
                       />
                     )
@@ -457,7 +470,7 @@ const ProductInfo = (props) => {
                   checked={isCheckedOneTime}
                 />
                 <label htmlFor="onetimeOption">
-                  Buy One Time{' '}
+                  One-Time Purchase{' '}
                   <span className="price">
                     ${selectedVariant.price.toFixed(2)}
                   </span>
@@ -476,9 +489,9 @@ const ProductInfo = (props) => {
                   checked={isCheckedSubscription}
                 />
                 <label htmlFor="subscriptionOption">
-                  Monthly Auto-Ship <br />
+                  Auto Delivery <br />
                   <span>
-                    Update sizing or cancel anytime
+                    Update sizing or pause anytime
                     <span
                       className="question-mark"
                       onClick={() => openSubscribeInfoModal()}
@@ -627,6 +640,19 @@ const ProductInfo = (props) => {
                 ) : (
                   ''
                 )}
+                {page.fields?.productDetailTabTitle4 &&
+                page.fields?.productDetailTabContent4 ? (
+                  <div
+                    className={`product-tabs__title ${
+                      activeTab == 3 ? 'active' : ''
+                    }`}
+                    onClick={() => setActiveTab(3)}
+                  >
+                    {page.fields.productDetailTabTitle4}
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
               <div className="product-tabs__content">
                 {page.fields?.productDetailTabTitle1 &&
@@ -670,6 +696,22 @@ const ProductInfo = (props) => {
                     dangerouslySetInnerHTML={{
                       __html: documentToHtmlString(
                         page.fields.productDetailTabContent3,
+                        richTextRenderOptions
+                      ),
+                    }}
+                  ></div>
+                ) : (
+                  ''
+                )}
+                {page.fields?.productDetailTabTitle4 &&
+                page.fields?.productDetailTabContent4 ? (
+                  <div
+                    className={`product-tabs__tab ${
+                      activeTab == 3 ? 'active' : ''
+                    }`}
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        page.fields.productDetailTabContent4,
                         richTextRenderOptions
                       ),
                     }}

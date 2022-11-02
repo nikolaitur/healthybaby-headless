@@ -45,8 +45,8 @@ const Footer = ({ content }) => {
                                   <div className="footer__links">
                                       {item.fields.links.map((link, index) => (
                                           <div className="footer__link" key={index}>
-                                              <Link href={link.fields.url}>
-                                                  {link.fields.title}
+                                              <Link href={link?.fields?.url || ''}>
+                                                  {link?.fields?.title || ''}
                                               </Link>
                                           </div>
                                       ))}
@@ -71,8 +71,8 @@ const Footer = ({ content }) => {
                         {content.fields?.policy ? (
                             <div className="footer__policies">
                                 {policy.map((item, index) => (
-                                    <Link href={item.fields.url} key={index}>
-                                        <div className="footer__policy">{item.fields.title}</div>
+                                    <Link href={item?.fields?.url || ''} key={index}>
+                                        <div className="footer__policy">{item?.fields?.title || ''}</div>
                                     </Link>
                                 ))}
                             </div>
@@ -90,16 +90,16 @@ const Footer = ({ content }) => {
 
                     <div className="footer__policy footer__policy--mobile">
                         {content.fields?.policy ? (
-                            <Link href={policy[0].fields.url}>
-                                {policy[0].fields.title}
+                            <Link href={policy[0]?.fields?.url || ''}>
+                                {policy[0]?.fields?.title || ''}
                             </Link>
                         ) : ""}
 
                         {content.fields?.policy ? (
                             <>
                                 <span>|</span>
-                                <Link href={policy[1].fields.url}>
-                                    {policy[1].fields.title}
+                                <Link href={policy[1]?.fields?.url || ''}>
+                                    {policy[1]?.fields?.title || ''}
                                 </Link>
                             </>
                         ) : ""}
@@ -107,8 +107,8 @@ const Footer = ({ content }) => {
                         {content.fields?.policy ? (
                             <>
                                 <span>|</span>
-                                <Link href={policy[2].fields.url}>
-                                    {policy[2].fields.title}
+                                <Link href={policy[2]?.fields?.url || ''}>
+                                    {policy[2]?.fields?.title || ''}
                                 </Link>
                             </>
                         ) : ""}

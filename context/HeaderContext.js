@@ -16,12 +16,12 @@ export function HeaderProvider({ children, content, pageHandle }) {
   const [megaMenuFeaturedProducts, setMegaMenuFeaturedProducts] = useState([])
 
   useEffect(() => {
-    if(megaMenuIsOpen) {
-      document.body.classList.add("no-scroll")
+    if (megaMenuIsOpen) {
+      document.body.classList.add('no-scroll')
     } else {
-      document.body.classList.remove("no-scroll")
+      document.body.classList.remove('no-scroll')
     }
-  }, [megaMenuIsOpen]);
+  }, [megaMenuIsOpen])
 
   useEffect(() => {
     const onRouteChangeComplete = () => {
@@ -31,7 +31,16 @@ export function HeaderProvider({ children, content, pageHandle }) {
   }, [router.pathname])
 
   return (
-    <HeaderContext.Provider value={{ megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu, megaMenuFeaturedProducts, setMegaMenuFeaturedProducts}}>
+    <HeaderContext.Provider
+      value={{
+        megaMenuIsOpen,
+        setmegaMenuIsOpen,
+        megaMenu,
+        setMegaMenu,
+        megaMenuFeaturedProducts,
+        setMegaMenuFeaturedProducts,
+      }}
+    >
       <Header content={content} pageHandle={pageHandle} />
       {children}
     </HeaderContext.Provider>

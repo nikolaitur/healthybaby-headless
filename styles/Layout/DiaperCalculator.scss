@@ -96,7 +96,7 @@
         font-family: $DomaineText;
         font-style: normal;
         font-weight: 500;
-        font-size: 28px;
+        font-size: 24px;
         line-height: 40px;
         color: $primaryBrown;
         margin-top: 35px;
@@ -112,7 +112,7 @@
             background: transparent;
             font-family: $DomaineText;
             font-weight: 500;
-            font-size: 28px;
+            font-size: 24px;
             line-height: 40px;
             color: #4161A5;
             border: none;
@@ -181,7 +181,7 @@
             width: max-content;
 
             input {
-                max-width: 125px;
+                max-width: 130px;
             }
 
             @include breakpoint-up('md') {
@@ -195,7 +195,7 @@
             font-family: $DomaineText;
             font-style: italic;
             font-weight: 500;
-            font-size: 28px;
+            font-size: 24px;
             line-height: 40px;
             color: #4161A5;
             transform:translate(-35px, 1px);
@@ -216,6 +216,16 @@
         margin-top: 35px;
         padding-top: 35px;
         border-top: 1px solid rgba(61, 51, 49, 0.1);
+    }
+
+    &__error {
+        margin-top: 30px;
+        font-size: 18px;
+        line-height: 20px;
+
+        a {
+            color: $primaryGreen;
+        }
     }
 
     &__recommendation {
@@ -249,8 +259,6 @@
         .weight {
             transform: translateY(1.5px);
         }
-
-
     }
 
     &__select {

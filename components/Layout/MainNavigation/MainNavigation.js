@@ -26,10 +26,9 @@ import CaretRight from '../../../svgs/caret-right.svg'
 import { unlockScroll, lockScroll } from '@/utils/scroll'
 
 const MainNavigation = forwardRef(({ props }, ref) => {
-  const customerContext = useCustomerContext()
+  const { customer, logout } = useCustomerContext()
   const modalContext = useModalContext()
-  const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } =
-    useHeaderContext()
+  const { megaMenuIsOpen, setmegaMenuIsOpen, megaMenu, setMegaMenu } = useHeaderContext()
   const cartDrawerContext = useCartDrawerContext()
 
   const router = useRouter()
@@ -218,7 +217,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           >
             <Search />
           </div>
-          {customerContext.customer ? (
+          {customer ? (
             <div className="main-nav__item">
               <Link href="/account/my-info">
                 <a>
@@ -231,8 +230,11 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               <Baby />
             </div>
           )}
-          <div className="main-nav__item" onClick={() => openCartDrawer()}>
+          <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
+            {cartDrawerContext.cartCount > 0 ? (
+              <span>{ cartDrawerContext.cartCount }</span>
+            ) : ""}
           </div>
           <div className={`main-nav__search ${isSearchOpen ? 'active' : ''}`}>
             <input
@@ -269,7 +271,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
           </Link>
         </div>
         <div className="mobile-nav__right">
-          {customerContext.customer ? (
+          {customer ? (
             <div className="main-nav__item">
               <Link href="/account/my-info">
                 <a>
@@ -282,8 +284,11 @@ const MainNavigation = forwardRef(({ props }, ref) => {
               <Baby />
             </div>
           )}
-          <div className="main-nav__item" onClick={() => openCartDrawer()}>
+          <div className="main-nav__item main-nav__item-cart" onClick={() => openCartDrawer()}>
             <Cart />
+            {cartDrawerContext.cartCount > 0 ? (
+              <span>{ cartDrawerContext.cartCount }</span>
+            ) : ""}
           </div>
         </div>
       </div>
@@ -329,9 +334,22 @@ const MainNavigation = forwardRef(({ props }, ref) => {
             : ''}
         </div>
         <div className="mobile-menu__sign-in">
-          <Link href="/sign-in">
-            <a>Sign In</a>
-          </Link>
+          {customer ? <button
+            onClick={async() => {
+              await logout()
+              closeMobileMenu()
+            }}>
+              Sign Out
+            </button>
+            :
+            <button
+            onClick={() => {
+              closeMobileMenu()
+              openAccountModal()
+            }}>
+              Sign In
+            </button>
+          }
         </div>
         <div
           className={`mobile-menu__slide ${

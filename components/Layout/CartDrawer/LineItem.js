@@ -8,22 +8,29 @@ import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
+
+import * as Cookies from 'es-cookie'
 
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 import Trash from '../../../svgs/trash.svg'
 
-const LineItem = ({ item }) => {
+const LineItem = ({ item, content }) => {
   const [
     { cart },
     { incrementItem, decrementItem, removeFromCart, addToCart },
   ] = useCart()
 
+  const router = useRouter()
+
   const [subscriptionPrice, setSubscriptionPrice] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
+  const { customer } = useCustomerContext()
 
   let isSubscription = false
   let hasSubscriptionProduct = false
@@ -53,16 +60,28 @@ const LineItem = ({ item }) => {
 
   const decrement = () => {
     if (item.quantity <= 1) {
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
       removeFromCart(item)
     } else {
       decrementItem(item)
     }
   }
 
-  const remove = () => {
-    dataLayerRFC({ item })
+  const remove = async () => {
+    dataLayerRFC({ customer, item })
     removeFromCart(item)
+
+    const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
+        cartId: Cookies.get('shopifyCartId'),
+        lineIds: [item.id]
+    });
+
+    if(cart) {
+        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+            return sum + line.quantity
+        }, 0))
+    }
   }
 
   const upgradeToSubscription = async () => {
@@ -78,7 +97,7 @@ const LineItem = ({ item }) => {
         // attributes: [{ key: 'subscription', value: sellingPlanId }]
       }
 
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
 
       removeFromCart(item)
 
@@ -94,7 +113,7 @@ const LineItem = ({ item }) => {
         quantity: 1,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       addToCart({
         merchandiseId: item.nacelleEntryId,
@@ -127,17 +146,17 @@ const LineItem = ({ item }) => {
     <div className="line-item">
       <div className="line-item__wrapper">
         <div className="line-item__image">
-            {item.variant.featuredMedia?.src ? (
-                    <Image
-                        className=""
-                        src={`${item.variant.featuredMedia.src}`}
-                        alt={ item.variant.productTitle }
-                        layout="responsive"
-                        objectFit="cover"
-                        height="132"
-                        width="108"
-                    />
-            ) : ""}
+          {item.variant.featuredMedia?.src ? (
+              <Image
+                  className=""
+                  src={`${item.variant.featuredMedia.src}`}
+                  alt={ item.variant.productTitle }
+                  layout="responsive"
+                  objectFit="cover"
+                  height="132"
+                  width="108"
+              />
+          ) : ""}
         </div>
         <div className="line-item__content">
           <div className="line-item__title">{item.variant.productTitle}</div>
@@ -155,14 +174,20 @@ const LineItem = ({ item }) => {
           )}
           <div className="line-item__price">
             <>
-              {!item.sellingPlan
-                ? `$${item.variant.price.toFixed(2)}`
-                : item.subscription && item.sellingPlan
-                ?
-                (<>
-                    <span className="sale">${Math.round(subscriptionPrice)}</span> <span><s>${item.variant.price.toFixed(2)}</s></span>
-                </>)
-                : `$${item.variant.price.toFixed(2)}`}
+              {!item.sellingPlan ? (
+                `$${item.variant.price.toFixed(2)}`
+              ) : item.subscription && item.sellingPlan ? (
+                <>
+                  <span className="sale">
+                    ${Math.round(Number(subscriptionPrice).toFixed(2))}
+                  </span>{' '}
+                  <span>
+                    <s>${item.variant.price.toFixed(2)}</s>
+                  </span>
+                </>
+              ) : (
+                `$${item.variant.price.toFixed(2)}`
+              )}
             </>
           </div>
           <div className="line-item__quantity">
@@ -199,7 +224,11 @@ const LineItem = ({ item }) => {
           className="line-item__upgrade"
           onClick={() => upgradeToSubscription()}
         >
-          Upgrade to Subscribe & Save 7.5%
+          Upgrade to Subscribe & Save{' '}
+          {content?.fields?.subscriptionDiscountPercent
+            ? content.fields.subscriptionDiscountPercent
+            : '7.5'}
+          %
         </button>
       ) : (
         ''

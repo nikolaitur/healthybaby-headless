@@ -12,6 +12,8 @@ import { useModalContext } from '../../../context/ModalContext'
 
 import DatePicker from "react-datepicker";
 
+import * as Cookies from 'es-cookie'
+
 import "react-datepicker/dist/react-datepicker.css"
 
 import LongArrowRight from '../../../svgs/long-arrow-right.svg'
@@ -44,6 +46,8 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         if(lifeStage == "conceive") {
             getResultProduct("our-prenatal-preconception-1st-trimester")
+        } else if (lifeStage == "postpartum"){
+            getResultProduct("our-prenatal-4th-trimester-postnatal")
         } else {
             setProduct(false)
         }
@@ -94,38 +98,35 @@ const VitaminFinder = ({ content, refs, index }) => {
 
         let sellingPlan = selectedVariant.metafields.find((metafield) => metafield.key === 'sellingPlanAllocations')
 
-        if(!sellingPlan) {
-            sellingPlan = false
+        let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
+
+        if(sellingPlan) {
+            const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
+            const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+            itemAttributes.push({ key: "_sellingPlan", value: sellingPlanId})
         }
 
-        addToCart({
-            product,
-            variant,
-            quantity: 1,
-            sellingPlan,
-            subscription: false,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            selectedVariant
-        })
-
-        await cartClient.cartLinesAdd({
-            cartId: cartDrawerContext.shopifyCartId,
+        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+            cartId: Cookies.get('shopifyCartId'),
             lines: [
-              {
+                {
                 merchandiseId: selectedVariant.nacelleEntryId,
                 nacelleEntryId: selectedVariant.nacelleEntryId,
                 quantity: 1,
-              }
-            ]
-          })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.error(err, "Error")
-          })
+                attributes: itemAttributes
+                },
+            ],
+        });
 
-          cartDrawerContext.setIsOpen(true)
+        if(cart) {
+            cartDrawerContext.setShopifyCart(cart)
+            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                return sum + line.quantity
+            }, 0))
+        }
+
+        cartDrawerContext.setIsOpen(true)
     }
 
     useEffect(() => {
@@ -188,7 +189,7 @@ const VitaminFinder = ({ content, refs, index }) => {
                     <button className="btn" onClick={() => goToNextStage(2, "pregnant")}>
                         <span>{ ctaText2 }</span>
                     </button>
-                    <button className="btn" onClick={() => goToNextStage(2, "postpartum")}>
+                    <button className="btn" onClick={() => goToNextStage(3, "postpartum")}>
                         <span>{ ctaText3 }</span>
                     </button>
                 </div>
@@ -214,6 +215,8 @@ const VitaminFinder = ({ content, refs, index }) => {
                                 <Image
                                     src={product.content.featuredMedia.src}
                                     alt={header}
+                                    layout="responsive"
+                                    objectFit="cover"
                                     height="315"
                                     width="315"
                                 />
