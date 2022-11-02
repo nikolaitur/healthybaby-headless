@@ -26,16 +26,14 @@ function getUserProperties(customer)  {
     }
   }
 
-  if (customer?.orders?.edges?.length) {
-    let orderTotal = 0
-    for (var i = 0; i < customer.orders?.edges?.length; i++) {
-      orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
-    }
-    customerProps = {
-      ...customerProps,
-      customer_order_count: customer.orders.length.toString(),
-      customer_total_spent: orderTotal.toString(),
-    }
+  let orderTotal = 0
+  for (var i = 0; i < customer?.orders?.edges?.length; i++) {
+    orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
+  }
+  customerProps = {
+    ...customerProps,
+    customer_order_count: customer?.orders?.length.toString() || '0',
+    customer_total_spent: orderTotal.toString(),
   }
 
   if (customer?.defaultAddress) {
@@ -86,17 +84,13 @@ function getMarketingData() {
 }
 
 function buildProductData(products, type, url) {
-  let category = ''
-  if (type === 'collection' && url !== '/shop-all') {
-    category = url.replace('/collections/', '')
-  }
   return products.map((product, index) => {
     const firstVariant = product.variants[0]
     const data = {
       id: firstVariant.sku, // SKU
       name: product.content.title, // Product title
       brand: 'Healthy Baby',
-      category: category,
+      category: product.productType || '',
       variant: firstVariant.content.title,
       price: firstVariant.price.toString(),
       quantity: '1',
@@ -112,7 +106,7 @@ function buildProductData(products, type, url) {
 
     if (type === 'collection') {
       data['list'] = url // The list the product was discovered from or is displayed in
-      data['position'] = (index + 1).toString() // position in the list of search results, collection views and position in cart indexed starting at 1
+      data['position'] = index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
     }
 
     return data
@@ -131,11 +125,15 @@ function buildProductCartData(cart) {
       if (Object.values(attribute).includes("_productId")) { return attribute } else return false
     })
 
+    let category = line.attributes.filter(attribute => {
+      if (Object.values(attribute).includes("_productType")) { return attribute } else return false
+    })
+
     const data = {
       id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
       name: line.merchandise.product.title, // Product title
       brand: 'Healthy Baby',
-      category: '',
+      category: category ? category[0].value : '',
       variant: line.merchandise.title,
       price: line.cost.totalAmount.amount.toString(),
       quantity: '1',
@@ -161,7 +159,7 @@ function buildProductDataWithVariantOption(product, variantOption) {
     id: variant.sku, // SKU
     name: product.content.title, // Product title
     brand: 'Healthy Baby',
-    category: '',
+    category: product.productType,
     variant: variant.content.title,
     price: variant.price.toString(),
     quantity: '1',
@@ -229,9 +227,6 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
 }
 
 export const dataLayerATC = ({ customer, item, url }) => {
-  const category = url.includes('/collections/')
-    ? url.replace('/collections/', '')
-    : ''
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -248,7 +243,7 @@ export const dataLayerATC = ({ customer, item, url }) => {
               id: item.variant.sku, // SKU
               name: item.variant.productTitle, // Product title
               brand: 'Healthy Baby',
-              category: category,
+              category: item.product.productType,
               variant: item.variant.title,
               price: item.variant.price.toString(),
               quantity: '1',
@@ -280,7 +275,11 @@ export const dataLayerRFC = ({ customer, item }) => {
   let productId = item.attributes.filter(attribute => {
     if (Object.values(attribute).includes("_productId")) { return attribute } else return false
   })
-  
+
+  let category = item.attributes.filter(attribute => {
+    if (Object.values(attribute).includes("_productType")) { return attribute } else return false
+  })
+
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -295,7 +294,7 @@ export const dataLayerRFC = ({ customer, item }) => {
               id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
               name: item.merchandise.product.title, // Product title
               brand: 'Healthy Baby',
-              category: '',
+              category: category ? category[0].value : '',
               variant: item.merchandise.title,
               price: item.cost.amountPerQuantity.amount.toString(),
               quantity: '0',
@@ -350,7 +349,7 @@ export const dataLayerViewSearchResults = ({ customer, products }) => {
           return {
             name: item.content.title, // Product title
             brand: 'Healthy Baby',
-            category: '',
+            category: item.productType,
             product_id: item.sourceEntryId
               .split('gid://shopify/Product/')
               .pop(), // The product_id

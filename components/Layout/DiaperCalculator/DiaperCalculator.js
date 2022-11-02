@@ -275,7 +275,7 @@ const DiaperCalculator = ({ props, children }) => {
             merchandiseId: selectedVariant[0].nacelleEntryId,
             nacelleEntryId: selectedVariant[0].nacelleEntryId,
             quantity: 1,
-            attributes: [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
+            attributes: [{ key: "_variantSku", value: variant.sku},  {key: '_productType', value: product.productType}, { key: "_productId", value: product.sourceEntryId}]
         }
 
         if (!sellingPlan) {

@@ -8,6 +8,7 @@ import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
 import { useCustomerContext } from '@/context/CustomerContext'
 
+import { GET_PRODUCTS } from 'gql'
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
 function Collection(props) {
@@ -80,9 +81,14 @@ export async function getStaticProps({ params }) {
       })
       .map((section) => section.fields.productHandle.replace('::en-US', ''))
 
-    const products = await nacelleClient.products({
-      handles: productHandles,
-    })
+    const { products } = await nacelleClient.query({
+      query: GET_PRODUCTS,
+      variables: {
+        "filter": {
+          "handles": productHandles
+        }
+      }
+    });
 
     const productBadges = await nacelleClient.content({
       type: 'productBadge',

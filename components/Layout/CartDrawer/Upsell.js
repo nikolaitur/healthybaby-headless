@@ -60,7 +60,7 @@ const Upsell = ({ product, variantId }) => {
 
     dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-    let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
+    let itemAttributes = [{ key: "_variantSku", value: variant.sku}, {key: '_productType', value: product.productType}, { key: "_productId", value: product.sourceEntryId}]
 
     let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'

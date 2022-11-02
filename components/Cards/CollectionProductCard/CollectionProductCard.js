@@ -128,8 +128,8 @@ const CollectionProductCard = forwardRef(
 
       dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-      let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
-      
+      let itemAttributes = [{ key: "_variantSku", value: variant.sku}, {key: '_productType', value: item.product.productType}, { key: "_productId", value: product.sourceEntryId}]
+
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id

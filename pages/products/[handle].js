@@ -138,6 +138,7 @@ const PAGE_QUERY = `
     products(filter: { handles: [$handle] }){
       nacelleEntryId
       sourceEntryId
+      productType
       content{
         handle
         title
