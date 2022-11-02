@@ -294,7 +294,7 @@ const MainNavigation = forwardRef(({ props }, ref) => {
       </div>
       <div
         className={`mobile-menu ${isMobileMenuOpen ? 'is-open' : ''}`}
-        style={{ top: announcementBarHeight }}
+        style={{ top: announcementBarHeight, height: `calc(100% - ${announcementBarHeight}px)`  }}
         ref={mobileMenuRef}
       >
         <div className="mobile-menu__close" onClick={() => closeMobileMenu()}>
