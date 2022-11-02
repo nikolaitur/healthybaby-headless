@@ -51,7 +51,7 @@ function getUserProperties(customer)  {
       customer_zip: customer.defaultAddress.zip
     }
   }
-  console.log("dl user properties:", customerProps)
+  // console.log("dl user properties:", customerProps)
   return customerProps
 }
 
@@ -74,7 +74,7 @@ function getMarketingData() {
       return elevarUserId
     })()
   }
-  console.log("dl marketing properties:", marketingProps)
+  // console.log("dl marketing properties:", marketingProps)
   return marketingProps
 }
 

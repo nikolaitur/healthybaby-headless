@@ -9,6 +9,7 @@ import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import queryString from 'query-string'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)
@@ -35,7 +36,51 @@ function AppContainer({
     storefrontApiVersion: process.env.NEXT_PUBLIC_STOREFRONT_API_VERSION,
   })
 
+  const trackUtmParams = () => {
+    const utmVars = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+      'gclid'
+    ]
+
+    const clidVars = ['fbclid', 'ttclid', 'irclickid']
+
+    const qs = queryString.parse(location.search)
+
+    const foundClidVars = clidVars.map((key) => qs[key]).filter((item) => item)
+    const foundUtmVars = utmVars.map((key) => qs[key]).filter((item) => item)
+
+    // return if no changes found in url params
+    if (!foundClidVars.length && !foundUtmVars.length) {
+      return
+    }
+
+    // save click ids to localstorage
+    if (foundClidVars.length) {
+      clidVars.forEach((key) => {
+        if (qs[key]) {
+          localStorage.setItem(key, qs[key])
+        }
+      })
+    }
+
+    // save utm vars to localstorage
+    if (foundUtmVars.length) {
+      utmVars.forEach((key) => {
+        if (qs[key]) {
+          localStorage.setItem(key, qs[key])
+        } else {
+          localStorage.removeItem(key)
+        }
+      })
+    }
+  }
+
   const onRountChangeComplete = (newUrl) => {
+    trackUtmParams()
     if (TagManager) {
       dataLayerRouteChange({ url: newUrl })
     }

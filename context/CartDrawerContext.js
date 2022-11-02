@@ -57,7 +57,7 @@ export function CartDrawerProvider({ children }) {
 
       const lines = cartItems
 
-      console.log(Cookies.get('shopifyCartId'), lines, cart)
+      // console.log(Cookies.get('shopifyCartId'), lines, cart)
 
       if (typeof Cookies.get('shopifyCartId') !== 'undefined') {
         cartClient
@@ -65,7 +65,7 @@ export function CartDrawerProvider({ children }) {
             cartId: Cookies.get('shopifyCartId'),
           })
           .then((response) => {
-            console.log(Cookies.get('shopifyCartId'), response, "1")
+            // console.log(Cookies.get('shopifyCartId'), response, "1")
             if (response) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(Cookies.get('shopifyCartId'))
@@ -78,7 +78,7 @@ export function CartDrawerProvider({ children }) {
             lines,
           })
           .then((response) => {
-            console.log(Cookies.get('shopifyCartId'), response, "2")
+            // console.log(Cookies.get('shopifyCartId'), response, "2")
             if (response) {
               setShopifyCartCartClient(response.cart)
               setShopifyCartId(response.cart.id)
