@@ -76,15 +76,12 @@ const CartDrawer = ({ content }) => {
         });
 
         cartDrawerContext.setShopifyCart(cartData.cart)
-        cartDrawerContext.setCartTotal(cartData.cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cartData.cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartTotal(cartData.cart?.cost?.totalAmount?.amount || 0)
+        cartDrawerContext.setCartCount(cartData.cart?.lines?.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
-
-        // console.log("DRAWER DATA", cartDrawerContext.shopifyCart, cartDrawerContext.cartCount)
+        }, 0) || 0)
     }
     getCartClient()
-
   }, [cartDrawerContext.isOpen])
 
   useEffect(() => {

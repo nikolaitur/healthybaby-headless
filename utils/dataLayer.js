@@ -244,22 +244,24 @@ export const dataLayerRFC = ({ customer, item }) => {
         remove: {
           products: [
             {
-              id: item.variant.sku, // SKU
-              name: item.variant.productTitle, // Product title
+              // TODO: Bring this back
+              // id: item.variant.sku, // SKU
+              name: item.merchandise.product.title, // Product title
               brand: 'Healthy Baby',
               category: '',
-              variant: item.variant.title,
-              price: item.variant.price.toString(),
+              variant: item.merchandise.title,
+              price: item.cost.amountPerQuantity.amount.toString(),
               quantity: '0',
-              product_id: item.product.sourceEntryId.replace(
-                'gid://shopify/Product/',
-                ''
-              ),
-              variant_id: item.variant.id
+              // TODO: Bring this back too
+              // product_id: item.product.sourceEntryId.replace(
+              //   'gid://shopify/Product/',
+              //   ''
+              // ),
+              variant_id: item.merchandise.sourceEntryId
                 .split('gid://shopify/ProductVariant/')
                 .pop(), // id or variant_id
-              compare_at_price: item.variant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
-              image: item.variant.featuredMedia?.src || '', // If available, otherwise use an empty string
+              compare_at_price: item.cost.compareAtAmountPerQuantity?.amount?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
+              image: item.merchandise.image?.url || '', // If available, otherwise use an empty string
             },
           ],
         },
