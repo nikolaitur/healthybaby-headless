@@ -53,7 +53,7 @@ const ProductTechnologyCallout = ({ content }) => {
                   key={index}
                 >
                   {item?.fields?.image?.fields?.file?.url ? (
-                    <div className="product-technology-callout__image">
+                    <div className="product-technology-callout__image product-technology-callout__image--desktop">
                       <Image
                         className="featured"
                         src={`https:${item.fields.image.fields.file.url}`}
@@ -64,16 +64,25 @@ const ProductTechnologyCallout = ({ content }) => {
                         width="535"
                       />
                     </div>
-                  ) : (
-                    ''
-                  )}
+                  ) : ('')}
+                  {item?.fields?.mobileImage?.fields?.file?.url ? (
+                    <div className="product-technology-callout__image product-technology-callout__image--mobile">
+                      <Image
+                        className="featured"
+                        src={`https:${item.fields.mobileImage.fields.file.url}`}
+                        alt={item.fields.mobileImage.fields.title}
+                        layout="responsive"
+                        objectFit="cover"
+                        height="715"
+                        width="535"
+                      />
+                    </div>
+                  ) : ('')}
                   <div className="product-technology-callout__wrapper">
                     {item.fields?.header ? <h3>{item.fields.header}</h3> : ''}
                     {item.fields?.subheader ? (
                       <h4>{item.fields.subheader}</h4>
-                    ) : (
-                      ''
-                    )}
+                    ) : ('')}
                   </div>
                 </div>
               )
