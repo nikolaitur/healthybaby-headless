@@ -69,7 +69,6 @@ const CrossSellProductCard = forwardRef(({ product, index }, ref) => {
 
   const handleLink = (product) => {
     dataLayerSelectProduct({ customer, product, url: router.asPath, index })
-    dataLayerViewProduct({ customer, product, url: router.asPath, index })
     router.push(`/products/${handle}`)
   }
 

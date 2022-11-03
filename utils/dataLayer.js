@@ -83,7 +83,7 @@ function getMarketingData() {
   return marketingProps
 }
 
-function buildProductData(products, type, url, forceIndex) {
+function buildProductData(products, url, forceIndex) {
   return products.map((product, index) => {
     const firstVariant = product.variants[0]
     const data = {
@@ -102,18 +102,19 @@ function buildProductData(products, type, url, forceIndex) {
       inventory: firstVariant.quantityAvailable?.toString(),
       compare_at_price: firstVariant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
       image: firstVariant.content.featuredMedia?.src || '', // If available, otherwise use an empty string
+      list: url, // The list the product was discovered from or is displayed in
+      position: forceIndex || index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
     }
-
-    if (type === 'collection') {
-      data['list'] = url // The list the product was discovered from or is displayed in
-      data['position'] = forceIndex || index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
-    }
-
     return data
   })
 }
 
 function buildProductCartData(cart, dataType = 'products') {
+
+  if (!cart) {
+    return ''
+  }
+
   const lineItems = cart.lines
   return lineItems.map((line, index) => {
 
@@ -245,7 +246,7 @@ export const dataLayerATC = ({ customer, item, url }) => {
               category: item.product.productType,
               variant: item.variant.title,
               price: item.variant.price.toString(),
-              quantity: item.quantity,
+              quantity: item.quantity.toString(),
               product_id: item.product.sourceEntryId.replace(
                 'gid://shopify/Product/',
                 ''
@@ -253,6 +254,7 @@ export const dataLayerATC = ({ customer, item, url }) => {
               variant_id: item.variantId.toString(), // id or variant_id
               compare_at_price: item.variant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
               image: item.variant.featuredMedia?.src || '', // If available, otherwise use an empty string
+              list: url, // The list the product was discovered from or is displayed in
             },
           ],
         },
@@ -488,7 +490,7 @@ export const dataLayerViewProduct = ({ customer, product, url, variantOption, in
           actionField: { list: url, action: 'detail' },
           products: variantOption
             ? buildProductDataWithVariantOption(product, variantOption)
-            : buildProductData([product], 'product', url, index),
+            : buildProductData([product], url, index),
         },
       },
     },
