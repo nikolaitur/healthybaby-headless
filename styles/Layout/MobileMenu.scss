@@ -1,6 +1,6 @@
 .mobile-menu {
     position: fixed;
-    height: 100vh;
+    height: 100vh; // dynamic
     width: calc(100% - 70px);
     background: var(--menuBackground);
     top: 53px;
@@ -151,7 +151,7 @@
 
     &__sign-in {
         position: fixed;
-        bottom: 102px;
+        bottom: 40px;
         left: 28px;
 
         button {

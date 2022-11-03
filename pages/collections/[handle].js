@@ -45,6 +45,9 @@ function Collection(props) {
           productBadges={productBadges}
         />
         <CollectionSections content={collection} />
+        {collection.fields?.legalDisclaimer ? (
+          <p className="disclaimer container">* {collection.fields.legalDisclaimer}</p>
+        ) : ""}
       </>
     </>
   )

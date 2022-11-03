@@ -29,12 +29,17 @@ const ArticleVideo = ({ content }) => {
     <>
       {videoLink ? (
         <div className={`article-video ${verticalVideo ? 'vertical' : ''}`}>
-          <div
-            className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
-            onClick={() => playVideo()}
-          >
-            <PlayIcon />
-          </div>
+          {!videoLink.includes('youtu') ? (
+            <div
+              className={`article-video__icon ${isPlaying ? 'hide' : ''}`}
+              onClick={() => playVideo()}
+            >
+              <PlayIcon />
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div className="article-video__video">
             {hasWindow && (
               <ReactPlayer

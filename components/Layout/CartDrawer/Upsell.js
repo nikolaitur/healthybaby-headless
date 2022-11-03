@@ -30,10 +30,6 @@ const Upsell = ({ product, variantId }) => {
 
   useEffect(() => {
     if (variantId) {
-
-
-      console.log("product.variants:", product.variants)
-
       let variant = product.variants.filter((variant) => {
         return (
           variant.content.sourceEntryId
@@ -44,7 +40,6 @@ const Upsell = ({ product, variantId }) => {
 
       if (variant.length) {
         setSelectedVariant(variant[0])
-        // console.log(variant[0])
       }
     }
   }, [])

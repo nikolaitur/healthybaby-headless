@@ -253,7 +253,17 @@ const CollectionProductCard = forwardRef(
                 )}
               </>
             ) : (
-              <div className="placeholder"></div>
+              <Image
+                  className="featured"
+                  src={'https://via.placeholder.com/999x999.jpg'}
+                  alt={'This is a placeholder Image'}
+                  layout={imageLayout}
+                  objectFit="cover"
+                  height={
+                    cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
+                  }
+                  width={cardWidth == 'Full Width' ? 870 : 570}
+                />
             )}
           </div>
         </a>

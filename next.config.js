@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     // add image domains here as needed, for next/image
     deviceSizes: [640, 660, 768, 1024, 1600, 1920, 2400],
-    domains: ['cdn.shopify.com', 'placeimg.com', 'images.ctfassets.net'],
+    domains: ['cdn.shopify.com', 'placeimg.com', 'images.ctfassets.net', 'via.placeholder.com'],
   },
   webpack(config) {
     config.module.rules.push({
