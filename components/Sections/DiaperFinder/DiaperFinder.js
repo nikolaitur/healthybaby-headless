@@ -578,7 +578,19 @@ const DiaperFinder = ({ content }) => {
       </div>
       {content.fields.enableBackgroundWave ? (
         <>
-          <div className="diaper-finder__detail-desktop"><DiaperFinderDetail /></div>
+          {content.backgroundImage?.fields?.file?.url ? (
+               <Image
+                  className="diaper-finder__detail-desktop"
+                  src={`https:${content.backgroundImage.fields.file.url}`}
+                  alt={content.fields.title}
+                  layout="responsive"
+                  objectFit="cover"
+                  height="132"
+                  width="108"
+             />
+          ) : (
+            <div className="diaper-finder__detail-desktop"><DiaperFinderDetail /></div>
+          )}
           <div className="diaper-finder__detail-mobile"><DiaperFinderDetailMobile /></div>
         </>
       ) : ('')}
