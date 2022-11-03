@@ -23,7 +23,8 @@
       width: 50%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      padding-top: 70px;
+      // justify-content: center;
     }
   }
 
@@ -58,10 +59,19 @@
     img {
       height: 400px !important;
       object-fit: cover;
-
       @include breakpoint-up('md') {
-        height: 960px !important;
+        height: 720px !important;
+        max-height: 720px !important;
+        min-height: 720px !important;
         max-width: 870px !important;
+        min-height: 720px !important;
+        margin: 0 !important;
+      }
+
+      @include breakpoint-up('xl') {
+        height: 960px !important;
+        max-height: 960px !important;
+        min-height: 960px !important;
       }
     }
   }
