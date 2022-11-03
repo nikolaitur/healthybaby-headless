@@ -470,6 +470,44 @@
       margin-bottom: 10px;
     }
 
+    &--title {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 19px;
+      letter-spacing: -0.01em;
+      color: $primaryBrown;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+  
+      &:hover {
+        color: $primaryGreen;
+      }
+  
+      @include breakpoint-up('md') {
+        font-size: 26px;
+        line-height: 29px;
+      }
+    }
+  
+    &--subtitle {
+      font-family: $NeutraText;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: -0.01em;
+      color: $primaryBrown;
+      margin-top: 5px;
+  
+      @include breakpoint-up('md') {
+        font-size: 20px;
+        line-height: 31px;
+      }
+    }
+
     &--bullets {
       li {
         list-style: none;
