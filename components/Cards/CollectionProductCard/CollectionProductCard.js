@@ -184,46 +184,46 @@ const CollectionProductCard = forwardRef(
       return <></>
     }
 
-    return (
-      <div
-        className={`collection-product-card ${
-          cardWidth == 'Full Width' ? 'full-width' : ''
-        }`}
-      >
-        {badges?.length > 0 && (
-          <ul className="collection-product-card__badge-list">
-            {badges.map((badge, index) => {
-              return (
-                <li className="collection-product-card__badge" key={index}>
-                  <Image
-                    src={`https:${badge.file.url}`}
-                    alt={badge.title}
-                    layout={imageLayout}
-                    objectFit="cover"
-                    height={100}
-                    width={100}
-                  />
-                </li>
-              )
-            })}
-          </ul>
-        )}
-
-        <a
-          className={
-            cardWidth == 'Full Width'
-              ? 'collection-product-card__image-wrapper--full-width'
-              : ''
-          }
-          onClick={() => handleLink(product)}
-          ref={ref}
+    if (content.fields?.image?.fields?.file?.url) {
+      return (
+        <div
+          className={`collection-product-card ${
+            cardWidth == 'Full Width' ? 'full-width' : ''
+          }`}
         >
-          <div
-            className={`collection-product-card__image ${
-              content.fields?.image ? 'hide-mobile' : ''
-            }`}
+          {badges?.length > 0 && (
+            <ul className="collection-product-card__badge-list">
+              {badges.map((badge, index) => {
+                return (
+                  <li className="collection-product-card__badge" key={index}>
+                    <Image
+                      src={`https:${badge.file.url}`}
+                      alt={badge.title}
+                      layout={imageLayout}
+                      objectFit="cover"
+                      height={100}
+                      width={100}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+
+          <a
+            className={
+              cardWidth == 'Full Width'
+                ? 'collection-product-card__image-wrapper--full-width'
+                : ''
+            }
+            onClick={() => handleLink(product)}
+            ref={ref}
           >
-            {content.fields?.image?.fields?.file?.url ? (
+            <div
+              className={`collection-product-card__image ${
+                content.fields?.image ? 'hide-mobile' : ''
+              }`}
+            >
               <>
                 <Image
                   className="featured"
@@ -252,22 +252,8 @@ const CollectionProductCard = forwardRef(
                   ''
                 )}
               </>
-            ) : (
-              <Image
-                  className="featured"
-                  src={'https://via.placeholder.com/999x999.jpg'}
-                  alt={'This is a placeholder Image'}
-                  layout={imageLayout}
-                  objectFit="cover"
-                  height={
-                    cardWidth == 'Full Width' ? (!isDesktop ? 650 : 695) : 710
-                  }
-                  width={cardWidth == 'Full Width' ? 870 : 570}
-                />
-            )}
-          </div>
-        </a>
-        {content.fields?.image?.fields?.file?.url ? (
+            </div>
+          </a>
           <a onClick={() => handleLink(product)}>
             <Swiper
               className="collection-product-card__slider"
@@ -307,64 +293,65 @@ const CollectionProductCard = forwardRef(
               )}
             </Swiper>
           </a>
-        ) : (
-          ''
-        )}
-        <div className="collection-product-card__content">
-          {content.fields?.title ? (
-            <a onClick={() => handleLink(product)}>
-              <div className="collection-product-card__title">
-                {content.fields.title}
-              </div>
-            </a>
-          ) : (
-            ''
-          )}
-          {content.fields?.subtitle ? (
-            <p className="collection-product-card__subtitle">
-              {content.fields.subtitle}
-            </p>
-          ) : (
-            ''
-          )}
-          {/* {product.content?.description ? (
-            <p className="collection-product-card__subtitle">{ product.content.description  }</p>
-        ) : ""} */}
-          {hasWindow && (
-            <div className="collection-product-card__reviews">
-              <span
-                className="junip-product-summary"
-                data-product-id={product?.sourceEntryId?.replace(
-                  'gid://shopify/Product/',
-                  ''
-                )}
-              ></span>
-            </div>
-          )}
-          <div className="collection-product-card__cta">
-            {!product.availableForSale ? (
-              <span className="btn disabled">
-                <span>Out Of Stock</span>
-              </span>
-            ) : product && product.variants.length > 1 ? (
-              <button
-                className="btn secondary quickview"
-                onClick={() => openQuickView()}
-              >
-                <span>{getCtaText()}</span>
-              </button>
+          <div className="collection-product-card__content">
+            {content.fields?.title ? (
+              <a onClick={() => handleLink(product)}>
+                <div className="collection-product-card__title">
+                  {content.fields.title}
+                </div>
+              </a>
             ) : (
-              <button className="btn secondary" onClick={() => handleAddItem()}>
-                <span>{getCtaText()}</span>
-              </button>
+              ''
             )}
-          </div>
-          <div className="collection-product-card__price">
-            {productPrice ? <>${productPrice}</> : ''}
+            {content.fields?.subtitle ? (
+              <p className="collection-product-card__subtitle">
+                {content.fields.subtitle}
+              </p>
+            ) : (
+              ''
+            )}
+            {/* {product.content?.description ? (
+              <p className="collection-product-card__subtitle">{ product.content.description  }</p>
+          ) : ""} */}
+            {hasWindow && (
+              <div className="collection-product-card__reviews">
+                <span
+                  className="junip-product-summary"
+                  data-product-id={product?.sourceEntryId?.replace(
+                    'gid://shopify/Product/',
+                    ''
+                  )}
+                ></span>
+              </div>
+            )}
+            <div className="collection-product-card__cta">
+              {!product.availableForSale ? (
+                <span className="btn disabled">
+                  <span>Out Of Stock</span>
+                </span>
+              ) : product && product.variants.length > 1 ? (
+                <button
+                  className="btn secondary quickview"
+                  onClick={() => openQuickView()}
+                >
+                  <span>{getCtaText()}</span>
+                </button>
+              ) : (
+                <button className="btn secondary" onClick={() => handleAddItem()}>
+                  <span>{getCtaText()}</span>
+                </button>
+              )}
+            </div>
+            <div className="collection-product-card__price">
+              {productPrice ? <>${productPrice}</> : ''}
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+
+    return <></>
+
   }
 )
 
