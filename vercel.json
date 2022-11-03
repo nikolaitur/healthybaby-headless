@@ -327,6 +327,26 @@
     {
       "source": "/blogs/all/reducing-single-use-plastics",
       "destination": "/blogs/all/reducing-single-use-plastics-for-baby"
+    },
+
+    {
+      "source": "/collections/:collection/products/:product",
+      "destination": "/products/:product"
+    },
+    {
+      "source": "/discount/:discount",
+      "has": [
+        {
+          "type": "query",
+          "key": "redirect",
+          "value": "(?<redirect>.*)"
+        }
+      ],
+      "destination": "/:redirect?discount=:discount"
+    },
+    {
+      "source": "/discount/:discount",
+      "destination": "/?discount=:discount"
     }
   ]
 }
