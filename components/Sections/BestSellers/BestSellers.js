@@ -93,11 +93,14 @@ const BestSellers = ({ content }) => {
                                 "--swiper-pagination-color": "#fff",
                             }}
                         >
-                            {sections.map((item, index) => (
-                                <SwiperSlide key={index}>
-                                    <CollectionProductCard content={item} key={index} index={index} products={products} imageLayout={'fill'} cardWidthOverride={'Normal'} />
-                                </SwiperSlide>
-                            ))}
+                            {sections.map((item, index) => {
+                                if (item.fields?.image?.fields?.file?.url) {
+                                    return <SwiperSlide key={index}>
+                                        <CollectionProductCard content={item} key={index} index={index} products={products} imageLayout={'fill'} cardWidthOverride={'Normal'} />
+                                    </SwiperSlide>
+                                }
+                                return ''
+                            })}
                         </Swiper>
                     </div>
                 ): ""}
