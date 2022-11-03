@@ -53,7 +53,7 @@ export function CustomerProvider({ children }) {
     }
   }, [])
 
-  const onRountChangeComplete = () => {
+  const onRountStartComplete = () => {
     getCartData()
     .then(cart => {
       dataLayerUserData({
@@ -65,9 +65,9 @@ export function CustomerProvider({ children }) {
   }
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', onRountChangeComplete)
+    router.events.on('routeChangeStart', onRountStartComplete)
     return () => {
-      router.events.off('routeChangeComplete', onRountChangeComplete)
+      router.events.off('routeChangeStart', onRountStartComplete)
     }
   }, [])
 
