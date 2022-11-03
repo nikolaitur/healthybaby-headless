@@ -610,59 +610,61 @@ const ProductInfo = (props) => {
           {page?.fields?.productDetailTabTitle1 &&
           page.fields?.productDetailTabContent1 ? (
             <div className="product-tabs">
-              <div className="product-tabs__nav">
-                {page.fields?.productDetailTabTitle1 &&
-                page.fields?.productDetailTabContent1 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 0 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(0)}
-                  >
-                    {page.fields.productDetailTabTitle1}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {page.fields?.productDetailTabTitle2 &&
-                page.fields?.productDetailTabContent2 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 1 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(1)}
-                  >
-                    {page.fields.productDetailTabTitle2}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {page.fields?.productDetailTabTitle3 &&
-                page.fields?.productDetailTabContent3 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 2 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(2)}
-                  >
-                    {page.fields.productDetailTabTitle3}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {page.fields?.productDetailTabTitle4 &&
-                page.fields?.productDetailTabContent4 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 3 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(3)}
-                  >
-                    {page.fields.productDetailTabTitle4}
-                  </div>
-                ) : (
-                  ''
-                )}
+              <div className="product-tabs__nav-wrapper">
+                <div className="product-tabs__nav">
+                  {page.fields?.productDetailTabTitle1 &&
+                  page.fields?.productDetailTabContent1 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 0 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(0)}
+                    >
+                      {page.fields.productDetailTabTitle1}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {page.fields?.productDetailTabTitle2 &&
+                  page.fields?.productDetailTabContent2 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 1 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(1)}
+                    >
+                      {page.fields.productDetailTabTitle2}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {page.fields?.productDetailTabTitle3 &&
+                  page.fields?.productDetailTabContent3 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 2 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(2)}
+                    >
+                      {page.fields.productDetailTabTitle3}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {page.fields?.productDetailTabTitle4 &&
+                  page.fields?.productDetailTabContent4 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 3 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(3)}
+                    >
+                      {page.fields.productDetailTabTitle4}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
               <div className="product-tabs__content">
                 {page.fields?.productDetailTabTitle1 &&
