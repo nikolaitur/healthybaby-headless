@@ -414,6 +414,7 @@ const ProductInfo = (props) => {
                       <div
                         className="product-form__add-on"
                         onClick={() => handleCheckBoxChange(option)}
+                        key={oIndex}
                       >
                         <div className="product-form__add-on--image">
                           {page?.fields?.productAddOnImage?.fields?.file

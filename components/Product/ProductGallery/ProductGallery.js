@@ -15,62 +15,62 @@ const ProductGallery = ( props ) => {
     return (
         <>
             <div className="product-gallery">
-                {quickView ? (
-                    <div className="product-gallery__image">
-                        <Image
-                            className=""
-                            src={product.content.media[0].src}
-                            alt={`image`}
-                            layout="responsive"
-                            objectFit="cover"
-                            height="615"
-                            width="490"
-                        />
-                    </div>
-                ) : page.fields?.productImagesDesktop ? (
-                    page.fields.productImagesDesktop.map((productImage, index) => {
-                        let height = 615;
-                        if (index == 2 || index == 5) {
-                            height = 729
-                        }
+                <div className="product-gallery__images">
+                    {quickView ? (
+                        <div className="product-gallery__image">
+                            <Image
+                                className=""
+                                src={product.content.media[0].src}
+                                alt={`image`}
+                                layout="responsive"
+                                objectFit="cover"
+                                height="615"
+                                width="490"
+                            />
+                        </div>
+                    ) : page.fields?.productImagesDesktop ? (
+                        page.fields.productImagesDesktop.map((productImage, index) => {
+                            let sizes = '(min-width: 1080px) 35vw, 800px';
+                            if (index == 2 || index == 5) {
+                                sizes = '(min-width: 1080px) 70vw, 800px';
+                            }
 
-                        if(productImage.fields?.file?.url) {
+                            if(productImage.fields?.file?.url) {
+                                return (
+                                    <div className="product-gallery__image" key={index}>
+                                        <Image
+                                            className=""
+                                            src={`https:${productImage.fields.file.url}`}
+                                            alt={`image`}
+                                            layout="fill"
+                                            objectFit="cover"
+                                            sizes={sizes}
+                                        />
+                                    </div>
+                                )
+                            }
+                        }
+                    )) : (
+                        product.content.media.slice(0, 5).map((image, index) => {
+                            let sizes = '(min-width: 1080px) 35vw, 800px';
+                            if (index == 2 || index == 5) {
+                                sizes = '(min-width: 1080px) 70vw, 800px';
+                            }
                             return (
                                 <div className="product-gallery__image" key={index}>
                                     <Image
                                         className=""
-                                        src={`https:${productImage.fields.file.url}`}
+                                        src={image.src}
                                         alt={`image`}
-                                        layout="responsive"
+                                        layout="fill"
                                         objectFit="cover"
-                                        height={height}
-                                        width="490"
+                                        sizes={sizes}
                                     />
                                 </div>
                             )
-                        }
-                    }
-                )) : (
-                    product.content.media.slice(0, 5).map((image, index) => {
-                        let height = 615;
-                        if (index == 2 || index == 5) {
-                            height = 729
-                        }
-                        return (
-                            <div className="product-gallery__image" key={index}>
-                                <Image
-                                    className=""
-                                    src={image.src}
-                                    alt={`image`}
-                                    layout="responsive"
-                                    objectFit="cover"
-                                    height={height}
-                                    width="490"
-                                />
-                            </div>
-                        )
-                    })
-                )}
+                        })
+                    )}
+                </div>
             </div>
 
             <Swiper
