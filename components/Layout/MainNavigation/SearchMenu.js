@@ -3,6 +3,7 @@ import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
+import { GET_PRODUCTS } from 'gql'
 import _ from 'lodash'
 
 import ProductCard from '../../Cards/ProductCard'
@@ -47,11 +48,14 @@ const SearchMenu = ({
         setSearchProducts([])
         document.body.classList.remove('searchmenu-is-active')
       } else {
-        nacelleClient
-          .products({
-            handles: results[0].hits.map((product) => product.Handle),
-          })
-          .then((products) => {
+        nacelleClient.query({
+          query: GET_PRODUCTS,
+          variables: {
+            "filter": {
+              "handles": results[0].hits.map((product) => product.Handle),
+            }
+          }
+        }).then(({products}) => {
             if (products.length) {
               setSearchProducts(products)
               dataLayerViewSearchResults({ customer, products })
@@ -102,7 +106,7 @@ const SearchMenu = ({
             <div className="search-menu__wrapper">
               {searchProducts.length > 0
                 ? searchProducts.map((product, index) => (
-                    <ProductCard product={product} key={index} sizes="600px" />
+                    <ProductCard product={product} key={index} index={index} sizes="600px" />
                   ))
                 : ''}
             </div>

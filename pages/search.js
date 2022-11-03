@@ -5,6 +5,7 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import SearchIcon from '@/svgs/search.svg'
 import ProductCard from '@/components/Cards/ProductCard'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
+import { GET_PRODUCTS } from 'gql'
 
 import algoliasearch from 'algoliasearch'
 import _ from 'lodash'
@@ -48,9 +49,14 @@ const SearchResultsPage = ({ productBadges }) => {
       if (!results[0]) {
         setSearchProducts([])
       } else {
-        nacelleClient.products({
-          handles: results[0].hits.map(product => product.Handle)
-        }).then(products => {
+        nacelleClient.query({
+          query: GET_PRODUCTS,
+          variables: {
+            "filter": {
+              "handles": results[0].hits.map((product) => product.Handle),
+            }
+          }
+        }).then(({products}) => {
           if (products.length) {
             setSearchProducts(products)
             dataLayerViewSearchResults({ customer, products })
@@ -93,7 +99,7 @@ const SearchResultsPage = ({ productBadges }) => {
         <div className="search-results-page__main">
           {searchProducts.length > 0
             ? searchProducts.map((product, index) => (
-                <ProductCard product={product} key={index} productBadges={productBadges} showCTA={true} />
+                <ProductCard product={product} key={index} index={index} productBadges={productBadges} showCTA={true} />
               ))
             : ''}
         </div>

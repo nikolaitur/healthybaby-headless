@@ -209,6 +209,7 @@ const ProductInfo = (props) => {
             { key: '_subscription', value: sellingPlanId },
             { key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() },
             { key: '_variantSku', value: variant.sku },
+            { key: '_productType', value: product.productType },
             { key: '_productId', value: product.sourceEntryId },
           ],
         }
@@ -259,6 +260,7 @@ const ProductInfo = (props) => {
 
       let itemAttributes = [
         { key: '_variantSku', value: variant.sku },
+        { key: '_productType', value: product.productType },
         { key: '_productId', value: product.sourceEntryId },
       ]
 
