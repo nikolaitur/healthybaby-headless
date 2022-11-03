@@ -54,6 +54,7 @@ export function CustomerProvider({ children }) {
   }, [])
 
   const onRountBeforeChangeComplete = () => {
+    setCustomerLoading(true)
     getCartData()
     .then(cart => {
       dataLayerUserData({
