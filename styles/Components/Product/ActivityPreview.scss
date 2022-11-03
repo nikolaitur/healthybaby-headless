@@ -78,6 +78,10 @@
       cursor: pointer;
       margin: 0 auto;
 
+      @media (min-width: 768px) {
+        width: 100%;
+      }
+
       @media (min-width: 1300px) {
         width: calc(100% + 14px);
       }
@@ -126,6 +130,10 @@
       color: $primaryBrown;
       margin-top: 6px;
       opacity: 0;
+
+      @include breakpoint-up('sm') {
+        opacity: 1;
+      }
       @include breakpoint-up('md') {
         font-size: 22px;
         margin-top: 18px;
