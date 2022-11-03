@@ -99,7 +99,11 @@
       object-fit: contain;
       width: 100% !important;
       position: relative !important;
-      height: 535px !important;
+      height: 240px !important;
+
+      @include breakpoint-up('md') {
+        height: 535px !important;
+      }
     }
   }
 
