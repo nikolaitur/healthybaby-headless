@@ -33,7 +33,7 @@
       "destination": "/products/our-wet-wipes-1"
     },
     {
-      "source": "/products/soap-bar-cardamom-ginger?variant=31646428135473",
+      "source": "/products/soap-bar-cardamom-ginger",
       "destination": "/pages/skincare-collection-page"
     },
     {
@@ -81,12 +81,8 @@
       "destination": "/pages/shop-all"
     },
     {
-      "source": "/products/organic-cotton-diapers-wipes?variant=39437686964273",
+      "source": "/products/organic-cotton-diapers-wipes",
       "destination": "/products/diaper-and-wipe-subscription"
-    },
-    {
-      "source": "/products/cleaning-replenishment-subscription?variant=32610159919153",
-      "destination": "/products/cleaning-concentrate"
     },
     {
       "source": "/products/shampoo-body-wash-bottle",
