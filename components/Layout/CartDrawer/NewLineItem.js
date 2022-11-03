@@ -145,7 +145,7 @@ const NewLineItem = ({ item, content }) => {
 
       let lineAttributes = [
         { key: '_subscription', value: sellingPlanId },
-        { key: "_variantSku", value: variantSku[0].value},
+        { key: "_variantSku", value: variantSku[0].value || ""},
         { key: "_productId", value: productId[0].value}
       ]
 

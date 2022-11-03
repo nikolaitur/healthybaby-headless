@@ -208,7 +208,7 @@ const ProductInfo = (props) => {
           attributes: [
             { key: '_subscription', value: sellingPlanId },
             { key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() },
-            { key: '_variantSku', value: variant.sku },
+            { key: '_variantSku', value: variant.sku || "" },
             { key: '_productType', value: product.productType },
             { key: '_productId', value: product.sourceEntryId },
           ],
@@ -259,7 +259,7 @@ const ProductInfo = (props) => {
       dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       let itemAttributes = [
-        { key: '_variantSku', value: variant.sku },
+        { key: '_variantSku', value: variant.sku || "" },
         { key: '_productType', value: product.productType },
         { key: '_productId', value: product.sourceEntryId },
       ]
@@ -284,6 +284,8 @@ const ProductInfo = (props) => {
           },
         ],
       })
+
+      console.log(cart, userErrors, errors, itemAttributes, variant)
 
       if (cart) {
         cartDrawerContext.setShopifyCart(cart)
@@ -320,6 +322,8 @@ const ProductInfo = (props) => {
     const sellingPlanAllocations = selectedVariant.metafields.find(
       (metafield) => metafield.key === 'sellingPlanAllocations'
     )
+
+    console.log(selectedVariant)
 
     setIsSubscription(sellingPlanAllocations)
 
@@ -481,6 +485,7 @@ const ProductInfo = (props) => {
                 <label htmlFor="onetimeOption">
                   One-Time Purchase{' '}
                   <span className="price">
+                    {console.log(selectedVariant.price)}
                     ${Math.round(selectedVariant.price)}
                   </span>
                 </label>
