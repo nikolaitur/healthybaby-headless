@@ -41,7 +41,7 @@ const ActivityPreview = ({ content }) => {
           spaceBetween={0}
           lazy={true}
           pagination={false}
-          loop={false}
+          loop={true}
           breakpoints={{
             768: {
               slidesPerView: 3,
