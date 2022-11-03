@@ -86,9 +86,6 @@ const ActivityPreview = ({ content }) => {
                   <div className="activity-preview__item-description">
                     {activityPreviewBlock.fields?.description}
                   </div>
-                  <div className="activity-preview__item-cta">
-                    Try This Activity
-                  </div>
                 </SwiperSlide>
               )
             }
