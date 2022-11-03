@@ -321,55 +321,76 @@ export const dataLayerRFC = ({ customer, item }) => {
 export const dataLayerViewProductList = ({ customer, products, url }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-  TagManager.dataLayer({
-    dataLayer: {
-      event_id: uniqueKey.toString(),
-      event: 'dl_view_item_list',
-      user_properties,
-      marketing: getMarketingData(),
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      ecommerce: {
-        currencyCode: 'USD',
-        impressions: buildProductData([...products], 'collection', url),
+
+  // split products into batches of 50
+  const size = 15; const batches = [];
+  for (var i = 0; i < products.length; i += size) {
+    batches.push(products.slice(i, i + size))
+  }
+
+  batches.forEach(batch => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event_id: uniqueKey.toString(),
+        event: 'dl_view_item_list',
+        user_properties,
+        marketing: getMarketingData(),
+        event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+        ecommerce: {
+          currencyCode: 'USD',
+          impressions: buildProductData([...batch], 'collection', url),
+        },
       },
-    },
+    })
   })
+
+
 }
 
 export const dataLayerViewSearchResults = ({ customer, products }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-  TagManager.dataLayer({
-    dataLayer: {
-      event: 'dl_view_search_results',
-      user_properties,
-      marketing: getMarketingData(),
-      event_id: uniqueKey.toString(), // unique uuid for FB conversion API
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      ecommerce: {
-        currencyCode: 'USD',
-        actionField: { list: 'search results' },
-        impressions: products.map((item, index) => {
-          return {
-            name: item.content.title, // Product title
-            brand: 'Healthy Baby',
-            category: item.productType,
-            product_id: item.sourceEntryId
-              .split('gid://shopify/Product/')
-              .pop(), // The product_id
-            id: item.variants[0].sku,
-            price: item.variants[0].price.toString(),
-            variant_id: item.variants[0].sourceEntryId
-              .split('gid://shopify/ProductVariant/')
-              .pop(), // id or variant_id
-            image: item.content?.featuredMedia?.src || '', // If available, otherwise use an empty string
-            list: '/search',
-            position: (index + 1).toString(),
-          }
-        }),
+
+  // split products into batches of 50
+  const size = 15; const batches = [];
+  for (var i = 0; i < products.length; i += size) {
+    batches.push(products.slice(i, i + size))
+  }
+
+  batches.forEach(batch => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'dl_view_search_results',
+        user_properties,
+        marketing: getMarketingData(),
+        event_id: uniqueKey.toString(), // unique uuid for FB conversion API
+        event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+        ecommerce: {
+          currencyCode: 'USD',
+          actionField: { list: 'search results' },
+          impressions: batch.map((item, index) => {
+            return {
+              name: item.content.title, // Product title
+              brand: 'Healthy Baby',
+              category: item.productType,
+              product_id: item.sourceEntryId
+                .split('gid://shopify/Product/')
+                .pop(), // The product_id
+              id: item.variants[0].sku,
+              price: item.variants[0].price.toString(),
+              variant_id: item.variants[0].sourceEntryId
+                .split('gid://shopify/ProductVariant/')
+                .pop(), // id or variant_id
+              image: item.content?.featuredMedia?.src || '', // If available, otherwise use an empty string
+              list: '/search',
+              position: (index + 1).toString(),
+            }
+          }),
+        },
       },
-    },
+    })
   })
+
 }
 
 /*
@@ -401,21 +422,31 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
 
-  TagManager.dataLayer({
-    dataLayer: {
-      event: 'dl_view_cart',
-      event_id: uniqueKey.toString(),
-      user_properties,
-      marketing: getMarketingData(),
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
-      ecommerce: {
-        currencyCode: 'USD',
-        actionField: { list: 'Shopping Cart' },
-        impressions: products
+
+  // split products into batches of 50
+  const size = 15; const batches = [];
+  for (var i = 0; i < products.length; i += size) {
+    batches.push(products.slice(i, i + size))
+  }
+
+  batches.forEach(batch => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'dl_view_cart',
+        event_id: uniqueKey.toString(),
+        user_properties,
+        marketing: getMarketingData(),
+        event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+        cart_total: cart?.cost?.subtotalAmount?.amount || '0',
+        ecommerce: {
+          currencyCode: 'USD',
+          actionField: { list: 'Shopping Cart' },
+          impressions: batch
+        },
       },
-    },
+    })
   })
+
 }
 
 export const dataLayerBeginCheckout = ({ customer, cart }) => {
