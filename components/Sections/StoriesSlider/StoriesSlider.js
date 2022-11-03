@@ -45,7 +45,7 @@ const StoriesSlider = ({ content }) => {
                             "--swiper-pagination-color": "#fff",
                         }}
                         autoplay={{
-                            delay: 3000
+                            delay: 6000
                         }}
                         onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
                         onSwiper={(swiper) => setActiveSlide(swiper.activeIndex)}

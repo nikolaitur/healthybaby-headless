@@ -101,7 +101,7 @@ const ProductCard = ({
 
     dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-    let itemAttributes = [{ key: "_variantSku", value: variant.sku}, {key: '_productType', value: product.productType}, { key: "_productId", value: product.sourceEntryId}]
+    let itemAttributes = [{ key: "_variantSku", value: variant.sku || ""}, {key: '_productType', value: product.productType}, { key: "_productId", value: product.sourceEntryId}]
 
     if(sellingPlan) {
       const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
