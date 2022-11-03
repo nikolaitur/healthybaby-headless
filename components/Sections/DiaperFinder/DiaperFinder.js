@@ -52,6 +52,7 @@ const DiaperFinder = ({ content }) => {
   const [product, setProduct] = useState(false)
   const [prenatalProduct, setPrenatalProduct] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(false)
+  const [productPageData, setProductPageData] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
 
@@ -63,7 +64,9 @@ const DiaperFinder = ({ content }) => {
     setIsActive(false)
     setDiaperFinderData(intialValues)
     setProduct(false)
+    setPrenatalProduct(false)
     setSelectedVariant(false)
+    setProductPageData(false)
   }
 
   const customSelectStyles = {
@@ -280,15 +283,19 @@ const DiaperFinder = ({ content }) => {
           })
 
           setSelectedVariant(variant[0])
-
-          // console.log(product, selectedVariant, prenatalProduct, "Product Added", handle)
         }
         setIsActive(true)
       })
+
+    const productPage = await nacelleClient.content({
+        handles: [handle],
+        type: 'product',
+    })
+
+    setProductPageData(productPage[0])
   }
 
   const handleAddItem = async () => {
-    console.log(product, selectedVariant, 'ADDED')
     if (product && selectedVariant) {
       const variant = getCartVariant({
         product,
@@ -486,7 +493,7 @@ const DiaperFinder = ({ content }) => {
         >
           {product && selectedVariant ? (
             <div className="diaper-finder__product">
-              <div className="diaper-finder__product--banner">SAVE 7.5%</div>
+              <div className="diaper-finder__product--banner">Save up to 30%</div>
 
               <div className="diaper-finder__product--container">
                 <div className="diaper-finder__product--content">
@@ -494,13 +501,24 @@ const DiaperFinder = ({ content }) => {
                     {prenatalProduct ? (
                       <span>{babyName}’s Prenatal Essentials</span>
                     ) : (
-                      <span>Build {babyName}’s Essentials Box</span>
+                      <span>Our recommendation for {babyName}</span>
                     )}
                   </div>
                   <p className="large">{description}</p>
                 </div>
                 <div className="diaper-finder__product--image">
-                  {selectedVariant.content.featuredMedia?.src ? (
+                  {console.log(selectedVariant)}
+                  {productPageData.fields?.productBundleImage?.fields?.file?.url ? (
+                      <Image
+                        className=""
+                        src={`https:${productPageData.fields.productBundleImage.fields.file.url}`}
+                        alt={selectedVariant.content.title}
+                        layout="responsive"
+                        objectFit="cover"
+                        height="132"
+                        width="108"
+                      />
+                  ) : selectedVariant.content.featuredMedia?.src ? (
                     <Image
                       className=""
                       src={`${selectedVariant.content.featuredMedia.src}`}
@@ -510,20 +528,29 @@ const DiaperFinder = ({ content }) => {
                       height="132"
                       width="108"
                     />
-                  ) : (
-                    ''
-                  )}
+                  ) : ""}
                 </div>
               </div>
+              {productPageData ? (
+                <>
+                  <div className="diaper-finder__product--title">
+                    {productPageData.fields?.title}
+                  </div>
+                  <div className="diaper-finder__product--subtitle">
+                    {productPageData.fields?.productDescription}
+                  </div>
+                </>
+              ) : ""}
+              
               <div className="diaper-finder__product--cta">
                 <button
                   className="btn secondary"
                   onClick={() => handleAddItem()}
                 >
                   {prenatalProduct ? (
-                    <span>Add {babyName}’s Prenatals To Cart</span>
+                    <span>Add {babyName}’s Prenatals To Cart {selectedVariant.price ? (` - $${selectedVariant.price}`) : ""}</span>
                   ) : (
-                    <span>Add {babyName}’s Bundle To Cart</span>
+                    <span>Add {babyName}’s Bundle To Cart {selectedVariant.price ? (` - $${selectedVariant.price}`) : ""}</span>
                   )}
                   <span>
                     <LongArrowRight />
@@ -533,7 +560,7 @@ const DiaperFinder = ({ content }) => {
               <div className="diaper-finder__product--delivery">
                 <span>COMPLIMENTARY DELIVERY</span>
                 <span className="bullet">•</span>
-                <span>CANCEL ANY TIME</span>
+                <span>PAUSE ANY TIME</span>
               </div>
             </div>
           ) : (
@@ -551,16 +578,10 @@ const DiaperFinder = ({ content }) => {
       </div>
       {content.fields.enableBackgroundWave ? (
         <>
-          <div className="diaper-finder__detail-desktop">
-            <DiaperFinderDetail />
-          </div>
-          <div className="diaper-finder__detail-mobile">
-            <DiaperFinderDetailMobile />
-          </div>
+          <div className="diaper-finder__detail-desktop"><DiaperFinderDetail /></div>
+          <div className="diaper-finder__detail-mobile"><DiaperFinderDetailMobile /></div>
         </>
-      ) : (
-        ''
-      )}
+      ) : ('')}
     </section>
   )
 }
