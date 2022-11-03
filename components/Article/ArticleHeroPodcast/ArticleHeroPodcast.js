@@ -9,13 +9,36 @@ import parse from 'html-react-parser'
 const articleHeroPodcast = ({ content }) => {
   const { articleHero, title, articleType } = { ...content.fields }
 
+  const getBackgroundColor = (colorName) => {
+    switch (colorName) {
+      case 'Normal':
+        return '#F5F2F2'
+        break
+      case 'Blue':
+        return '#D0D8E9'
+        break
+      case 'Green':
+        return '#C2CDC6'
+        break
+      case 'Pink':
+        return '#F0E3E5'
+        break
+      case 'Teal':
+        return '#C7E0E5'
+        break
+
+      default:
+        break
+    }
+  }
+
   return (
     <div
       className="podcast-hero"
       style={{
         background: `linear-gradient(180deg, ${
-          articleHero?.fields?.backgroundColor
-            ? articleHero.fields.backgroundColor
+          articleHero.fields?.backgroundColor
+            ? getBackgroundColor(articleHero.fields?.backgroundColor)
             : '#D6E9E5 '
         } 0%, rgba(240, 227, 229, 0) 100%)`,
       }}
@@ -46,7 +69,6 @@ const articleHeroPodcast = ({ content }) => {
               <>
                 With{' '}
                 {articleHero.fields.podcastAuthors.map((author, index, row) => {
-
                   return (
                     <span key={index}>
                       <span className="name">
