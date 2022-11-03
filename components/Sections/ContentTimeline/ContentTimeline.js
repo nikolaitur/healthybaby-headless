@@ -20,7 +20,7 @@ const ContentTimeline = ({ content }) => {
 
     const timeLineScroll = () => {
         const scrollProgress = document.getElementById('content-timeline__line');
-        const height = document.getElementById('content-timeline__items').offsetHeight - document.getElementById('content-timeline__items').offsetTop
+        // const height = document.getElementById('content-timeline__items').offsetHeight - document.getElementById('content-timeline__items').offsetTop
         const items = document.getElementById('content-timeline__items')
         const itemsBottom = items.offsetTop + items.offsetHeight
         let padding = 200
