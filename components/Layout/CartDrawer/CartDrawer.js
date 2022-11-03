@@ -280,13 +280,14 @@ const CartDrawer = ({ content }) => {
                     </div>
                     <div className="cart-drawer__upsells--wrapper">
                       {upsells
-                        ? upsellsData.products.map((upsell, index) => (
-                            <Upsell
+                        ? upsellsData.products.map((upsell, index) => {
+                            if (upsell?.availableForSale == false) return ''
+                            return <Upsell
                               key={index}
                               product={upsell}
                               variantId={upsellsData.variants[index]}
                             />
-                          ))
+                          })
                         : ''}
                     </div>
                   </div>
