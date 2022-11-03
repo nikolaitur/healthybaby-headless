@@ -322,7 +322,7 @@ export const dataLayerViewProductList = ({ customer, products, url }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
 
-  // split products into batches of 50
+  // split products into batches of 15
   const size = 15; const batches = [];
   for (var i = 0; i < products.length; i += size) {
     batches.push(products.slice(i, i + size))
@@ -351,7 +351,7 @@ export const dataLayerViewSearchResults = ({ customer, products }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
 
-  // split products into batches of 50
+  // split products into batches of 15
   const size = 15; const batches = [];
   for (var i = 0; i < products.length; i += size) {
     batches.push(products.slice(i, i + size))
@@ -405,7 +405,7 @@ export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
       user_properties,
       marketing: getMarketingData(),
       event_id: uniqueKey.toString(), // unique uuid for FB conversion API
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the even
       ecommerce: {
         currencyCode: 'USD',
         click: {
@@ -423,7 +423,7 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
   const user_properties = getUserProperties(customer)
 
 
-  // split products into batches of 50
+  // split products into batches of 15
   const size = 15; const batches = [];
   for (var i = 0; i < products.length; i += size) {
     batches.push(products.slice(i, i + size))
