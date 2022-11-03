@@ -118,7 +118,7 @@ const ArticleHeroEverGreen = ({ content }) => {
             {author ? (
               <div className="article-hero__written--author">
                 <div className="article-hero__author-image">
-                  {author.fields?.photo ? (
+                  {author.fields?.photo?.fields?.file?.url ? (
                     <Image
                       className=""
                       src={'https:' + author.fields.photo.fields.file.url}
@@ -199,18 +199,18 @@ const ArticleHeroEverGreen = ({ content }) => {
             </div>
           ) : (
             <div className="article-hero__image">
-              <div
+              {articleHero?.fields?.featuredMedia?.fields?.file.url && <div
                 className="article-hero__image--desktop"
                 style={{
                   backgroundImage: `url(https:${articleHero?.fields?.featuredMedia?.fields?.file.url})`,
                 }}
-              ></div>
-              <div
+              ></div>}
+              {articleHero?.fields?.featuredMediaMobile?.fields?.file.url && <div
                 className="article-hero__image--mobile"
                 style={{
                   backgroundImage: `url(https:${articleHero?.fields?.featuredMediaMobile?.fields?.file.url})`,
                 }}
-              ></div>
+              ></div>}
               <div className="article-hero__image--credit">
                 {articleHero.fields.photoCredit}
               </div>
