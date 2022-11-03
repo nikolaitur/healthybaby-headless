@@ -133,7 +133,7 @@ function buildProductCartData(cart, dataType = 'products') {
       id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
       name: line.merchandise.product.title, // Product title
       brand: 'Healthy Baby',
-      category: category ? category[0].value : '',
+      category: category && category[0] ? category[0].value : '',
       variant: line.merchandise.title,
       price: line.cost.totalAmount.amount.toString(),
       quantity: line.quantity.toString(),
@@ -150,7 +150,7 @@ function buildProductCartData(cart, dataType = 'products') {
       data = {
         name: line.merchandise.product.title, // Product title
         brand: 'Healthy Baby',
-        category: category ? category[0].value : '',
+        category: category && category[0] ? category[0].value : '',
         product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
         id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
         price: line.cost.totalAmount.amount.toString(),
@@ -296,7 +296,7 @@ export const dataLayerRFC = ({ customer, item }) => {
               id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
               name: item.merchandise.product.title, // Product title
               brand: 'Healthy Baby',
-              category: category ? category[0].value : '',
+              category: category && category[0] ? category[0].value : '',
               variant: item.merchandise.title,
               price: item.cost.amountPerQuantity.amount.toString(),
               quantity: item.quantity,

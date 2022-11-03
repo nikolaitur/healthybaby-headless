@@ -32,12 +32,11 @@ const Upsell = ({ product, variantId }) => {
     if (variantId) {
       let variant = product.variants.filter((variant) => {
         return (
-          variant.content.sourceEntryId
+          variant.sourceEntryId
             .split('gid://shopify/ProductVariant/')
             .pop() == variantId
         )
       })
-
       if (variant.length) {
         setSelectedVariant(variant[0])
       }
