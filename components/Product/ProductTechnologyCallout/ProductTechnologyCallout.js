@@ -8,8 +8,6 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 const ProductTechnologyCallout = ({ content }) => {
   useEffect(() => {}, [])
 
-  console.log(content)
-
   return (
     <div
       className="product-technology-callout"

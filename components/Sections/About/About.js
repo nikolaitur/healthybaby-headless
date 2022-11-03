@@ -9,8 +9,6 @@ import ArrowRightMobile from '@/svgs/arrow-right-mobile.svg'
 
 const About = ({ content }) => {
     const { header, subheader, copy, links, imageTitle, imageSubtitle, displayStars, image } = {...content.fields}
-
-    console.log(content.fields)
     return (
         <section className="about" data-background-color={content.fields?.backgroundColor ? content.fields.backgroundColor.toLowerCase() : ""}>
             <div className="about__container container">
@@ -42,9 +40,9 @@ const About = ({ content }) => {
                             </div>}
                         </div>
                     </div>
-                    <h5 className="about__copy">
+                    <h4 className="about__copy">
                         { copy }
-                    </h5>
+                    </h4>
                     <div className="about__links">
                         {links.map((link, index) => {
                             return (

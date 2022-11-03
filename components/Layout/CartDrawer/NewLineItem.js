@@ -8,6 +8,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { getCartVariant } from 'utils/getCartVariant'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 import { dataLayerATC, dataLayerRFC } from '@/utils/dataLayer'
 
@@ -16,6 +17,7 @@ import * as Cookies from 'es-cookie'
 import Plus from '../../../svgs/plus.svg'
 import Minus from '../../../svgs/minus.svg'
 import Trash from '../../../svgs/trash.svg'
+import LineItemDropdown from '../../../svgs/line-item-dropdown.svg'
 
 const NewLineItem = ({ item, content }) => {
   const [
@@ -26,8 +28,11 @@ const NewLineItem = ({ item, content }) => {
   const [subscriptionPrice, setSubscriptionPrice] = useState(false)
   const [isSubscription, setIsSubscription] = useState(false)
   const [hasSubscriptionProduct, sethasSubscriptionProduct] = useState(false)
+  const [subscriptionDiscount, setSubscriptionDiscount] = useState(false)
+  const [subscriptionCadence, setsubscriptionCadence] = useState(false)
 
   const cartDrawerContext = useCartDrawerContext()
+  const { customer } = useCustomerContext()
 
   useEffect(() => {
     if (item.sellingPlan) {
@@ -44,12 +49,12 @@ const NewLineItem = ({ item, content }) => {
         if (Object.values(attribute).includes("_sellingPlan")) { return attribute } else return false
     }))
     setIsSubscription(item.attributes.filter(attribute => {
-        if (Object.values(attribute).includes("subscription")) { return attribute } else return false
+        if (Object.values(attribute).includes("_subscription")) { return attribute } else return false
     }))
-
-    // console.log(isSubscription, hasSubscriptionProduct, item.merchandise.product.title)
-
-  }, [])
+    setSubscriptionDiscount(item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_subscriptionDiscount")) { return attribute } else return false
+    }))
+  }, [cartDrawerContext.shopifyCart])
 
   const getOptions = () => {
     if(item.merchandise.title == 'Default Title') {
@@ -82,7 +87,7 @@ const NewLineItem = ({ item, content }) => {
 
   const decrement = async () => {
     if (item.quantity <= 1) {
-      dataLayerRFC({ item })
+      // dataLayerRFC({ customer, item })
       remove()
     } else {
         const { cart, userErrors, errors } = await cartClient.cartLinesUpdate({
@@ -95,7 +100,7 @@ const NewLineItem = ({ item, content }) => {
               }
             ]
         });
-    
+
         if(cart) {
             cartDrawerContext.setShopifyCart(cart)
             cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
@@ -107,7 +112,7 @@ const NewLineItem = ({ item, content }) => {
   }
 
   const remove = async () => {
-    dataLayerRFC({ item })
+    dataLayerRFC({ customer, item })
     removeFromCart(item)
 
     const { cart, userErrors, errors } = await cartClient.cartLinesRemove({
@@ -116,7 +121,6 @@ const NewLineItem = ({ item, content }) => {
     });
 
     if(cart) {
-        // console.log(cart, "remove cart")
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
@@ -128,57 +132,117 @@ const NewLineItem = ({ item, content }) => {
 
   const upgradeToSubscription = async () => {
     if (hasSubscriptionProduct.length > 0) {
-     
+
       const sellingPlanId = hasSubscriptionProduct[0].value
+
+      let variantSku = item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
+      })
+
+      let productId = item.attributes.filter(attribute => {
+        if (Object.values(attribute).includes("_productId")) { return attribute } else return false
+      })
+
+      let lineAttributes = [
+        { key: '_subscription', value: sellingPlanId },
+        { key: "_variantSku", value: variantSku[0].value},
+        { key: "_productId", value: productId[0].value}
+      ]
+
+      if(subscriptionDiscount) {
+        lineAttributes.push({ key: '_subscriptionDiscount', value: subscriptionDiscount[0].value.toString() })
+      }
 
       let lineItem = {
         merchandiseId: item.merchandise.nacelleEntryId,
         nacelleEntryId: item.merchandise.nacelleEntryId,
         quantity: 1,
         sellingPlanId,
-        attributes: [{ key: 'subscription', value: sellingPlanId }]
+        attributes: lineAttributes
       }
 
-      dataLayerRFC({ item })
+      dataLayerRFC({ customer, item })
 
       remove()
         .then((cartResponse) => {
-            const variant = getCartVariant({
-                product: item.merchandise.product,
-                variant: item.selectedVariant,
-            })
-        
-            const newItem = {
-                product: item.product,
-                variant,
-                variantId: item.merchandise.sourceEntryId.replace('gid://shopify/ProductVariant/', ''),
-                quantity: 1,
-            }
-        
-            // dataLayerATC({ item: newItem })
+            if(cartResponse) {
+                const addItem = async () => {
+                    const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+                        cartId: Cookies.get('shopifyCartId'),
+                        lines: [lineItem],
+                    });
 
-            const addItem = async () => {
-                const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
-                    cartId: Cookies.get('shopifyCartId'),
-                    lines: [lineItem],
-                });
-            
-                if(cart) {
-                    // console.log(cart, "cart")
-                    cartDrawerContext.setShopifyCart(cart)
-                    cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-                    cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
-                        return sum + line.quantity
-                    }, 0))
+                    if(cart) {
+                        cartDrawerContext.setShopifyCart(cart)
+                        cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+                        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                            return sum + line.quantity
+                        }, 0))
+                    }
                 }
+
+                addItem()
             }
-        
-            addItem()
         })
     }
   }
 
-  const removeSubscription = () => {}
+  const removeSubscription = () => {
+    setsubscriptionCadence(!subscriptionCadence)
+
+    if (isSubscription.length > 0) {
+        const sellingPlanId = isSubscription[0].value
+
+        let variantSku = item.attributes.filter(attribute => {
+          if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
+        })
+
+        let productId = item.attributes.filter(attribute => {
+          if (Object.values(attribute).includes("_productId")) { return attribute } else return false
+        })
+
+        let lineAttributes = [
+          { key: '_sellingPlan', value: sellingPlanId },
+          { key: "_variantSku", value: variantSku[0].value},
+          { key: "_productId", value: productId[0].value}
+        ]
+
+        if(subscriptionDiscount) {
+          lineAttributes.push({ key: '_subscriptionDiscount', value: subscriptionDiscount[0].value.toString() })
+        }
+
+        let lineItem = {
+          merchandiseId: item.merchandise.nacelleEntryId,
+          nacelleEntryId: item.merchandise.nacelleEntryId,
+          quantity: 1,
+          attributes: lineAttributes
+        }
+
+        dataLayerRFC({ customer, item })
+
+        remove()
+            .then((cartResponse) => {
+                if(cartResponse) {
+                    const addItem = async () => {
+                        const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
+                            cartId: Cookies.get('shopifyCartId'),
+                            lines: [lineItem],
+                        });
+
+                        if(cart) {
+                            cartDrawerContext.setShopifyCart(cart)
+                            cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
+                            cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+                                return sum + line.quantity
+                            }, 0))
+                        }
+                    }
+
+                    addItem()
+                }
+        })
+    }
+  }
 
   return (
     <div className="line-item">
@@ -205,11 +269,13 @@ const NewLineItem = ({ item, content }) => {
           ) : ('')}
           <div className="line-item__price">
             <>
-              {!item.attributes.length ? 
-                `$${Number(item.cost.totalAmount.amount).toFixed(2)}` : 
-                item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription")) && item.cost.compareAtAmountPerQuantity?.amount ? (
-                    <><span className="sale">${Number(item.cost.totalAmount.amount).toFixed(2)}</span> <span><s>${Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2) * item.quantity}</s></span></>
-                ) : `$${Number(item.cost.totalAmount.amount).toFixed(2)}`
+              {!item.attributes.length ?
+                `$${Math.round(item.cost.totalAmount.amount)}` :
+                item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription"))
+                && item.cost.compareAtAmountPerQuantity?.amount
+                && item.cost.compareAtAmountPerQuantity?.amount != item.cost.totalAmount.amount ? (
+                    <><span className="sale">${Math.round(item.cost.totalAmount.amount)}</span> <span><s>${Math.round(item.cost.compareAtAmountPerQuantity.amount) * item.quantity}</s></span></>
+                ) : `$${Math.round(item.cost.totalAmount.amount)}`
               }
             </>
           </div>
@@ -225,7 +291,7 @@ const NewLineItem = ({ item, content }) => {
                 <Plus />
               </button>
             </div>
-            <button onClick={() => { remove() }} className="line-item__trash"> 
+            <button onClick={() => { remove() }} className="line-item__trash">
               <Trash />
             </button>
           </div>
@@ -233,22 +299,33 @@ const NewLineItem = ({ item, content }) => {
       </div>
 
       {hasSubscriptionProduct.length > 0 ? (
-        <button
-          className="line-item__upgrade"
-          onClick={() => upgradeToSubscription()}
-        >
-          Upgrade to Subscribe & Save {content?.fields?.subscriptionDiscountPercent ? content.fields.subscriptionDiscountPercent : "7.5"}%
-        </button>
-      ) : (
-        ''
-      )}
+        <div className="line-item__upgrade" onClick={() => upgradeToSubscription()}>
+            <div className="line-item__upgrade--wrapper">
+                <input type="checkbox"></input>
+                <div>
+                    <span className="bold">
+                        Upgrade to Subscribe & Save {' '}
+                        {subscriptionDiscount ? `${subscriptionDiscount[0].value}` : content?.fields?.subscriptionDiscountPercent ? content.fields.subscriptionDiscountPercent : "7.5"}%
+                    </span>
+                    {content?.fields?.subscriptionDiscountCopy ? (
+                        <p>{content.fields.subscriptionDiscountCopy}</p>
+                    ) : ""}
+                </div>
+            </div>
+        </div>
+      ) : ('')}
+
       {isSubscription.length > 0 ? (
-        <button className="line-item__upgrade bold">
-          Delivery Every 1 Month
-        </button>
-      ) : (
-        ''
-      )}
+        <>
+            <div className="line-item__delivery bold" onClick={() => setsubscriptionCadence(!subscriptionCadence)}>
+                <span>Delivery Every 1 Month</span>
+                <span><LineItemDropdown/></span>
+            </div>
+            <div className={`line-item__dropdown ${subscriptionCadence ? "active" : ""}`} onClick={() => removeSubscription()}>
+                One-Time Purchase
+            </div>
+        </>
+      ) : ('')}
     </div>
   )
 }

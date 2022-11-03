@@ -5,13 +5,13 @@ const Dropdown = ({ links, dropdown }) => {
       <ul className={`main-nav__dropdown ${dropdown ? "show" : ""}`}>
         {links.map((link, index) => (
             <li key={index}>
-                <Link href={link.fields.url}>
-                    {link.fields.title}
+                <Link href={link?.fields?.url || ''}>
+                    {link?.fields?.title || ''}
                 </Link>
             </li>
         ))}
       </ul>
     );
   };
-  
+
   export default Dropdown;

@@ -4,8 +4,8 @@ export const getProductPrice = (product) => {
     let lowestPrice = product.variants.reduce(function (prev, curr) {
       return prev.price < curr.price ? prev : curr
     })
-    return lowestPrice.price
+    return Math.round(lowestPrice.price)
   } else {
-    return product.variants[0].price
+    return Math.round(product.variants[0].price)
   }
 }

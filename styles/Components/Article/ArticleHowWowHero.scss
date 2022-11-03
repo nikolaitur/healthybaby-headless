@@ -47,6 +47,11 @@
     padding-left: 28px;
     padding-right: 28px;
     max-width: 100%;
+
+    @include breakpoint-up('md') {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
   }
 
   &__type {

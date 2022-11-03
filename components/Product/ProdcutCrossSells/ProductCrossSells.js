@@ -72,6 +72,7 @@ const ProductCrossSells = ({ content, product, productBadges }) => {
                 return (
                   <CrossSellProductCard
                     key={index}
+                    index={index}
                     product={product}
                     crossSell={true}
                     productBadges={productBadges}
@@ -95,6 +96,7 @@ const ProductCrossSells = ({ content, product, productBadges }) => {
                 <SwiperSlide key={index}>
                   <CrossSellProductCard
                     key={index}
+                    index={index}
                     product={product}
                     crossSell={true}
                     productBadges={productBadges}

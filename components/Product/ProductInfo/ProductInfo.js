@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@nacelle/react-hooks'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { nacelleClient } from 'services'
 import cartClient from 'services/nacelleClientCart'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -12,6 +13,7 @@ import Script from 'next/script'
 import * as Cookies from 'es-cookie'
 
 import { dataLayerATC } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
@@ -29,6 +31,8 @@ import QuestionMark from '../../../svgs/question-mark.svg'
 
 const ProductInfo = (props) => {
   const { product, page } = { ...props }
+
+  const router = useRouter()
 
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
@@ -48,6 +52,7 @@ const ProductInfo = (props) => {
   const [messageProduct, setMessageProduct] = useState(false)
   const [hasWindow, setHasWindow] = useState(false)
 
+  const { customer } = useCustomerContext()
   const cartDrawerContext = useCartDrawerContext()
   const modalContext = useModalContext()
 
@@ -151,7 +156,7 @@ const ProductInfo = (props) => {
         sellingPlanPriceValue[0].sellingPlan.priceAdjustments
 
       setSubscriptionPrice(
-        sellingPlanPriceValue[0].priceAdjustments[0].price.amount
+        Math.round(sellingPlanPriceValue[0].priceAdjustments[0].price.amount)
       )
     }
   }
@@ -193,13 +198,20 @@ const ProductInfo = (props) => {
       } else {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
         lineItem = {
           merchandiseId: selectedVariant.nacelleEntryId,
           nacelleEntryId: selectedVariant.nacelleEntryId,
           quantity: quantity,
           sellingPlanId,
-          attributes: [{ key: 'subscription', value: sellingPlanId }],
+          attributes: [
+            { key: '_subscription', value: sellingPlanId },
+            { key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() },
+            { key: '_variantSku', value: variant.sku },
+            { key: '_productType', value: product.productType },
+            { key: '_productId', value: product.sourceEntryId },
+          ],
         }
       }
 
@@ -210,24 +222,24 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [lineItem],
-      });
+      })
 
-      console.log( cart, userErrors, errors )
+      console.log(cart, userErrors, errors)
 
-      if(cart) {
-        console.log("Subscription")
+      if (cart) {
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
-
     } else {
       let sellingPlan = selectedVariant.metafields.find(
         (metafield) => metafield.key === 'sellingPlanAllocations'
@@ -244,40 +256,43 @@ const ProductInfo = (props) => {
         quantity,
       }
 
-      dataLayerATC({ item: newItem })
+      dataLayerATC({ customer, item: newItem, url: router.asPath })
 
-      let itemAttributes = []
-      
-      if(sellingPlan) {
+      let itemAttributes = [
+        { key: '_variantSku', value: variant.sku },
+        { key: '_productType', value: product.productType },
+        { key: '_productId', value: product.sourceEntryId },
+      ]
+
+      if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
+        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
 
-        itemAttributes = [{ key: "_sellingPlan", value: sellingPlanId}]
+        itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
+        itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
       }
-
-      // console.log(itemAttributes)
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [
-            {
-              merchandiseId: selectedVariant.nacelleEntryId,
-              nacelleEntryId: selectedVariant.nacelleEntryId,
-              quantity: quantity,
-              attributes: itemAttributes,
-            },
-        ]
-      });
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: quantity,
+            attributes: itemAttributes,
+          },
+        ],
+      })
 
-      // console.log( cart, userErrors, errors , ((sellingPlan) ? "true" : "false"))
-
-      if(cart) {
-        console.log("ONE TIME")
+      if (cart) {
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
     }
 
@@ -383,8 +398,8 @@ const ProductInfo = (props) => {
         <h4 className="product-info__price">
           <>
             {purchaseSubscription === 'Subscription'
-              ? `$${Number(subscriptionPrice).toFixed(2)}`
-              : `$${selectedVariant.price.toFixed(2)}`}
+              ? `$${Math.round(subscriptionPrice)}`
+              : `$${Math.round(selectedVariant.price)}`}
           </>
         </h4>
         <div className="product-form">
@@ -401,7 +416,8 @@ const ProductInfo = (props) => {
                         onClick={() => handleCheckBoxChange(option)}
                       >
                         <div className="product-form__add-on--image">
-                          {page?.fields?.productAddOnImage?.fields?.file?.url ? (
+                          {page?.fields?.productAddOnImage?.fields?.file
+                            ?.url ? (
                             <Image
                               src={`https:${page.fields.productAddOnImage.fields.file.url}`}
                               alt={`messageProduct.content.title`}
@@ -436,6 +452,7 @@ const ProductInfo = (props) => {
                         option={option}
                         handleOptionChange={handleOptionChange}
                         diaperAmount={diaperAmount}
+                        product={product}
                         key={oIndex}
                       />
                     )
@@ -463,7 +480,7 @@ const ProductInfo = (props) => {
                 <label htmlFor="onetimeOption">
                   One-Time Purchase{' '}
                   <span className="price">
-                    ${selectedVariant.price.toFixed(2)}
+                    ${Math.round(selectedVariant.price)}
                   </span>
                 </label>
               </div>
@@ -491,8 +508,10 @@ const ProductInfo = (props) => {
                     </span>
                   </span>
                   <span className="price">
-                    <s>${selectedVariant.price.toFixed(2)}</s> $
-                    {Number(subscriptionPrice).toFixed(2)}
+                    {selectedVariant.price !== subscriptionPrice ? (
+                      <><s>${Math.round(selectedVariant.price)}</s>{" "}</>
+                    ) : ""}
+                    ${Math.round(subscriptionPrice)}
                   </span>
                 </label>
               </div>
@@ -635,7 +654,7 @@ const ProductInfo = (props) => {
                 page.fields?.productDetailTabContent4 ? (
                   <div
                     className={`product-tabs__title ${
-                      activeTab == 2 ? 'active' : ''
+                      activeTab == 3 ? 'active' : ''
                     }`}
                     onClick={() => setActiveTab(3)}
                   >

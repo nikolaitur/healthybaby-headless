@@ -415,16 +415,20 @@
       font-family: $NeutraText;
       font-style: normal;
       font-weight: 500;
-      font-size: 18px;
-      line-height: 18px;
+      font-size: 14px;
+      line-height: 14px;
       letter-spacing: 0.15em;
       color: #3d3331;
       padding: 20px 25px;
       border-radius: 100%;
-      top: -25px;
-      right: -50px;
+      top: -20px;
+      right: -40px;
       // display: none;
       @include breakpoint-up('md') {
+        font-size: 18px;
+        line-height: 18px;
+        top: -25px;
+        right: -50px;
         display: block;
       }
     }

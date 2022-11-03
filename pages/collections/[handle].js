@@ -6,21 +6,27 @@ import Head from 'next/head'
 import CollectionHeader from '../../components/Sections/CollectionHeader'
 import CollectionGrid from '../../components/Sections/CollectionGrid'
 import CollectionSections from '../../components/Sections/CollectionSections'
+import { useCustomerContext } from '@/context/CustomerContext'
 
+import { GET_PRODUCTS } from 'gql'
 import { dataLayerViewProductList } from '@/utils/dataLayer'
 
 function Collection(props) {
   const router = useRouter()
   const { collection, products, productBadges } = { ...props }
+  const { customer, customerLoading} = useCustomerContext()
 
   useEffect(() => {
-    if(products) {
-      dataLayerViewProductList({
-        products: products,
-        url: router.asPath,
-      })
+    if (typeof customerLoading === 'boolean' && !customerLoading) {
+      if(products) {
+        dataLayerViewProductList({
+          customer,
+          products: products,
+          url: router.asPath,
+        })
+      }
     }
-  })
+  }, [products, customerLoading])
 
   const pageTitle = `${collection.title} – Healthybaby`
 
@@ -39,6 +45,9 @@ function Collection(props) {
           productBadges={productBadges}
         />
         <CollectionSections content={collection} />
+        {collection.fields?.legalDisclaimer ? (
+          <p className="disclaimer container">* {collection.fields.legalDisclaimer}</p>
+        ) : ""}
       </>
     </>
   )
@@ -75,9 +84,14 @@ export async function getStaticProps({ params }) {
       })
       .map((section) => section.fields.productHandle.replace('::en-US', ''))
 
-    const products = await nacelleClient.products({
-      handles: productHandles,
-    })
+    const { products } = await nacelleClient.query({
+      query: GET_PRODUCTS,
+      variables: {
+        "filter": {
+          "handles": productHandles
+        }
+      }
+    });
 
     const productBadges = await nacelleClient.content({
       type: 'productBadge',

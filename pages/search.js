@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
+import { useCustomerContext } from '@/context/CustomerContext'
 import SearchIcon from '@/svgs/search.svg'
 import ProductCard from '@/components/Cards/ProductCard'
 import { dataLayerViewSearchResults } from '@/utils/dataLayer'
+import { GET_PRODUCTS } from 'gql'
 
 import algoliasearch from 'algoliasearch'
+import _ from 'lodash'
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALOGLIA_APPLICATION_ID,
@@ -15,6 +18,7 @@ const searchClient = algoliasearch(
 const SearchResultsPage = ({ productBadges }) => {
 
   const router = useRouter()
+  const { customer } = useCustomerContext()
   const [searchQuery, setSearchQuery] = useState()
   const [searchProducts, setSearchProducts] = useState([])
 
@@ -28,31 +32,49 @@ const SearchResultsPage = ({ productBadges }) => {
     }
   }, [])
 
-  useEffect(() => {
+  const performSearch = (_searchVal) => {
     const queries = [
       {
         indexName: 'shopify_products',
-        query: searchQuery,
+        query: _searchVal,
       }
     ]
+
+    if (_searchVal == '') {
+      setSearchProducts([])
+      return
+    }
+
     searchClient.multipleQueries(queries).then(({ results }) => {
-      if (searchQuery == '') {
-        setSearchProducts([])
-      } else if (!results[0]) {
+      if (!results[0]) {
         setSearchProducts([])
       } else {
-        dataLayerViewSearchResults({ products: results[0].hits })
-        nacelleClient.products({
-          handles: results[0].hits.map(product => product.Handle)
-        }).then(products => {
+        nacelleClient.query({
+          query: GET_PRODUCTS,
+          variables: {
+            "filter": {
+              "handles": results[0].hits.map((product) => product.Handle),
+            }
+          }
+        }).then(({products}) => {
           if (products.length) {
             setSearchProducts(products)
+            dataLayerViewSearchResults({ customer, products })
           }
         })
 
       }
     })
-  }, [searchQuery])
+  }
+
+  const debounce = useCallback(
+    _.debounce((_searchVal) => {
+      performSearch(_searchVal)
+    }, 500),
+    []
+  )
+
+  useEffect(() => debounce(searchQuery), [searchQuery])
 
   return (
     <div className="search-results-page">
@@ -69,7 +91,7 @@ const SearchResultsPage = ({ productBadges }) => {
               type="text"
               placeholder="search products"
               onChange={handleSearchChange}
-              value={searchQuery}
+              value={searchQuery || ''}
             />
             <SearchIcon />
           </div>
@@ -77,7 +99,7 @@ const SearchResultsPage = ({ productBadges }) => {
         <div className="search-results-page__main">
           {searchProducts.length > 0
             ? searchProducts.map((product, index) => (
-                <ProductCard product={product} key={index} productBadges={productBadges} showCTA={true} />
+                <ProductCard product={product} key={index} index={index} productBadges={productBadges} showCTA={true} />
               ))
             : ''}
         </div>

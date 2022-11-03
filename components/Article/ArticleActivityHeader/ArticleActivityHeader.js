@@ -12,15 +12,7 @@ const ArticleActivityHeader = ({ content }) => {
       <div className="article-activityheader__title">{parse(title)}</div>
       <div className="article-activityheader__image">
         {logo.fields?.file?.url ? (
-          <Image
-            className=""
-            src={'https:' + logo.fields.file.url}
-            alt={`image`}
-            layout="responsive"
-            objectFit="cover"
-            height={logo.fields.file.details.image.height}
-            width={logo.fields.file.details.image.width}
-          />
+          <img src={'https:' + logo.fields.file.url} alt={logo.fields.title} />
         ) : (
           <></>
         )}

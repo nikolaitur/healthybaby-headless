@@ -17,8 +17,9 @@ import {
 } from '../gql/index.js'
 import { Multipass } from 'multipass-js'
 import { encode } from 'js-base64'
-import { dataLayerLogin } from '@/utils/dataLayer'
+import { dataLayerLogin, dataLayerUserData } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
+import { getCartData } from '@/utils/getCartData'
 
 const multipass = new Multipass(
   process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_MULTIPASS_SECRET
@@ -41,7 +42,32 @@ export function CustomerProvider({ children }) {
     if (customerAccessToken) {
       getCustomer({ accessToken: customerAccessToken })
     } else {
+      getCartData()
+        .then(cart => {
+          dataLayerUserData({
+            url: router.asPath,
+            cart: cart,
+          })
+          setCustomerLoading(false)
+        })
+    }
+  }, [])
+
+  const onRountChangeComplete = () => {
+    getCartData()
+    .then(cart => {
+      dataLayerUserData({
+        url: router.asPath,
+        cart: cart,
+      })
       setCustomerLoading(false)
+    })
+  }
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', onRountChangeComplete)
+    return () => {
+      router.events.off('routeChangeComplete', onRountChangeComplete)
     }
   }, [])
 
@@ -118,10 +144,14 @@ export function CustomerProvider({ children }) {
       customer.metafields = []
     }
 
+    const cart = await getCartData()
+
+    dataLayerUserData({ customer: customer, url: router.asPath, cart: cart })
+
+    dataLayerLogin({ customer: customer, url: router.asPath })
     if (enableLoadingState) {
       setCustomerLoading(false)
     }
-    dataLayerLogin({ url: router.pathname })
     setCustomer(customer)
     return { data }
   }

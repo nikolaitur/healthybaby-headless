@@ -565,12 +565,14 @@
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    padding: 10px 30px 15px;
+    padding: 10px 0 15px;
     min-width: max-content;
+    margin-right: 24px;
 
     @include breakpoint-up('md') {
       font-size: 20px;
       line-height: 36px;
+      margin-right: 36px;
     }
 
     // &:nth-child(2) {
@@ -629,6 +631,10 @@
     @include breakpoint-up('xl') {
       font-size: fontsize(22px);
     }
+  }
+
+  p + p {
+    margin-top: 15px;
   }
 
   ul {

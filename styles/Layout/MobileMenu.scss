@@ -1,6 +1,6 @@
 .mobile-menu {
     position: fixed;
-    height: 100vh;
+    height: 100vh; // dynamic
     width: calc(100% - 70px);
     background: var(--menuBackground);
     top: 53px;
@@ -151,11 +151,10 @@
 
     &__sign-in {
         position: fixed;
-        bottom: 102px;
+        bottom: 40px;
         left: 28px;
 
-        a {
-
+        button {
             font-family: $NeutraText;
             font-style: normal;
             font-weight: 500;
@@ -165,6 +164,7 @@
             color: #3D3331;
             padding: 11px 28px;
             background: #FFFFFF;
+            border: none;
             border-radius: 24px;
             text-decoration: none;
         }

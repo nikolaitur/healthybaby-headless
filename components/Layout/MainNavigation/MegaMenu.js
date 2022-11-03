@@ -53,7 +53,7 @@ const MegaMenu = ({ menu, menuColors }) => {
           {menu.fields.primaryNavLinks ? (
             <div className="mega-menu__primary-nav">
               {menu.fields.primaryNavLinks.map((link, index) => (
-                <Link href={link.fields.url || ''} key={index}>
+                <Link href={link?.fields?.url || ''} key={index}>
                   <div
                     className="mega-menu__link"
                     onMouseEnter={() =>
@@ -63,9 +63,9 @@ const MegaMenu = ({ menu, menuColors }) => {
                       )
                     }
                   >
-                    <div className="mega-menu__title">{link.fields.title}</div>
+                    <div className="mega-menu__title">{link?.fields?.title || ''}</div>
                     <div className="mega-menu__subtitle">
-                      {link.fields.subtitle}
+                      {link?.fields?.subtitle || ''}
                     </div>
                   </div>
                 </Link>
@@ -77,9 +77,9 @@ const MegaMenu = ({ menu, menuColors }) => {
           {menu.fields.secondaryNavLinks ? (
             <div className="mega-menu__secondary-nav">
               {menu.fields.secondaryNavLinks.map((link, index) => (
-                <Link href={link.fields.url || ''} key={index}>
+                <Link href={link?.fields?.url || ''} key={index}>
                   <div className="mega-menu__sub-link">
-                    <div className="mega-menu__title">{link.fields.title}</div>
+                    <div className="mega-menu__title">{link?.fields?.title || ''}</div>
                   </div>
                 </Link>
               ))}
@@ -87,14 +87,14 @@ const MegaMenu = ({ menu, menuColors }) => {
           ) : (
             ''
           )}
-         
+
           {menu.fields.featuredArticles ? (
             <div className="mega-menu__featured-articles">
               <div className="mega-menu__sub-header">Featured Articles</div>
               {menu.fields.featuredArticles.map((item, index) => (
-                <Link href={item.fields.url || ''} key={index}>
+                <Link href={item?.fields?.url || ''} key={index}>
                   <div className="mega-menu__featured-article">
-                    <span>{item.fields.title || ''}</span>
+                    <span>{item?.fields?.title || ''}</span>
                     <span>
                       <LongArrowRight />
                     </span>

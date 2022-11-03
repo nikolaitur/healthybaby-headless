@@ -1,19 +1,14 @@
 import { useEffect, useState, forwardRef } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
-import cartClient from 'services/nacelleClientCart'
-import { getCartVariant } from 'utils/getCartVariant'
 import { useMediaQuery } from 'react-responsive'
 
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { useModalContext } from '../../../context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Lazy, Pagination } from 'swiper'
-
-import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
+import { dataLayerSelectProduct, dataLayerViewProduct } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 import 'swiper/css'
@@ -37,8 +32,9 @@ const findProductBadges = ({ product, productBadges }) => {
   return null
 }
 
-const CrossSellProductCard = forwardRef(({ product }, ref) => {
+const CrossSellProductCard = forwardRef(({ product, index }, ref) => {
   const router = useRouter()
+  const { customer } = useCustomerContext()
   const [, { addToCart }] = useCart()
   const [hasWindow, setHasWindow] = useState(false)
   const [isloading, setIsLoading] = useState(false)
@@ -72,7 +68,8 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
   }, [])
 
   const handleLink = (product) => {
-    dataLayerSelectProduct({ product, url: router.pathname })
+    dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+    dataLayerViewProduct({ customer, product, url: router.asPath, index })
     router.push(`/products/${handle}`)
   }
 
@@ -99,8 +96,10 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
       modalContext.setIsOpen(true)
       modalContext.setContent({
         product,
-        page: pages[0]
+        page: pages[0],
       })
+      dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+      dataLayerViewProduct({ customer, product, url: router.asPath, index })
     }
   }
 
@@ -145,18 +144,23 @@ const CrossSellProductCard = forwardRef(({ product }, ref) => {
           </div>
         </a>
 
-        {hasWindow && <div className="collection-product-card__reviews">
-          <span
-            className="junip-product-summary"
-            data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
-          ></span>
-        </div>}
+        {hasWindow && (
+          <div className="collection-product-card__reviews">
+            <span
+              className="junip-product-summary"
+              data-product-id={product.sourceEntryId.replace(
+                'gid://shopify/Product/',
+                ''
+              )}
+            ></span>
+          </div>
+        )}
         <div className="collection-product-card__cta">
           {!product.availableForSale ? (
             <span className="btn disabled">
               <span>Out Of Stock</span>
             </span>
-          ):(
+          ) : (
             <button
               className="btn secondary quickview"
               onClick={() => openQuickView()}

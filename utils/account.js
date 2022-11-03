@@ -4,7 +4,7 @@ export async function accountClientPost({
   }) {
     const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/api/2022-04/graphql`
     const body = JSON.stringify({ query, variables })
-  
+
     // Default options are marked with *
     const response = await fetch(url, {
       method: 'POST',
