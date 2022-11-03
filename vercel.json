@@ -1,0 +1,332 @@
+{
+  "redirects": [
+    {
+      "source": "/collections/our-diapers-wipes/products/wipes-wet",
+      "destination": "/products/wet-wipes-2"
+    },
+    {
+      "source": "/products/our-baby-balm",
+      "destination": "/pages/skincare-collection-page"
+    },
+    {
+      "source": "/products/our-moisturizing-cream-and-baby-balm-bundle",
+      "destination": "/products/our-moisturizing-cream"
+    },
+    {
+      "source": "/products/skincare-essential-oil-rollerball",
+      "destination": "/pages/skincare-collection-page"
+    },
+    {
+      "source": "/blogs/experts/our-baby-skin-microbiome-guide",
+      "destination": "/blogs/blog/our-baby-skin-microbiome-guide"
+    },
+    {
+      "source": "/jpmorgan",
+      "destination": "/pages/jp-morgan-chase-landing-page"
+    },
+    {
+      "source": "/products/our-wet-wipes-1",
+      "destination": "/products/wet-wipes-2"
+    },
+    {
+      "source": "/products/wipes-wet",
+      "destination": "/products/our-wet-wipes-1"
+    },
+    {
+      "source": "/products/soap-bar-cardamom-ginger?variant=31646428135473",
+      "destination": "/pages/skincare-collection-page"
+    },
+    {
+      "source": "/action",
+      "destination": "/"
+    },
+    {
+      "source": "/collections/all/products/our-monthly-diaper-bundle-with-parenting-support",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/collections/shop-all/products/detox-bath-soak",
+      "destination": "/pages/skincare-collection-page"
+    },
+    {
+      "source": "/products/our-deodorant-auto-renew",
+      "destination": "/products/best-natural-deodorant-without-aluminum"
+    },
+    {
+      "source": "/pages/prenatal-vitamins-customizedby-trimester",
+      "destination": "/pages/prenatal-vitamins-customized-by-trimester"
+    },
+    {
+      "source": "/contact",
+      "destination": "/pages/contact"
+    },
+    {
+      "source": "/blogs/blog/sensory-tour-5-ways-to-elevate-your-bathroom-routine",
+      "destination": "/blogs/blog/sensory-tour-bathroom"
+    },
+    {
+      "source": "/blogs/experts/interoception-potty-training-how-are-they-connected",
+      "destination": "/blogs/experts/interoception-potty-training"
+    },
+    {
+      "source": "/products/healthynest-deodorant%60",
+      "destination": "/products/best-natural-deodorant-without-aluminum"
+    },
+    {
+      "source": "/products/All-Family-Wash-Replenishment-Subscription",
+      "destination": "/products/body-wash-concentrate"
+    },
+    {
+      "source": "/collections/baby",
+      "destination": "/pages/shop-all"
+    },
+    {
+      "source": "/products/organic-cotton-diapers-wipes?variant=39437686964273",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/products/cleaning-replenishment-subscription?variant=32610159919153",
+      "destination": "/products/cleaning-concentrate"
+    },
+    {
+      "source": "/products/shampoo-body-wash-bottle",
+      "destination": "/products/body-wash-concentrate"
+    },
+    {
+      "source": "/blogs/the-healthy-baby-show/month-3-sensory-integration",
+      "destination": "/blogs/the-flow-series/month-2-sensory-integration"
+    },
+    {
+      "source": "/collections/pregnancy",
+      "destination": "/pages/prenatal-vitamins-customized-by-trimester"
+    },
+    {
+      "source": "/collections/shop-all-healthynest.atom",
+      "destination": "/pages/shop-all"
+    },
+    {
+      "source": "/blogs/all/tagged/category-Baby",
+      "destination": "/pages/developmental-blog"
+    },
+    {
+      "source": "/blogs/all/what-is-environmental-enrichment",
+      "destination": "/blogs/videos/what-is-environmental-enrichment"
+    },
+    {
+      "source": "/collections/shop-all/products/diaper-training-pants-wipes",
+      "destination": "/pages/diaper-wipes-collection-page"
+    },
+    {
+      "source": "/collections/vendors/products/how-and-wow-membership-test",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/blogs/the-flow-series/month-3-connections",
+      "destination": "/blogs/the-flow-series/month-3-connection"
+    },
+    {
+      "source": "/blogs/the-flow-series/month-4-sleep-disruptions",
+      "destination": "/blogs/the-flow-series/month-4-sleep-disruptions-1"
+    },
+    {
+      "source": "/blogs/the-flow-series/sensory-integration",
+      "destination": "/blogs/the-flow-series/month-2-sensory-integration"
+    },
+    {
+      "source": "/products/cleaning-replenishment-subscription",
+      "destination": "/products/cleaning-concentrate"
+    },
+    {
+      "source": "/blogs/all/preparing-your-home-to-reduce-neurotoxins",
+      "destination": "/blogs/blog/preparing-your-home-to-reduce-neurotoxins"
+    },
+    {
+      "source": "/collections/all",
+      "destination": "/pages/shop-all"
+    },
+    {
+      "source": "/collections/our-diapers-wipes/products/healthynest-diapers",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/pages/content-hub",
+      "destination": "/pages/developmental-blog"
+    },
+    {
+      "source": "/collections/our-skincare-line/products/healthynest-deodorant",
+      "destination": "/products/best-natural-deodorant-without-aluminum"
+    },
+    {
+      "source": "/products/healthynest-deodorant",
+      "destination": "/products/best-natural-deodorant-without-aluminum"
+    },
+    {
+      "source": "/blogs/blog/meet-david-gessen-writer-and-father-to-2-boys",
+      "destination": "/blogs/blog/meet-keith-gessen"
+    },
+    {
+      "source": "/blogs/blog/meet-brian-maaza-founder-of-high-performance-lifestyle-ventures",
+      "destination": "/blogs/blog/meet-brian-mazza-founder-of-high-performance-lifestyle-ventures"
+    },
+    {
+      "source": "/blogs/the-flow-series/month-9-the-joy-of-jargoning",
+      "destination": "/blogs/the-flow-series/month-9-picky-eating"
+    },
+    {
+      "source": "/blogs/the-flow-series/month-3-sensory-integration",
+      "destination": "/blogs/the-flow-series/month-2-sensory-integration"
+    },
+    {
+      "source": "/blogs/all/meet-daniel-alarcon-father-of-two-boys",
+      "destination": "/blogs/all/meet-daniel-alarcon-father-of-two"
+    },
+    {
+      "source": "/products/our-training",
+      "destination": "/products/our-pull-up-style-diaper-1-pack"
+    },
+    {
+      "source": "/products/our-wet-wipes",
+      "destination": "/products/wipes-wet"
+    },
+    {
+      "source": "/products/diaper-training-pants-wipes",
+      "destination": "/products/our-pull-up-style-diaper-bundle"
+    },
+    {
+      "source": "/blogs/the-flow-series/month-1-the-neuro-gastro-imm-une-system",
+      "destination": "/blogs/the-flow-series/month-1-the-neuro-gastro-immune-system"
+    },
+    {
+      "source": "/pages/baby-name-signup",
+      "destination": "/pages/baby-birthday-form"
+    },
+    {
+      "source": "/blogs/the-healthy-baby-show/why-parents-need-to-bury-the-word-should",
+      "destination": "/blogs/the-healthy-baby-show/what-i-wish-i-had-known-about-trying-to-control-my-birth-and-my-kids"
+    },
+    {
+      "source": "/collections/concentrates",
+      "destination": "/pages/shop-all"
+    },
+    {
+      "source": "/collections/shop-all",
+      "destination": "/pages/shop-all"
+    },
+    {
+      "source": "/collections/our-skincare-line",
+      "destination": "/pages/skincare-collection-page"
+    },
+    {
+      "source": "/collections/our-diapers-wipes",
+      "destination": "/pages/diaper-wipes-collection-page"
+    },
+    {
+      "source": "/collections/shop-all-healthynest",
+      "destination": "/pages/shop-all"
+    },
+    {
+      "source": "/collections/our-cleaning-system",
+      "destination": "/pages/cleaning-collection-page"
+    },
+    {
+      "source": "/products/prenatal",
+      "destination": "/pages/prenatal-vitamins-customized-by-trimester"
+    },
+    {
+      "source": "/products/diaper-pants",
+      "destination": "/products/diaper-training-pants-wipes"
+    },
+    {
+      "source": "/pages/our-prenatal",
+      "destination": "/pages/prenatal-vitamins-customized-by-trimester"
+    },
+    {
+      "source": "/pages/the-nest",
+      "destination": "/pages/developmental-playspace-in-tribeca"
+    },
+    {
+      "source": "/products/diaper-and-wipe-subscription-new",
+      "destination": "/products/diaper-and-wipe-subscription-1"
+    },
+    {
+      "source": "/products/diaper-and-wipe-subscription-old",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/products/our-deodorant",
+      "destination": "/products/healthynest-deodorant"
+    },
+    {
+      "source": "/products/test-our-deodorant",
+      "destination": "/products/our-deodorant"
+    },
+    {
+      "source": "/blogs/all/organic-cotton-a-better-choice-for-all-of-us",
+      "destination": "https://healthybaby.com/blogs/blog/organic-cotton-a-better-choice-for-all-of-us"
+    },
+    {
+      "source": "/products/healthynest-diapers",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/collections/baby/products/healthynest-diaper-training-pants",
+      "destination": "/products/diaper-training-pants-wipes"
+    },
+    {
+      "source": "/collections/our-diapers-wipes/products/healthynest-diaper-training-pants",
+      "destination": "/products/diaper-training-pants-wipes"
+    },
+    {
+      "source": "/products/healthynest-diaper-training-pants",
+      "destination": "/products/diaper-training-pants-wipes"
+    },
+    {
+      "source": "/collections/shop-all-updated",
+      "destination": "/collections/shop-all-healthynest"
+    },
+    {
+      "source": "/blogs/blog/baby-wipes-101-spoiler-alert-the-baby-wipe-will-stay-with-your-family-far-beyond-the-diapering-years",
+      "destination": "/blogs/blog/baby-wipes-101"
+    },
+    {
+      "source": "/blogs/all/plant-based-diapers-better-for-the-environment",
+      "destination": "/blogs/all/we-are-changing-diapers"
+    },
+    {
+      "source": "/products/detox-bath-salts",
+      "destination": "/pages/skincare-collection-page"
+    },
+    {
+      "source": "/products/skincare-wash-welcome",
+      "destination": "/products/healthynest-shampoo-and-body-wash"
+    },
+    {
+      "source": "/products/laundry-concentrate-system",
+      "destination": "/products/healthynest-laundry-concentrate"
+    },
+    {
+      "source": "/products/cleaning-welcome",
+      "destination": "/products/healthynest-cleaning-system"
+    },
+    {
+      "source": "/products/cloth-diaper-trial-merino-wool-edition",
+      "destination": "/products/our-cloth-diaper-set"
+    },
+    {
+      "source": "/products/diapers",
+      "destination": "/products/healthynest-diapers"
+    },
+    {
+      "source": "/products/wipes-dry",
+      "destination": "/products/dry-wipes"
+    },
+    {
+      "source": "/products/diapers-bundle",
+      "destination": "/products/diaper-and-wipe-subscription"
+    },
+    {
+      "source": "/blogs/all/reducing-single-use-plastics",
+      "destination": "/blogs/all/reducing-single-use-plastics-for-baby"
+    }
+  ]
+}
