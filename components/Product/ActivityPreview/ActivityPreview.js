@@ -36,12 +36,13 @@ const ActivityPreview = ({ content }) => {
         <div className="activity-preview__title">{content.fields?.title}</div>
         <Swiper
           modules={[Lazy, Pagination]}
-          slidesPerView={1}
+          slidesPerView={1.25}
           threshold={15}
           spaceBetween={0}
           lazy={true}
           pagination={false}
-          loop={false}
+          loop={true}
+          centeredSlides={true}
           breakpoints={{
             768: {
               slidesPerView: 3,
@@ -85,9 +86,6 @@ const ActivityPreview = ({ content }) => {
                   </div>
                   <div className="activity-preview__item-description">
                     {activityPreviewBlock.fields?.description}
-                  </div>
-                  <div className="activity-preview__item-cta">
-                    Try This Activity
                   </div>
                 </SwiperSlide>
               )
