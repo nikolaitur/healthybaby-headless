@@ -40,6 +40,12 @@
 
   &__subheader {
     margin-top: 15px;
-    max-width: 50%;
+    @include breakpoint-up('md') {
+      max-width: 50%;
+    }
+
+    p {
+      font-size: 20px;
+    }
   }
 }
