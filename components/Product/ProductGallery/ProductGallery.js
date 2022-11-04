@@ -33,8 +33,6 @@ const ProductGallery = ( props ) => {
                             let sizes = '(min-width: 1080px) 35vw, 800px';
                             let classes = "product-gallery__image"
 
-                            console.log(page.fields.productImagesDesktop.length, index)
-
                             if(index == 0 && page.fields.productImagesDesktop.length == 1) {
                                 sizes = '(min-width: 1080px) 70vw, 800px';
                                 classes = "product-gallery__image product-gallery__image--full-width"
