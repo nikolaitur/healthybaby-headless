@@ -47,6 +47,11 @@
     @include breakpoint-up('md') {
       padding: 30px;
       margin: 15px;
+      flex: 1 0 46.7%;
+      max-width: 46.7%;
+    }
+
+    @media (min-width: 1200px) {
       flex: 1 0 30.333333%;
       max-width: 30.333333%;
 
@@ -67,9 +72,11 @@
     &--image {
       position: relative;
       width: 60px;
+      min-width: 60px;
 
       @include breakpoint-up('md') {
         width: 100px;
+        min-width: 100px;
       }
 
       span {
@@ -82,6 +89,14 @@
         width: 100% !important;
         position: relative !important;
         height: unset !important;
+      }
+    }
+
+    &--header.small {
+      font-size: 1.4rem;
+
+      @include breakpoint-up('md') {
+        font-size: 1.8rem;
       }
     }
 
