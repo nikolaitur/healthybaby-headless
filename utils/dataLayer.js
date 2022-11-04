@@ -83,7 +83,7 @@ function getMarketingData() {
   return marketingProps
 }
 
-function buildProductData(products, type, url, forceIndex) {
+function buildProductData(products, url, forceIndex) {
   return products.map((product, index) => {
     const firstVariant = product.variants[0]
     const data = {
@@ -102,18 +102,19 @@ function buildProductData(products, type, url, forceIndex) {
       inventory: firstVariant.quantityAvailable?.toString(),
       compare_at_price: firstVariant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
       image: firstVariant.content.featuredMedia?.src || '', // If available, otherwise use an empty string
+      list: url, // The list the product was discovered from or is displayed in
+      position: forceIndex || index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
     }
-
-    if (type === 'collection') {
-      data['list'] = url // The list the product was discovered from or is displayed in
-      data['position'] = forceIndex || index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
-    }
-
     return data
   })
 }
 
 function buildProductCartData(cart, dataType = 'products') {
+
+  if (!cart) {
+    return ''
+  }
+
   const lineItems = cart.lines
   return lineItems.map((line, index) => {
 
@@ -245,7 +246,7 @@ export const dataLayerATC = ({ customer, item, url }) => {
               category: item.product.productType,
               variant: item.variant.title,
               price: item.variant.price.toString(),
-              quantity: item.quantity,
+              quantity: item.quantity.toString(),
               product_id: item.product.sourceEntryId.replace(
                 'gid://shopify/Product/',
                 ''
@@ -253,6 +254,7 @@ export const dataLayerATC = ({ customer, item, url }) => {
               variant_id: item.variantId.toString(), // id or variant_id
               compare_at_price: item.variant?.compareAtPrice?.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
               image: item.variant.featuredMedia?.src || '', // If available, otherwise use an empty string
+              list: url, // The list the product was discovered from or is displayed in
             },
           ],
         },
@@ -319,55 +321,76 @@ export const dataLayerRFC = ({ customer, item }) => {
 export const dataLayerViewProductList = ({ customer, products, url }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-  TagManager.dataLayer({
-    dataLayer: {
-      event_id: uniqueKey.toString(),
-      event: 'dl_view_item_list',
-      user_properties,
-      marketing: getMarketingData(),
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      ecommerce: {
-        currencyCode: 'USD',
-        impressions: buildProductData([...products], 'collection', url),
+
+  // split products into batches of 15
+  const size = 15; const batches = [];
+  for (var i = 0; i < products.length; i += size) {
+    batches.push(products.slice(i, i + size))
+  }
+
+  batches.forEach(batch => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event_id: uniqueKey.toString(),
+        event: 'dl_view_item_list',
+        user_properties,
+        marketing: getMarketingData(),
+        event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+        ecommerce: {
+          currencyCode: 'USD',
+          impressions: buildProductData([...batch], 'collection', url),
+        },
       },
-    },
+    })
   })
+
+
 }
 
 export const dataLayerViewSearchResults = ({ customer, products }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-  TagManager.dataLayer({
-    dataLayer: {
-      event: 'dl_view_search_results',
-      user_properties,
-      marketing: getMarketingData(),
-      event_id: uniqueKey.toString(), // unique uuid for FB conversion API
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      ecommerce: {
-        currencyCode: 'USD',
-        actionField: { list: 'search results' },
-        impressions: products.map((item, index) => {
-          return {
-            name: item.content.title, // Product title
-            brand: 'Healthy Baby',
-            category: item.productType,
-            product_id: item.sourceEntryId
-              .split('gid://shopify/Product/')
-              .pop(), // The product_id
-            id: item.variants[0].sku,
-            price: item.variants[0].price.toString(),
-            variant_id: item.variants[0].sourceEntryId
-              .split('gid://shopify/ProductVariant/')
-              .pop(), // id or variant_id
-            image: item.content?.featuredMedia?.src || '', // If available, otherwise use an empty string
-            list: '/search',
-            position: (index + 1).toString(),
-          }
-        }),
+
+  // split products into batches of 15
+  const size = 15; const batches = [];
+  for (var i = 0; i < products.length; i += size) {
+    batches.push(products.slice(i, i + size))
+  }
+
+  batches.forEach(batch => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'dl_view_search_results',
+        user_properties,
+        marketing: getMarketingData(),
+        event_id: uniqueKey.toString(), // unique uuid for FB conversion API
+        event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+        ecommerce: {
+          currencyCode: 'USD',
+          actionField: { list: 'search results' },
+          impressions: batch.map((item, index) => {
+            return {
+              name: item.content.title, // Product title
+              brand: 'Healthy Baby',
+              category: item.productType,
+              product_id: item.sourceEntryId
+                .split('gid://shopify/Product/')
+                .pop(), // The product_id
+              id: item.variants[0].sku,
+              price: item.variants[0].price.toString(),
+              variant_id: item.variants[0].sourceEntryId
+                .split('gid://shopify/ProductVariant/')
+                .pop(), // id or variant_id
+              image: item.content?.featuredMedia?.src || '', // If available, otherwise use an empty string
+              list: '/search',
+              position: (index + 1).toString(),
+            }
+          }),
+        },
       },
-    },
+    })
   })
+
 }
 
 /*
@@ -382,7 +405,7 @@ export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
       user_properties,
       marketing: getMarketingData(),
       event_id: uniqueKey.toString(), // unique uuid for FB conversion API
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the even
       ecommerce: {
         currencyCode: 'USD',
         click: {
@@ -399,21 +422,31 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
 
-  TagManager.dataLayer({
-    dataLayer: {
-      event: 'dl_view_cart',
-      event_id: uniqueKey.toString(),
-      user_properties,
-      marketing: getMarketingData(),
-      event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
-      ecommerce: {
-        currencyCode: 'USD',
-        actionField: { list: 'Shopping Cart' },
-        impressions: products
+
+  // split products into batches of 15
+  const size = 15; const batches = [];
+  for (var i = 0; i < products.length; i += size) {
+    batches.push(products.slice(i, i + size))
+  }
+
+  batches.forEach(batch => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'dl_view_cart',
+        event_id: uniqueKey.toString(),
+        user_properties,
+        marketing: getMarketingData(),
+        event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+        cart_total: cart?.cost?.subtotalAmount?.amount || '0',
+        ecommerce: {
+          currencyCode: 'USD',
+          actionField: { list: 'Shopping Cart' },
+          impressions: batch
+        },
       },
-    },
+    })
   })
+
 }
 
 export const dataLayerBeginCheckout = ({ customer, cart }) => {
@@ -488,7 +521,7 @@ export const dataLayerViewProduct = ({ customer, product, url, variantOption, in
           actionField: { list: url, action: 'detail' },
           products: variantOption
             ? buildProductDataWithVariantOption(product, variantOption)
-            : buildProductData([product], 'product', url, index),
+            : buildProductData([product], url, index),
         },
       },
     },

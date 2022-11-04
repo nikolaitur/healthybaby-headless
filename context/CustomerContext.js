@@ -53,7 +53,9 @@ export function CustomerProvider({ children }) {
     }
   }, [])
 
-  const onRountChangeComplete = () => {
+  const onRountBeforeChangeComplete = () => {
+    if (router.asPath.includes('/account')) return
+    setCustomerLoading(true)
     getCartData()
     .then(cart => {
       dataLayerUserData({
@@ -65,9 +67,9 @@ export function CustomerProvider({ children }) {
   }
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', onRountChangeComplete)
+    router.events.on('beforeHistoryChange', onRountBeforeChangeComplete)
     return () => {
-      router.events.off('routeChangeComplete', onRountChangeComplete)
+      router.events.off('beforeHistoryChange', onRountBeforeChangeComplete)
     }
   }, [])
 

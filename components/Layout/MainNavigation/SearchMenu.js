@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useRouter } from 'next/router'
 import { useCustomerContext } from '@/context/CustomerContext'
-import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 import { GET_PRODUCTS } from 'gql'
 import _ from 'lodash'
 
@@ -58,7 +57,6 @@ const SearchMenu = ({
         }).then(({products}) => {
             if (products.length) {
               setSearchProducts(products)
-              dataLayerViewSearchResults({ customer, products })
               document.body.classList.add('searchmenu-is-active')
             }
           })
