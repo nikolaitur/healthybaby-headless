@@ -47,6 +47,11 @@
     @include breakpoint-up('md') {
       padding: 30px;
       margin: 15px;
+      flex: 1 0 46.7%;
+      max-width: 46.7%;
+    }
+
+    @media (min-width: 1200px) {
       flex: 1 0 30.333333%;
       max-width: 30.333333%;
 
