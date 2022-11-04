@@ -54,6 +54,7 @@ export function CustomerProvider({ children }) {
   }, [])
 
   const onRountBeforeChangeComplete = () => {
+    if (router.asPath.includes('/account')) return
     setCustomerLoading(true)
     getCartData()
     .then(cart => {
