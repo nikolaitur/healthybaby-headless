@@ -208,7 +208,8 @@ const ProductInfo = (props) => {
           attributes: [
             { key: '_subscription', value: sellingPlanId },
             { key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() },
-            { key: '_variantSku', value: variant.sku },
+            { key: '_variantSku', value: variant.sku || "" },
+            { key: '_productType', value: product.productType },
             { key: '_productId', value: product.sourceEntryId },
           ],
         }
@@ -258,7 +259,8 @@ const ProductInfo = (props) => {
       dataLayerATC({ customer, item: newItem, url: router.asPath })
 
       let itemAttributes = [
-        { key: '_variantSku', value: variant.sku },
+        { key: '_variantSku', value: variant.sku || "" },
+        { key: '_productType', value: product.productType },
         { key: '_productId', value: product.sourceEntryId },
       ]
 
@@ -282,6 +284,8 @@ const ProductInfo = (props) => {
           },
         ],
       })
+
+      console.log(cart, userErrors, errors, itemAttributes, variant)
 
       if (cart) {
         cartDrawerContext.setShopifyCart(cart)
@@ -318,6 +322,8 @@ const ProductInfo = (props) => {
     const sellingPlanAllocations = selectedVariant.metafields.find(
       (metafield) => metafield.key === 'sellingPlanAllocations'
     )
+
+    console.log(selectedVariant)
 
     setIsSubscription(sellingPlanAllocations)
 
@@ -396,8 +402,8 @@ const ProductInfo = (props) => {
         <h4 className="product-info__price">
           <>
             {purchaseSubscription === 'Subscription'
-              ? `$${Number(subscriptionPrice).toFixed(2)}`
-              : `$${selectedVariant.price.toFixed(2)}`}
+              ? `$${Math.round(subscriptionPrice)}`
+              : `$${Math.round(selectedVariant.price)}`}
           </>
         </h4>
         <div className="product-form">
@@ -412,6 +418,7 @@ const ProductInfo = (props) => {
                       <div
                         className="product-form__add-on"
                         onClick={() => handleCheckBoxChange(option)}
+                        key={oIndex}
                       >
                         <div className="product-form__add-on--image">
                           {page?.fields?.productAddOnImage?.fields?.file
@@ -478,7 +485,8 @@ const ProductInfo = (props) => {
                 <label htmlFor="onetimeOption">
                   One-Time Purchase{' '}
                   <span className="price">
-                    ${selectedVariant.price.toFixed(2)}
+                    {console.log(selectedVariant.price)}
+                    ${Math.round(selectedVariant.price)}
                   </span>
                 </label>
               </div>
@@ -507,9 +515,9 @@ const ProductInfo = (props) => {
                   </span>
                   <span className="price">
                     {selectedVariant.price !== subscriptionPrice ? (
-                      <><s>${selectedVariant.price.toFixed(2)}</s>{" "}</>
+                      <><s>${Math.round(selectedVariant.price)}</s>{" "}</>
                     ) : ""}
-                    ${Number(subscriptionPrice).toFixed(2)}
+                    ${Math.round(subscriptionPrice)}
                   </span>
                 </label>
               </div>
@@ -608,59 +616,61 @@ const ProductInfo = (props) => {
           {page?.fields?.productDetailTabTitle1 &&
           page.fields?.productDetailTabContent1 ? (
             <div className="product-tabs">
-              <div className="product-tabs__nav">
-                {page.fields?.productDetailTabTitle1 &&
-                page.fields?.productDetailTabContent1 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 0 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(0)}
-                  >
-                    {page.fields.productDetailTabTitle1}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {page.fields?.productDetailTabTitle2 &&
-                page.fields?.productDetailTabContent2 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 1 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(1)}
-                  >
-                    {page.fields.productDetailTabTitle2}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {page.fields?.productDetailTabTitle3 &&
-                page.fields?.productDetailTabContent3 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 2 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(2)}
-                  >
-                    {page.fields.productDetailTabTitle3}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {page.fields?.productDetailTabTitle4 &&
-                page.fields?.productDetailTabContent4 ? (
-                  <div
-                    className={`product-tabs__title ${
-                      activeTab == 3 ? 'active' : ''
-                    }`}
-                    onClick={() => setActiveTab(3)}
-                  >
-                    {page.fields.productDetailTabTitle4}
-                  </div>
-                ) : (
-                  ''
-                )}
+              <div className="product-tabs__nav-wrapper">
+                <div className="product-tabs__nav">
+                  {page.fields?.productDetailTabTitle1 &&
+                  page.fields?.productDetailTabContent1 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 0 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(0)}
+                    >
+                      {page.fields.productDetailTabTitle1}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {page.fields?.productDetailTabTitle2 &&
+                  page.fields?.productDetailTabContent2 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 1 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(1)}
+                    >
+                      {page.fields.productDetailTabTitle2}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {page.fields?.productDetailTabTitle3 &&
+                  page.fields?.productDetailTabContent3 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 2 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(2)}
+                    >
+                      {page.fields.productDetailTabTitle3}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {page.fields?.productDetailTabTitle4 &&
+                  page.fields?.productDetailTabContent4 ? (
+                    <div
+                      className={`product-tabs__title ${
+                        activeTab == 3 ? 'active' : ''
+                      }`}
+                      onClick={() => setActiveTab(3)}
+                    >
+                      {page.fields.productDetailTabTitle4}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
               <div className="product-tabs__content">
                 {page.fields?.productDetailTabTitle1 &&

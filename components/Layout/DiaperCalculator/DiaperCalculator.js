@@ -272,7 +272,8 @@ const DiaperCalculator = ({ props, children }) => {
         )
 
         let itemAttributes = [
-          { key: '_variantSku', value: variant.sku },
+          { key: '_variantSku', value: variant.sku || "" },
+          { key: '_productType', value: product.productType },
           { key: '_productId', value: product.sourceEntryId },
         ]
 

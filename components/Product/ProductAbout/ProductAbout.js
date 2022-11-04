@@ -9,7 +9,6 @@ const ProductAbout = ({ content }) => {
         <div className="product-about">
             <div className="product-about__container container">
                 <div className="product-about__content">
-
                     {content.fields?.image?.fields?.file?.url ? (
                         <div className="product-about__image product-about__image--mobile">
                             <Image
@@ -36,7 +35,6 @@ const ProductAbout = ({ content }) => {
                             })}
                         </div>
                     ) : ""}
-
                 </div>
                 {content.fields?.image?.fields?.file?.url ? (
                     <div className="product-about__image about__image--desktop">

@@ -43,7 +43,15 @@ export function CartDrawerProvider({ children }) {
 
   useEffect(() => {
     if (isOpen) {
-      dataLayerViewCart({ customer, cart: cart, url: router.asPath })
+      cartClient
+        .cart({
+          cartId: Cookies.get('shopifyCartId'),
+        })
+        .then((response) => {
+          if (response) {
+            dataLayerViewCart({ customer, cart: response.cart, url: router.asPath })
+          }
+        })
     }
   }, [isOpen])
 

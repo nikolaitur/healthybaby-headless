@@ -1,44 +1,45 @@
 .collection-grid {
-    margin: 50px 0;
-    &__container {
-        @include breakpoint-down('md') {
-            width: calc(100% - 30px);
-        }
+  margin: 50px 0;
+  &__container {
+    @include breakpoint-down('md') {
+      width: calc(100% - 30px);
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    @include breakpoint-up('md') {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
-    &__wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-
-        @include breakpoint-up('md') {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        @include breakpoint-up('lg') {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
+    @include breakpoint-up('lg') {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
     }
+  }
 
-    &__content {
-        margin-bottom: 30px;
+  &__content {
+    margin-bottom: 30px;
 
-        &.hide {
-            display: none;
-        }
+    &.hide {
+      display: none;
     }
+  }
 
-    &__header {
-        @include breakpoint-up('md') {
-            margin-bottom: 5px;
-        }
+  &__header {
+    @include breakpoint-up('md') {
+      margin-bottom: 5px;
     }
+  }
 
-    &__subheader {
-        margin-top: 15px;
-    }
+  &__subheader {
+    margin-top: 15px;
+    max-width: 50%;
+  }
 }

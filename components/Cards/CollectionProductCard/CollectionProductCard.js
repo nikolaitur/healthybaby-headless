@@ -18,7 +18,7 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
 
-import { dataLayerATC, dataLayerSelectProduct } from '@/utils/dataLayer'
+import { dataLayerATC, dataLayerSelectProduct, dataLayerViewProduct } from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 import 'swiper/css'
@@ -50,6 +50,7 @@ const CollectionProductCard = forwardRef(
       productBadges,
       imageLayout = 'responsive',
       cardWidthOverride,
+      index
     },
     ref
   ) => {
@@ -85,7 +86,8 @@ const CollectionProductCard = forwardRef(
     const badges = findProductBadges({ content, product, productBadges })
 
     const handleLink = (product) => {
-      dataLayerSelectProduct({ customer, product, url: router.asPath })
+      dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+      dataLayerViewProduct({ customer, product, url: router.asPath, index })
       router.push(`/products/${handle}`)
     }
 
@@ -104,6 +106,8 @@ const CollectionProductCard = forwardRef(
           page: pages[0],
           className: 'quickview',
         })
+        dataLayerSelectProduct({ customer, product, url: router.asPath, index })
+        dataLayerViewProduct({ customer, product, url: router.asPath, index })
       }
     }
 
@@ -128,8 +132,8 @@ const CollectionProductCard = forwardRef(
 
       dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-      let itemAttributes = [{ key: "_variantSku", value: variant.sku}, { key: "_productId", value: product.sourceEntryId}]
-      
+      let itemAttributes = [{ key: "_variantSku", value: variant.sku || ""}, {key: '_productType', value: item.product.productType}, { key: "_productId", value: product.sourceEntryId}]
+
       if(sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
@@ -180,46 +184,46 @@ const CollectionProductCard = forwardRef(
       return <></>
     }
 
-    return (
-      <div
-        className={`collection-product-card ${
-          cardWidth == 'Full Width' ? 'full-width' : ''
-        }`}
-      >
-        {badges?.length > 0 && (
-          <ul className="collection-product-card__badge-list">
-            {badges.map((badge, index) => {
-              return (
-                <li className="collection-product-card__badge" key={index}>
-                  <Image
-                    src={`https:${badge.file.url}`}
-                    alt={badge.title}
-                    layout={imageLayout}
-                    objectFit="cover"
-                    height={100}
-                    width={100}
-                  />
-                </li>
-              )
-            })}
-          </ul>
-        )}
-
-        <a
-          className={
-            cardWidth == 'Full Width'
-              ? 'collection-product-card__image-wrapper--full-width'
-              : ''
-          }
-          onClick={() => handleLink(product)}
-          ref={ref}
+    if (content.fields?.image?.fields?.file?.url) {
+      return (
+        <div
+          className={`collection-product-card ${
+            cardWidth == 'Full Width' ? 'full-width' : ''
+          }`}
         >
-          <div
-            className={`collection-product-card__image ${
-              content.fields?.image ? 'hide-mobile' : ''
-            }`}
+          {badges?.length > 0 && (
+            <ul className="collection-product-card__badge-list">
+              {badges.map((badge, index) => {
+                return (
+                  <li className="collection-product-card__badge" key={index}>
+                    <Image
+                      src={`https:${badge.file.url}`}
+                      alt={badge.title}
+                      layout={imageLayout}
+                      objectFit="cover"
+                      height={100}
+                      width={100}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+
+          <a
+            className={
+              cardWidth == 'Full Width'
+                ? 'collection-product-card__image-wrapper--full-width'
+                : ''
+            }
+            onClick={() => handleLink(product)}
+            ref={ref}
           >
-            {content.fields?.image?.fields?.file?.url ? (
+            <div
+              className={`collection-product-card__image ${
+                content.fields?.image ? 'hide-mobile' : ''
+              }`}
+            >
               <>
                 <Image
                   className="featured"
@@ -248,12 +252,8 @@ const CollectionProductCard = forwardRef(
                   ''
                 )}
               </>
-            ) : (
-              <div className="placeholder"></div>
-            )}
-          </div>
-        </a>
-        {content.fields?.image?.fields?.file?.url ? (
+            </div>
+          </a>
           <a onClick={() => handleLink(product)}>
             <Swiper
               className="collection-product-card__slider"
@@ -293,64 +293,65 @@ const CollectionProductCard = forwardRef(
               )}
             </Swiper>
           </a>
-        ) : (
-          ''
-        )}
-        <div className="collection-product-card__content">
-          {content.fields?.title ? (
-            <a onClick={() => handleLink(product)}>
-              <div className="collection-product-card__title">
-                {content.fields.title}
-              </div>
-            </a>
-          ) : (
-            ''
-          )}
-          {content.fields?.subtitle ? (
-            <p className="collection-product-card__subtitle">
-              {content.fields.subtitle}
-            </p>
-          ) : (
-            ''
-          )}
-          {/* {product.content?.description ? (
-            <p className="collection-product-card__subtitle">{ product.content.description  }</p>
-        ) : ""} */}
-          {hasWindow && (
-            <div className="collection-product-card__reviews">
-              <span
-                className="junip-product-summary"
-                data-product-id={product?.sourceEntryId?.replace(
-                  'gid://shopify/Product/',
-                  ''
-                )}
-              ></span>
-            </div>
-          )}
-          <div className="collection-product-card__cta">
-            {!product.availableForSale ? (
-              <span className="btn disabled">
-                <span>Out Of Stock</span>
-              </span>
-            ) : product && product.variants.length > 1 ? (
-              <button
-                className="btn secondary quickview"
-                onClick={() => openQuickView()}
-              >
-                <span>{getCtaText()}</span>
-              </button>
+          <div className="collection-product-card__content">
+            {content.fields?.title ? (
+              <a onClick={() => handleLink(product)}>
+                <div className="collection-product-card__title">
+                  {content.fields.title}
+                </div>
+              </a>
             ) : (
-              <button className="btn secondary" onClick={() => handleAddItem()}>
-                <span>{getCtaText()}</span>
-              </button>
+              ''
             )}
-          </div>
-          <div className="collection-product-card__price">
-            {productPrice ? <>${productPrice}</> : ''}
+            {content.fields?.subtitle ? (
+              <p className="collection-product-card__subtitle">
+                {content.fields.subtitle}
+              </p>
+            ) : (
+              ''
+            )}
+            {/* {product.content?.description ? (
+              <p className="collection-product-card__subtitle">{ product.content.description  }</p>
+          ) : ""} */}
+            {hasWindow && (
+              <div className="collection-product-card__reviews">
+                <span
+                  className="junip-product-summary"
+                  data-product-id={product?.sourceEntryId?.replace(
+                    'gid://shopify/Product/',
+                    ''
+                  )}
+                ></span>
+              </div>
+            )}
+            <div className="collection-product-card__cta">
+              {!product.availableForSale ? (
+                <span className="btn disabled">
+                  <span>Out Of Stock</span>
+                </span>
+              ) : product && product.variants.length > 1 ? (
+                <button
+                  className="btn secondary quickview"
+                  onClick={() => openQuickView()}
+                >
+                  <span>{getCtaText()}</span>
+                </button>
+              ) : (
+                <button className="btn secondary" onClick={() => handleAddItem()}>
+                  <span>{getCtaText()}</span>
+                </button>
+              )}
+            </div>
+            <div className="collection-product-card__price">
+              {productPrice ? <>${productPrice}</> : ''}
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+
+    return <></>
+
   }
 )
 

@@ -7,6 +7,12 @@
     padding: 144px 0;
   }
 
+  &__content {
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
   &__pretitle {
     font-family: $NeutraText;
     font-size: 16px;
@@ -14,6 +20,8 @@
     letter-spacing: 0.15em;
     color: $primaryBrown;
     text-transform: uppercase;
+    padding-left: 28px;
+    padding-right: 28px;
 
     @include breakpoint-up('md') {
       font-size: 18px;
@@ -29,6 +37,8 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 28px;
+    padding-right: 28px;
 
     @include breakpoint-up('md') {
       margin-top: 18px;
@@ -52,12 +62,29 @@
     @media (min-width: 1300px) {
       padding: 0 40px;
     }
+
+    &.swiper-slide-active {
+      .activity-preview__item-description {
+        opacity: 1;
+      }
+    }
+
     &-image {
-      width: 100%;
+      width: 284px;
+      // transition: all 1s;
       border-radius: 50%;
       overflow: hidden;
       position: relative;
       cursor: pointer;
+      margin: 0 auto;
+
+      @media (min-width: 768px) {
+        width: 100%;
+      }
+
+      @media (min-width: 1300px) {
+        width: calc(100% + 14px);
+      }
     }
 
     &-label {
@@ -84,7 +111,7 @@
 
     &-title {
       font-size: 20px;
-      font-weight: 500;
+      font-weight: 600;
       margin-top: 6px;
       font-family: $NeutraText;
       color: $primaryBrown;
@@ -102,10 +129,15 @@
       font-family: $NeutraText;
       color: $primaryBrown;
       margin-top: 6px;
+      opacity: 0;
 
+      @include breakpoint-up('sm') {
+        opacity: 1;
+      }
       @include breakpoint-up('md') {
         font-size: 22px;
         margin-top: 18px;
+        opacity: 1;
       }
     }
 

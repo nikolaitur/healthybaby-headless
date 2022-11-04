@@ -26,16 +26,14 @@ function getUserProperties(customer)  {
     }
   }
 
-  if (customer?.orders?.edges?.length) {
-    let orderTotal = 0
-    for (var i = 0; i < customer.orders?.edges?.length; i++) {
-      orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
-    }
-    customerProps = {
-      ...customerProps,
-      customer_order_count: customer.orders.length.toString(),
-      customer_total_spent: orderTotal.toString(),
-    }
+  let orderTotal = 0
+  for (var i = 0; i < customer?.orders?.edges?.length; i++) {
+    orderTotal += parseFloat(customer.orders.edges[i].node.totalPriceV2.amount)
+  }
+  customerProps = {
+    ...customerProps,
+    customer_order_count: customer?.orders?.length.toString() || '0',
+    customer_total_spent: orderTotal.toString(),
   }
 
   if (customer?.defaultAddress) {
@@ -85,18 +83,14 @@ function getMarketingData() {
   return marketingProps
 }
 
-function buildProductData(products, type, url) {
-  let category = ''
-  if (type === 'collection' && url !== '/shop-all') {
-    category = url.replace('/collections/', '')
-  }
+function buildProductData(products, type, url, forceIndex) {
   return products.map((product, index) => {
     const firstVariant = product.variants[0]
     const data = {
       id: firstVariant.sku, // SKU
       name: product.content.title, // Product title
       brand: 'Healthy Baby',
-      category: category,
+      category: product.productType || '',
       variant: firstVariant.content.title,
       price: firstVariant.price.toString(),
       quantity: '1',
@@ -112,14 +106,14 @@ function buildProductData(products, type, url) {
 
     if (type === 'collection') {
       data['list'] = url // The list the product was discovered from or is displayed in
-      data['position'] = (index + 1).toString() // position in the list of search results, collection views and position in cart indexed starting at 1
+      data['position'] = forceIndex || index + 1 // position in the list of search results, collection views and position in cart indexed starting at 1
     }
 
     return data
   })
 }
 
-function buildProductCartData(cart) {
+function buildProductCartData(cart, dataType = 'products') {
   const lineItems = cart.lines
   return lineItems.map((line, index) => {
 
@@ -131,14 +125,18 @@ function buildProductCartData(cart) {
       if (Object.values(attribute).includes("_productId")) { return attribute } else return false
     })
 
-    const data = {
+    let category = line.attributes.filter(attribute => {
+      if (Object.values(attribute).includes("_productType")) { return attribute } else return false
+    })
+
+    let data = {
       id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
       name: line.merchandise.product.title, // Product title
       brand: 'Healthy Baby',
-      category: '',
+      category: category && category[0] ? category[0].value : '',
       variant: line.merchandise.title,
       price: line.cost.totalAmount.amount.toString(),
-      quantity: '1',
+      quantity: line.quantity.toString(),
       product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
       variant_id: line.merchandise.sourceEntryId.replace(
         'gid://shopify/ProductVariant/',
@@ -146,6 +144,24 @@ function buildProductCartData(cart) {
       ), // id or variant_id
       compare_at_price: line.cost?.compareAtAmountPerQuantity?.amount.toString() || '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
       image: line.merchandise.image?.url || '', // If available, otherwise use an empty string
+    }
+
+    if (dataType === 'impressions') {
+      data = {
+        name: line.merchandise.product.title, // Product title
+        brand: 'Healthy Baby',
+        category: category && category[0] ? category[0].value : '',
+        product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
+        id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
+        price: line.cost.totalAmount.amount.toString(),
+        variant_id: line.merchandise.sourceEntryId.replace(
+          'gid://shopify/ProductVariant/',
+          ''
+        ), // id or variant_id
+        image: line.merchandise.image?.url || '', // If available, otherwise use an empty string
+        list: 'Shopping Cart',
+        position: (index + 1).toString(),
+      }
     }
 
     return data
@@ -161,7 +177,7 @@ function buildProductDataWithVariantOption(product, variantOption) {
     id: variant.sku, // SKU
     name: product.content.title, // Product title
     brand: 'Healthy Baby',
-    category: '',
+    category: product.productType,
     variant: variant.content.title,
     price: variant.price.toString(),
     quantity: '1',
@@ -176,7 +192,6 @@ function buildProductDataWithVariantOption(product, variantOption) {
   }
 }
 
-// TODO: make this also fire on every page load
 export const dataLayerUserData = ({ cart, customer, url }) => {
   const device = {
     screen_resolution: `${window.screen.width}x${window.screen.height}`,
@@ -187,21 +202,7 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
   }
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-
-  const cartSubtotal = cart.reduce((sum, lineItem) => {
-    if (lineItem.sellingPlan) {
-      const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
-      const sellingPlanPrice =
-        sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-      return (
-        sum +
-        sellingPlanPriceValue[0].priceAdjustments[0].price.amount *
-          lineItem.quantity
-      )
-    } else {
-      return sum + lineItem.variant.price * lineItem.quantity
-    }
-  }, 0)
+  const products = buildProductCartData(cart)
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_user_data',
@@ -210,18 +211,14 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: cartSubtotal.toString(),
+      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
       page: {
         url: url,
       },
       ecommerce: {
         currencyCode: 'USD',
         cart_contents: {
-          products: buildProductData(
-            cart.map((item) => item.product),
-            'collection',
-            url
-          ),
+          products
         },
       },
     },
@@ -229,9 +226,6 @@ export const dataLayerUserData = ({ cart, customer, url }) => {
 }
 
 export const dataLayerATC = ({ customer, item, url }) => {
-  const category = url.includes('/collections/')
-    ? url.replace('/collections/', '')
-    : ''
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -248,10 +242,10 @@ export const dataLayerATC = ({ customer, item, url }) => {
               id: item.variant.sku, // SKU
               name: item.variant.productTitle, // Product title
               brand: 'Healthy Baby',
-              category: category,
+              category: item.product.productType,
               variant: item.variant.title,
               price: item.variant.price.toString(),
-              quantity: '1',
+              quantity: item.quantity,
               product_id: item.product.sourceEntryId.replace(
                 'gid://shopify/Product/',
                 ''
@@ -280,25 +274,32 @@ export const dataLayerRFC = ({ customer, item }) => {
   let productId = item.attributes.filter(attribute => {
     if (Object.values(attribute).includes("_productId")) { return attribute } else return false
   })
-  
+
+  let category = item.attributes.filter(attribute => {
+    if (Object.values(attribute).includes("_productType")) { return attribute } else return false
+  })
+
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
+
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_remove_from_cart',
       event_id: uniqueKey.toString(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
       ecommerce: {
+        currencyCode: 'USD',
         remove: {
+          actionField: { list: location.pathname, 'action': 'remove' },
           products: [
             {
               id: ( variantSku && variantSku.length ) ? variantSku[0].value : "", // SKU
               name: item.merchandise.product.title, // Product title
               brand: 'Healthy Baby',
-              category: '',
+              category: category && category[0] ? category[0].value : '',
               variant: item.merchandise.title,
               price: item.cost.amountPerQuantity.amount.toString(),
-              quantity: '0',
+              quantity: item.quantity,
               product_id: ( productId && productId.length ) ?  productId[0].value.replace('gid://shopify/Product/', '') : "", // The product_id
               variant_id: item.merchandise.sourceEntryId
                 .split('gid://shopify/ProductVariant/')
@@ -350,7 +351,7 @@ export const dataLayerViewSearchResults = ({ customer, products }) => {
           return {
             name: item.content.title, // Product title
             brand: 'Healthy Baby',
-            category: '',
+            category: item.productType,
             product_id: item.sourceEntryId
               .split('gid://shopify/Product/')
               .pop(), // The product_id
@@ -372,7 +373,7 @@ export const dataLayerViewSearchResults = ({ customer, products }) => {
 /*
   Use this for selecting products from collections/search results
 */
-export const dataLayerSelectProduct = ({ customer, product, url }) => {
+export const dataLayerSelectProduct = ({ customer, product, url, index }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -386,7 +387,7 @@ export const dataLayerSelectProduct = ({ customer, product, url }) => {
         currencyCode: 'USD',
         click: {
           actionField: { list: url, action: 'click' }, // this should be the collection page URL
-          products: buildProductData([product], 'collection', url),
+          products: buildProductData([product], 'collection', url, index),
         },
       },
     },
@@ -394,25 +395,10 @@ export const dataLayerSelectProduct = ({ customer, product, url }) => {
 }
 
 export const dataLayerViewCart = ({ customer, cart, url }) => {
-  const cartSubtotal = cart.reduce((sum, lineItem) => {
-    if (lineItem.sellingPlan) {
-      const sellingPlanPriceValue = JSON.parse(lineItem.sellingPlan.value)
-      const sellingPlanPrice =
-        sellingPlanPriceValue[0].sellingPlan.priceAdjustments
-      return (
-        sum +
-        sellingPlanPriceValue[0].priceAdjustments[0].price.amount *
-          lineItem.quantity
-      )
-    } else {
-      return sum + lineItem.variant.price * lineItem.quantity
-    }
-  }, 0)
+  const products = buildProductCartData(cart, 'impressions')
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
-  if (!cart.length) {
-    return false
-  }
+
   TagManager.dataLayer({
     dataLayer: {
       event: 'dl_view_cart',
@@ -420,21 +406,17 @@ export const dataLayerViewCart = ({ customer, cart, url }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
-      cart_total: cartSubtotal.toString(),
+      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
       ecommerce: {
         currencyCode: 'USD',
         actionField: { list: 'Shopping Cart' },
-        impressions: buildProductData(
-          cart.map((item) => item.variant.product),
-          'collection',
-          url
-        ),
+        impressions: products
       },
     },
   })
 }
 
-export const dataLayerBeginCheckout = ({ customer, cart, cartTotal }) => {
+export const dataLayerBeginCheckout = ({ customer, cart }) => {
   const products = buildProductCartData(cart)
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
@@ -445,6 +427,7 @@ export const dataLayerBeginCheckout = ({ customer, cart, cartTotal }) => {
       user_properties,
       marketing: getMarketingData(),
       event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+      cart_total: cart?.cost?.subtotalAmount?.amount || '0',
       ecommerce: {
         checkout: {
           actionField: { step: '1', action: 'checkout' },
@@ -489,7 +472,7 @@ export const dataLayerLogin = ({ customer, url }) => {
   })
 }
 
-export const dataLayerViewProduct = ({ customer, product, url, variantOption }) => {
+export const dataLayerViewProduct = ({ customer, product, url, variantOption, index }) => {
   const uniqueKey = uuidv4()
   const user_properties = getUserProperties(customer)
   TagManager.dataLayer({
@@ -505,7 +488,7 @@ export const dataLayerViewProduct = ({ customer, product, url, variantOption }) 
           actionField: { list: url, action: 'detail' },
           products: variantOption
             ? buildProductDataWithVariantOption(product, variantOption)
-            : buildProductData([product], 'product', url),
+            : buildProductData([product], 'product', url, index),
         },
       },
     },

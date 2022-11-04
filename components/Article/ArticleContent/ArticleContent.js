@@ -38,13 +38,13 @@ const ArticleContent = ({ content }) => {
   })
   return (
     <div className="article-content">
-      {content ? (
+      {content && articleContent ? (
         <div
           dangerouslySetInnerHTML={{
             __html: articleContent,
           }}
         ></div>
-      ) : (
+      ):(
         <></>
       )}
     </div>

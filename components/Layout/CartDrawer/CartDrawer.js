@@ -7,6 +7,7 @@ import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useCartDrawerContext } from '../../../context/CartDrawerContext'
 import { dataLayerBeginCheckout } from '@/utils/dataLayer'
 import { useCustomerContext } from '@/context/CustomerContext'
+import { GET_PRODUCTS } from 'gql'
 
 import * as Cookies from 'es-cookie'
 
@@ -97,14 +98,17 @@ const CartDrawer = ({ content }) => {
         product.fields?.variantId ? product.fields.variantId : false
       )
 
-      await nacelleClient
-        .products({
-          handles: productList,
-        })
-        .then((response) => {
+      nacelleClient.query({
+        query: GET_PRODUCTS,
+        variables: {
+          "filter": {
+            "handles": productList
+          }
+        }
+      }).then(({products}) => {
           setUpsells(true)
           setUpsellsData({
-            products: response,
+            products,
             variants: productVariants,
           })
         })
@@ -276,13 +280,14 @@ const CartDrawer = ({ content }) => {
                     </div>
                     <div className="cart-drawer__upsells--wrapper">
                       {upsells
-                        ? upsellsData.products.map((upsell, index) => (
-                            <Upsell
+                        ? upsellsData.products.map((upsell, index) => {
+                            if (upsell?.availableForSale == false) return ''
+                            return <Upsell
                               key={index}
                               product={upsell}
                               variantId={upsellsData.variants[index]}
                             />
-                          ))
+                          })
                         : ''}
                     </div>
                   </div>

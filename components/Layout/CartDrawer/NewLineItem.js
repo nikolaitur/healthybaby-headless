@@ -145,7 +145,7 @@ const NewLineItem = ({ item, content }) => {
 
       let lineAttributes = [
         { key: '_subscription', value: sellingPlanId },
-        { key: "_variantSku", value: variantSku[0].value},
+        { key: "_variantSku", value: variantSku[0].value || ""},
         { key: "_productId", value: productId[0].value}
       ]
 
@@ -171,7 +171,7 @@ const NewLineItem = ({ item, content }) => {
                         cartId: Cookies.get('shopifyCartId'),
                         lines: [lineItem],
                     });
-    
+
                     if(cart) {
                         cartDrawerContext.setShopifyCart(cart)
                         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
@@ -180,7 +180,7 @@ const NewLineItem = ({ item, content }) => {
                         }, 0))
                     }
                 }
-    
+
                 addItem()
             }
         })
@@ -189,35 +189,35 @@ const NewLineItem = ({ item, content }) => {
 
   const removeSubscription = () => {
     setsubscriptionCadence(!subscriptionCadence)
- 
+
     if (isSubscription.length > 0) {
         const sellingPlanId = isSubscription[0].value
 
         let variantSku = item.attributes.filter(attribute => {
           if (Object.values(attribute).includes("_variantSku")) { return attribute } else return false
         })
-  
+
         let productId = item.attributes.filter(attribute => {
           if (Object.values(attribute).includes("_productId")) { return attribute } else return false
         })
-  
+
         let lineAttributes = [
           { key: '_sellingPlan', value: sellingPlanId },
           { key: "_variantSku", value: variantSku[0].value},
           { key: "_productId", value: productId[0].value}
         ]
-  
+
         if(subscriptionDiscount) {
           lineAttributes.push({ key: '_subscriptionDiscount', value: subscriptionDiscount[0].value.toString() })
         }
-  
+
         let lineItem = {
           merchandiseId: item.merchandise.nacelleEntryId,
           nacelleEntryId: item.merchandise.nacelleEntryId,
           quantity: 1,
           attributes: lineAttributes
         }
-  
+
         dataLayerRFC({ customer, item })
 
         remove()
@@ -228,7 +228,7 @@ const NewLineItem = ({ item, content }) => {
                             cartId: Cookies.get('shopifyCartId'),
                             lines: [lineItem],
                         });
-    
+
                         if(cart) {
                             cartDrawerContext.setShopifyCart(cart)
                             cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
@@ -237,7 +237,7 @@ const NewLineItem = ({ item, content }) => {
                             }, 0))
                         }
                     }
-    
+
                     addItem()
                 }
         })
@@ -270,12 +270,12 @@ const NewLineItem = ({ item, content }) => {
           <div className="line-item__price">
             <>
               {!item.attributes.length ?
-                `$${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}` :
-                item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription")) 
+                `$${Math.round(item.cost.totalAmount.amount)}` :
+                item.attributes.map((attribute, index) => Object.values(attribute).includes("subscription"))
                 && item.cost.compareAtAmountPerQuantity?.amount
                 && item.cost.compareAtAmountPerQuantity?.amount != item.cost.totalAmount.amount ? (
-                    <><span className="sale">${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}</span> <span><s>${Math.round(Number(item.cost.compareAtAmountPerQuantity.amount).toFixed(2)) * item.quantity}</s></span></>
-                ) : `$${Math.round(Number(item.cost.totalAmount.amount).toFixed(2))}`
+                    <><span className="sale">${Math.round(item.cost.totalAmount.amount)}</span> <span><s>${Math.round(item.cost.compareAtAmountPerQuantity.amount) * item.quantity}</s></span></>
+                ) : `$${Math.round(item.cost.totalAmount.amount)}`
               }
             </>
           </div>
@@ -311,7 +311,7 @@ const NewLineItem = ({ item, content }) => {
                         <p>{content.fields.subscriptionDiscountCopy}</p>
                     ) : ""}
                 </div>
-            </div>          
+            </div>
         </div>
       ) : ('')}
 

@@ -61,6 +61,7 @@
 
     @include breakpoint-up('md') {
       padding: 0 30px;
+      display: block;
     }
   }
 
