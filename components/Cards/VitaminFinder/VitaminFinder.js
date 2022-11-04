@@ -224,8 +224,8 @@ const VitaminFinder = ({ content, refs, index }) => {
                                     width="315"
                                 />
                             </div>
-                            <button className="btn secondary" onClick={() => handleAddItem()}>
-                                <span>{ addToCartText }</span>
+                            <button className={`btn secondary ${!product.availableForSale ? "disabled" : ""}`} onClick={() => handleAddItem()}>
+                                <span>{!product.availableForSale ? ( "Out of Stock" ) : (addToCartText)}</span>
                                 <span><LongArrowRight /></span>
                             </button>
                             <button className="vitamin-finder__clear" onClick={() => goToNextStage(1)}>

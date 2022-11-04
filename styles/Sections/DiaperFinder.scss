@@ -503,7 +503,7 @@
       margin-top: 5px;
   
       @include breakpoint-up('md') {
-        font-size: 20px;
+        font-size: 22px;
         line-height: 31px;
       }
     }
@@ -588,6 +588,11 @@
       text-align: center;
       margin-top: 20px;
 
+      @include breakpoint-up('md') {
+        font-size: 18px;
+        line-height: 18px;
+      }
+
       .bullet {
         padding: 0 15px;
       }
@@ -600,21 +605,28 @@
             cursor: pointer;
         }
     }
+
+    p {
+      @include breakpoint-up('md') {
+        font-size: 26px;
+        line-height: 26px;
+      }
+    }
   }
 
   &__title {
-    font-family: $DomaineText;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 18px;
-    color: #3d3331;
+    // font-family: $DomaineText;
+    // font-style: normal;
+    // font-weight: 500;
+    // font-size: 18px;
+    // line-height: 18px;
+    // color: #3d3331;
     margin-bottom: 10px;
 
-    @include breakpoint-up('md') {
-      font-size: 28px;
-      line-height: 28px;
-    }
+    // @include breakpoint-up('md') {
+    //   font-size: 28px;
+    //   line-height: 28px;
+    // }
   }
 
   &__copy {
@@ -667,6 +679,23 @@
     display: none;
     @include breakpoint-up(md) {
       display: block;
+      width: 100%;
+    }
+
+    span {
+      padding-top: 0!important;
+    }
+
+    img {
+        width: 100%;
+        object-fit: contain;
+        width: 100% !important;
+        position: relative !important;
+        height: unset !important;
+
+        @include breakpoint-up('md') {
+            max-height: 526px!important;
+        }
     }
   }
 
