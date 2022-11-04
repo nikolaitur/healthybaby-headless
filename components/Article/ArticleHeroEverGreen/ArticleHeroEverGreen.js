@@ -108,11 +108,16 @@ const ArticleHeroEverGreen = ({ content }) => {
       <div className="article__container">
         <div className="article-hero__type">{articleType}</div>
         <h3 className="article-hero__title">{parse(title)}</h3>
-        <div className="article-hero__pub">
-          <span>
-            {getDateFormat(publishDate)} • {readLength} read
-          </span>
-        </div>
+        {publishDate && readLength ? (
+          <div className="article-hero__pub">
+            <span>
+              {getDateFormat(publishDate)} • {readLength} read
+            </span>
+          </div>
+        ) : (
+          <></>
+        )}
+
         <div className="article-hero__content">
           <div className="article-hero__written">
             {author ? (
