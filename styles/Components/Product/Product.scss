@@ -37,6 +37,16 @@
         }
       }
     }
+
+    .value-props__image {
+      img {
+        @include breakpoint-up('md') {
+           max-height: 180px !important;
+           height: 180px!important;
+           object-fit: contain!important;
+        }
+    }
+    }
   }
 
   .product-detail-tabs {

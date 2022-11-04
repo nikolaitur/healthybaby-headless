@@ -31,13 +31,22 @@ const ProductGallery = ( props ) => {
                     ) : page.fields?.productImagesDesktop ? (
                         page.fields.productImagesDesktop.map((productImage, index) => {
                             let sizes = '(min-width: 1080px) 35vw, 800px';
+                            let classes = "product-gallery__image"
+
+                            console.log(page.fields.productImagesDesktop.length, index)
+
+                            if(index == 0 && page.fields.productImagesDesktop.length == 1) {
+                                sizes = '(min-width: 1080px) 70vw, 800px';
+                                classes = "product-gallery__image product-gallery__image--full-width"
+                            }
+
                             if (index == 2 || index == 5) {
                                 sizes = '(min-width: 1080px) 70vw, 800px';
                             }
 
                             if(productImage.fields?.file?.url) {
                                 return (
-                                    <div className="product-gallery__image" key={index}>
+                                    <div className={classes} key={index}>
                                         <Image
                                             className=""
                                             src={`https:${productImage.fields.file.url}`}
@@ -53,11 +62,18 @@ const ProductGallery = ( props ) => {
                     )) : (
                         product.content.media.slice(0, 5).map((image, index) => {
                             let sizes = '(min-width: 1080px) 35vw, 800px';
+                            let classes = "product-gallery__image"
+
+                            if(index == 0 && product.content.media.length == 1) {
+                                sizes = '(min-width: 1080px) 70vw, 800px';
+                                classes = "product-gallery__image product-gallery__image--full-width"
+                            }
+
                             if (index == 2 || index == 5) {
                                 sizes = '(min-width: 1080px) 70vw, 800px';
                             }
                             return (
-                                <div className="product-gallery__image" key={index}>
+                                <div className={classes} key={index}>
                                     <Image
                                         className=""
                                         src={image.src}

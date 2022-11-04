@@ -7,6 +7,7 @@ import ValuePropSvg3 from '../../../svgs/value-prop-3.svg'
 import parse from 'html-react-parser'
 
 const ValueProps = ({ content }) => {
+    console.log(content.fields);
     return (
        <section className="value-props">
 
@@ -35,7 +36,7 @@ const ValueProps = ({ content }) => {
                             </p>
                         </div>
                     ) : ("")}
-                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2?.file?.url) ? (
+                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2?.fields?.file?.url) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
                              <Image
