@@ -83,7 +83,8 @@
       }
 
       @media (min-width: 1300px) {
-        width: calc(100% + 6px);
+        width: calc(100% + 10px);
+        max-width: 519px;
       }
     }
 
