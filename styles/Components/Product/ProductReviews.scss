@@ -10,11 +10,8 @@
     .junip-product-review-summary-flex-wrapper {
         @include breakpoint-down('md') {
             display: block;
-            align-items: center;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
         }
+        
         @include breakpoint-up('md') {
             align-items: center;
             display: flex;
