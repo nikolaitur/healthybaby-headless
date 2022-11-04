@@ -353,16 +353,22 @@ const DiaperCalculator = ({ props, children }) => {
               ></input>
               <span className="suffix">lbs</span>
             </div>
-            <p className="diaper-calculator__copy">
-              We recommend our Monthly Diaper Membership in the following size:
-            </p>
-            <div className="diaper-calculator__recommendation">
-              <span className="circle">{diaperSize}</span>
-              <span className="size">Size {diaperSize}</span>
-              <span className="weight">
-                {sizeGuideData[diaperSize - 1].lbs}lbs
-              </span>
-            </div>
+
+            {isActive ? (
+              <>
+                <p className="diaper-calculator__copy">
+                  We recommend our Monthly Diaper Membership in the following size:
+                </p>
+                <div className="diaper-calculator__recommendation">
+                  <span className="circle">{diaperSize}</span>
+                  <span className="size">Size {diaperSize}</span>
+                  <span className="weight">
+                    {sizeGuideData[diaperSize - 1].lbs}lbs
+                  </span>
+                </div>
+              </>
+            ) : ""}
+            
             {!isActive && isActive !== null ? (
                 <p className="diaper-calculator__error">
                     Please feel free to reach out to our team at{' '}
@@ -373,14 +379,18 @@ const DiaperCalculator = ({ props, children }) => {
                     We’re always here for you and baby!
                 </p>
             ) : ""}
-            <div className="input-wrapper">
-              <button
-                className={`btn secondary full-width ${!isActive && isActive !== null ? "disabled" : ""}`}
-                onClick={handleAddItem}
-              >
-                <span>Add to Cart</span>
-              </button>
-            </div>
+            
+            {isActive ? (
+              <div className="input-wrapper">
+                <button
+                  className={`btn secondary full-width`}
+                  onClick={handleAddItem}
+                >
+                  <span>Add to Cart</span>
+                </button>
+              </div>
+            ) : ""}
+            
           </div>
           <div className="diaper-calculator__select">
             <span className="title">Size Guide: </span>

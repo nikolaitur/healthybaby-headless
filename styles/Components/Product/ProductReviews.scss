@@ -11,6 +11,17 @@
         @include breakpoint-down('md') {
             display: block;
         }
+        
+        @include breakpoint-up('md') {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .junip-product-review-bars-container {
+                margin-right: 0;
+            }
+        }
     }
 
     .junip-product-review-average-container .junip-star-ratings-container {

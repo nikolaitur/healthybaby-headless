@@ -159,14 +159,13 @@ const DiaperFinder = ({ content }) => {
     )
   }
 
-  const getPrenantalRecommendation = () => {
-    let today = new Date()
-    let due = new Date(startDate)
+  const datesAreOnSameDay = (first, second) =>
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate();
 
-    const differenceInTime = due.getTime() - today.getTime()
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24)
-
-    if (differenceInDays < 0) {
+  const getPrenantalRecommendation = (differenceInDays) => {
+    if (differenceInDays <= 0) {
       getProduct('our-prenatal-4th-trimester-postnatal', 0, true)
     } else if (differenceInDays > 0 && differenceInDays <= 84) {
       getProduct('our-prenatal-3rd-trimester', 0, true)
@@ -187,10 +186,18 @@ const DiaperFinder = ({ content }) => {
 
     let today = new Date()
     let babyMonth = getMonthDifference(startDate, today)
-    console.log(getMonthDifference(startDate, today), Number(weight), 'Weight')
+    let dueDate = new Date(startDate)
 
-    if (babyMonth <= 0) {
-      getPrenantalRecommendation()
+    const differenceInTime = dueDate.getTime() - today.getTime()
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24)
+
+    if(datesAreOnSameDay(today, startDate)) {
+      getPrenantalRecommendation(0)
+      return
+    }
+
+    if (babyMonth <= 0 && differenceInDays >= 0) {
+      getPrenantalRecommendation(differenceInDays)
       return
     }
 
@@ -497,13 +504,13 @@ const DiaperFinder = ({ content }) => {
 
               <div className="diaper-finder__product--container">
                 <div className="diaper-finder__product--content">
-                  <div className="diaper-finder__title">
+                  <h5 className="diaper-finder__title">
                     {prenatalProduct ? (
                       <span>{babyName}’s Prenatal Essentials</span>
                     ) : (
                       <span>Our recommendation for {babyName}</span>
                     )}
-                  </div>
+                  </h5>
                   <p className="large">{description}</p>
                 </div>
                 <div className="diaper-finder__product--image">
@@ -578,16 +585,19 @@ const DiaperFinder = ({ content }) => {
       </div>
       {content.fields.enableBackgroundWave ? (
         <>
-          {content.backgroundImage?.fields?.file?.url ? (
-               <Image
-                  className="diaper-finder__detail-desktop"
-                  src={`https:${content.backgroundImage.fields.file.url}`}
-                  alt={content.fields.title}
-                  layout="responsive"
-                  objectFit="cover"
-                  height="132"
-                  width="108"
-             />
+          {console.log(content.backgroundImage?.fields?.file?.url)}
+          {content.fields.backgroundImage?.fields?.file?.url ? (
+              <div className="diaper-finder__detail-desktop">
+                <Image
+                      src={`https:${content.fields.backgroundImage.fields.file.url}`}
+                      alt={content.fields.title}
+                      layout="responsive"
+                      objectFit="cover"
+                      height="132"
+                      width="108"
+                />
+              </div>
+
           ) : (
             <div className="diaper-finder__detail-desktop"><DiaperFinderDetail /></div>
           )}
