@@ -320,8 +320,8 @@ const DiaperFinder = ({ content }) => {
       ]
 
       let lineItem = {
-        merchandiseId: selectedVariant[0].nacelleEntryId,
-        nacelleEntryId: selectedVariant[0].nacelleEntryId,
+        merchandiseId: selectedVariant.nacelleEntryId,
+        nacelleEntryId: selectedVariant.nacelleEntryId,
         quantity: 1,
         attributes: itemAttributes
       }
@@ -338,20 +338,12 @@ const DiaperFinder = ({ content }) => {
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
-        lines: [
-          {
-            merchandiseId: selectedVariant.nacelleEntryId,
-            nacelleEntryId: selectedVariant.nacelleEntryId,
-            quantity: 1,
-            attributes: itemAttributes,
-          },
-        ],
+        lines: [lineItem],
       })
 
-      console.log(cart, userErrors, errors)
+      // console.log(cart, userErrors, errors)
 
       if (cart) {
-        console.log('Subscription')
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
         cartDrawerContext.setCartCount(
@@ -585,7 +577,6 @@ const DiaperFinder = ({ content }) => {
       </div>
       {content.fields.enableBackgroundWave ? (
         <>
-          {console.log(content.backgroundImage?.fields?.file?.url)}
           {content.fields.backgroundImage?.fields?.file?.url ? (
               <div className="diaper-finder__detail-desktop">
                 <Image
