@@ -14,11 +14,11 @@ import { dataLayerViewProductList } from '@/utils/dataLayer'
 function Collection(props) {
   const router = useRouter()
   const { collection, products, productBadges } = { ...props }
-  const { customer, customerLoading} = useCustomerContext()
+  const { customer, customerLoading } = useCustomerContext()
 
   useEffect(() => {
     if (typeof customerLoading === 'boolean' && !customerLoading) {
-      if(products) {
+      if (products) {
         dataLayerViewProductList({
           customer,
           products: products,
@@ -34,7 +34,32 @@ function Collection(props) {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby" />
+        <meta
+          name="title"
+          content={
+            collection.fields.metaTitle
+              ? collection.fields.metaTitle
+              : pageTitle
+          }
+        />
+        <meta
+          name="description"
+          content={
+            collection.fields.metaDescription
+              ? collection.fields.metaDescription
+              : 'the safest, organic essentials for your baby &amp; the planet &ndash; Healthybaby'
+          }
+        />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content={
+            collection.fields.ogImage?.fields?.file.url
+              ? 'https:' + collection.fields.ogImage.fields.file.url
+              : ''
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
@@ -46,8 +71,12 @@ function Collection(props) {
         />
         <CollectionSections content={collection} />
         {collection.fields?.legalDisclaimer ? (
-          <p className="disclaimer container">* {collection.fields.legalDisclaimer}</p>
-        ) : ""}
+          <p className="disclaimer container">
+            * {collection.fields.legalDisclaimer}
+          </p>
+        ) : (
+          ''
+        )}
       </>
     </>
   )
@@ -87,11 +116,11 @@ export async function getStaticProps({ params }) {
     const { products } = await nacelleClient.query({
       query: GET_PRODUCTS,
       variables: {
-        "filter": {
-          "handles": productHandles
-        }
-      }
-    });
+        filter: {
+          handles: productHandles,
+        },
+      },
+    })
 
     const productBadges = await nacelleClient.content({
       type: 'productBadge',
