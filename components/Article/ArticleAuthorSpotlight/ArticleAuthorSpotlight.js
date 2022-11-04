@@ -23,9 +23,13 @@ const ArticleAuthorSpotlight = ({ content }) => {
       <div className="article-author__content">
         <div className="article-author__name">{name}</div>
         <div className="article-author__description">{description}</div>
-        <a href={linkUrl} className="article-author__link">
-          {linkText}
-        </a>
+        {linkText && linkUrl ? (
+          <a href={linkUrl} className="article-author__link">
+            {linkText}
+          </a>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   )
