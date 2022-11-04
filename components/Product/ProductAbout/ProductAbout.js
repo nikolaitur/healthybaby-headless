@@ -37,7 +37,7 @@ const ProductAbout = ({ content }) => {
                     ) : ""}
                 </div>
                 {content.fields?.image?.fields?.file?.url ? (
-                    <div className="product-about__image about__image--desktop">
+                    <div className="product-about__image product-about__image--desktop">
                         <Image
                             src={`https:${content.fields.image.fields.file.url}`}
                             alt=""

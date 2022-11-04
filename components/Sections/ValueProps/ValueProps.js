@@ -35,7 +35,7 @@ const ValueProps = ({ content }) => {
                             </p>
                         </div>
                     ) : ("")}
-                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2?.file?.url) ? (
+                    {(content.fields?.valuePropText2 && content.fields?.valuePropImage2?.fields?.file?.url) ? (
                         <div className="value-props__item">
                             <div className="value-props__image">
                              <Image
