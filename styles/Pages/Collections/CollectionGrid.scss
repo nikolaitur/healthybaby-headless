@@ -45,7 +45,11 @@
     }
 
     p {
-      font-size: 20px;
+      font-size: 18px;
+
+      @include breakpoint-up('md') {
+        font-size: 20px;
+      }
     }
   }
 }
