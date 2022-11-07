@@ -12,10 +12,31 @@
       margin-bottom: 40px;
     }
   }
+
   &.full-width {
     width: 100%;
     max-width: 100%;
     margin-bottom: 40px;
+  }
+
+  &__text-badge {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    padding: 10px 24px;
+    text-transform: uppercase;
+    font-family: $NeutraText;
+    font-size: 16px;
+    font-weight: 500;
+    color: $primaryBrown;
+    border-radius: 36px;
+    background-color: #d6ded9;
+    z-index: 1;
+    display: none;
+
+    @include breakpoint-up('md') {
+      display: block;
+    }
   }
 
   // @include breakpoint-up('md') {
