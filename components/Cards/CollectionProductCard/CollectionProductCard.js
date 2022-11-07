@@ -18,13 +18,18 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Lazy, Pagination } from 'swiper'
 
-import { dataLayerATC, dataLayerSelectProduct, dataLayerViewProduct } from '@/utils/dataLayer'
+import {
+  dataLayerATC,
+  dataLayerSelectProduct,
+  dataLayerViewProduct,
+} from '@/utils/dataLayer'
 import { useRouter } from 'next/router'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 
 const findProductBadges = ({ content, product, productBadges }) => {
+  console.log(product)
   if (content.fields?.productHandle && product && productBadges) {
     const badges = productBadges.reduce((carry, badge) => {
       if (product?.tags.some((tag) => tag.indexOf(badge.handle) > -1)) {
@@ -42,6 +47,21 @@ const findProductBadges = ({ content, product, productBadges }) => {
   return null
 }
 
+const findTextBadge = (tags) => {
+  if (!tags) {
+    return null
+  }
+  const badgeTags = tags.filter((tag) => {
+    return tag.includes('flag::')
+  })
+
+  if (!badgeTags.length) {
+    return null
+  } else {
+    return badgeTags[0].replace('flag::', '')
+  }
+}
+
 const CollectionProductCard = forwardRef(
   (
     {
@@ -50,7 +70,7 @@ const CollectionProductCard = forwardRef(
       productBadges,
       imageLayout = 'responsive',
       cardWidthOverride,
-      index
+      index,
     },
     ref
   ) => {
@@ -59,6 +79,7 @@ const CollectionProductCard = forwardRef(
     const [isloading, setIsLoading] = useState(false)
     const [selectedVariant, setSelectedVariant] = useState(false)
     const [hasWindow, setHasWindow] = useState(false)
+
     let { title, cardWidth, ctaText } = { ...content.fields }
     const isDesktop = useMediaQuery({ minWidth: 1074 })
 
@@ -84,6 +105,10 @@ const CollectionProductCard = forwardRef(
       undefined
 
     const badges = findProductBadges({ content, product, productBadges })
+
+    const textBadge = findTextBadge(product?.tags)
+
+    console.log(textBadge)
 
     const handleLink = (product) => {
       dataLayerSelectProduct({ customer, product, url: router.asPath, index })
@@ -131,35 +156,46 @@ const CollectionProductCard = forwardRef(
 
       dataLayerATC({ customer, item: newItem, url: router.pathname })
 
-      let itemAttributes = [{ key: "_variantSku", value: variant.sku || ""}, {key: '_productType', value: item.product.productType}, { key: "_productId", value: product.sourceEntryId}]
+      let itemAttributes = [
+        { key: '_variantSku', value: variant.sku || '' },
+        { key: '_productType', value: item.product.productType },
+        { key: '_productId', value: product.sourceEntryId },
+      ]
 
-      if(sellingPlan) {
+      if (sellingPlan) {
         const sellingPlanAllocationsValue = JSON.parse(sellingPlan.value)
         const sellingPlanId = sellingPlanAllocationsValue[0].sellingPlan.id
-        const sellingPlanDiscount = sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0].adjustmentValue.adjustmentPercentage
+        const sellingPlanDiscount =
+          sellingPlanAllocationsValue[0].sellingPlan.priceAdjustments[0]
+            .adjustmentValue.adjustmentPercentage
 
         itemAttributes.push({ key: '_sellingPlan', value: sellingPlanId })
-        itemAttributes.push({ key: '_subscriptionDiscount', value: sellingPlanDiscount.toString() })
+        itemAttributes.push({
+          key: '_subscriptionDiscount',
+          value: sellingPlanDiscount.toString(),
+        })
       }
 
       const { cart, userErrors, errors } = await cartClient.cartLinesAdd({
         cartId: Cookies.get('shopifyCartId'),
         lines: [
-            {
-                merchandiseId: selectedVariant.nacelleEntryId,
-                nacelleEntryId: selectedVariant.nacelleEntryId,
-                quantity: 1,
-                attributes: itemAttributes
-            },
+          {
+            merchandiseId: selectedVariant.nacelleEntryId,
+            nacelleEntryId: selectedVariant.nacelleEntryId,
+            quantity: 1,
+            attributes: itemAttributes,
+          },
         ],
-      });
+      })
 
-      if(cart) {
+      if (cart) {
         cartDrawerContext.setShopifyCart(cart)
         cartDrawerContext.setCartTotal(cart.cost.totalAmount.amount)
-        cartDrawerContext.setCartCount(cart.lines.reduce((sum, line) => {
+        cartDrawerContext.setCartCount(
+          cart.lines.reduce((sum, line) => {
             return sum + line.quantity
-        }, 0))
+          }, 0)
+        )
       }
 
       cartDrawerContext.setIsOpen(true)
@@ -190,6 +226,11 @@ const CollectionProductCard = forwardRef(
             cardWidth == 'Full Width' ? 'full-width' : ''
           }`}
         >
+          {textBadge && (
+            <div className="collection-product-card__text-badge">
+              {textBadge}
+            </div>
+          )}
           {badges?.length > 0 && (
             <ul className="collection-product-card__badge-list">
               {badges.map((badge, index) => {
@@ -336,7 +377,10 @@ const CollectionProductCard = forwardRef(
                   <span>{getCtaText()}</span>
                 </button>
               ) : (
-                <button className="btn secondary" onClick={() => handleAddItem()}>
+                <button
+                  className="btn secondary"
+                  onClick={() => handleAddItem()}
+                >
                   <span>{getCtaText()}</span>
                 </button>
               )}
@@ -350,7 +394,6 @@ const CollectionProductCard = forwardRef(
     }
 
     return <></>
-
   }
 )
 
