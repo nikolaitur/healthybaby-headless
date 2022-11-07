@@ -12,6 +12,8 @@ const ActivityPreview = ({ content }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [videoUrl, setVideoUrl] = useState(null)
 
+  console.log(content)
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setHasWindow(true)
