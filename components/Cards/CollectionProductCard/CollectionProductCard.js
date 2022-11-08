@@ -29,7 +29,6 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 const findProductBadges = ({ content, product, productBadges }) => {
-  console.log(product)
   if (content.fields?.productHandle && product && productBadges) {
     const badges = productBadges.reduce((carry, badge) => {
       if (product?.tags.some((tag) => tag.indexOf(badge.handle) > -1)) {
@@ -107,8 +106,6 @@ const CollectionProductCard = forwardRef(
     const badges = findProductBadges({ content, product, productBadges })
 
     const textBadge = findTextBadge(product?.tags)
-
-    console.log(textBadge)
 
     const handleLink = (product) => {
       dataLayerSelectProduct({ customer, product, url: router.asPath, index })
